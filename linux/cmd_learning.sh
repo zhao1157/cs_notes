@@ -179,6 +179,7 @@ git push # push the changes to the github repository
 git checkout 'a previous version sha code' # go to a previous version
 git push orgion HEAD:master --force # went to a hisotry veriosn, commit and force push to repo
 git checkout master
+git checkout . # revert changes made to your working copy
 
 #========= 14 ========
 # tf profiler in tensorboard (tf>=2.2)
