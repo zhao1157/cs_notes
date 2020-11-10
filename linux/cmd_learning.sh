@@ -1,3 +1,7 @@
+#======== 50 =========
+kill -9 2324 # to forcefully kill this process
+kill -SIGKILL 2324 # -SIGTERM
+
 #======== 49 =========
 kill $(ps | grep iotop | cut -f 2 -d " ") # cut -f (filed) -d (delimiter)
 
