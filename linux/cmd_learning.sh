@@ -168,6 +168,7 @@ less test.txt # forward and backward continuous view
 ssh-keygen
 # git learning
 git config --list #return the config information
+#you can also modify the .gitconfig file to set up user name and email address
 git config --global --add user.name "Seth" # add a new name to user.name
 git config --global --replace-all user.name "Lianshui Zhao" # replace all user.name to just one entry
 git config --global user.email "zhao.1157@osu.edu" #set email address
