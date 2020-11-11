@@ -1,3 +1,4 @@
+/*
 //====== 50 ======
 //This is to study the overriding of functions for classes
 #include <iostream>
@@ -58,7 +59,6 @@ int main(){
 	ptr_derive -> Shape_Name();
 
 }
-/*
 //========== 49 ==========
 #include <iostream>
 #include <map>
@@ -107,7 +107,6 @@ int main(){
 	std::cout << keys[40] << " " << keys.size() << std::endl;
 }
 
-/*
 //========== 48 =========
 #include <iostream>
 #include <vector>
