@@ -183,6 +183,10 @@ git checkout master
 git checkout . # revert changes made to your working copy
 git rm -r --cached . # stop tracking all files
 git rm --cached a.txt # stop tracking a.txt
+git commit --amend # add more changes to the last commit and have a chance to modify the commit message
+git commit --amend --no-edit # not change the commit message
+git commit --amend -m "modified commit message" # not make any changes to the last commit, just modify the commit messages
+
 
 
 #========= 14 ========
