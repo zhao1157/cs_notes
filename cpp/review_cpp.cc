@@ -1,3 +1,62 @@
+//===== 51 =====
+//Have a thorough study of class inheritence
+#include <iostream>
+
+class Family{
+    private:
+        int num_people;
+        std::string name = "Family";
+    public:
+        Family(){}
+        Family(int num): num_people(num){
+        }
+        void Get_NumPeople(){
+            std::cout << "Family " << this -> num_people << std::endl;
+            std::cout << "name: " << this -> name << std::endl;
+        }
+};
+
+class My_Family: public Family{ //without public, it is private by default
+    private:
+        //since num_people and name are private in Family, so My_Family can not access them
+        //thus we have to define our own copy of them, otherwise this->name/num_people will
+        //try to access the ones in Family, causing access errors 
+        int num_people;
+        std::string name = "My_Family";
+        int age;
+    public:
+        My_Family(int num): Family(num){
+        }
+        void Get_NumPeople(){
+            //these variables are the ones in My_Family, not the ones in Family
+            std::cout << "My_Family " << this -> num_people << std::endl;
+            std::cout << "My name: " << this -> name << std::endl;
+        }
+        void Only_Children(){
+            std::cout << "Only in the child class" << std::endl;
+        }
+
+};
+
+void Family_NumPeople(Family *family){
+    family -> Get_NumPeople();
+}
+
+int main(){
+    Family family(0), *ptr_family;
+    My_Family my_family(5), *ptr_my_family;
+
+    ptr_family = & my_family;
+    ptr_family -> Get_NumPeople(); // we do not get polymorphysim, i.e. always the function of the base class
+    //ptr_family -> Only_Children(); //the base class does not have this member function, so can not call it
+    std::cout << "_________" << std::endl;
+    Family_NumPeople(& my_family);
+    std::cout << "________" << std::endl;
+    ptr_my_family = (My_Family *) & family; //since My_Family can not access the member attributes of Family, thus random values
+    //if these attributes are protected and not redefined in My_Family, then My_Family can access the values in Family
+    ptr_my_family -> Get_NumPeople();
+}
+
 /*
 //====== 50 ======
 //This is to study the overriding of functions for classes
