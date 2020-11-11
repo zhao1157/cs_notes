@@ -1,3 +1,10 @@
+//====== 50 ======
+#include <iostream>
+
+int main(){
+	std::cout << "on my mac" << std::endl;
+}
+/*
 //========== 49 ==========
 #include <iostream>
 #include <map>
@@ -96,7 +103,6 @@ int main(){//MAIN has to be int-return type
 }
 
 
-/*
 //========= 47 ==========
 //this is to pratice map
 #include <iostream>
@@ -166,7 +172,6 @@ int main(){
 }
 
 
-/*
 //=============== 46 =============
 // this is to test empty and iterator
 #include<iostream>
@@ -192,7 +197,6 @@ int main(){
 }
 
 
-/*
 //=========== 45 =========
 //This is to test the vector, which stores data in contiguous manner
 //the size is flexible, i.e. shrinking or expanding freely,
@@ -368,7 +372,6 @@ int main()
   return 0;
 }
 
-/*
 //============= 43 =========
 #include <iostream>
 #include <memory>
@@ -396,7 +399,6 @@ int main(){
 	sleep(2);
 	std::cout <<"__________ END __________" << std::endl;
 }
-/*
 //============= 42 ========
 #include<iostream>
 #include<memory>
@@ -422,7 +424,6 @@ int main(){
 	std::cout << p1 -> name << std::endl;
 	std::cout << "__________ END __________" << std::endl;
 }
-/*
 //========== 41 ===========
 #include <iostream>
 #include <memory>
@@ -448,7 +449,6 @@ int main(){
 	std::cout << ptr_i_d << " " << ptr_i_d.use_count() << std::endl;
 }
 
-/*
 //========== 40 =========
 //this is to practice make_shared which creates a shared_ptr that points to type T object with args
 #include <iostream>
@@ -471,7 +471,6 @@ int main(){
 	std::shared_ptr<int> p_3(&a);
 }
 
-/*
 //=========== 39 =========
 //This is to practice shared_ptr with customized class
 #include <iostream>
@@ -507,7 +506,6 @@ int main(){
 	std::cout << "_________ END _________" << std::endl;
 }
 
-/*
 //========= 38 =========
 //This is to practice shared_ptr
 #include <iostream>
@@ -536,7 +534,6 @@ int main(){
 	std::cout << *p1  << " " << *p2 << " " << *p3 << " " << *p4<< std::endl;
 }
 
-/*
 //====== 37 ======
 //this is to practice new and delete objects
 #include <iostream>
@@ -591,7 +588,6 @@ int main(){
 	std::cout << "______ after ______\n";
 	std::cout << "______ END _____\n";
 }
-/*
 //====== 36 ========
 //this is to practice basic type initialization
 #include <stdio.h>
@@ -600,7 +596,6 @@ int main(){
 	printf("i = %d\n", i);
 }
 
-/*
 //=========== 35 =========
 //this is to test memcpy, which is defined in string.h
 #include <iostream>
@@ -636,7 +631,6 @@ int main(){
 }
 
 
-/*
 //=========== 34 =========
 //this is to test that thread shares information with the the main process
 #include <iostream>
@@ -667,7 +661,6 @@ int main(){
 	test_thread.join();
 }
 
-/*
 //========= 33 ========
 //this is to practice string
 #include <iostream>
@@ -679,7 +672,6 @@ int main(){
 	std::cout << "sentence: " << sentence << std::endl;
 	printf ("sentence %s\n", sentence.c_str());
 }
-/*
 //============ 32 =======
 //This is to practice getenv which grabs the environment variables
 #include <iostream>
@@ -690,7 +682,6 @@ int main(){
 }
 
 
-/*
 //======= 31 ======
 //This is to practice thread and sleep function 
 #include <thread>
@@ -713,7 +704,6 @@ int main(){
 }
 
 
-/*
 //========== 30 =========
 #include "my_funcs/my_funcs.h"
 
@@ -729,7 +719,6 @@ int main(int argc, char*args[]){
 	std::cout << "CMAKE --VERSION: " << cmake << std::endl;
 }
 
-/*
 //========== 29 ============
 //This is to practice taking input from command line
 #include <iostream>
@@ -756,7 +745,6 @@ int main(int argc, char *arg[]){
 	std::cout << a << " " << b << " " << arg[1] << " " << arg[2] << std::endl;
 }
 
-/*
 //========== 28 =======
 #include <iostream>
 
@@ -792,7 +780,6 @@ int main(){
 #endif
 
 
-/*
 //=========== 27 =========
 //this is to find the type of a variable
 #include <iostream>
@@ -815,7 +802,6 @@ int main(){
 }
 
 
-/*
 //========== 26 =======
 #include <iostream>
 
@@ -866,7 +852,7 @@ int main(){
 	const char *const cc_ptr = &a;
 	std::cout << static_cast<const void *>(cc_ptr) << " | " << *cc_ptr << std::endl;
 	//cc_ptr = &b;
-	//*cc_ptr = b;
+	// *cc_ptr = b;
 	//but we can change the value in the first address by other variables relating to it
 	a = 'A';
 	std::cout << static_cast<const void *>(cc_ptr) << " | " << *cc_ptr << std::endl;
@@ -874,7 +860,6 @@ int main(){
 }
 
 
-/*
 //========== 25 =========
 #include <iostream>
 
@@ -897,7 +882,6 @@ int main(){
 
 
 
-/*
 //
 //========= 24 ==========
 #include <iostream>
@@ -950,7 +934,6 @@ int main(){
 }
 
 
-/*
 //============ 23 ===========
 //This is to test string and char
 #include <iostream>
@@ -976,7 +959,6 @@ int main(){
 }
 
 
-/*
 //====== 22 =====
 //FAILED
 //this is practice friend class template with a condition
@@ -1015,7 +997,6 @@ int main(){
 	allnames.ShowAllNames();
 }
 
-/*
 //======= 21 ======
 #include <iostream>
 
@@ -1026,7 +1007,6 @@ int main(){
 	std::cout << a+b << (a+b).size() << " " << (a+b).length() << std::endl;
 }
 
-/*
 //===== 20 =====
 //can we make friend class a template
 #include <iostream>
@@ -1062,7 +1042,6 @@ int main(){
 	getme.ShowPerson(me);
 }
 
-/*
 //======= 19 ======
 #include <iostream>
 #define INCLUDE_CLASS
@@ -1080,7 +1059,6 @@ int main(){
 }
 
 
-/*
 //========= 18 ==========
 //This is to test function overloading
 #include <iostream>
@@ -1125,7 +1103,6 @@ int main(){
 	std::cout << add(a) << add(c) << add(e) << std::endl;
 
 }
-/*
 //======= 17 ====
 #include <iostream>
 
@@ -1159,7 +1136,6 @@ int main(){
 	swap_ptr(&a, &b);
 	std::cout << a << b << std::endl;
 }
-/*
 //========= 16 =======
 #include <iostream>
 
@@ -1249,7 +1225,6 @@ int main(){
 	getyou.ShowThisFamily(my_family);
 }
 
-/*
 // non-template type class implementation
 class Family{
 	protected:
@@ -1290,9 +1265,7 @@ int main(){
 	
 	my_family.ExamineFamily();
 }
-*/
 
-/*
 //======= 15 ========
 #include <iostream>
 //bubble sort for different numeric types: int, float, double, etc.
@@ -1318,7 +1291,6 @@ int main(){
 	std::cout << std::endl;
 }
 
-/*
 //======= 14 ======
 #include <iostream>
 
@@ -1340,7 +1312,6 @@ int main(){
 	std::cout << *c << sizeof(c) << std::endl;
 }
 
-/*
 //========== 13 =========
 //This is to practice template function
 #include <iostream>
@@ -1370,7 +1341,6 @@ int main(){
 }
 
 
-/*
 //============= 12 ================
 #include "preprocessing.h"
 #include <iostream>
@@ -1391,7 +1361,6 @@ int main(){
 	std::cout << OUTSIDE_ANIMAL << std::endl;
 }
 
-/*
 //========= 11 ===========
 #include <iostream>
 #define max(a, b) (a>b? a:b) //MACRO functions can be very problematic
@@ -1428,7 +1397,6 @@ int main(){
 
 
 
-/*
 //========= 10 ==========
 //This is to practice preprocessing macros
 //
@@ -1458,7 +1426,6 @@ int main(){
 }
 
 
-/*
 //=========== 9 ===========
 //This is to practice struct (EXCEPT the default visibility, struct and class are basically the same)
 //choose between struct and class: as long as there is a private/protected variable, use class
@@ -1484,7 +1451,6 @@ int main(){
 
 
 
-/*
 //=========== 8 ==========
 //this is to practice friend class
 #include <iostream>
@@ -1515,7 +1481,6 @@ int main(){
 	getcustomer.OutputCustomer(customer);
 }
 
-/*
 //========= 7 ========
 //practice polymorphism
 #include <iostream>
@@ -1603,7 +1568,6 @@ int main(){
 }
 
 
-/*
 //============ 6 ===========
 #include <iostream>
 #include <cmath>
@@ -1675,7 +1639,6 @@ int main(){
 }
 
 
-/*
 //=========== 5 ========
 //This is to practice virtual class with override
 #include <iostream>
@@ -1777,7 +1740,6 @@ int main(){
 }
 
 
-/*
 //========== 4 ==========
 //This is to comprehensively practice static syntax
 //static variable in a function
