@@ -1,8 +1,62 @@
 //====== 50 ======
+//This is to study the overriding of functions for classes
 #include <iostream>
 
+class Shape {
+	protected:
+		std::string name;
+	public:
+		Shape(std::string name){
+			this -> name = name;
+		}
+		Shape(){
+			std::cout << "Empty initialization" << std::endl;
+		}
+
+		void Shape_Name(){
+			std::cout << "Shape: " << this -> name << std::endl;
+		}
+};
+class Square: public Shape {
+	public:
+		Square(std::string name_arg): Shape() { // the base class should be called here
+			//if name is passed, then name in this scope only refers to this one
+			//Shape(name); // error in this way, got to be before {
+			name = name_arg;
+			std::cout << "before adding _end: " << name << std::endl; //here name is the one being passed into the constructor
+			std::cout << this -> name << std::endl; // "this" pointer differentiates the class member and the argument being passed
+			name += "_end";
+			std::cout << "after adding _end: " << name << std::endl; // the same is here
+			std::cout << this -> name << std::endl;
+		}
+		void Shape_Name(){
+			std::cout << "Square: " << name << std::endl; // here now name refers to the class member
+		}
+};
+
 int main(){
-	std::cout << "on my mac" << std::endl;
+	Shape s_base("shape");
+	s_base.Shape_Name();
+
+	Square s_derive("square");
+	s_derive . Shape_Name(); //. operator: can be separated with spaces
+	
+	std::cout << "++++++++++++" << std::endl;
+
+	Shape *ptr_base = &s_base;
+	Square *ptr_derive = &s_derive;
+
+	ptr_base -> Shape_Name();
+	ptr_derive -> Shape_Name();
+
+	std::cout << "++++++++++++" << std::endl;
+
+	ptr_base = & s_derive;
+	ptr_base -> Shape_Name();
+
+	ptr_derive = (Square *) & s_base;
+	ptr_derive -> Shape_Name();
+
 }
 /*
 //========== 49 ==========
