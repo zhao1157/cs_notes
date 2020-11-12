@@ -1,2 +1,7 @@
+7. final: make the classes inheriting from this class without modifying it.
+6. override: there is no actual functionality of override and it is just a tag saying the function is overridden, without this tag it still overrides the virtual function in the base class. It is a good practice to put this tag after the declaration, indicating this function is virtual in base class, and it is overridden in this class.
+5. abstract class: pure virtual functions make the class abstract, which can not be instantiated.
+4. virtual: defines a virtual function, which will be overriden in the derived class, when casted to the base class, the virtual functions will be overridden by those in the derived class, while other non-virtual functions will still be the ones in the original base class
+3. If the derived class has functions which share names with those in the base class, the derived class will only have those redefined in the derived class, hiding all those in the base class
 2. Inside the friend function/class, the instance of the class of interest can access the private and protected members, i.e. all members as if it was inside the class of interest.
 1. In class inheritence, the derived class can inherit from protected members of the base class, so the derived class can directly access them, but can not access the private members of the base class

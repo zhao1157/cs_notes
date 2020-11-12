@@ -1,3 +1,82 @@
+/*
+//====== 65 =======
+//to test if final function can be overloaded
+#include <iostream>
+
+class Base{
+    public:
+        virtual void Get(){
+            std::cout << "Base\n";
+        }
+};
+
+class Derive: public Base{
+    public:
+        void Get() final{ // can not be overridden (not hidden) by the derived class
+            std::cout << "Derive\n";
+        }
+};
+
+class DDerive: public Derive{
+    public:
+        void Get(int a){ //it supportes overloading even though its couterpart is final
+            std::cout << "DDerive\n";
+        }
+};
+
+void Get(Base &b){
+    b.Get();
+}
+
+int main(){
+    Base b;
+    Derive d;
+    DDerive dd;
+
+    Get(b);
+    Get(d);
+    Get(dd);
+    dd.Get(2);
+}
+
+
+//======= 64 ====
+//this is to make sure the virtual functions are overridden not hidden by the ones in the derived class
+#include <iostream>
+
+class Base{
+    public:
+        virtual void Get(){
+            std::cout << "Base" << std::endl;
+        }
+        void Test(){
+            std::cout << "Base Test" << std::endl;
+        }
+};
+
+class Derive: public Base{
+    public:
+        void Get(){
+            std::cout << "Derive" << std::endl;
+        }
+        void Test(){
+            std::cout << "Derive Test" << std::endl;
+        }
+        void Only_Derive(){
+            std::cout << "Derive Only" << std::endl;
+        }
+};
+
+int main(){
+    Derive d;
+    Base *ptr_b;
+    d.Get();
+    ptr_b = & d;
+    ptr_b -> Get(); //though ptr_b points to Base class, Get is the one from Derive, as the one in Base is overridden by that in the Derive class
+    ptr_b -> Test();
+    //ptr_b -> Only_Derive(); //it is not a member in Base class
+}
+
 //===== 63 =====
 //the same name functions will be hidden in the base class from the point of view of the derived class
 #include <iostream>
@@ -27,7 +106,6 @@ int main(){
 
 }
 
-/*
 //====== 62 =====
 //This is to practice final keyword: won't be overridden
 #include <iostream>
