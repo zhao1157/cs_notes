@@ -1,3 +1,62 @@
+//===== 63 =====
+//the same name functions will be hidden in the base class from the point of view of the derived class
+#include <iostream>
+
+class Base{
+    public:
+        void Get(int a){
+            std::cout << "Base Get int\n";
+        }
+        void Get(float a, float b){
+            std::cout << "Base Get float float\n";
+        }
+};
+
+class Derive: public Base{
+    public:
+        //this hides both Get functions in the base class, just because the name they all share
+        void Get(int a){
+            std::cout << "Derive Get int\n";
+        }
+};
+
+int main(){
+    Derive d;
+    d.Get(2);
+    //d.Get(2.3, 3.3);
+
+}
+
+/*
+//====== 62 =====
+//This is to practice final keyword: won't be overridden
+#include <iostream>
+
+class Base {
+    public:
+        virtual void Where() {
+            std::cout << "Base\n";
+        }
+
+};
+
+class Derive: public Base{
+    public:
+        void Where() final{ //final has to be paired with virtual
+            std::cout << "Derive\n";
+        }
+};
+
+class DDerive: public Derive{
+    public:
+        void WWhere(){ //Where can not be overriden
+            std::cout << "DDerive\n";
+        }
+};
+
+int main(){
+    
+}
 //========= 61 =========
 //abstract class (with pure virtual functions)
 #include <iostream>
@@ -41,7 +100,6 @@ int main(){
     r.Where();
 }
 
-/*
 //======= 60 =======
 //This is to practice virtual functions
 #include <iostream>
