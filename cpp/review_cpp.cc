@@ -1,3 +1,41 @@
+//======= 52 ===========
+// class inheritence
+#include <iostream>
+
+class Base{
+    private: // can only be accessed by Base class itself and within the class, not outside
+        std::string s_1 = "s_1_base";
+    protected: // can be accessible by derived class
+        std::string s_2 = "s_2_base";
+    public:
+        Base(){}
+        void Get_Member(){
+            std::cout << "BASE " << this -> s_1 << "; " << this -> s_2 << "\n";
+        }
+};
+
+//inherit from protected and public members of base class
+class Derive: public Base{
+    private:
+        //std::string s_1= "s_1_derive";
+    public:
+        Derive(): Base(){
+        }
+
+        void Get_FromBase(){
+            //std::cout << "Derive: " << s_1 << "\n"; // if not defined in derived class, s_1 is private to Base class
+            std::cout << "Derive: " << this -> s_2 << "\n"; // s_2 is protected to Base class, so can be accessible by derived class
+        }
+    
+};
+
+int main(){
+    Derive d_1;
+    d_1.Get_Member(); //Get_Member() is a public function, so can be called outside of class
+    d_1.Get_FromBase();
+}
+
+/*
 //===== 51 =====
 //Have a thorough study of class inheritence
 #include <iostream>
@@ -57,7 +95,6 @@ int main(){
     ptr_my_family -> Get_NumPeople();
 }
 
-/*
 //====== 50 ======
 //This is to study the overriding of functions for classes
 #include <iostream>
