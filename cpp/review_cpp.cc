@@ -1,3 +1,73 @@
+//======== 53 ========
+#include <iostream>
+
+class Base{
+    private:
+        std::string s_1 = "s_1_base";
+    protected:
+        std::string s_2 = "s_2_base";
+    public:
+        Base(){}
+        Base(std::string s1, std::string s2): s_1(s1), s_2(s2){}
+        void GetInfo(){
+            std::cout << "BASE: " << this -> s_1 << "; " << this -> s_2 << std::endl;
+        }
+        ~Base(){
+            std::cout << "~Base" << std::endl;
+        }
+};
+
+
+class Derive: public Base{
+    public:
+        Derive():Base(){}
+        Derive(std::string s1, std::string s2): Base(s1, s2){}
+        void GetInfo(){
+            //std::cout << "Derive: " << this -> s_1 << "; " << this -> s_2 << std::endl;
+            std::cout << "Derive: " << this -> s_2 << std::endl;
+        }
+        ~Derive(){
+            std::cout << "~Destroying derive" << std::endl;
+        }
+
+};
+
+void Get_Base(Base * ptr_base){
+    //always use the GetInfo() function of the Base class, not from the derived class
+    ptr_base -> GetInfo();
+    std::cout << "\tstart destroying base" << std::endl;
+    delete ptr_base; //calling the base destructor
+    std::cout << "\tfinishing destroying base" << std::endl;
+}
+
+int main(){
+    Derive d;
+    d.GetInfo(); 
+    std::cout << "______________\n";
+    Base * ptr_base = &d; //Base-type member functions
+    ptr_base -> GetInfo();
+
+    std::cout << "+++++++++++++\n";
+    Derive d_v("s_1_derive", "s_2_derive");
+    ptr_base = & d_v; //is this another type of polymorphism?
+    ptr_base -> GetInfo();
+
+    std::cout << "_+____________\n";
+    Get_Base(new Derive("xx", "yy"));
+    
+    std::cout << "____________\n" << std::endl;
+    Derive *d1 = new Derive();
+    delete d1;
+
+    std::cout << "_________\n";
+    Derive *ptr_d = (Derive *) new Base;
+    ptr_d -> GetInfo();
+    delete ptr_d;
+    std::cout << "__________\n";
+    
+}
+
+/*
 //======= 52 ===========
 // class inheritence
 #include <iostream>
@@ -35,7 +105,6 @@ int main(){
     d_1.Get_FromBase();
 }
 
-/*
 //===== 51 =====
 //Have a thorough study of class inheritence
 #include <iostream>
