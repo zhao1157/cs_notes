@@ -1,3 +1,102 @@
+//========= 61 =========
+//abstract class (with pure virtual functions)
+#include <iostream>
+
+class Shape{
+    public:
+        //Shape(){}
+        virtual void Get_Area()=0; // if not implemented in the derived class, then the derived class will also be abstract class
+        void Get_Area_(int, int) {
+            std::cout << "Shape: fake Get_Area()" << std::endl;
+        }
+        void Where(){ //though this is a abstract class, othere functions can be implemented explicitly
+            std::cout << "Shape" << std::endl;
+        }
+
+};
+
+class Rectangle: public Shape{
+    private:
+        int width, length;
+    public:
+        Rectangle(int _w, int _l): width(_w), length(_l){}
+        void Get_Area() override final{ //if this is not implemented, then Rectangle will be abstract class which can not be instantiated
+            std::cout << "Rectangle: " << width * length << std::endl;
+        }
+        //void Get_Area(int i, int j){
+        //    std::cout << "Rectangle: fake Get_Area()" << std::endl;
+        //}
+        //function overriding 
+        void Where() {
+            std::cout << "Rectangle" << std::endl;
+        }
+
+};
+
+int main(){
+    //Shape s; //abstract class is not instantiable
+    Rectangle r(2,3);
+    r.Get_Area();
+    r.Get_Area_(2, 2); // can not get r.Get_Area(2,3) to work. 
+    r.Where();
+}
+
+/*
+//======= 60 =======
+//This is to practice virtual functions
+#include <iostream>
+
+class Rectangle{
+    protected:
+        int a, b;
+        int width;
+        int length;
+    public:
+        Rectangle(int  _w, int _l):width(_w), length(_l){}
+        virtual void Get_Area(){
+            std::cout << "Rectangle: " << width*length << std::endl;
+        }
+        void Where(){
+            std::cout << "Rectangle\n";
+        }
+
+};
+
+class Square: public Rectangle{
+    private:
+        int c, d;
+    public:
+        Square(int _w, int _l): Rectangle(_w, _l){}
+        void Get_Area(){
+            std::cout << "Square: " << width * length * 0.5 << std::endl;
+        }
+        void Where(){
+            std::cout << "Square\n";
+        }
+};
+
+void Get_Area(Rectangle & r){
+    r.Get_Area();
+}
+
+int main(){
+    Rectangle r1(2, 3), *ptr_r;
+    Square s1(2, 3), *ptr_s;
+    r1.Get_Area();
+    s1.Get_Area();
+
+    std:: cout << "_________\n";
+    ptr_r = &s1;
+    ptr_r -> Get_Area(); //because of virtual funtion, though type casted to the base class, it still calls the function in the derived class
+    std::cout << "__________\n";
+    Get_Area(s1);
+
+    std::cout << "___________\n";
+    ptr_s = (Square *)& r1;
+    ptr_s -> Get_Area (); // virtual make it stay with r1
+    ptr_s -> Where(); // non-virtual makes it to the casted type
+}
+
 //======= 59 =========
 //This is to practice explict type-casting
 #include <iostream>
@@ -31,7 +130,6 @@ int main(){
 }
 
 
-/*
 //========= 58 =========
 //This is to practice class inheritence
 #include <iostream>
