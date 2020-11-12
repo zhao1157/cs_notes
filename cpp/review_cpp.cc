@@ -1,3 +1,127 @@
+//======= 59 =========
+//This is to practice explict type-casting
+#include <iostream>
+
+class A{
+    private:
+        int a, b;
+    public:
+        A(){}
+        A(int _a, int _b): a(_a), b(_b){}
+};
+
+class B{
+    private:
+        int e, c, d=0; // weird, the order makes a difference // maybe it's not worth investigation
+    public:
+        B():c(2), d(3), e(4){} // nothing to do with this part
+        B(int _c, int _d, int _e): c(22), d(33), e(44){} // nothing with this part
+        void apb(){
+            std:: cout << c << std::endl;
+            std:: cout << d << std::endl;
+            std:: cout << e << std::endl;
+        }
+
+};
+
+int main(){
+    A a(2,3);
+    B * ptr_b = (B*) &a; // when explicit type casting, it is just like creating a new B instance with 2, 3 as initiazliation
+    ptr_b -> apb(); //since only two arguments are passed to a and b, e will be random number.
+}
+
+
+/*
+//========= 58 =========
+//This is to practice class inheritence
+#include <iostream>
+
+class Base {
+    private:
+        std::string s_1 = "s1_base";
+    protected:
+        std::string s_2 = "s2_base";
+    public:
+        Base(){}
+        Base(std::string s1, std::string s2):s_1(s1), s_2(s2){}
+        void Get_s1(){
+            std::cout << "Base: " << this -> s_1 << std::endl;
+        }
+        void Get_s2(){
+            std::cout << "Base: " << this -> s_2 << std::endl;
+        }
+        void test(){
+            std::cout << "Base: test" << std::endl;
+        }
+
+};
+
+class Derive: public Base {
+    private:
+        std::string s_1 = "xx";
+        int age = 30;
+    public:
+        Derive():Base() {}
+        Derive(std::string s1, std::string s2): Base(s1, s2){}
+        void Get_s1(){
+            std::cout << "Derive: " << this -> s_1 << std::endl; //s_1 is private in the base class if not defined in Derive class
+            //std::cout << "Derive: s_1 is not visible in derived class" << std::endl;
+        }
+        void Get_s2(){
+            std::cout << "Derive: " << this -> s_2 << std::endl;
+        }
+        void Get_age(){
+            std::cout << "Derive: " << this -> age << std::endl;
+        }
+
+};
+
+int main(){
+    Base *ptr_b;
+    Derive d; // Base class is called and some members are inherited to d(s_2, Get*)
+    d.Get_s2(); //s_2 is from the Base class
+
+    ptr_b = &d;
+    ptr_b -> Get_s1(); // though s_1 is not visible to d, it is to the base part of d
+    ptr_b -> Get_s2(); // if Get_s2() does not exist in Base, then compiling error
+
+    std::cout << "__________" << std::endl;
+    Base b;
+    Derive * ptr_d;
+    b.Get_s1();
+    b.Get_s2();
+    ptr_d = (Derive *) & b; // members can only be in Derive class space
+    ptr_d -> Get_s2();
+    ptr_d -> Get_s1();
+    ptr_d -> Get_age(); //it does not have age member in b instance, so random number
+    ptr_d -> test(); 
+}
+
+//========== 57 =========
+//can we delete a class inside a function
+#include <iostream>
+
+class A{
+    public:
+        ~A(){
+            std::cout << "destroying A" << std::endl;
+        }
+};
+
+void del(A *a){
+    delete a;
+}
+
+int main(){
+    A a, *ptr_a;
+    ptr_a = &a;
+    //del(&a); 
+    //delete ptr_a; //core dumped, delete should work with new in pair
+    del(new A);
+    std::cout << "__________" << std::endl;
+
+}
+
 //============ 56 =======
 //This is to practice  friend class functions
 #include <iostream>
@@ -30,7 +154,6 @@ int main(){
     my_friend.Get_MyName(me);
 
 }
-/*
 //====== 55 ======
 //this is to practice friend functions
 # include <iostream>
