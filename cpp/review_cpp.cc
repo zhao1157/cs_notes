@@ -1,3 +1,39 @@
+//========= 54 ==========
+//this is to practice friend class
+#include <iostream>
+
+class Me{
+    private:
+        std::string name;
+    protected:
+        int age;
+    public:
+        Me(std::string _name, int _age): name(_name), age(_age){}
+        friend class My_Friend; //In My_Friend, the instance of Me can access all members of itself
+                                //but they are not members of My_Friend
+        void test_outside(){
+            std::cout << "test_me" << std::endl;
+        }
+};
+
+class My_Friend{
+    public:
+        void Get_MyName(Me me){
+            //due to My_Friend is a friend of Me class, inside My_Friend me can access its private and protected members
+            std::cout << "My_Friend knew my name: " << me.name << std::endl;
+            std::cout << "             & my age: " << me.age << std::endl;
+            me.test_outside();
+        }
+};
+
+int main(){
+    Me me("LianshuiZhao", 30);
+    My_Friend my_friend;
+    my_friend.Get_MyName(me);
+    //my_friend.test_outside(); // friend class can only access protected and private members, not public members
+}
+
+/*
 //======== 53 ========
 #include <iostream>
 
@@ -67,7 +103,6 @@ int main(){
     
 }
 
-/*
 //======= 52 ===========
 // class inheritence
 #include <iostream>
