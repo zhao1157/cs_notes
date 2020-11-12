@@ -1,3 +1,65 @@
+//============ 56 =======
+//This is to practice  friend class functions
+#include <iostream>
+
+class Me;
+class My_Friend{
+    public:
+        My_Friend(){}
+        void Get_MyName(Me &me);
+};
+
+class Me{
+    private:
+        std::string name = "none";
+    public:
+        Me(){}
+        Me(std::string _name): name(_name){}
+        friend void My_Friend::Get_MyName(Me &me);
+};
+
+//Can not be implemented inside the class as this function requires the implementation of class Me which is after My_Friend
+void My_Friend::Get_MyName(Me &me){
+        std::cout << "My friend knew my name: " << me.name << std::endl;
+}
+
+int main(){
+    Me me("zls");
+    My_Friend my_friend;
+
+    my_friend.Get_MyName(me);
+
+}
+/*
+//====== 55 ======
+//this is to practice friend functions
+# include <iostream>
+
+class Me{
+    protected: // friend class/function can be in any area (private/protected/public)
+        friend void Get_MyName(Me &); //the exact declaration
+        int age = 30;
+    private:
+        std::string name = "none";
+    public:
+        Me(){}
+        Me(std::string _name): name(_name){}
+};
+
+void Get_MyName(Me & me){
+    std::cout << me.name << std::endl;
+    std::cout << me.age << std::endl;
+}
+
+int main(){
+    Me me;
+    Get_MyName(me);
+
+    Me you("zls");
+    Get_MyName(you);
+}
+
+
 //========= 54 ==========
 //this is to practice friend class
 #include <iostream>
@@ -33,7 +95,6 @@ int main(){
     //my_friend.test_outside(); // friend class can only access protected and private members, not public members
 }
 
-/*
 //======== 53 ========
 #include <iostream>
 

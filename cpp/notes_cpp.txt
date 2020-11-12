@@ -1,1 +1,2 @@
+2. Inside the friend function/class, the instance of the class of interest can access the private and protected members, i.e. all members as if it was inside the class of interest.
 1. In class inheritence, the derived class can inherit from protected members of the base class, so the derived class can directly access them, but can not access the private members of the base class
