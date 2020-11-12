@@ -1,3 +1,15 @@
+#====== 51 =======
+# make vim indent with 4 spaces
+# in ~/.vimrc, add the following 3 lines
+set tabstop=4
+set shiftwidth=4
+set expandtab
+# make auto indent
+filetype indent on
+# make vim start where left off last time
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+
 #======== 50 =========
 kill -9 2324 # to forcefully kill this process
 kill -SIGKILL 2324 # -SIGTERM
