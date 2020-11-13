@@ -1,3 +1,36 @@
+//===== 73 =====
+// This is to practice static members in class
+#include <iostream>
+
+class Me{
+    private:
+        int a = 2;
+        static int static_b; // can not be initialized inside the class, which is different from the static variable in a function
+    public:
+        Me(){
+            static_b ++; // static variable is accessible to any members
+        }
+        static void Get_Static(){ //static function can only access static memmbers
+            std::cout << static_b << std::endl; 
+        }
+        void Get(){
+            std::cout << "Get\n";
+        }
+        static int c;
+};
+
+int Me::c = 3;
+int Me::static_b = 0; // has to be initialized outside of class (independent of instances and in one translation unit)
+
+int main(){
+    Me me;
+    Me::Get_Static(); //Static function can be accessible by class itself without be instantiated
+    me.Get_Static();
+    //Me::Get(); // can not call a non-static member function without an instance
+    std::cout << Me::c << "\n"; //Me.c is wrong, Me does not refer to a value
+}
+
+/*
 //====== 72 =====
 //This is to practice static variable in a function
 #include <iostream>
@@ -16,7 +49,6 @@ int main(){
     }
 }
 
-/*
 //===== 71 =====
 //This is to practice const in nullptr
 #include <iostream>
