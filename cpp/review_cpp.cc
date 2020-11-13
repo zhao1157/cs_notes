@@ -1,3 +1,34 @@
+//======== 70 =========
+//This is to if the base class of a friend class can be also a friend.
+#include<iostream>
+
+class Me;
+class F_Base{
+    public:
+        void Get(Me &me);
+};
+
+class F: public F_Base{
+    private:
+        void Get(Me&);
+};
+
+class Me{
+    private:
+        int a=0;
+        friend class F;
+};
+
+//void F_Base::Get(Me &me){
+void F::Get(Me &me){
+    me.a; // the base class of F can not be the context where private members of Me are accessible
+}
+
+int main(){
+
+}
+
+/*
 //=========== 69 ========
 //This is to test if friend class of the derived class can access base class members
 #include <iostream>
@@ -28,7 +59,6 @@ int main(){
     f.Get(d);
 }
 
-/*
 //====== 68 =========
 //This is to practice function overloading
 #include<iostream>
