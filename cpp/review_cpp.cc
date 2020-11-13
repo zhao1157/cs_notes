@@ -1,3 +1,50 @@
+//=========== 69 ========
+//This is to test if friend class of the derived class can access base class members
+#include <iostream>
+
+class Base{
+    public:
+        void Get_Base(){
+            std::cout << "Base\n";
+        }
+};
+
+class Friend;
+
+class Derive: protected Base{
+    friend class Friend;
+};
+
+class Friend{
+    public:
+        void Get(Derive &d){
+            d . Get_Base();
+        }
+};
+
+int main(){
+    Derive d;
+    Friend f;
+    f.Get(d);
+}
+
+/*
+//====== 68 =========
+//This is to practice function overloading
+#include<iostream>
+void func(int a){
+    std::cout << "func int a\n";
+}
+
+void func(int &a){
+    std::cout << "func int &a\n";
+}
+
+int main(){
+    int a = 2;
+    //func(a); // in this case, it is ambiguous to determine which one to use
+}
+
 //========= 67 =======
 //This is to practice overloading in class inheritence
 #include <iostream>
@@ -28,7 +75,6 @@ int main(){
 }
 
 
-/*
 //======== 66 ===========
 //This is to practice the type of inheritence
 #include <iostream>

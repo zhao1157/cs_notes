@@ -1,3 +1,4 @@
+13. In friend class, the members from the base class are accessible
 12. The member functions of the base class will be hidden in the derived class if functions with the same name are redefined in the derived class.
 11. protected inheritence: the protected and public members of the base class are grouped to the protected part of the derived class, again the private members of the base class are not inherited
 10. friend class in the base class is not inherited to the derived class
