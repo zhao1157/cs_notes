@@ -1,3 +1,4 @@
+15. virtual keyword makes the binding of function body happen at runtime (late/dynamic binding), without virtual keyword, the binding happens at comiling time. Derived class is casted to base class pointer, the pointer will point to the virtual function in the derived class, not in the base class. For the non-virtual function, pointer points to the functions in the base class.
 14. Only the newly-defined members of the friend class can be the context where the private/protected part of the class are accessible.
 13. In friend class, the members from the base class are accessible
 12. The member functions of the base class will be hidden in the derived class if functions with the same name are redefined in the derived class.

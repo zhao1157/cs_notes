@@ -1,3 +1,31 @@
+//===== 71 =====
+//This is to practice const in nullptr
+#include <iostream>
+
+class Me{
+    private:
+        int a = 2;
+    public:
+        void Get_none(){
+            std::cout << "Get_none\n";
+        }
+        virtual void Get_no(){
+            std::cout << "Get_no\n";
+        }
+        void Get_a(){
+            std::cout << "Get_a: " << this -> a << std::endl;
+        }
+};
+
+int main(){
+    Me me, *ptr_me;
+    ptr_me = nullptr;
+    ptr_me -> Get_none(); // non-virtual function gets bound at compile time
+    //ptr_me -> Get_no(); // virtual function gets bound at runtime
+    //ptr_me -> Get_a(); // "this" is null
+}
+
+/*
 //======== 70 =========
 //This is to if the base class of a friend class can be also a friend.
 #include<iostream>
@@ -28,7 +56,6 @@ int main(){
 
 }
 
-/*
 //=========== 69 ========
 //This is to test if friend class of the derived class can access base class members
 #include <iostream>
