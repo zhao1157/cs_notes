@@ -1,3 +1,22 @@
+//====== 72 =====
+//This is to practice static variable in a function
+#include <iostream>
+
+//it is like (but "i" will be accessible globally, but we only want it accessible inside the function)
+//int i = 0;
+void Static(){
+    static int times_called = 0; //comment this line out
+    times_called ++;
+    std::cout << times_called << std::endl;
+}
+
+int main(){
+    for (auto i = 0; i < 3; i++){
+        Static();
+    }
+}
+
+/*
 //===== 71 =====
 //This is to practice const in nullptr
 #include <iostream>
@@ -25,7 +44,6 @@ int main(){
     //ptr_me -> Get_a(); // "this" is null
 }
 
-/*
 //======== 70 =========
 //This is to if the base class of a friend class can be also a friend.
 #include<iostream>
