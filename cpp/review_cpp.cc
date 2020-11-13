@@ -1,3 +1,34 @@
+//========= 67 =======
+//This is to practice overloading in class inheritence
+#include <iostream>
+
+class Base{
+    public:
+        void Get(){
+            std::cout << "Base Get\n";
+        }
+        void Get(int a){
+            std::cout << "Base Get int\n";
+        }
+        void Get(float a){
+            std::cout << "Base Get float\n";
+        }
+};
+
+class Derive: public Base{
+    public:
+        //void Get(){}; // if function with name of Get is redefined, the functions with name of Get in the base class are all hidden
+};
+
+int main(){
+    Derive d;
+    d.Get();
+    d.Get(2);
+    d.Get(2.3f); //make 2.3 as float type
+}
+
+
+/*
 //======== 66 ===========
 //This is to practice the type of inheritence
 #include <iostream>
@@ -85,7 +116,6 @@ int main(){
 
 }
 
-/*
 //====== 65 =======
 //to test if final function can be overloaded
 #include <iostream>
