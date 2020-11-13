@@ -1,3 +1,90 @@
+//======== 66 ===========
+//This is to practice the type of inheritence
+#include <iostream>
+
+class Base{
+    private: // never accessible to the derived class through -> or . operator, but can be accessed by some other type of functions
+        int a = 3;
+        std::string name = "Base";
+    protected:
+        float b = 3.1415926;
+    public:
+        std::string Get_Name(){
+            return this -> name;
+        }
+        friend class Friend; // friendship is not inherited: parents' friends are not necessarily the childrens' friends
+
+};
+
+class DerivePublic;
+
+class Friend{
+    public:
+        void Get_Base(Base &b){
+            std::cout << b.a << std::endl;
+        }
+        void Get_DerivePublic(DerivePublic & d);
+};
+
+class DerivePublic: public Base{ 
+    private:
+        int a_d = 23;
+        double b = 3.2;
+    public:
+        void Get(){
+            std::cout << "Derive: " << this -> Get_Name() << std::endl;
+        }
+        void Get_a(){
+            //std::cout << this -> a << std::endl; //a can only be accessible to Base or its friend class
+        }
+};
+
+void Friend::Get_DerivePublic(DerivePublic &d){
+    std::cout << d.a << std::endl; //a is private member of base, so it can still access it
+    //std::cout << d.a_d << std::endl; // a_d is defined in the derived class, which is not a friend of Friend, so can not access it.
+    //std::cout << d.b << std::endl; // b is redefined in the derived class, so it is not the one in the base class
+}
+
+class DeriveProtected: protected Base{
+    private:
+        int a_dp = 2;
+    protected:
+        int b_dp = 3;
+    public:
+        void Get(){
+            std::cout << "DeriveProtected" << std::endl;
+            //std::cout << this -> name << std::endl; // name is private to Base, it can not be accessed by its children
+            std::cout << this -> Get_Name() << std::endl; // name can be accessible by the members of the base class, not the members of the derived class
+            std::cout << this -> b << std::endl;
+        }
+};
+
+class DerivePrivate: private Base{
+};
+
+class DDerivePrivate: public DerivePrivate{
+    public:
+        void Get(){
+            //this -> b; // b is private in DerivePrivate class, so can not be inherited
+        }
+};
+
+int main(){
+    Friend f;
+    Base b;
+    DerivePublic d;
+    d.Get();
+
+    f.Get_Base(b);
+    f.Get_DerivePublic(d);
+
+    std::cout << "__________\n";
+    DeriveProtected dp;
+    dp.Get();
+    //dp.Get_Name(); //Get_Name() is grouped into protected part of the DeriveProtected class, so can not be accessible outside of the class
+
+}
+
 /*
 //====== 65 =======
 //to test if final function can be overloaded

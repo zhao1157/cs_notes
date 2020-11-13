@@ -1,3 +1,7 @@
+11. protected inheritence: the protected and public members of the base class are grouped to the protected part of the derived class, again the private members of the base class are not inherited
+10. friend class in the base class is not inherited to the derived class
+9. public inheritence: protected members of the base class go to the protected part of the derived class and the public members of the base class go to the public part of the derived class, however the private part of the base class is not inherited to the derived class and the new defined memmbers of the derived class can not access base private members.
+8. public/protected/private inheritence: the private members of the base class can not be inherited, and the member functions of the new defined class can not access the private members of the base class, but the original member functions inherited from the base class can still access the private members
 7. final: make the classes inheriting from this class without modifying it.
 6. override: there is no actual functionality of override and it is just a tag saying the function is overridden, without this tag it still overrides the virtual function in the base class. It is a good practice to put this tag after the declaration, indicating this function is virtual in base class, and it is overridden in this class.
 5. abstract class: pure virtual functions make the class abstract, which can not be instantiated.
