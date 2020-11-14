@@ -1,3 +1,100 @@
+//========== 75 ========
+//This is to practice static members in inheritence
+#include <iostream>
+
+class Shape{
+    public:
+        static int num_shapes;
+    public:
+        Shape(){
+            num_shapes ++;
+        }
+        ~Shape(){
+            num_shapes --;
+        }
+        static void Get_NumShapes(){
+            std::cout << num_shapes << std::endl;
+        }
+};
+
+int Shape::num_shapes = 0;
+
+class Rectangle: public Shape{
+    
+};
+
+class Square: public Shape{
+    public:
+        ~Square(){
+            num_shapes --; // deducted 2 when a square object is destroyed
+        }
+};
+
+int main(){
+    Rectangle r1, r2;
+    
+    Shape::Get_NumShapes();
+    Rectangle::Get_NumShapes();
+    Square::Get_NumShapes();
+    std::cout << "__________\n";
+
+    Square s1, s2;
+    Rectangle::Get_NumShapes();
+    Square::Get_NumShapes();
+    Shape::Get_NumShapes();
+    
+    std::cout << "__________\n";
+    r1.Get_NumShapes();
+    r2.Get_NumShapes();
+    s1.Get_NumShapes();
+    s2.Get_NumShapes();
+
+    std::cout << "__________\n";
+    Square *ptr_s = new Square();
+    std::cout << s1.num_shapes << std::endl;
+    delete  ptr_s;
+    std::cout << s1.num_shapes << std::endl;
+}
+
+
+/*
+//========== 74 ===========
+//This is to practice static member in class
+//The reason why static variable should be initialized outside of class is to avoid getting its value reset every time new instance of class is created
+#include <iostream>
+
+class Family{
+    private:
+        // to keep track of the number of instances active, we need to modifiy this value in its constructor and destructor functions
+        static int num_families;    
+    public:
+        Family(){
+            num_families ++;
+        }
+        ~Family(){
+            num_families --;
+        }
+        //void Show_NumFamilies(){ //Family::Show_NumFamilies() is not valid as it requires an object, i.e. "this"
+        static void Show_NumFamilies(){ // Family::Show_NumFamilies() is now valid as it's an attribute of the class
+            std::cout << num_families << std::endl;
+        }
+};
+
+int Family::num_families = 0;
+
+int main(){
+    Family f1, f2, f3;
+    f1.Show_NumFamilies();
+    f2.Show_NumFamilies();
+    Family::Show_NumFamilies();
+   
+    // automatically keep track of the number of the instances created
+    Family *ptr_f = new Family;
+    Family::Show_NumFamilies();
+    delete ptr_f;
+    Family::Show_NumFamilies();
+}
+
 //===== 73 =====
 // This is to practice static members in class
 #include <iostream>
@@ -30,7 +127,6 @@ int main(){
     std::cout << Me::c << "\n"; //Me.c is wrong, Me does not refer to a value
 }
 
-/*
 //====== 72 =====
 //This is to practice static variable in a function
 #include <iostream>
