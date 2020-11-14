@@ -1,3 +1,90 @@
+//======= 76 ======
+//This is to practice virtual, static, inheritence in struct
+#include <iostream>
+
+struct Shape{
+    private:
+        static int born_index, num_shapes;
+    public:
+        Shape(){
+            num_shapes ++;
+            born_index ++;
+        }
+
+        ~Shape(){
+            num_shapes --;
+        }
+
+        static int Get_BornIndex(){
+            return born_index;
+        }
+        static int Get_ChildrenAlive(){
+            return num_shapes;
+        }
+
+        //void Signature(){ //bind at comile time, 
+        virtual void Signature(){ //bind at runtime
+            std::cout << "Shape\n";
+        }
+};
+
+int Shape::num_shapes = 0;
+int Shape::born_index = 0;
+
+struct Square: public Shape{
+    private:
+        int born_index = -1;
+    public:
+        Square(){
+            born_index = Get_BornIndex();
+        }
+        void Born_Index(){
+            std::cout << born_index << std::endl;
+        }
+        //override specifier can only be inside the class, not outside of it
+        void Signature() override; // { // for readability, google recommends it
+            //std::cout << "Square\n";
+        //}
+};
+
+//void Square::Signature() override{ // virtual specifiers are not allowed outside of the class
+void Square::Signature(){
+    std::cout << "Square\n";
+}
+
+class Square_class: public Square{
+    public:
+        void Signature() final;//{ // put override to tell compiler or other readers that it overrides a virtual function in its base calss
+            //std::cout << "Square_class\n";
+        //}
+};
+//again virtual-specifier can not be outside of class, i.e. virtual/override/final can only be within the class
+void Square_class::Signature() {
+    std::cout<< "Square_class\n";
+}
+
+int main(){
+    Square s1, s2;
+    s1.Born_Index();
+    s2.Born_Index();
+    std::cout << "Shape children: " << Shape::Get_BornIndex() << std::endl;
+
+    Square *ptr_s;
+    ptr_s = new Square;
+    delete ptr_s;
+    std::cout << "Shape children: " << Shape::Get_BornIndex() << std::endl;
+    std::cout << "Shape children alive: " << Shape::Get_ChildrenAlive() << std::endl;
+    Shape * ptr_1 = &s1;
+    ptr_1 -> Signature();
+    
+    std::cout << "_________\n";
+    Square *ptr_2 = new Square_class;
+    ptr_2 -> Signature();
+    delete ptr_2;
+}
+
+
+/*
 //========== 75 ========
 //This is to practice static members in inheritence
 #include <iostream>
@@ -57,7 +144,6 @@ int main(){
 }
 
 
-/*
 //========== 74 ===========
 //This is to practice static member in class
 //The reason why static variable should be initialized outside of class is to avoid getting its value reset every time new instance of class is created

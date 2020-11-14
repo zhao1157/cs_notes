@@ -1,3 +1,6 @@
+23, Just like in class, there are also member functions in struct, and types might be virtual, override, final, static. The same inheritence rules as in class. But the default are the opposite of class.
+22. virtual/override/final are only allowed within the class, not outside of it.
+21. In a derived class, when overriding a virtual function in the base class, it is a good practice to put "override" behind the defition, for readabilty for both readers and compilers.
 20. Static variables and functions are also inheritable, nothing different from the normal members, except the static feature
 19. Without static keyword before the function name, the members can only be accessed by its instance, not by class itself.
 18. Why static variable in a class has to be initialized outside of class? The reason is if not, its value will be reset every time a new instance of the class is created.
