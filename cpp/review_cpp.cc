@@ -1,3 +1,90 @@
+//==== 78 ====
+//This is to practice static_cast in classes
+#include <iostream>
+
+class Base{
+    public:
+        int a = 3;
+        void Get(){
+            std::cout << "Base\n";
+        }
+};
+
+class Derive: public Base{
+    private:
+        int b = 9;
+        //char b = 'c';
+    public:
+        void Get_b(){
+            std::cout << this -> b << std::endl;
+        }
+        void Get_D(){
+            std::cout << "Derive\n";
+        }
+};
+
+class Extra{
+    public:
+        int e = 8;
+        void Get() {
+            std::cout << "Extra\n";
+        }
+        void Get_e(){
+            std::cout << this -> e << std::endl;
+        }
+};
+
+int main(){
+    Derive d, *ptr_d;
+    Base b, *ptr_b;
+
+    ptr_b = static_cast<Base *> (&d); //reference
+    ptr_b -> Get();
+    //ptr_b -> Get_D();
+   
+    std::cout << "_______\n"; 
+    ptr_d = static_cast<Derive *> (&b);
+    ptr_d -> Get();
+    ptr_d -> Get_D();
+    std::cout << ptr_d -> a << "\n";
+    ptr_d -> Get_b();
+    ((Derive *)(new Base)) -> Get_b();
+
+    std::cout << "______\n";
+    Derive *pd = &d;
+    Base *pb = & b;
+
+    ptr_d = static_cast<Derive *> (pb); // pointer
+    ptr_d -> Get_b();
+    ptr_b = static_cast<Base *> (pd);
+    ptr_b -> Get();
+    //ptr_b -> Get_b(); // in Base class no such function
+
+    std::cout << "_______\n";
+    Extra e, *ptr_e;
+    //e = static_cast<Extra> (b);
+    //ptr_e = static_cast<Extra *> (&b); //as Extra and Base has no relation, they can not be casted to each other
+    ptr_e = (Extra *) &b; // the c-type cast is allowed
+    ptr_e -> Get();
+    ptr_e -> Get_e();
+}
+
+/*
+//===== 77 ====
+//Ths is to practice static_cast
+#include <iostream>
+
+int main(){
+    int a = 5, c;
+    double b = 3.141592653, d;
+
+    c = static_cast<int> (b); //() is required
+    d = static_cast<double> (a); //
+    std::cout << c << "\n" << d << "\n";
+
+    static_cast<void> (a);
+}
+
 //======= 76 ======
 //This is to practice virtual, static, inheritence in struct
 #include <iostream>
@@ -84,7 +171,6 @@ int main(){
 }
 
 
-/*
 //========== 75 ========
 //This is to practice static members in inheritence
 #include <iostream>
