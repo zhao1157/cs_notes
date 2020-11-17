@@ -1,3 +1,4 @@
+31. Static/dynamic_cast<>(): for non-virtual functions use the ones in the casted-type, otherwise the ones in the actual object; dynamic_cast only works if the casted type is in the upper inheritence level of the actual object and virtual class
 30. Dynamic_cast can only convert derived class object pointer/reference to one of the parents' type pointer
 29. Use dynamic_cast to filter out the instances of the class type we are interested in.
 28. ptr_b = new derive; ptr_d = static_cast<derive *> (ptr_b) or ptr_d = dynamic_cast<derive*> (ptr_b); ptr_d -> d_only_func()

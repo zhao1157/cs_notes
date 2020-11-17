@@ -1,3 +1,56 @@
+//===== 84 ====
+//static/dynamic_cast<>(): for non-virtual functions, use the ones in the casted-type, otherwise the ones in the actual object; dynamic_cast only works if the casted-type is in the upper inheritence level of the acutal class
+#include <iostream>
+class Fake{
+    public:
+        virtual void Get(){
+            std::cout << "Fake\n";
+        }
+};
+class Base: public Fake{
+    public:
+        void get(){
+            std::cout << "Base get()\n";
+        }
+        void Get(){
+            std::cout << "Base\n";
+        }
+};
+
+class Derive: public Base{
+    private: 
+        int a = 9;
+    public:
+        void Get(){
+            std::cout << "Derive\n";
+        }
+        void DeriveOnly(){
+            std::cout << "DeriveOnly\n" << this -> a << std::endl;
+        }
+};
+
+int main(){
+    Fake *ptr_f = new Derive;
+    ptr_f -> Get();
+    //ptr_f -> get(); //Fake type does not have get()
+    Base *ptr_b = dynamic_cast<Base *> (ptr_f);
+    ptr_b -> Get();
+    ptr_b -> get(); //Base type has get()
+    Derive *ptr_d = dynamic_cast<Derive*> (ptr_f);
+    ptr_d -> Get();
+    ptr_d -> DeriveOnly();
+
+    std::cout << "_____\n";
+    ptr_b = new Base;
+    ptr_d = static_cast<Derive*> (ptr_b);
+    //ptr_d = dynamic_cast<Derive*> (ptr_b); // won't work as the object which is pointed by ptr_b is just Base type, which does not inherit from Derive, and it is quite the opposite
+    ptr_d -> Get(); //for virtual functions, they are always referred to the ones in the actual object, not the pointer type
+    ptr_d -> get();
+    ptr_d -> DeriveOnly();
+    delete ptr_b;
+}
+
+/*
 //====== 83 =====
 //A *ptr_a = new derive; dynamic_cast <derive_ptr or one_of_its_parent_ptr> (ptr_a);
 #include <iostream>
@@ -11,14 +64,14 @@ class A{
 
 class B: public A{
     public:
-        void Get() override{
+        void Get() override {
             std::cout << "B\n";
         }
 };
 
 class C: public B{
     public:
-        void Get()override{
+        void Get() override {
             std::cout << "C\n";
         }
 };
@@ -43,10 +96,13 @@ int main(){
     }
     std::cout << "_____\n";
     ptr_a = new B; // the object is type B, so class C type pointer failed
-    C *ptr_c = dynamic_cast<C*> (ptr_a);
+    ptr_a -> Get();
+    ptr_b = new B;
+    ptr_b -> Get();
+    C *ptr_c = dynamic_cast<C*> (new B); //weird
+    ptr_c -> Get();
 }
 
-/*
 //======== 82 ========
 //This is to distinguish teamates and opponents
 #include <iostream>
