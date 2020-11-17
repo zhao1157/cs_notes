@@ -1,3 +1,44 @@
+//======== 82 ========
+//This is to distinguish teamates and opponents
+#include <iostream>
+#include <vector>
+
+class Player{
+    public:
+        virtual void GetId() = 0;
+};
+
+class Teammates: public Player{
+    public:
+        void GetId() override{
+            std::cout << "Teammates\n";
+        }
+};
+
+class Opponents: public Player{
+    public:
+        void GetId() override{
+            std::cout << "Opponents\n";
+        }
+};
+
+int main(){
+    std::vector <Player*> players;
+    players.push_back(new Teammates);
+    players.push_back(new Teammates);
+    players.push_back(new Opponents);
+    players.push_back(new Teammates);
+
+    for (auto player_ptr: players){
+        //player_ptr -> GetId();
+        //use dynamic_cast to figure out the instances of the type we are interested in.
+        if (Teammates * teammate_ptr = dynamic_cast<Teammates*>(player_ptr)) {
+            teammate_ptr -> GetId();
+        }
+    }
+}
+
+/*
 //========== 81 =========
 //This is to practice converting base type to derive type 
 #include <iostream>
@@ -32,7 +73,6 @@ int main(){
     delete ptr_b;
 }
 
-/*
 //======== 80 ========
 //This is to test dynamic_cast, which only works in virtual class and inheritence
 //dynamic_cast: convert base type pointer (reference) to derived class type
