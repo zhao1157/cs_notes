@@ -1,3 +1,9 @@
+#======== 205 =====
+# This is to practice str.isdigit()
+"23".isdigit()
+"2.3".isdigit()
+"2.3x".isdigit()
+
 #========== 204 ==========
 # multi-threading in python
 import threading
