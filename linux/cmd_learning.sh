@@ -193,7 +193,7 @@ git checkout 'a previous version sha code' # go to a previous version
 git push orgion HEAD:master --force # went to a hisotry veriosn, commit and force push to repo
 git checkout master
 git checkout . # revert changes made to your working copy
-git rm -r --cached . # stop tracking all files
+git rm -r --cached . # (pay attention to the dot ".") stop tracking all files
 git rm --cached a.txt # stop tracking a.txt
 git commit --amend # add more changes to the last commit and have a chance to modify the commit message
 git commit --amend --no-edit # not change the commit message
