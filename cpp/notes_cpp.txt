@@ -1,3 +1,4 @@
+26. In virtual base class situation, the virtual functions in the derived class can be overriden by the ones in the base class.
 25. (static_cast can NOT be used between two non-related classes, while the c-type casting can) static_cast<Base> (d); static_cast<Base *> (&d); static_cast<Base *> (ptr_d);
 24. static_cast<int> (a); static_cast<double> (b);
 23. Just like in class, there are also member functions in struct, and types might be virtual, override, final, static. The same inheritence rules as in class. But the default are the opposite of class.

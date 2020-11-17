@@ -1,3 +1,40 @@
+//========= 79 ========
+//This is to test that the virtual functions in the derive class can be overridden by the ones in the base class
+#include <iostream>
+
+class base{
+    public:
+        void m(){
+            std::cout << "m\n";
+        }
+        virtual void f(){
+            std::cout << "base_f\n";
+        }
+};
+
+class derive: public base{
+    public:
+        void f() override{
+            std::cout << "f\n";
+        }
+};
+
+int main(){
+    derive *p;
+    p = (derive *) new base;
+    //p = static_cast<derive*>(new base);
+    p -> m();
+    p -> f(); //mutual overriding of virtual functions
+    
+    std::cout << "__________\n";
+    base *pb;
+    //pb = new derive;
+    pb = static_cast<base *> (new derive);
+    pb -> m();
+    pb -> f(); //f() in base class is overriden by the one in derive
+}
+
+/*
 //==== 78 ====
 //This is to practice static_cast in classes
 #include <iostream>
@@ -69,7 +106,6 @@ int main(){
     ptr_e -> Get_e();
 }
 
-/*
 //===== 77 ====
 //Ths is to practice static_cast
 #include <iostream>
