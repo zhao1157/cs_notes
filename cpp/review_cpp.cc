@@ -1,3 +1,52 @@
+//====== 83 =====
+//A *ptr_a = new derive; dynamic_cast <derive_ptr or one_of_its_parent_ptr> (ptr_a);
+#include <iostream>
+
+class A{
+    public:
+        virtual void Get(){
+            std::cout << "A\n";
+        }
+};
+
+class B: public A{
+    public:
+        void Get() override{
+            std::cout << "B\n";
+        }
+};
+
+class C: public B{
+    public:
+        void Get()override{
+            std::cout << "C\n";
+        }
+};
+
+class D: public A{
+    public:
+        void Get(){
+            std::cout << "D\n";
+        }
+};
+
+int main(){
+    A *ptr_a = new C;
+    ptr_a -> Get();
+    B *ptr_b = dynamic_cast<B*> (ptr_a);
+    ptr_b -> Get();
+    D *ptr_d = dynamic_cast<D*> (ptr_a);
+    if (ptr_d){
+        std::cout << "dynamic_cast succeeded\n";
+    } else{
+        std::cout << "dynamic_cast failed\n";
+    }
+    std::cout << "_____\n";
+    ptr_a = new B; // the object is type B, so class C type pointer failed
+    C *ptr_c = dynamic_cast<C*> (ptr_a);
+}
+
+/*
 //======== 82 ========
 //This is to distinguish teamates and opponents
 #include <iostream>
@@ -38,7 +87,6 @@ int main(){
     }
 }
 
-/*
 //========== 81 =========
 //This is to practice converting base type to derive type 
 #include <iostream>

@@ -1,3 +1,4 @@
+30. Dynamic_cast can only convert derived class object pointer/reference to one of the parents' type pointer
 29. Use dynamic_cast to filter out the instances of the class type we are interested in.
 28. ptr_b = new derive; ptr_d = static_cast<derive *> (ptr_b) or ptr_d = dynamic_cast<derive*> (ptr_b); ptr_d -> d_only_func()
 27. dynamic_cast<derive*> (base ptr), where base ptr is a base-type pointer pointing a derived class; the base type has be virtual; if successful, a pointer or reference is created, otherwise null or 0; static_cast<base*>(derive pointer);
