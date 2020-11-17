@@ -1,3 +1,99 @@
+//========== 81 =========
+//This is to practice converting base type to derive type 
+#include <iostream>
+
+class Base{
+    public:
+        virtual void get(){
+            std::cout << "get()\n";
+        }
+        void Get(){
+            std::cout << "Base\n";
+        }
+};
+
+class Derive: public Base{
+    public:
+        void Get(){
+            std::cout << "Derive\n";
+        }
+};
+
+int main(){
+    Base *ptr_b;
+    Derive *ptr_d;
+    ptr_b = new Derive;
+    ptr_b -> Get();
+
+    //ptr_d = (Derive *) ptr_b;
+    //ptr_d = static_cast<Derive *> (ptr_b);
+    ptr_d = dynamic_cast<Derive *> (ptr_b);
+    ptr_d -> Get();
+    delete ptr_b;
+}
+
+/*
+//======== 80 ========
+//This is to test dynamic_cast, which only works in virtual class and inheritence
+//dynamic_cast: convert base type pointer (reference) to derived class type
+#include <iostream>
+
+class Base{
+    public:
+        virtual void Get(){
+            std::cout << "Base\n";
+        }
+};
+
+class Derive: public Base{
+    public:
+        void Get(){
+            std::cout << "Derive\n";
+        }
+};
+
+class DDerive: public Base{
+    public:
+        void Get(){
+            std::cout << "DDerive\n";
+        }
+};
+
+int main(){
+    Base *ptr_b1 = new Derive, 
+         *ptr_b2 = new DDerive;
+    ptr_b1 -> Get(); 
+    //cast base to derive type
+    Derive * ptr_d1 = dynamic_cast<Derive*> (ptr_b1); //ptr_b1 must be virtual type
+    ptr_d1 -> Get();
+
+    std::cout << "_______\n";
+    ptr_b2 -> Get();
+    DDerive *ptr_d2 = dynamic_cast <DDerive*> (ptr_b1); // ptr_b1 points to Derive type instance while being converted to DDerive type
+    if (ptr_d2){
+        std::cout << "successful\n";
+        ptr_d2 -> Get();
+    }
+    else{
+        std::cout << "failed, can not execute Get()\n";
+    }
+
+    //use static_cast to convert derive type to base type
+    ptr_b1 = dynamic_cast<Base *> (new DDerive); // converting derive class to base type does not need a dynamic_cast, just use static_cast
+    ptr_b1 -> Get();
+
+    std::cout << "___________\n";
+    Derive * ptr_dd = dynamic_cast<Derive*> (new Base);
+    if (ptr_dd){
+        std::cout << "from new base to derive\n";
+    }
+    else{
+        std::cout << "failed at converting from new base to derive\n";
+    }
+    delete ptr_b1, ptr_b2, ptr_d1, ptr_d2;
+}
+
+
 //========= 79 ========
 //This is to test that the virtual functions in the derive class can be overridden by the ones in the base class
 #include <iostream>
@@ -34,7 +130,6 @@ int main(){
     pb -> f(); //f() in base class is overriden by the one in derive
 }
 
-/*
 //==== 78 ====
 //This is to practice static_cast in classes
 #include <iostream>
