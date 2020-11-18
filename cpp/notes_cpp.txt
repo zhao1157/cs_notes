@@ -1,3 +1,4 @@
+32. In c++, encapsulation includes 1) the functions 2) the classes which have different access types (private, protected and public). The different part coordinate with each other through APIs without knowing the details of the implementation
 31. Static/dynamic_cast<>(): for non-virtual functions use the ones in the casted-type, otherwise the ones in the actual object; dynamic_cast only works if the casted type is in the upper inheritence level of the actual object and virtual class
 30. Dynamic_cast can only convert derived class object pointer/reference to one of the parents' type pointer
 29. Use dynamic_cast to filter out the instances of the class type we are interested in.
