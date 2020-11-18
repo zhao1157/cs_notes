@@ -1,3 +1,46 @@
+//==== 85 ====
+//This is to practice const functions
+#include <iostream>
+
+//void Get() const{ // To be a const function, it must be a member function of a class/struct
+void Get_out(){
+    std::cout << "Get\n";
+}
+
+class Me{
+    private:
+        int a = 2;
+    public:
+        static int stat;
+        void Get() const{
+            std::cout << "Get() " << this -> a << "\n";
+            //a ++; // can not modify regular data member
+            stat ++; // can modify static member data
+            std::cout << "\tstat: " << this -> stat << std::endl;
+            //this -> Name(); // Name has to be const to be called in a const member function
+            Get_out(); // but can call whatever non member functions
+        }
+        void Name(){
+            std::cout << "Name\n";
+        }
+        static void Get_stat(){
+            std::cout << stat << std::endl;
+            //std::cout << a << std::endl; // can only access static members
+        }
+};
+
+int Me::stat = 3;
+
+int main(){
+    Get_out();
+
+    Me me;
+    me.Get();
+    std::cout << Me::stat << std::endl; //static member belongs to class itself
+    Me::Get_stat();
+    //Me::Name(); // need an object
+}
+/*
 //===== 84 ====
 //static/dynamic_cast<>(): for non-virtual functions, use the ones in the casted-type, otherwise the ones in the actual object; dynamic_cast only works if the casted-type is in the upper inheritence level of the acutal class
 #include <iostream>
@@ -50,7 +93,6 @@ int main(){
     delete ptr_b;
 }
 
-/*
 //====== 83 =====
 //A *ptr_a = new derive; dynamic_cast <derive_ptr or one_of_its_parent_ptr> (ptr_a);
 #include <iostream>
