@@ -1,3 +1,4 @@
+35. int * const ptr = &a; const pointer has to be initialized, and ptr can not be changed but *ptr = 34 is valid to modify the value of the memory address
 34. If static member is public, in main function we can access class::static_member or class::static_function
 33. const member function in a class can not modify the regular member data, but can modify static member data, and it can not call non-const member function, but can call whatever non-member functions.
 32. In c++, encapsulation includes 1) the functions 2) the classes which have different access types (private, protected and public). The different part coordinate with each other through APIs without knowing the details of the implementation

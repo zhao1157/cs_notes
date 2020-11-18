@@ -1,3 +1,17 @@
+//===== 86 =====
+//this is to practice const
+#include <iostream>
+
+int main(){
+    int a = 2;
+    int * const ptr=&a; // const pointer has to be initialized
+    *ptr = 32;
+    std::cout << a << std::endl;
+    int b;
+    //ptr = &b; // can not change the value of const pointer
+}
+
+/*
 //==== 85 ====
 //This is to practice const functions
 #include <iostream>
@@ -40,7 +54,6 @@ int main(){
     Me::Get_stat();
     //Me::Name(); // need an object
 }
-/*
 //===== 84 ====
 //static/dynamic_cast<>(): for non-virtual functions, use the ones in the casted-type, otherwise the ones in the actual object; dynamic_cast only works if the casted-type is in the upper inheritence level of the acutal class
 #include <iostream>
