@@ -1,3 +1,7 @@
+#======== 206 =========
+a = {2:3, '3':2}
+a.clear # remove all items in the dictionary
+
 #======== 205 =====
 # This is to practice str.isdigit()
 "23".isdigit()
