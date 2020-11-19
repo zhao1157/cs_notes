@@ -1,3 +1,4 @@
+43. [] overloading for class
 42. operator overloading ++: void operator ++() --> prefix; void operator ++(int) --> postfix, note it must be int in ()
 41. operator overloading function is just like regular functions, but with operator before the function name
 40. typeid(variable_name).name() returns the type of variable_name; do some comparison == or !=

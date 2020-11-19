@@ -1,3 +1,30 @@
+//===== 93 ====
+//This is to practice [] operator overloading
+#include <iostream>
+class Person{
+    private:
+        std::string name;
+        int age;
+        std::string gender;
+    public:
+        Person(std::string _name, int _age, std::string _gender): name(_name), age(_age), gender(_gender){}
+        std::string operator [](int i){
+            if (i == 0){
+                return name; 
+            } else if (i == 1) {
+                return std::to_string(age);
+            } else if (i == 2) {
+                return gender;
+            }
+            return "error";
+        }
+};
+
+int main(){
+    Person me("zls", 30, "male");
+    std:: cout << me[0] << " " << me[1] << " " << me[2] << std::endl;
+}
+/*
 //========== 92 ==========
 //This is to practice operator overloading
 #include <iostream>
@@ -41,7 +68,6 @@ int main(){
     //long int a = me; // not sure what this is going on
 }
 
-/*
 //========= 91 ========
 //operator overloading for user defined types
 #include <iostream>
