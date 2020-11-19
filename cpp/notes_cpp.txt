@@ -1,3 +1,4 @@
+40. typeid(variable_name).name() returns the type of variable_name; do some comparison == or !=
 39. static polymorphism: function overloading and operator overloading
 38. void f(int i); void f(const int i); not allowed as it redefines the function
 37. void f(); void f(int i = 0); ambiguous

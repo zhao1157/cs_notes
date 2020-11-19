@@ -1,3 +1,36 @@
+//========= 90 ========
+//This is to practice typeid
+#include <iostream>
+
+class Me{
+};
+
+struct P{};
+
+int main(){
+    int *i;
+    double j;
+    float *f;
+    std::cout << typeid(i).name() << std::endl;
+    std::cout << typeid(j).name() << std::endl;
+    std::cout << typeid(f).name() << std::endl;
+
+    Me me, *p_me;
+    P you, *p_you;
+    std::cout << typeid(me).name() << "; " << typeid(p_me).name() << std::endl;
+    std::cout << typeid(you).name() << "; " << typeid(p_you).name()  << std::endl;
+    std::cout << typeid(&me).name() << std::endl;
+
+    if (typeid(&me).name() == typeid(p_me).name()){
+        std::cout << "same type of varibales\n";
+    }
+
+    if (typeid(j).name() != typeid(i).name()){
+        std::cout << "different types of variables\n";
+    }
+}
+
+/*
 //========= 89 ========
 //This is to overview function overloading
 #include <iostream>
@@ -35,7 +68,6 @@ int main(){
     Get(me);
 }
 
-/*
 //====== 88 =====
 //default values in the arguments might cause ambiguity
 #include <iostream>
