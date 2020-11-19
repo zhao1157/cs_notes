@@ -1,3 +1,20 @@
+/*
+//====== 88 =====
+//default values in the arguments might cause ambiguity
+#include <iostream>
+
+void Get(int i = 0){
+    std::cout << "void Get(int i = 0)\n";
+}
+
+void Get(){
+    std::cout << "void Get()\n";
+}
+
+int main(){
+    Get(); // ambiguous
+}
+
 //========== 87 ======
 //This is to practice function overloading
 #include <iostream>
@@ -16,7 +33,6 @@ int main(){
     int a = Get();
 }
 
-/*
 //===== 86 =====
 //this is to practice const
 #include <iostream>
