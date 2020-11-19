@@ -1,3 +1,140 @@
+//========== 92 ==========
+//This is to practice operator overloading
+#include <iostream>
+
+struct Me{
+    private:
+        int age;
+    public:
+        Me(int _age):age(_age){}
+        void operator +(int a) {
+            age += a;
+        }
+        void Get_Age(){
+            std::cout << this -> age << std::endl;
+        }
+        static int num;
+        void operator ++(){
+            num++;
+        }
+        void operator --(){
+            std::cout << "my age: " + std::to_string(age) << std::endl;
+        }
+
+        //operator float() {
+        //    std::cout << "age: " + std::to_string(age) << std::endl;
+        //}
+};
+
+int Me::num = 0;
+
+int main(){
+    Me me(30);
+    me+2;
+    me.Get_Age();
+    ++ me;
+    std::cout << me.num << std::endl;
+
+    std::cout << "23"+std::to_string(23) << std::endl;
+
+    --me;
+    //long int a = me; // not sure what this is going on
+}
+
+/*
+//========= 91 ========
+//operator overloading for user defined types
+#include <iostream>
+#include <cmath> //pow(base, exponent)
+
+class Complex;
+class Multiply{
+    public:
+        Complex xx (const Complex & o1, const Complex & o2);
+};
+class Complex{
+    private:
+        int real, imagine;
+    public:
+        Complex(int r, int i):real(r), imagine(i){}
+        void Get(){
+            std::cout << real << " + i" << imagine << std::endl;
+        }
+        //operator overloading function is just like regular functions but with operator keyword before the name 
+        Complex operator + (const Complex & another) const{ // const function
+            Complex c(real + another.real, imagine + another.imagine);
+            return c;
+        }
+        friend Complex operator - (const Complex & obj1, const Complex & obj2);
+        friend Complex Multiply::xx(const Complex &, const Complex &);
+
+        void operator ++ (int){ // the argument must be int
+            std::cout << "postfix\n";
+            real += 2;
+            imagine ++;
+        }
+        void operator --(){
+            std::cout << "prefix\n";
+            real--;
+            imagine--;
+        }
+
+        friend Complex operator * (const Complex & obj1, const Complex & obj2);
+
+        bool operator > (const Complex & obj){
+            if (pow(real, 2)+pow(imagine, 2) > pow(obj.real, 2)+pow(obj.imagine, 2)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+};
+
+Complex operator *(const Complex & obj1, const Complex & obj2){
+    return Complex(obj1.real*obj2.real, obj1.imagine*obj2.imagine);
+}
+
+Complex operator -(const Complex & obj1, const Complex & obj2){
+    return Complex(obj1.real-obj2.real, obj1.imagine-obj2.imagine);
+}
+
+Complex Multiply::xx(const Complex & o1, const Complex & o2){
+    return Complex(o1.real*o2.real, o1.imagine*o2.imagine);
+}
+
+
+int main(){
+    Complex c(2, 3), d(4, 5);
+    c.Get();
+    Complex e = c + d;
+    e.Get();
+
+    Complex f = c-d;
+    f.Get();
+
+    Multiply mul;
+    Complex g = mul.xx(c, d);
+    g . Get();
+
+    std::cout << "________\n";
+    c.Get();
+    c++; //only prefix, how to do postfix
+    c.Get();
+    --c;
+    c.Get();
+    
+    std::cout << "________\n";
+    (c+d).Get();
+    c.Get();
+    (c-d).Get();
+    Complex h = (c+d)*(c-d);
+    h.Get();
+
+    std::cout << "_________\n";
+    std::cout << (c > d) << std::endl; 
+}
+
 //========= 90 ========
 //This is to practice typeid
 #include <iostream>
@@ -30,7 +167,6 @@ int main(){
     }
 }
 
-/*
 //========= 89 ========
 //This is to overview function overloading
 #include <iostream>
