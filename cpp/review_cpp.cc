@@ -1,3 +1,22 @@
+//========== 87 ======
+//This is to practice function overloading
+#include <iostream>
+
+void Get(){
+    std::cout << "void Get\n";
+}
+
+int Get(){
+    return 2;
+}
+
+int main(){
+    // overloading can not be distinguished by the return type
+    // ambiguating the Get() function
+    int a = Get();
+}
+
+/*
 //===== 86 =====
 //this is to practice const
 #include <iostream>
@@ -5,13 +24,12 @@
 int main(){
     int a = 2;
     int * const ptr=&a; // const pointer has to be initialized
-    *ptr = 32;
+    *ptr = 32; // it has to be int, not other types
     std::cout << a << std::endl;
     int b;
     //ptr = &b; // can not change the value of const pointer
 }
 
-/*
 //==== 85 ====
 //This is to practice const functions
 #include <iostream>
