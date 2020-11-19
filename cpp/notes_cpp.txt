@@ -1,3 +1,5 @@
+39. static polymorphism: function overloading and operator overloading
+38. void f(int i); void f(const int i); not allowed as it redefines the function
 37. void f(); void f(int i = 0); ambiguous
 36. Function overloading can not be  distinguished by the return type
 35. int * const ptr = &a; const pointer has to be initialized, and ptr can not be changed but *ptr = 34 is valid to modify the value of the memory address

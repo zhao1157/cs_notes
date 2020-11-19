@@ -1,3 +1,40 @@
+//========= 89 ========
+//This is to overview function overloading
+#include <iostream>
+
+void Get(double i, int j){
+    std::cout << "void Get(int i, double j)\n";
+}
+
+void Get(double i, double j){
+    std::cout << "void Get(double i, double j)\n";
+}
+
+void Get(int i){
+    std::cout << "void Get(int i)\n";
+}
+
+//redefine the previous function, not allowed
+//void Get(const int i){
+//    std::cout << "void Get(const int i)\n";
+//}
+
+class Me{
+
+};
+
+
+void Get(Me &me){
+    std::cout << "void Get(Me &me)\n";
+}
+int main(){
+    Get(3, 3.3);
+    Get(3.0, 3.3);
+    Get(2);
+    Me me;
+    Get(me);
+}
+
 /*
 //====== 88 =====
 //default values in the arguments might cause ambiguity
