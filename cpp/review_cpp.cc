@@ -1,3 +1,27 @@
+//===== 94 ====
+//this is to study this pointer
+#include <iostream>
+
+class P{
+    public:
+        int a = 3; // the size of an instance
+        int Get_This(){
+            std::cout << "This object is at " << this << std::endl;
+            std::cout << sizeof(this) << std::endl;
+            return 3;
+        }
+};
+
+int main(){
+    P p, *ptr;
+    int *ptr_i;
+    double *ptr_d;
+    p.Get_This();
+    std::cout << sizeof(p) << " " << sizeof(ptr) << std::endl; //if no member data, then size is 1, otherwise the sum of all member data
+    std::cout << sizeof(ptr_i) << " " << sizeof(ptr_d) << std::endl;
+}
+
+/*
 //===== 93 ====
 //This is to practice [] operator overloading
 #include <iostream>
@@ -24,7 +48,6 @@ int main(){
     Person me("zls", 30, "male");
     std:: cout << me[0] << " " << me[1] << " " << me[2] << std::endl;
 }
-/*
 //========== 92 ==========
 //This is to practice operator overloading
 #include <iostream>

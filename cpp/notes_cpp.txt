@@ -1,3 +1,5 @@
+45. the size of a class is the sum of all member data, not member functions; if no member data preset, it is just 1
+44. pointer always has the same size, no matter what type it is, even the cutomer-defined classes
 43. [] overloading for class
 42. operator overloading ++: void operator ++() --> prefix; void operator ++(int) --> postfix, note it must be int in ()
 41. operator overloading function is just like regular functions, but with operator before the function name
