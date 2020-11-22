@@ -1,3 +1,52 @@
+//====== 98 =====
+//pure virtual class can not be instantiable
+#include <iostream>
+
+class Person{
+    protected:
+        std::string name;
+    public:
+        Person(std::string _name): name(_name){}
+        virtual void Get(){
+            std::cout << "Person\n";
+        }
+};
+
+class Friend: public Person{
+    private:
+        int age;
+    public:
+        Friend(std::string _name, int _age): Person(_name), age(_age){}
+        void Get() override{
+            std::cout << "name: " << name << ", age: " << age << std::endl;
+        }
+        void xx(){
+            std::cout << age << " ";
+            std::cout << "Friend\n";
+        }
+};
+
+int main(){
+    Friend f1("dsy", 32);
+    Person *p = dynamic_cast<Person *> (&f1);
+    p -> Get();
+    // one of the difference between static_cast and dynamic_cast is that dynamic_cast guarantees the usage of the virtual function in the derived class
+    //p -> xx(); //xx() is not in Person class.
+
+    Person pr = dynamic_cast<Person &> (f1);
+    pr . Get();
+
+    Friend *pf = dynamic_cast<Friend *> (p);
+    pf -> Get();
+    pf -> xx(); // after converting pointer p to Friend class, it can access xx() function
+    std::cout << "_________\n";
+
+    Friend pp = dynamic_cast < Friend &> (*p); //*p not p
+    pp.xx();
+}
+
+
+/*
 //======= 97 =======
 //This is to practice class templates and inheritence
 #include <iostream>
@@ -69,7 +118,6 @@ int main(){
     std::cout << china.num_of_countries << std::endl;
 }
 
-/*
 //========= 96 =======
 //class template
 #include <iostream>
