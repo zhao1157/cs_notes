@@ -1,3 +1,8 @@
+50. templates are a type of polymorphism, happening at compile time. Parametric polymorphism
+49. templates can work for a mix of typename and variable, template<typename T, int N> ...
+48. templates can also work for non-typename variables like template <int N> void SetArr(){...}
+47. templates can also be overloaded with the same function name
+46. Function template syntax: template<typename T, typename U, ...> U Get(T a){...}; calling by Get<int, double> (2); ...
 45. the size of a class is the sum of all member data, not member functions; if no member data preset, it is just 1
 44. pointer always has the same size, no matter what type it is, even the cutomer-defined classes
 43. [] overloading for class

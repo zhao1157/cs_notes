@@ -1,3 +1,63 @@
+//======= 95 ======
+//This is to practice function template
+#include <iostream>
+#define PI 3.141592653
+
+template <typename T>
+void Get(T a){
+    std:: cout << "type " << typeid(T).name() << ": " <<  a << std::endl;
+}
+
+template <typename T, typename U>
+U Get(T a){
+    return static_cast<U> (a);
+}
+
+//templates can also be for variables
+template <int N>
+void SetArray(){
+    double arr[N];
+    for (int i = 0; i < N; i++){
+        arr[i] = PI * i;
+    }
+
+    for (auto ele : arr)
+        std::cout << ele << " ";
+    std::cout << std::endl;
+}
+
+template <typename T, int N>
+void SetArray(){
+    T arr[N];
+    for (int i = 0; i < N; i++){
+        arr[i] = PI*i;
+    }
+
+    for (auto ele:arr){
+        std::cout << ele << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main(){
+    Get(2);
+    Get<int> (3);
+    Get<double>(3.2);
+    Get<float>(2.3f);
+
+    std::cout << "___________\n";
+    std::cout << Get<double, int> (2.3) << std::endl;
+    Get<double> (2.3);
+
+    std::cout << "___________\n";
+    SetArray<4> ();
+
+    std::cout << "____________\n";
+    SetArray<int, 4>();
+    SetArray<float, 5> ();
+}
+
+/*
 //===== 94 ====
 //this is to study this pointer
 #include <iostream>
@@ -21,7 +81,6 @@ int main(){
     std::cout << sizeof(ptr_i) << " " << sizeof(ptr_d) << std::endl;
 }
 
-/*
 //===== 93 ====
 //This is to practice [] operator overloading
 #include <iostream>
