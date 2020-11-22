@@ -1,3 +1,75 @@
+//======= 97 =======
+//This is to practice class templates and inheritence
+#include <iostream>
+
+class Person{
+    public:
+        virtual void Get() = 0;
+};
+
+template <typename T, typename U>
+class PlanetPerson: public Person{
+    private:
+        T name;
+        U age;
+    public:
+        static int num_of_planetperson;
+        PlanetPerson(T _name, U _age): name(_name), age(_age){num_of_planetperson++;}
+        void Get() override;
+};
+
+template<typename T, typename U>
+int PlanetPerson<T, U>:: num_of_planetperson = 0;
+
+template<typename T, typename U>
+void PlanetPerson<T, U>::Get(){
+    std::cout << "name typeid " << typeid(T).name() << ": " << name;
+    std::cout << "; ";
+    std::cout << "age typeid " << typeid(U).name() << ": " << age << std::endl;
+}
+
+void Get_Person(Person * p){
+    p -> Get();
+}
+
+void Get_Person(Person &p){
+    p.Get();
+}
+
+template<typename T, typename U>
+class EarthCountry: public PlanetPerson<T, U>{
+    private:
+        T country_name;
+    public:
+        static int num_of_countries;
+        EarthCountry(T _pname, U _page, T _cname): PlanetPerson<T, U>(_pname, _page),  country_name(_cname){num_of_countries ++;}
+
+};
+
+template<typename T, typename U>
+int EarthCountry<T, U>:: num_of_countries = 0;
+
+
+int main(){
+    PlanetPerson<std::string, int> earth ("Earth", 300000);
+    //earth.Get();
+    Get_Person(static_cast<Person *> (&earth));
+    Get_Person(static_cast<Person &> (earth));
+    
+    std::cout << "___________\n";
+    PlanetPerson<double, float> mars (2.3, 4.6f);
+    Get_Person(static_cast<Person &> (mars));
+
+    std::cout << "__________\n";
+
+    EarthCountry<std::string, int> china ("earth", 30, "china");
+    china.Get();
+    std::cout << china.num_of_planetperson << std::endl;
+    std::cout << mars.num_of_planetperson << std::endl;
+    std::cout << china.num_of_countries << std::endl;
+}
+
+/*
 //========= 96 =======
 //class template
 #include <iostream>
@@ -49,7 +121,6 @@ int main(){
     //Family::Get_numoffamilies(); // has to specify the tempalte parameters
 }
 
-/*
 //======= 95 ======
 //This is to practice function template
 #include <iostream>

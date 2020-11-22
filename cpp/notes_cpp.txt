@@ -1,3 +1,4 @@
+53. class templates can be inherited, and only difference is to specify the template parameters when using it.
 52. when calling static functions/data in a template class, we do not have to specify the template parameters, like Family<T, N>::num_of_families; if outside of class, we have to specify the template parameters. The static members are not shared in different template parameters, and are shared if the template parameters are the same
 51. class template --> member function defined outside of the class: template<typename T, int N> T* Family<T, N> Get(){...}
 50. templates are a type of polymorphism, happening at compile time. Parametric polymorphism
