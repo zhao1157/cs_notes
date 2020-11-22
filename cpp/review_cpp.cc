@@ -1,3 +1,55 @@
+//========= 96 =======
+//class template
+#include <iostream>
+
+template<typename T, int N>
+class Family{
+    private:
+        T members[N];
+        static int num_of_families;
+    public:
+        Family(){num_of_families ++;}
+        Family(T _a): members({_a}){num_of_families ++;}
+        Family(T _a, T _b): members({_a, _b}){num_of_families ++;} 
+
+        T * Get();
+
+        static void Get_numoffamilies();
+};
+
+template <typename T, int N>
+void Family<T, N> :: Get_numoffamilies(){
+    std::cout << Family::num_of_families << std::endl; // inside the class/function, the template parameters are not required
+}
+
+template <typename T, int N>
+int Family<T, N>::num_of_families = 0;
+
+template<typename T, int N> 
+T* Family<T, N>::Get(){
+    return members;
+}
+
+int main(){
+    const int N = 2;
+    Family<std::string, N> f1("parent", "son");
+
+    std::string *ptr = f1.Get();
+    for (int i = 0; i < N; i++){
+        std::cout << *ptr << " ";
+        ptr++;
+    }
+    std::cout << std::endl;
+
+    f1.Get_numoffamilies();
+    Family<std::string, N>::Get_numoffamilies();
+    Family<std::string, 1>::Get_numoffamilies();
+    Family<std::string, 2>::Get_numoffamilies();
+    Family<int, 2>::Get_numoffamilies();
+    //Family::Get_numoffamilies(); // has to specify the tempalte parameters
+}
+
+/*
 //======= 95 ======
 //This is to practice function template
 #include <iostream>
@@ -57,7 +109,6 @@ int main(){
     SetArray<float, 5> ();
 }
 
-/*
 //===== 94 ====
 //this is to study this pointer
 #include <iostream>
