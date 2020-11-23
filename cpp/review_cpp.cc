@@ -1,3 +1,46 @@
+//===== 100 ====
+//A friend class which take a template class as an argument, then the friend class has to be template a class
+#include <iostream>
+
+template <typename T, int N>
+class Person{
+    private:
+        T Gender[N];
+        template<typename TT, int NN> friend class GetPerson; //has to be different T and N
+    public:
+        Person(T _a, T _b, T _c); //: Gender({_a, _b, _c}){}; // not valid in clang on mac
+        void Get(){
+            std::cout << Gender << std::endl; // in c++, array name represents the location of the array
+        }
+};
+
+template <typename T, int N>
+Person<T, N>::Person(T _a, T _b, T _c){ //: Gender({_a, _b, _c}){
+    Gender[0] = _a;
+    Gender[1] = _b;
+    Gender[2] = _c;
+}
+
+template<typename T, int N>
+class GetPerson{
+    public:
+        void Get(Person<T, N> &p){
+            for (auto ele : p.Gender){
+                std::cout << ele << " ";
+            }
+            std::cout << std::endl;
+        }
+};
+
+int main(){
+    Person<std::string, 3> p1 ("male", "female", "transgender");
+    GetPerson<std::string, 3> getp;
+    getp.Get(p1);
+    p1.Get();
+}
+
+
+/*
 //========= 99 ========
 //virtual polymorphism only works in pointer case, not by reference
 #include <iostream>
@@ -44,7 +87,6 @@ int main(){
     b . Get();
 }
 
-/*
 //====== 98 =====
 //pure virtual class can not be instantiable
 #include <iostream>
@@ -88,7 +130,7 @@ int main(){
     pf -> xx(); // after converting pointer p to Friend class, it can access xx() function
     std::cout << "_________\n";
 
-    Friend pp = dynamic_cast < Friend &> (*p); //*p not p
+    Friend pp = dynamic_cast < Friend &> (*p); // *p not p
     pp.xx();
 }
 
