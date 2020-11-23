@@ -1,3 +1,45 @@
+//===== 102 =====
+//This is to practice template friend class within a non-template class
+#include <iostream>
+
+template<typename T>
+class GetPerson;
+
+class Person{
+    private:
+        int age = 30;
+        friend class GetPerson<Person>; //only Person-type GetPerson class is Person's friend class
+};
+
+class PPerson{
+    private:
+        std::string age = "string: 30";
+        template <typename T> friend class GetPerson;
+};
+
+template<typename T>
+class GetPerson{
+    public:
+        void Get(T &p);
+};
+
+template<typename T>
+void GetPerson<T>::Get(T &p){
+    std::cout << p.age << std::endl;
+}
+
+int main(){
+    Person p;
+    PPerson pp;
+    GetPerson<Person> getp;
+    getp.Get(p);
+    //getp.Get(pp); //getp only works for Person class, not PPerson class
+    GetPerson<PPerson> getpp;
+    getpp.Get(pp);
+}
+
+
+/*
 //====== 101 =====
 //This is to test the friend class
 #include <iostream>
@@ -34,7 +76,7 @@ int main(){
     Person<int> p2(23);
     //f.Get(p2); // as template parameters do not match, they are not friends
 }
-/*
+
 //===== 100 ====
 //A friend class which take a template class as an argument, then the friend class has to be template a class
 #include <iostream>
