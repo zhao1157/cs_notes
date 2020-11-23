@@ -1,3 +1,50 @@
+//========= 99 ========
+//virtual polymorphism only works in pointer case, not by reference
+#include <iostream>
+
+class Base{
+    public:
+        virtual void Get(){
+            std::cout << "Base\n";
+        }
+        void Get_1(){
+            std::cout << "base get_1\n";
+        }
+};
+
+class Derive:public Base{
+    public:
+        void Get() override{
+            std::cout << "Derive\n";
+        }
+        void Get_1(){
+            std::cout << "derive get_1\n";
+        }
+};
+
+void Get(Base & b){
+    b.Get();
+    //b -> Get();
+}
+
+int main(){
+    Derive d;
+    Get(d);
+
+    Base *ptr = &d;
+    ptr -> Get();
+
+    std::cout << "___________\n";
+    ptr = static_cast<Base *> (&d); //pointer points to correct virtual function
+    ptr -> Get();
+    ptr -> Get_1();
+    
+    std::cout << "___________\n";
+    Base b = static_cast<Base &> (d); //reference does not refer to the correct virtual function
+    b . Get();
+}
+
+/*
 //====== 98 =====
 //pure virtual class can not be instantiable
 #include <iostream>
@@ -46,7 +93,6 @@ int main(){
 }
 
 
-/*
 //======= 97 =======
 //This is to practice class templates and inheritence
 #include <iostream>
