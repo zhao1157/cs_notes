@@ -1,3 +1,40 @@
+//====== 101 =====
+//This is to test the friend class
+#include <iostream>
+
+template<typename T>
+class Friend;
+
+template <typename T>
+class Person{
+    private:
+        T name;
+        template<typename TT> friend class Friend;
+    public:
+        Person(T _name);
+};
+
+template<typename T>
+Person<T>::Person(T _name){
+    name = _name;
+}
+template <typename T>
+class Friend{
+    public:
+        void Get(Person<T> &p){
+            std::cout << p.name << std::endl;
+        }
+};
+
+int main(){
+    Person<std::string> p("zls");
+    Friend<std::string> f;
+    f.Get(p);
+
+    Person<int> p2(23);
+    //f.Get(p2); // as template parameters do not match, they are not friends
+}
+/*
 //===== 100 ====
 //A friend class which take a template class as an argument, then the friend class has to be template a class
 #include <iostream>
@@ -40,7 +77,6 @@ int main(){
 }
 
 
-/*
 //========= 99 ========
 //virtual polymorphism only works in pointer case, not by reference
 #include <iostream>
