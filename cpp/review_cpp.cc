@@ -1,3 +1,39 @@
+//====== 105 =======
+//This is to test struct and class templates
+#include <iostream>
+
+template<typename T> class Person;
+
+struct Get{
+    private:
+        //Person<Get> p; // Person is not defined yet
+        Person<Get>;
+    public:
+        void get();
+};
+
+template<typename T>
+class Person{
+    private:
+        void Get(){
+            std::cout << "Person\n";
+        }
+    public:
+        friend T;
+};
+
+void Get::get(){
+    Person <Get> p;
+    p.Get();
+}
+
+int main(){
+    Get g;
+    g.get();
+}
+
+
+/*
 //==== 104 ===
 // a template class can be a friend of another class for all its instances, or just a few specific instances are its friends
 #include <iostream>
@@ -63,7 +99,8 @@ int main(){
     F2<F1<int>> f5;
     f5.Get();
 }
-/*
+
+
 //==== 103 ====
 //if T is a customized class type, then "friend T" works to set class T as a friend class
 #include <iostream>

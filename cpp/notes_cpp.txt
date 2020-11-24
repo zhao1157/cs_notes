@@ -1,3 +1,4 @@
+60. struct and class can both be templated
 59. we can control the instances of a template class to be another class's friends.
 58. If T is a cutomized class type, "friend T" works to set T as a friend class
 57. For a template class Person, Person<xx> is an actual class, while Person is just a blueprint or template, not an actual class
