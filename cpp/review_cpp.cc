@@ -1,3 +1,30 @@
+//====== 107 ====
+//This is to practice assign a value to a function
+#include <iostream>
+
+int & assign_int(){
+    static int a=-1;
+    std::cout << a << std::endl;
+    return a;
+}
+
+double & assign_double(double & d){
+    return d;
+}
+
+int main(){
+    assign_int() = 3;
+    
+    assign_int();
+
+    std::cout << "______\n";
+    double d = 9;
+    assign_double(d) = 22;
+    std::cout << d << std::endl;
+}
+
+
+/*
 //==== 106 ====
 //This is to implement smart pointers which automatically handles freeing memory when out of scope
 #include <iostream>
@@ -44,7 +71,6 @@ int main(){
     std::cout << *d << " " << d.Get() << std::endl;
 }
 
-/*
 //====== 105 =======
 //This is to test struct and class templates
 #include <iostream>
