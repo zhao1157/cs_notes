@@ -1,3 +1,4 @@
+61. Smart pointers are a part of the STL library, so we can practice implementing some of their features by template class. Like automatically releasing memory when out of scope, and deferenced just like regular pointer.
 60. struct and class can both be templated
 59. we can control the instances of a template class to be another class's friends.
 58. If T is a cutomized class type, "friend T" works to set T as a friend class

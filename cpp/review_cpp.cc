@@ -1,3 +1,50 @@
+//==== 106 ====
+//This is to implement smart pointers which automatically handles freeing memory when out of scope
+#include <iostream>
+
+template <typename T>
+class SmartPointer{
+    private:
+        T *ptr;
+    public:
+        SmartPointer(T *ptr){
+            this -> ptr = ptr;
+            std::cout << "Created\n";
+        }
+        ~SmartPointer(){
+            if (this -> ptr){
+                delete this -> ptr;
+            }
+            std::cout << typeid(ptr).name() <<  " is destroyed\n";
+        }
+
+        // operator overloading
+        // return a reference, not just a value
+        T &operator * (){ // prefix 
+            return * (this -> ptr);
+        }
+
+        T Get(){
+            return *this -> ptr;
+        }
+};
+
+int main(){
+    //creates a new scope
+    {
+        SmartPointer<int> i(new int);
+        SmartPointer<std::string> s (new std::string);
+    }
+    //outside of the scope
+    std::cout << "out of scope\n";
+
+    std::cout << "________\n";
+    SmartPointer<double> d(new double);
+    *d = 2.3; //since this operator returns a reference, we can assign a value to that memory location
+    std::cout << *d << " " << d.Get() << std::endl;
+}
+
+/*
 //====== 105 =======
 //This is to test struct and class templates
 #include <iostream>
@@ -33,7 +80,6 @@ int main(){
 }
 
 
-/*
 //==== 104 ===
 // a template class can be a friend of another class for all its instances, or just a few specific instances are its friends
 #include <iostream>
