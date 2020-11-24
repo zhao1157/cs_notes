@@ -1,3 +1,69 @@
+//==== 104 ===
+// a template class can be a friend of another class for all its instances, or just a few specific instances are its friends
+#include <iostream>
+
+template <typename T> 
+class F1;
+
+class PPerson;
+
+class Person{
+    private:
+        void Get(){
+            std::cout << "Person private method\n";
+        }
+    public:
+        friend class F1<Person>; //only Person- and PPerso-F1 are its friends, other type-F1 classes are not its friends
+        friend class F1<PPerson>;
+        template <typename T> friend class F2; //all F2 classes are its friends
+};
+
+template <typename T>
+class F1{
+    public:
+        void Get(T & p){
+            p.Get();
+        }
+        void Getp(){
+            Person p;
+            p.Get();
+        }
+};
+
+template<typename T>
+class F2{
+    public:
+        void Get(){
+            Person p;
+            p.Get();
+        }
+};
+
+class PPerson{
+    private:
+        //friend class F1<PPerson>;
+        void Get(){
+            std::cout << "PPerson private method\n";
+        }
+};
+
+int main(){
+    F1<Person> f1;
+    f1.Get(*(new Person));
+    std::cout << "_____\n";
+    F1<PPerson> f2;
+    //f2.Get(*(new PPerson)); //private and not a friend, so can not access it
+    f2.Getp();
+
+    std::cout << "_____\n";
+    F2<int> f3;
+    f3.Get();
+    F2<double>f4;
+    f4.Get();
+    F2<F1<int>> f5;
+    f5.Get();
+}
+/*
 //==== 103 ====
 //if T is a customized class type, then "friend T" works to set class T as a friend class
 #include <iostream>
@@ -26,7 +92,6 @@ int main(){
     getp.Get(p);
 }
 
-/*
 //===== 102 =====
 //This is to practice template friend class within a non-template class
 #include <iostream>
