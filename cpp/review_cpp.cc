@@ -1,3 +1,32 @@
+//==== 103 ====
+//if T is a customized class type, then "friend T" works to set class T as a friend class
+#include <iostream>
+
+template<typename T>
+class Person{
+    public:
+        friend T;
+    private:
+        void Get(){
+            std::cout << "Person\n";
+        }
+};
+
+class GetPerson{
+    public:
+        void Get(Person<GetPerson> &p){
+            p. Get();
+        }
+};
+
+int main(){
+    GetPerson getp;
+    getp.Get(*(new Person<GetPerson>));
+    Person<GetPerson> p;
+    getp.Get(p);
+}
+
+/*
 //===== 102 =====
 //This is to practice template friend class within a non-template class
 #include <iostream>
@@ -38,8 +67,6 @@ int main(){
     getpp.Get(pp);
 }
 
-
-/*
 //====== 101 =====
 //This is to test the friend class
 #include <iostream>
