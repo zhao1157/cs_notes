@@ -1,3 +1,37 @@
+//===== 108 =====
+// this is to practice -> overloading
+#include <iostream>
+
+template <typename T>
+class SmartPointer{
+    private:
+        T *ptr;
+    public:
+        SmartPointer(T *_ptr){
+            ptr = _ptr;
+        }
+        ~SmartPointer (){
+            delete ptr;
+        }
+
+        T * operator -> (){
+            return ptr;
+        }
+};
+
+int main(){
+    std::string s = "hello", *ptr_s;
+    ptr_s = &s;
+    std::cout << s.size() << std::endl;
+    std::cout << ptr_s -> size() << std::endl;
+
+    std::cout << "_______\n";
+    ptr_s = new std::string("hi");
+    SmartPointer<std::string> sp (ptr_s); // (new std::string ("hi"));
+    std::cout << sp -> size() << std::endl;
+}
+
+/*
 //====== 107 ====
 //This is to practice assign a value to a function
 #include <iostream>
@@ -24,7 +58,6 @@ int main(){
 }
 
 
-/*
 //==== 106 ====
 //This is to implement smart pointers which automatically handles freeing memory when out of scope
 #include <iostream>
