@@ -1,3 +1,4 @@
+63. *ptr returns a reference(has a memory location), it is a lvalue, thus can be assigned to a rvalue
 62. If a function returns a reference, we can assign a value to that function.
 61. Smart pointers are a part of the STL library, so we can practice implementing some of their features by template class. Like automatically releasing memory when out of scope, and deferenced just like regular pointer.
 60. struct and class can both be templated
