@@ -1,3 +1,6 @@
+67. <unistd.h>, there is a feature, which is sleep(2), just like the command in linux terminal
+66. std::this_thread::sleep_for(std::chrono::seconds(2)), or microseconds(2000000), or milliseconds(2000), nanoseconds(2000000000): put this thread in sleep for a mount of time
+65. without specifying task_thread.join() or task_thread.detach(), the program will abort.
 64. "->" overloading, it returns just the pointer itself
 63. *ptr returns a reference(has a memory location), it is a lvalue, thus can be assigned to a rvalue
 62. If a function returns a reference, we can assign a value to that function.

@@ -1,3 +1,35 @@
+//====== 109 ====
+//This is to practice thread
+#include <iostream>
+#include <thread>
+#include <chrono>
+//#include <unistd.h> // for sleep()
+
+static bool reached = false;
+void Task(){
+    int i = 1;
+    while(! reached){
+        std::cout << "In the task " << i << "\n";
+        i ++;
+        //sleep (.9);
+        //std::this_thread::sleep_for(std::chrono::seconds(1));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        //std::this_thread::sleep_for(std::chrono::microseconds(500000));
+        std::this_thread::sleep_for(std::chrono::nanoseconds(500000000));
+    }
+}
+
+int main(){
+    std::thread task_thread (Task);
+    //sleep(2);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << "In main thread, reached is set to true\n";
+    reached = true;
+    task_thread.join();
+    //task_thread.detach();
+}
+
+/*
 //===== 108 =====
 // this is to practice -> overloading
 #include <iostream>
@@ -31,7 +63,6 @@ int main(){
     std::cout << sp -> size() << std::endl;
 }
 
-/*
 //====== 107 ====
 //This is to practice assign a value to a function
 #include <iostream>
