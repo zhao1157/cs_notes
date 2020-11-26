@@ -1,3 +1,4 @@
+70. if the child process needs more time than the main thread and the child thread is detached from the main one, then the child thread will run to the end and deallocates resources allocated.
 69. std::thread my_thread; my_thread.join() -> the main thread will wait for the child thread to finish; my_thread.detach() -> the child thread is separated from the main thread, and it will execute independently.
 68. std::thread my_threads[3]; for (auto & thread : my_threads); note: without &, error
 67. <unistd.h>, there is a feature, which is sleep(2), just like the command in linux terminal

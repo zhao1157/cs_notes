@@ -1,3 +1,34 @@
+//====== 111 =======
+//if the child thread is detached from the main thread and the main thread exits before the child thread, the child thread will still run to the end
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void Task(){
+    int n = 3;
+    std::cout << "Beginning of the task " << std::this_thread::get_id() << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(n));
+    std::cout << "End of the task after " << n << " seconds.\n";
+}
+
+void Initiate_thread(){
+    std::thread my_thread;
+    my_thread = std::thread(Task);
+    my_thread.detach();
+    //my_thread.join();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << std::this_thread::get_id() << " after 1 second.\n";
+}
+
+int main(){
+    int n = 1;
+    Initiate_thread();
+    std::this_thread::sleep_for(std::chrono::seconds(n));
+    std::cout << std::this_thread::get_id() << " after " << n << " seconds.\n";
+}
+
+
+/*
 //===== 110 ======
 //This is to practice thread take a function with arguments
 #include <iostream>
@@ -21,7 +52,6 @@ int main(){
 }
 
 
-/*
 //====== 109 ====
 //This is to practice thread
 #include <iostream>
