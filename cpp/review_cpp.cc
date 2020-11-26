@@ -1,3 +1,38 @@
+//======= 113 ======
+//This is test if we can spawn one child thread inside another child thread
+#include<iostream>
+#include <thread>
+#include <chrono>
+
+void Second_Thread();
+
+void First_Thread(){
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << std::this_thread::get_id() << " slept for 1 second" << std::endl;
+
+    std::thread second_thread(Second_Thread);
+
+    second_thread.detach();
+}
+
+void Second_Thread(){
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << std::this_thread::get_id() << " slept for 1 second" << std::endl;
+}
+
+int main(){
+    int n_sec = 2;
+    int n_millisec = 3;
+    std::thread first_thread(First_Thread);
+    first_thread.detach();
+
+    std::this_thread::sleep_for(std::chrono::seconds(n_sec) + std::chrono::milliseconds(n_millisec));
+    std::cout << std::this_thread::get_id() << " slept for " <<  n_sec << " seconds " << n_millisec << " milliseconds\n";
+}
+
+
+/*
 //====== 112 =======
 //This is to test a feature of class
 #include <iostream>
@@ -23,7 +58,6 @@ int main(){
     std::cout << p.i << std::endl;
 }
 
-/*
 //====== 111 =======
 //if the child thread is detached from the main thread and the main thread exits before the child thread, the child thread will still run to the end
 #include <iostream>
