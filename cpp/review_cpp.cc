@@ -1,3 +1,33 @@
+//======== 114 =======
+//since we have to join or detach a child thread before it goes out of scope, we can wrap it
+#include <iostream>
+#include <thread>
+
+void f(int n){
+    for (int i = 0; i < n; i++){
+        std::this_thread::sleep_for(std::chrono::milliseconds(i));
+    }
+}
+class SmartThread{
+    private:
+        std::thread sm_thread;
+    public:
+        SmartThread(){}
+        SmartThread(int n){
+            sm_thread = std::thread(f, n);
+        }
+
+        ~SmartThread(){
+            sm_thread.join();
+        }
+};
+
+int main(){
+    SmartThread st(3);
+    //st = SmartThread(3); //since std::thread is not copiable, we can not copy another class object to another
+}
+
+/*
 //======= 113 ======
 //This is test if we can spawn one child thread inside another child thread
 #include<iostream>
@@ -32,7 +62,6 @@ int main(){
 }
 
 
-/*
 //====== 112 =======
 //This is to test a feature of class
 #include <iostream>

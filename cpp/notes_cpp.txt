@@ -1,3 +1,5 @@
+74. Just like smart pointers, we can wrap std::thread inside a class and join or detach it inside the destructor.
+73. std::thread is not copiable, but movable
 72. we can spawn another child thread inside a child thread
 71. class P{..}; P p; p = P(2); P p()-> not corrected as it's treated as a function declaration; p = P()
 70. if the child process needs more time than the main thread and the child thread is detached from the main one, then the child thread will run to the end and deallocates resources allocated.
