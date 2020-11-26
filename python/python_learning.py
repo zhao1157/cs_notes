@@ -1,3 +1,6 @@
+#======== 207 ======
+raise NotImplementedError("this module is not implemented")
+
 #======== 206 =========
 a = {2:3, '3':2}
 a.clear # remove all items in the dictionary
