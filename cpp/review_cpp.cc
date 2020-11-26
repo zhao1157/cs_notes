@@ -1,3 +1,29 @@
+//====== 112 =======
+//This is to test a feature of class
+#include <iostream>
+
+class P{
+    public:
+        int i;
+        P() = default;
+        P(int i){
+            this -> i = i;
+        }
+};
+
+void Get(); // it is a function declartion
+
+int main(){
+    //P p(); // treated as a funciton declaration
+    P p;
+    std::cout << p.i << std::endl; // random number?
+    p = P(); // default value?
+    std::cout << p.i << std::endl;
+    p = P(2);
+    std::cout << p.i << std::endl;
+}
+
+/*
 //====== 111 =======
 //if the child thread is detached from the main thread and the main thread exits before the child thread, the child thread will still run to the end
 #include <iostream>
@@ -28,7 +54,6 @@ int main(){
 }
 
 
-/*
 //===== 110 ======
 //This is to practice thread take a function with arguments
 #include <iostream>
