@@ -1,3 +1,4 @@
+75. In a thread, when passing by reference, use std::ref(variable), by default it is by value
 74. Just like smart pointers, we can wrap std::thread inside a class and join or detach it inside the destructor.
 73. std::thread is not copiable, but movable
 72. we can spawn another child thread inside a child thread

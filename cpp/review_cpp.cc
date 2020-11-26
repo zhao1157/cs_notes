@@ -1,3 +1,22 @@
+//======= 115 =======
+//This is to test pass by value or reference in thread function
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void Task(int &a){
+    a = 3;
+}
+
+int main(){
+    int a = 2;
+    std::thread my_thread(Task, std::ref(a)); //by default pass by value. To use by reference, use std::ref()
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << a << std::endl;
+    my_thread.join();
+}
+
+/*
 //======== 114 =======
 //since we have to join or detach a child thread before it goes out of scope, we can wrap it
 #include <iostream>
@@ -27,7 +46,6 @@ int main(){
     //st = SmartThread(3); //since std::thread is not copiable, we can not copy another class object to another
 }
 
-/*
 //======= 113 ======
 //This is test if we can spawn one child thread inside another child thread
 #include<iostream>
