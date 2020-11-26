@@ -1,3 +1,27 @@
+//===== 110 ======
+//This is to practice thread take a function with arguments
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void Task(int i){
+    std::cout << "Thread: " << std::this_thread::get_id() << ", " << i << std::endl;
+}
+
+int main(){
+    std::thread my_threads[3] = {std::thread(Task, 0), std::thread(Task, 1), std::thread(Task, 2)};
+    //my_threads[0] = std::thread(Task, 0);
+    
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    
+    for (auto & thread : my_threads){
+        //thread.join(); // the main thread will waits for the child thread to finish
+        thread.detach(); // the child thread is separated from the main thread, and it will execute independently
+    }
+}
+
+
+/*
 //====== 109 ====
 //This is to practice thread
 #include <iostream>
@@ -29,7 +53,6 @@ int main(){
     //task_thread.detach();
 }
 
-/*
 //===== 108 =====
 // this is to practice -> overloading
 #include <iostream>
