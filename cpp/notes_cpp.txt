@@ -1,3 +1,5 @@
+77. If a class has a pointer member, make sure it's initialized, otherwise segmentation fault when copied to another object;
+76. Assignment operator overloading: Person & operator = (const Person & p); if (this != & p) do sth; return *this;
 75. In a thread, when passing by reference, use std::ref(variable), by default it is by value
 74. Just like smart pointers, we can wrap std::thread inside a class and join or detach it inside the destructor.
 73. std::thread is not copiable, but movable

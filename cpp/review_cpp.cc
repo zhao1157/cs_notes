@@ -1,3 +1,64 @@
+//======== 116 =======
+//This is to practice assignment operator overloading when there is a pointer member in the class
+#include <iostream>
+
+class Person{
+    private:
+        std::string addr;
+        int *age; //has to be initialized when constructing an object
+    public:
+        Person(std::string _addr="earth_default"): addr(_addr), age(new int(-1)){}
+        void Get_addr(){
+            std::cout << addr << std::endl;
+        }
+        void Set_addr(std::string addr){
+            this -> addr = addr;
+        }
+
+        void Set_age(int age){
+            *(this -> age) = age;
+        }
+        void Get_age(){
+            std::cout << *(this -> age) << " " << this -> age << std::endl;
+        }
+
+        Person & operator =(const Person & p){
+            //if (*this != p)
+            //if (this != &p)
+            //   *(age) = *p.age;
+            //without this line, age pointer points to a different address in constructor.
+            this -> age = p.age; // this line ensures whenever there is an assignment operator, the age pointer points to the same address
+            return * this;
+        }
+};
+
+int main(){
+    Person p1;
+    p1.Get_addr();
+
+    Person p2("china");
+    p2.Get_addr();
+
+    Person p3;
+    p3 = p2;
+    p3.Get_addr();
+    p3.Set_addr("CH");
+    p3.Get_addr();
+    p2.Get_addr();
+
+    p1.Set_age(30);
+    p1.Get_age();
+
+    //p2.Set_age(40);
+    p2.Get_age();
+    p2.Set_age(23);
+    p3.Get_age();
+
+    Person p4 = p2;
+    p4.Get_age();
+}
+
+/*
 //======= 115 =======
 //This is to test pass by value or reference in thread function
 #include <iostream>
@@ -16,7 +77,6 @@ int main(){
     my_thread.join();
 }
 
-/*
 //======== 114 =======
 //since we have to join or detach a child thread before it goes out of scope, we can wrap it
 #include <iostream>
