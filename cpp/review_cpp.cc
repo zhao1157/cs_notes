@@ -1,3 +1,30 @@
+//===== 122 ======
+//This is enhance my understanding of std::thread::hardware_concurrency()
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void Task(int i){
+    std::cout << std::this_thread::get_id() << ": " << i << std::endl;
+}
+
+int main(){
+    int n = std::thread::hardware_concurrency();
+    std::thread concurrent_threads[n];
+
+    for (int i = 0; i < n; i++){
+        concurrent_threads[i] = std::thread(Task, i);
+        //concurrent_threads[i].join();
+    }
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    for (auto & thread : concurrent_threads){
+        thread.detach();
+    }
+}
+
+/*
 //===== 121 =====
 //This is to practice hardware_concurrency()
 #include <iostream>
@@ -8,7 +35,6 @@ int main(){
     std::cout << num_cores << " concurrent threads are supported.\n";
 }
 
-/*
 //======== 120 =======
 //This is to practice function in a thread function
 #include <iostream>
