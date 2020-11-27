@@ -1,3 +1,4 @@
+88. std::this_thread::sleep_for(std::chrono::seconds(3)+std::chrono::milliseconds(500)) -> we can add the time durations together
 87. copy assignment: P & operator =(const P &p){...} -> get called after declaration and when getting assigned p = p0;
 86. copy constructor: P& P(const P &p){...} -> gets called at declaring and initializing time, i.e. P p=p0 or P p(p0);
 85. std::move(std_string); std_string will be empty after being moved from; however for int/double, it still holds that value
