@@ -1,3 +1,70 @@
+//============ 117 =========
+//This is to enhance my understanding of assignment operator overloading'
+#include <iostream>
+
+class P{
+    private:
+        int age;
+        double height;
+        std::string * name;
+        int *num;
+    public:
+        P(int _age = -11, double _height = -200, std::string _name = "daemon", int _num = 5): age(_age), height(_height), name(new std::string (_name)), num(new int (_num)) {
+            std::cout << "done constructing\n"; 
+        }
+
+        void Get_age(){
+            std::cout << this -> age << std::endl;
+        }
+        void Get_height(){
+            std::cout << this -> height << std::endl;
+        }
+        void Get_name(){
+            std::cout << * this -> name << " " << this -> name << std::endl;
+        }
+        void Get_num(){
+            std::cout << * this -> num << " " << this -> num << std::endl;
+        }
+
+        P & operator = (const P &p){
+            std::cout << "assignment operator overloading\n";
+            if (this != &p){
+                this -> age = p.age; //-100;
+                this -> height = p.height; //-300;
+                //for pointers, we only want to copy the values, not the address
+                //*this -> name = *p.name; //"default";
+            }
+            //without the above operations, this will just be the default setup
+            //with the above operations, the original setup is modified
+            return * this;
+        }
+};
+
+int main(){
+    P p(30, 180, "zls", 9); // calling constructor
+    p.Get_age();
+    p.Get_height();
+    p.Get_name();
+    p.Get_num();
+
+    std::cout << "______________\n";
+    //it is not constructing an object from scratch, but just copying data members from another object, so not calling constructor. Also it is not calling assignment operator overloading.
+    P p2 = p; // it is not calling constructor or assignment operator overloading
+    p2.Get_age();
+    p2.Get_height();
+    p2.Get_name();
+    p2.Get_num();
+
+    std::cout << "____________\n";
+    P p3; // calling constructor, initializing including creating new pointers
+    p3 = p; // calling assignment operator overloading, overriding the original data members 
+    p3.Get_age();
+    p3.Get_height();
+    p3.Get_name();
+    p3.Get_num();
+}
+
+/*
 //======== 116 =======
 //This is to practice assignment operator overloading when there is a pointer member in the class
 #include <iostream>
@@ -58,7 +125,6 @@ int main(){
     p4.Get_age();
 }
 
-/*
 //======= 115 =======
 //This is to test pass by value or reference in thread function
 #include <iostream>

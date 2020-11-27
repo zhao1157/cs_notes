@@ -1,3 +1,4 @@
+78. "P p;" -> calling constructor; "P p = p0;" -> not calling constructor nor assignment operator overloading; "P p; p = p0;" -> calling constructor first to create an object, then assignment operator overloading to modify some of its data members
 77. If a class has a pointer member, make sure it's initialized, otherwise segmentation fault when copied to another object;
 76. Assignment operator overloading: Person & operator = (const Person & p); if (this != & p) do sth; return *this;
 75. In a thread, when passing by reference, use std::ref(variable), by default it is by value
