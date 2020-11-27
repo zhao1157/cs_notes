@@ -1,3 +1,27 @@
+//===== 123 ====
+//This is to test the std::move() semantics: for string, the variable being moved from is empty, but for int, it is not
+#include <iostream>
+
+int main(){
+    std::string s = "hello";
+    std::string arr[2];
+    arr[0] = s;
+    arr[1] = std::move(s);
+
+    std::cout << arr[1] << std::endl;
+    std::cout << s << std::endl; // the variable being moved from is now empty
+
+    std::cout << "___________\n";
+
+    double i = 2;
+    double arri[2];
+    arri[0] = i;
+    arri[1] = std::move(i);
+    std::cout << arri[1] << std::endl;
+    std::cout << i << std::endl; // the variable being moved from still holds that value
+}
+
+/*
 //===== 122 ======
 //This is enhance my understanding of std::thread::hardware_concurrency()
 #include <iostream>
@@ -24,7 +48,6 @@ int main(){
     }
 }
 
-/*
 //===== 121 =====
 //This is to practice hardware_concurrency()
 #include <iostream>
