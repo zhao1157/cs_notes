@@ -1,3 +1,30 @@
+//===== 125 ====
+//This is to enhance my understanding of copying assignment of class returned by a function
+#include <iostream>
+
+class P{
+    public:
+        P & operator = (const P &p){
+            std::cout << "copy assignment\n";
+            return *this;
+        }
+};
+
+P copy(){
+    P p;
+    return p;
+}
+int main(){
+    P p, p1;
+    std::cout << "___\n";
+    p1 = p;
+    std::cout << "___\n";
+    p1 = copy();
+    std::cout << "___\n";
+    copy();
+}
+
+/*
 //====== 124 =======
 //This is to practice copy constructor and copy assignment
 #include <iostream>
@@ -18,7 +45,7 @@ class P{
             name = p.name;
             //only copy the content
             ptr_gender = new std::string; //make sure the object pointed to by ptr_gender is created first
-            *ptr_gender = "xx"; //*p.ptr_gender;
+            *ptr_gender = "xx"; // *p.ptr_gender;
         }
         //copy assignment
         P & operator =(const P &p){
@@ -51,7 +78,6 @@ int main(){
     p2.Get();
 }
 
-/*
 //===== 123 ====
 //This is to test the std::move() semantics: for string, the variable being moved from is empty, but for int, it is not
 #include <iostream>
