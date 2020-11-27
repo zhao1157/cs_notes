@@ -1,3 +1,53 @@
+//======== 119 =========
+//This is to enhance my understanding of functor
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+class P{
+    public:
+        void operator ()(int i){
+            int ind = 0;
+            int secs = i/1000;
+            while (secs - ind){
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                std::cout << "\t1 second\n";
+                ind ++;
+            }
+            std::cout << "Done sleeping for " << secs << " seconds\n";
+        }
+};
+
+int main(){
+    P p;
+    p(300);
+}
+
+/*
+//=========== 118 =======
+//This is to practice () overloading, i.e. functor
+#include <iostream>
+
+class P{
+    private:
+        int age;
+    public:
+        P& operator () (int _age){
+            this -> age = _age;
+        }
+        void Get(){
+            std::cout << "age: " << this -> age << std::endl;
+        }
+};
+
+int main(){
+    P p;
+    p(2);
+    p.Get();
+    p(5);
+    p.Get();
+}
+
 //============ 117 =========
 //This is to enhance my understanding of assignment operator overloading'
 #include <iostream>
@@ -64,7 +114,7 @@ int main(){
     p3.Get_num();
 }
 
-/*
+
 //======== 116 =======
 //This is to practice assignment operator overloading when there is a pointer member in the class
 #include <iostream>
