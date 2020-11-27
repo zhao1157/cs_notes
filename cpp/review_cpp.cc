@@ -11,10 +11,14 @@ class Task{
     public:
         void operator ()(std::string msg, int n){
             for (int i = 0; i < n; i++){
-                //ensure only thread is executing this line of code
-                mu.lock();
-                std::cout << msg << std::this_thread::get_id() << ": " << i << std::endl;
-                mu.unlock();
+                //lock_guard get destroyed when out of scope
+                {
+                    //ensure only thread is executing this line of code
+                    std::lock_guard<std::mutex> guard (mu);
+                    //mu.lock();
+                    std::cout << msg << std::this_thread::get_id() << ": " << i << std::endl;
+                    //mu.unlock();
+                }
                 std::this_thread::sleep_for(std::chrono::nanoseconds(1));
             }
         }
