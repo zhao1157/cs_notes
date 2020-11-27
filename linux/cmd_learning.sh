@@ -1,3 +1,7 @@
+#==== 52 ===
+#on mac find out the number of logical cpus
+sysctl -n hw.ncpu
+
 #====== 51 =======
 # make vim indent with 4 spaces
 # in ~/.vimrc, add the following 3 lines
