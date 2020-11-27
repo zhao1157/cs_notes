@@ -1,3 +1,14 @@
+//===== 121 =====
+//This is to practice hardware_concurrency()
+#include <iostream>
+#include <thread>
+
+int main(){
+    int num_cores = std::thread::hardware_concurrency();
+    std::cout << num_cores << " concurrent threads are supported.\n";
+}
+
+/*
 //======== 120 =======
 //This is to practice function in a thread function
 #include <iostream>
@@ -32,8 +43,6 @@ int main(){
     my_thread.join();
 }
 
-
-/*
 //======== 119 =========
 //This is to enhance my understanding of functor
 #include <iostream>
@@ -117,7 +126,7 @@ class P{
                 this -> age = p.age; //-100;
                 this -> height = p.height; //-300;
                 //for pointers, we only want to copy the values, not the address
-                //*this -> name = *p.name; //"default";
+                // *this -> name = *p.name; //"default";
             }
             //without the above operations, this will just be the default setup
             //with the above operations, the original setup is modified

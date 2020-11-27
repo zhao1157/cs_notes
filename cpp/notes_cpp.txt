@@ -1,3 +1,4 @@
+82. std::thread::hardware_concurrency() returns the number of concurrent threads that are supported.
 81. std::thread my_thread(P(), 2); () operator is overloaded as a functor. 
 80. Functor is just like the call() function in a python class
 79. Functor: () operator overloading; P p; p(2); -> it is calling () operator
