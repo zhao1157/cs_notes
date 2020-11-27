@@ -1,3 +1,39 @@
+//======== 120 =======
+//This is to practice function in a thread function
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+class P{
+    public:
+        void operator ()(int& n){
+            for (int i = 0; i < n; i++){
+                std::cout << std::this_thread::get_id() << " " << i << std::endl;
+            }
+
+            n = 200;
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+        }
+
+        ~P(){
+            //std::thread::join();
+        }
+};
+
+int main(){
+    int n = 9;
+    std::thread my_thread;
+    my_thread = std::thread(P(), std::ref(n));
+    
+    //long enough for variable n to get modified 
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    std::cout << "\n\nFrom main (after) " << n << std::endl;
+    std::cout << "before join\n";
+    my_thread.join();
+}
+
+
+/*
 //======== 119 =========
 //This is to enhance my understanding of functor
 #include <iostream>
@@ -23,7 +59,6 @@ int main(){
     p(300);
 }
 
-/*
 //=========== 118 =======
 //This is to practice () overloading, i.e. functor
 #include <iostream>

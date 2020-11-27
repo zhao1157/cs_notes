@@ -1,3 +1,4 @@
+81. std::thread my_thread(P(), 2); () operator is overloaded as a functor. 
 80. Functor is just like the call() function in a python class
 79. Functor: () operator overloading; P p; p(2); -> it is calling () operator
 78. "P p;" -> calling constructor; "P p = p0;" -> not calling constructor nor assignment operator overloading; "P p; p = p0;" -> calling constructor first to create an object, then assignment operator overloading to modify some of its data members
