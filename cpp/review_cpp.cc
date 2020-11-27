@@ -1,3 +1,57 @@
+//====== 124 =======
+//This is to practice copy constructor and copy assignment
+#include <iostream>
+
+class P{
+    private:
+        int age;
+        std::string name;
+        std::string * ptr_gender; // make sure the object pointed to by ptr_gender is created first
+    public:
+        P(int _age = -100, std::string _name = "none", std::string _gender = "TBD"):
+            age(_age), name(_name), ptr_gender(new std::string(_gender)){}
+
+        //copy constructor
+        P(const P &p){
+            std::cout << "\tcopy constructor is being called\n";
+            age  = p.age;
+            name = p.name;
+            //only copy the content
+            ptr_gender = new std::string; //make sure the object pointed to by ptr_gender is created first
+            *ptr_gender = "xx"; //*p.ptr_gender;
+        }
+        //copy assignment
+        P & operator =(const P &p){
+            std::cout << "\tcopy assignment is being called\n";
+            if (this == &p)
+                return *this;
+
+            delete ptr_gender; // release any resources allocated before to this pointer
+            age = p.age;
+            name = p.name;
+            *ptr_gender = "yy";
+            return *this;
+        }
+
+        void Get(){
+            std::cout << age << " " << name << " " << *ptr_gender << std::endl;
+        }
+};
+
+int main(){
+    P p1(30, "zls", "male");
+    //P p2(p1);
+    std::cout << "declaring and initializing\n";
+    P p2 = p1; //only copy constructor when declaring and initializing it
+    std::cout << "end of declaring and initializing\n";
+    
+    std::cout << "before assigning\n"; 
+    p2 = p1;
+    std::cout << "after assigning\n";
+    p2.Get();
+}
+
+/*
 //===== 123 ====
 //This is to test the std::move() semantics: for string, the variable being moved from is empty, but for int, it is not
 #include <iostream>
@@ -21,7 +75,6 @@ int main(){
     std::cout << i << std::endl; // the variable being moved from still holds that value
 }
 
-/*
 //===== 122 ======
 //This is enhance my understanding of std::thread::hardware_concurrency()
 #include <iostream>

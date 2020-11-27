@@ -1,3 +1,5 @@
+87. copy assignment: P & operator =(const P &p){...} -> get called after declaration and when getting assigned p = p0;
+86. copy constructor: P& P(const P &p){...} -> gets called at declaring and initializing time, i.e. P p=p0 or P p(p0);
 85. std::move(std_string); std_string will be empty after being moved from; however for int/double, it still holds that value
 84. std::move(l); converting a lvalue to a rvalue reference. This avoids copying of objects, just a transfer of an ownership. Thus std::move() can greatly boost performance in some cases
 83. in multiple threading context, we should not oversubscribe the threads, otherwise performance gets compromised.
