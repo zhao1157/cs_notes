@@ -1,3 +1,48 @@
+//===== 126 =====
+//This is to practice data racing in multithreading context
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::mutex mu;
+
+class Task{
+    public:
+        void operator ()(std::string msg, int n){
+            for (int i = 0; i < n; i++){
+                //ensure only thread is executing this line of code
+                mu.lock();
+                std::cout << msg << std::this_thread::get_id() << ": " << i << std::endl;
+                mu.unlock();
+                std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+            }
+        }
+};
+
+class SmartThread{
+    private:
+        std::thread my_thread;
+    public:
+        SmartThread(int _n){
+            this -> my_thread = std::thread(Task(), "Task thread ", _n);
+        }
+        ~SmartThread(){
+            this -> my_thread.join();
+            std::cout << std::this_thread::get_id() << " got destroyed\n";
+        }
+};
+
+int main(){
+    int n = 200;
+    SmartThread st(n);
+    Task main_task;
+    main_task("\tMain thread ", n);
+
+    //std::cout <<"main thread " << std::this_thread::get_id() << std::endl;
+}
+
+/*
 //===== 125 ====
 //This is to enhance my understanding of copying assignment of class returned by a function
 #include <iostream>
@@ -24,7 +69,6 @@ int main(){
     copy();
 }
 
-/*
 //====== 124 =======
 //This is to practice copy constructor and copy assignment
 #include <iostream>
