@@ -1,3 +1,125 @@
+//====== 134 =====
+//This is to test the performance of lock_guard and atomic operations
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <cmath>
+#include <atomic>
+
+class Timer{
+    private:
+        std::chrono::high_resolution_clock::time_point counts_start, counts_end;
+    public:
+        //use functor to record the time stamp
+        void operator () (std::string phase){
+            if (phase == "start"){
+                counts_start = std::chrono::high_resolution_clock::now();
+            }else if (phase == "end"){
+                counts_end = std::chrono::high_resolution_clock::now();
+            }
+        }
+
+        void show_time(){
+            std::cout << "The time duration is " << std::chrono::duration_cast<std::chrono::milliseconds> (counts_end - counts_start).count() << " milliseconds\n";
+        }
+
+};
+
+std::mutex mu;
+
+template <typename T>
+void Task_thread(T &sum, int n, bool set_mutex = false){
+    for (int i = 0; i < n; i++){
+        //mu.lock();
+        if (set_mutex){
+            std::lock_guard<std::mutex> lock(mu);
+            sum ++;
+        } else{
+            sum ++;
+        }
+        //mu.unlock();
+    }
+}
+
+std::atomic<int> atomic_sum(0);
+void Task_thread_atomic(int n){
+    for (int i = 0; i < n; i++){
+        atomic_sum ++;
+    }
+}
+
+int main(){
+    int n = 400000000;
+    int sum = 0;
+    Timer timer;
+
+    timer("start");
+    Task_thread<int>(sum, n);
+    timer("end");
+    
+    std::cout << "_____ total sum ____\n";
+    timer.show_time();
+    std::cout << "sum = " << sum << std::endl;
+   
+    sum = 0; 
+    timer("start");
+    Task_thread<int>(sum, n/2);
+    Task_thread<int>(sum, n/2);
+    timer("end");
+    std::cout << "_____total sum ____\n";
+    timer.show_time();
+    std::cout << "sum = " << sum << std::endl;
+
+    sum = 0;
+    std::thread two_thread[2];
+    timer("start");
+    two_thread[0] = std::thread(Task_thread<int>, std::ref(sum), n/2, false);
+    two_thread[1] = std::thread(Task_thread<int>, std::ref(sum), n/2, false);
+   
+    for (auto & thread : two_thread){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+    timer("end");
+    std::cout << "_____total sum (NO lock_guard<mutex>)____\n";
+    timer.show_time();
+    std::cout << "sum = " << sum << std::endl;
+
+    sum = 0;
+    //std::thread two_thread[2];
+    timer("start");
+    two_thread[0] = std::thread(Task_thread<int>, std::ref(sum), n/2, true);
+    two_thread[1] = std::thread(Task_thread<int>, std::ref(sum), n/2, true);
+    
+    for (auto & thread : two_thread){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+    timer("end");
+    std::cout << "_____total sum (lock_guard<mutex>)____\n";
+    timer.show_time();
+    std::cout << "sum = " << sum << std::endl;
+
+    std::thread atomic_thread[2];
+    timer("start");
+    atomic_thread[0] = std::thread(Task_thread_atomic, n/2);
+    atomic_thread[1] = std::thread(Task_thread_atomic, n/2);
+
+    for (auto & thread : atomic_thread){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+
+    timer("end");
+    std::cout << "_____total sum (atomic)____\n";
+    timer.show_time();
+    std::cout << "sum = " << atomic_sum << std::endl;
+}
+
+/*
 //============= 133 ===========
 #include <chrono>
 #include <iostream>
@@ -59,7 +181,6 @@ int main(){
     timer.duration();
 }
 
-/*
 //=========== 132 ===========
 //This is to practice high_resolution_clock
 #include <iostream>
