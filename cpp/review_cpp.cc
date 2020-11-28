@@ -1,3 +1,44 @@
+//===== 129 ======
+//This is to practice how to call functions inside a class for multithreading contexts
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <mutex>
+
+std::mutex mu;
+
+void print (std::string);
+
+class P{
+    public:
+        static void static_func(std::string name){
+            print (name);
+        }
+        void non_static_func(std::string name){
+            print (name);
+        }
+};
+
+void print (std::string name){
+    std::lock_guard<std::mutex> lock (mu);
+    std::cout << name << ": " << std::this_thread::get_id() << std::endl;
+}
+
+int main(){
+    std::vector<std::thread> task_thread;
+    // calling a static function in a class
+    task_thread.push_back(std::thread(&P::static_func, "static"));
+    //calling a non-static function in a class
+    task_thread.push_back(std::thread(&P::non_static_func, new P, "non_static"));
+   
+    //join or detach the threads created
+    for (auto iter = task_thread.begin(); iter != task_thread.end(); iter++){
+        //(*iter).join();
+        iter -> join();
+    }
+}
+
+/*
 //====== 128 =====
 #include <iostream>
 #include <fstream>
@@ -35,7 +76,6 @@ int main(){
     my_thread.join();
 }
 
-/*
 //==== 127 ======
 //write to a file 
 #include <fstream>
