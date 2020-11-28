@@ -1,3 +1,65 @@
+//============= 133 ===========
+#include <chrono>
+#include <iostream>
+#include <thread>
+#include <cmath>
+#include <vector>
+
+
+class Timer{
+    private:
+        std::chrono::high_resolution_clock::time_point counts_start, counts_end;
+    public:
+        void operator () (std::string phase){
+            if (phase == "start"){
+                counts_start = std::chrono::high_resolution_clock::now();
+            }else if (phase == "end"){
+                counts_end = std::chrono::high_resolution_clock::now();
+            }
+        }
+
+        void duration(){
+            std::cout << std::chrono::duration_cast<std::chrono::milliseconds> (counts_end - counts_start).count() << std::endl;
+        }
+};
+
+void thread_task(int n){
+    int sum = 0;
+    for (int i = 0; i < n; i++){
+        sum += std::pow(-1, i)*i;
+    }
+}
+
+int main(){
+    Timer timer;
+    timer("start");
+    std::this_thread::sleep_for(std::chrono::seconds(0));
+    timer("end");
+    timer.duration();
+
+    timer("start");
+    thread_task(20000000);
+    thread_task(20000000);
+    timer("end");
+    timer.duration();
+
+    std::vector<std::thread> my_threads;
+
+    timer("start");
+    my_threads.push_back(std::thread(thread_task, 20000000));
+    //my_threads[0].join(); // allow the threads to execute in parallel 
+    my_threads.push_back(std::thread(thread_task, 20000000));
+
+
+    for (auto & thread : my_threads){
+        if (thread.joinable())
+            thread.join();
+    }
+    timer("end");
+    timer.duration();
+}
+
+/*
 //=========== 132 ===========
 //This is to practice high_resolution_clock
 #include <iostream>
@@ -22,7 +84,6 @@ int main(){
 }
 
 
-/*
 //===== 131 =====
 //This is to practice jonable before joining or detaching a thread
 #include <iostream>
