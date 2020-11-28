@@ -1,3 +1,50 @@
+//====== 128 =====
+#include <iostream>
+#include <fstream>
+#include <mutex> 
+#include <thread>
+
+class LogFile{
+    private:
+        std::ofstream f;
+        std::mutex mu;
+    public:
+        LogFile(std::string file_name){
+            f.open(file_name);
+        }
+        void write_to_file(std::string msg, int n){
+            for (int i = 0; i < n; i++){
+                std::lock_guard<std::mutex> lock(mu);
+                f << msg << ": " << i << " " << std::this_thread::get_id() << std::endl;
+            }
+        }
+};
+
+void ThreadLog(LogFile &log, std::string msg, int n){ // pass by reference
+    log.write_to_file(msg, n);
+}
+
+int main(){
+    LogFile log("log");
+
+    //std::thread my_thread(log.write_to_file, "\tbranch", 3000); //compiling error!!!
+    std::thread my_thread(ThreadLog, std::ref(log), "\tbranch", 3000); // in thread, pass by reference should use std::ref()
+
+    log.write_to_file("main", 3000);
+
+    my_thread.join();
+}
+
+/*
+//==== 127 ======
+//write to a file 
+#include <fstream>
+int main(){
+    std::ofstream f;
+    f.open("txt");
+    f << "love\n";
+}
+
 //===== 126 =====
 //This is to practice data racing in multithreading context
 #include <iostream>
@@ -46,7 +93,6 @@ int main(){
     //std::cout <<"main thread " << std::this_thread::get_id() << std::endl;
 }
 
-/*
 //===== 125 ====
 //This is to enhance my understanding of copying assignment of class returned by a function
 #include <iostream>
