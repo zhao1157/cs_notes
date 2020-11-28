@@ -1,3 +1,22 @@
+//====== 130 =====
+#include <iostream>
+#include <thread>
+
+class P{
+    public:
+        void operator ()(std::string name){
+            std::cout << name << ": " << std::this_thread::get_id() << std::endl;
+        }
+};
+
+int main(){
+    P p;
+    //functor 
+    std::thread pthread(p, "pthread"); //does not need to be (p) or (P())
+    pthread.join();
+}
+
+/*
 //===== 129 ======
 //This is to practice how to call functions inside a class for multithreading contexts
 #include <iostream>
@@ -38,7 +57,6 @@ int main(){
     }
 }
 
-/*
 //====== 128 =====
 #include <iostream>
 #include <fstream>
