@@ -1,3 +1,4 @@
+96. std::chrono::high_resolution_clock::now(); counts = (end_count - start_count).count(); std::chrono::duration_cast<std::chrono::seconds> counts;
 95. if (my_thread.joinable()) my_thread.join()/detach(); can not double join or detach, or join followed by detach.
 94. once the main thread finishes before the child thread, the child thread will be suspended.
 93. when threads take a functor, it can be std::thread(P(), arg1, arg2, ...) or std::thread(p, arg1,arg2, ...) or std::thread((P()), arg1, arg2, ...)

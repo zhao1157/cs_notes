@@ -1,3 +1,28 @@
+//=========== 132 ===========
+//This is to practice high_resolution_clock
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+int main(){
+    std::cout << "The system ticks " << std::chrono::high_resolution_clock::period::den << " times per second\n";
+    auto cycles_per_second = std::chrono::high_resolution_clock::period::den;
+    
+    auto start_count = std::chrono::high_resolution_clock::now(); 
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    auto end_count = std::chrono::high_resolution_clock::now();
+    
+    auto counts = (end_count - start_count).count();
+    
+    std::cout << "In 2 seconds, the systems ticks " << counts << " times\n";
+    auto dur_seconds = std::chrono::duration_cast<std::chrono::seconds> (end_count - start_count).count();
+    std::cout << "duration " << dur_seconds << "s\n";
+    
+    std::cout << "duration " << std::chrono::duration_cast<std::chrono::milliseconds>(end_count - start_count).count() << "millisec\n";
+}
+
+
+/*
 //===== 131 =====
 //This is to practice jonable before joining or detaching a thread
 #include <iostream>
@@ -23,7 +48,6 @@ int main(){
     //print_thread.join();
 }
 
-/*
 //====== 130 =====
 #include <iostream>
 #include <thread>
