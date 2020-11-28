@@ -1,3 +1,5 @@
+95. if (my_thread.joinable()) my_thread.join()/detach(); can not double join or detach, or join followed by detach.
+94. once the main thread finishes before the child thread, the child thread will be suspended.
 93. when threads take a functor, it can be std::thread(P(), arg1, arg2, ...) or std::thread(p, arg1,arg2, ...) or std::thread((P()), arg1, arg2, ...)
 92. std::thread(&P::static_func, arg1, arg2, ...); std::thread(&P::non_static_func, new P, arg1, arg2, ...)
 91. std::lock_guard and std::unique_lock are not copyable, but transferrable; lock_guard has less overhead than unique_guard, thus use the former if other features of unique_lock are not needed. Both release the mutex if the lock goes out of scope, and unique_lock has more control when to lock and unlock mutex.

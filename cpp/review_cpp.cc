@@ -1,3 +1,29 @@
+//===== 131 =====
+//This is to practice jonable before joining or detaching a thread
+#include <iostream>
+#include <thread>
+#include <fstream>
+#include <chrono>
+
+void print (std::string name, int n){
+    std::ofstream f("txt");
+    for (int i = 0; i < n; i++){
+        f << name << ": " << i << std::endl;
+        std::this_thread::sleep_for(std::chrono::microseconds(1));
+    }
+}
+
+int main(){
+    std::thread print_thread(print, "print_thread", 100000);
+    
+    std::this_thread::sleep_for(std::chrono::microseconds(5000));
+    if (print_thread.joinable()){
+        print_thread.detach();
+    }
+    //print_thread.join();
+}
+
+/*
 //====== 130 =====
 #include <iostream>
 #include <thread>
@@ -16,7 +42,6 @@ int main(){
     pthread.join();
 }
 
-/*
 //===== 129 ======
 //This is to practice how to call functions inside a class for multithreading contexts
 #include <iostream>
