@@ -1,3 +1,5 @@
+100. std::unique_lock<std::mutex> lock(mu); or lock (mu, std::defer_lock) to defer the locking of mu; then it can choose when to lock mu by lock.lock();
+99. std::mutex is neither copyable nor movable
 98. atomic-operations used in multi-threading context are faster than the lock_guard<mutex> mechanism
 97. std::chrono::high_resolution_clock:time_point is the type of std::chrono::high_resolution_clock::now()
 96. std::chrono::high_resolution_clock::now(); counts = (end_count - start_count).count(); std::chrono::duration_cast<std::chrono::seconds> counts;

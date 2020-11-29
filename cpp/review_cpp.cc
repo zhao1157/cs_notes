@@ -1,5 +1,52 @@
+//====== 135 ======
+//This is to practice unique_lock
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <map>
+#include <chrono>
+
+template <typename T>
+void ThreadTask(T a, std::mutex *mu){
+    std::unique_lock<std::mutex> lock(*mu, std::defer_lock);
+    std::cout << std::this_thread::get_id() << " is sleeping for 1 second\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    lock.lock();
+    std::cout << "\t" << std::this_thread::get_id() << ": (locked) " << a << std::endl;
+}
+
+void FillGap(std::mutex *mu){
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::unique_lock<std::mutex> lock (*mu);
+    std::cout << std::this_thread::get_id() << " filled the gap?\n";
+}
+
+void FillGap_2(std::mutex *mu){
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::unique_lock<std::mutex> lock(*mu);
+    std::cout << std::this_thread::get_id() << " filled the gap_2?\n";
+}
+
+int main(){
+    std::mutex mu;
+    std::map <std::string, std::thread> map_threads;
+    map_threads["int"] = std::thread(ThreadTask<int>, 2, &mu);
+    //map_threads["double"] = std::thread(ThreadTask<double>, 3.14159253, &mu);
+    //map_threads["string"] = std::thread(ThreadTask<std::string>, "****", &mu);
+    map_threads["fillgap"] = std::thread(FillGap, &mu);
+    map_threads["fillgap_2"] = std::thread(FillGap_2, &mu);
+
+
+    for (auto iter = map_threads.begin(); iter != map_threads.end(); iter++){
+        if (iter -> second.joinable()){
+            iter -> second.join();
+        }
+    }
+}
+
+/*
 //====== 134 =====
-//This is to test the performance of lock_guard and atomic operations
+//This is to test the performance of lock_guard and atomic operations and the later is faster
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -119,7 +166,6 @@ int main(){
     std::cout << "sum = " << atomic_sum << std::endl;
 }
 
-/*
 //============= 133 ===========
 #include <chrono>
 #include <iostream>
