@@ -1,3 +1,4 @@
+103. Return value optimization: omit a copy of the returned value by a function -> the copy constructor may or may not be called. It dependes on the compiler, even the copy constructor has side effects, like printing.
 102. In copy constructor, the argument has to be passing by reference, not by value
 101. void test(P &p) -> neither is called; void test(P p) -> copy constructor is called; P p = return_an_object_value -> neither is called; P p = return_an_object_reference -> copy constructor is called; P test(P &p1) -> if return p1, then there will be copy constructor colling to copy the value from p1 to the output of the function; P test(P p1) -> if return p1, then there will be one copy constructor to pass value to p1, one copy constructor to copy to the return of the function;
 100. std::unique_lock<std::mutex> lock(mu); or lock (mu, std::defer_lock) to defer the locking of mu; then it can choose when to lock mu by lock.lock();

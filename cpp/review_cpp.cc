@@ -17,7 +17,7 @@ class P{
 
 P test_1(){
     P p;
-    return p;
+    return p; // return value optimization, so a copy of the p is elided
 }
 
 P test_2(P p){
@@ -72,7 +72,7 @@ void test_2(const P p){
 P test_3(){
     P p;
     p.i = 200;
-    return p;
+    return p; // return value optimization
 }
 
 P & test_4(){
