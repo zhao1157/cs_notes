@@ -1,3 +1,75 @@
+//===== 138 ======
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <vector>
+
+struct Employee{
+    public:
+        std::mutex mu; // get one partner at a time
+        std::string name;
+        Employee (std::string _name): name(_name){}
+        std::vector<std::string> partners;
+        std::string Get_partners(){
+            std::string all_partners = "";
+            for (auto iter = partners.begin(); iter < partners.end() - 1; iter ++){
+                all_partners += *iter + ", ";
+            }
+            all_partners += *(partners.end()-1);
+            return all_partners;
+        }
+};
+
+void SendEmail(Employee * e1, Employee * e2){
+    static std::mutex mu;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    std::lock_guard<std::mutex> lock(mu); //make sure the cout is accessed by only one thread
+    std::cout << e1->name << " got a new partner: " << e2->name << std::endl;
+}
+
+void Pair_partners(Employee * e1, Employee *e2){
+    // each person can only pair with another person at a time, not multiple partners at a time
+    // so use mutex to synchronize the process
+    {
+        std::lock(e1->mu, e2->mu); // the two locks are protected from getting into a deadlock
+        std::lock_guard<std::mutex> lk1(e1->mu, std::adopt_lock);
+        std::lock_guard<std::mutex> lk2(e2->mu, std::adopt_lock);
+        
+        e1->partners.push_back(e2->name);
+        e2->partners.push_back(e1->name);
+        //keep the output clean
+        std::cout << e1->name << " and " << e2->name << " are partners.\n";
+    }
+     
+    //since sending emails is very time consuming, we do it in parallel
+    std::thread email_thread[2];
+    email_thread[0] = std::thread(SendEmail, e1, e2);
+    email_thread[1] = std::thread(SendEmail, e2, e1);
+    
+    email_thread[0].detach();
+    email_thread[1].detach();
+}
+
+
+int main(){
+    Employee bob ("Bob"), alice("Alice"), mike("Mike"), jim("Jim");
+    std::vector<std::thread> make_partners;
+    make_partners.emplace_back(std::thread(Pair_partners, &(bob), &(alice)));
+    make_partners.emplace_back(std::thread(Pair_partners, &alice, &mike));
+    make_partners.emplace_back(std::thread(Pair_partners, &bob, &mike));
+
+    for (auto & thread : make_partners){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+}
+
+/*
 //====== 137 =====
 #include <iostream>
 #include <chrono>
@@ -35,7 +107,6 @@ int main(){
     p2 = test_2(p);
 }
 
-/*
 //===== 136 ====
 //This is to practice when copy constructor and copy assignment are called
 #include <iostream>
