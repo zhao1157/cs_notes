@@ -1,3 +1,124 @@
+//====== 137 =====
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+class P{
+    public:
+        P() = default;
+        P(const P &p){
+            std::cout << "\tcopy constructor\n";
+        }
+        P & operator = (const P &p){
+            std::cout << "\tcopy assignment\n";
+            return *this;
+        }
+};
+
+P test_1(){
+    P p;
+    return p;
+}
+
+P test_2(P p){
+    std::cout << "before returning\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    return p;
+}
+
+int main(){
+    P p;
+    p = test_1();
+    
+    std::cout << "______\n";
+    P p2;
+    p2 = test_2(p);
+}
+
+/*
+//===== 136 ====
+//This is to practice when copy constructor and copy assignment are called
+#include <iostream>
+
+class P{
+    public:
+        int i = 0;
+        P() = default;
+        P (const P &p){ // p must be a lvalue, not rvalue, otherwise it is not copy constructor
+            std::cout << "copy constructor is called\n";
+        } 
+        //Copy constructor must pass object by reference, not by value
+        //P (const P p){
+        //    std::cout << "value copy constructor is called\n";
+        //}
+        P & operator = (const P &p){ // works for both value and reference
+            std::cout << "copy assignment is called\n";
+            return *this;
+        }
+        //can not overload in this way, as passing an object does not distinguish the calling of the two functions
+        //P & operator = (const P p){
+        //    std::cout << "(value) copy assignment is called\n";
+        //}
+};
+
+void test_1(const P &p){
+    std::cout << "neither should be called\n";
+}
+
+void test_2(const P p){
+    std::cout << "only copy constructor should be called\n";
+}
+
+P test_3(){
+    P p;
+    p.i = 200;
+    return p;
+}
+
+P & test_4(){
+    static P p;
+    return p;
+}
+
+P test_5(P &p){
+    std::cout << "before return\n";
+    //if return by reference, there will be no copy constructor happening
+    return p; // copy p into a rvalue using copy constructor to the scope of the function
+}
+
+P test_6(P p){
+    std::cout << "before returning\n";
+    return p;
+}
+
+int main(){
+    P p;
+    std::cout << "\t____________\n";
+    test_1(p);
+
+    std::cout << "\t____________\n";
+    test_2(p);
+
+    std::cout << "\t____ neither is called ________\n";
+    test_3(); // the return value is not assigned to any P object
+
+    std::cout << "\t____ copy assignment should be called ________\n";
+    p = test_3();
+
+    std::cout << "\t______ neither is called (test_3 returns a value, not a reference)________\n";
+    P p2 (test_3()); // for copy constructor to work, the argument has to be a reference, not a value, i.e. a lvalue
+    std::cout << p2.i << std::endl;
+
+    std::cout << "\t______ copy constructor should be called \n";
+    P p3 = test_4();
+
+    std::cout << "\t__ both are called ____\n";
+    p3 = test_5(p); //copy constructor is called inside the function, and copy assignment is called in this line
+
+    std::cout << "\t___ 2 copy constructor calling and one copy assignment______\n";
+    test_6(p);
+}
+
 //====== 135 ======
 //This is to practice unique_lock
 #include <iostream>
@@ -44,7 +165,6 @@ int main(){
     }
 }
 
-/*
 //====== 134 =====
 //This is to test the performance of lock_guard and atomic operations and the later is faster
 #include <iostream>
