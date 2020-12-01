@@ -1,3 +1,4 @@
+114. mu.try_lock() returns true if getting the lock, otherwise false. CAUTION: don't forget to mu.unlock() otherwise keep locked.
 113. we can inherit from std::mutex and impliment a lock_guard class, locking and locking the mutex object
 112. std::lock(mu1, mu2, ...) -> at least two mutexes
 111. std::lock_guard<std::mutex> lock(mu, std::adopt_lock) needs mu having already been locked, otherwise, it will not be locked

@@ -1,3 +1,68 @@
+//====== 143 ======
+//This is to practice try_lock(), which returns true if getting the lock, otherwise false
+#include <thread>
+#include <mutex>
+#include <iostream>
+#include <vector>
+#include <chrono>
+
+void task_1(std::mutex & mu, int &a, int & b, std::chrono::seconds sl){
+    std::this_thread::sleep_for(sl);
+    while (true){
+        if (mu.try_lock()){
+            std::cout << "task_1 a: " << a << std::endl;
+            mu.unlock();
+            break;
+        } else{
+            b ++;
+            std::cout << "task_1 b: " << b << std::endl;
+            std::this_thread::sleep_for(sl);
+        }
+    }
+}
+
+void task_2(std::mutex & mu, int & a, int &b, std::chrono::seconds sl){
+    mu.lock();
+    std::this_thread::sleep_for(5*sl);
+    a ++;
+    mu.unlock();
+}
+
+
+int main(){
+    std::mutex mu;
+    std::chrono::seconds sl(1);
+    int a =0;
+    int b = 0;
+    std::vector<std::thread> all_threads;
+    all_threads.emplace_back(std::thread(task_1, std::ref(mu), std::ref(a), std::ref(b), sl));
+    all_threads.emplace_back(std::thread(task_1, std::ref(mu), std::ref(a), std::ref(b), sl));
+
+
+    for (auto & thread : all_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+/*
+//===== 142 =====
+//This is to practice mutex in the main function
+#include <mutex>
+#include <iostream>
+#include <thread>
+
+int main(){
+    std::mutex mu;
+
+    mu.lock();
+    std::cout << std::this_thread::get_id() << " locks\n";
+    mu.unlock();
+    std::cout << std::this_thread::get_id() << " unlocks\n";
+}
+
+
 //===== 141 ======
 //This is to practice writing a lock_guard
 #include <iostream>
@@ -45,7 +110,6 @@ int main(){
 
 }
 
-/*
 //===== 140 ======
 //This is to practice lock_guard and adopt_lock, defer_lock
 #include <thread>
