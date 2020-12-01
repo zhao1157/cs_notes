@@ -1,3 +1,11 @@
+#======  208 ====
+# clear() to remove all elements
+a = {2:3, 's': 3}
+a.clear()
+
+b = [2, 3, 4]
+b.clear()
+
 #======== 207 ======
 raise NotImplementedError("this module is not implemented")
 
