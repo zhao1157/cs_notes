@@ -1,3 +1,4 @@
+107. Caution: when passing by reference in a thread, use std::ref()
 106. emplace_back() constructs the object in place, while push_back() might involve creating and destroying temporary objects
 105. my_vector.emplace_back() vs .push_back(); the former is more efficient than the later for the user-defined types, but are the same efficient for generic types.
 104. std::lock(lockable & lock1, lockable &lock2, ...) -> using a deadlock avoidance algorithm to lock the locks

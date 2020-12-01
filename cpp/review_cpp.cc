@@ -1,3 +1,36 @@
+/*
+//====== 139 ====
+//This is to figure out how we can pass a class object with mutex members to a function
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <vector>
+
+struct Log{
+    public:
+        std::mutex mu;
+};
+
+void MakeLog(Log &log, std::string msg){
+    std::lock_guard<std::mutex> lock(log.mu);
+    std::cout << std::this_thread::get_id() << ": " << msg << std::endl;
+}
+
+int main(){
+    Log log;
+    std::vector<std::thread> LogThreads;
+    LogThreads.emplace_back(std::thread(MakeLog, std::ref(log), "first"));
+    LogThreads.emplace_back(std::thread(MakeLog, std::ref(log), "second"));
+    LogThreads.emplace_back(std::thread(MakeLog, std::ref(log), "third"));
+
+
+    for (auto & thread : LogThreads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
 //===== 138 ======
 #include <iostream>
 #include <thread>
@@ -21,32 +54,32 @@ struct Employee{
         }
 };
 
-void SendEmail(Employee * e1, Employee * e2){
+void SendEmail(Employee & e1, Employee & e2){
     static std::mutex mu;
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
     std::lock_guard<std::mutex> lock(mu); //make sure the cout is accessed by only one thread
-    std::cout << e1->name << " got a new partner: " << e2->name << std::endl;
+    std::cout << e1.name << " got a new partner: " << e2.name << std::endl;
 }
 
-void Pair_partners(Employee * e1, Employee *e2){
+void Pair_partners(Employee & e1, Employee &e2){
     // each person can only pair with another person at a time, not multiple partners at a time
     // so use mutex to synchronize the process
     {
-        std::lock(e1->mu, e2->mu); // the two locks are protected from getting into a deadlock
-        std::lock_guard<std::mutex> lk1(e1->mu, std::adopt_lock);
-        std::lock_guard<std::mutex> lk2(e2->mu, std::adopt_lock);
+        std::lock(e1.mu, e2.mu); // the two locks are protected from getting into a deadlock
+        std::lock_guard<std::mutex> lk1(e1.mu, std::adopt_lock);
+        std::lock_guard<std::mutex> lk2(e2.mu, std::adopt_lock);
         
-        e1->partners.push_back(e2->name);
-        e2->partners.push_back(e1->name);
+        e1.partners.push_back(e2.name);
+        e2.partners.push_back(e1.name);
         //keep the output clean
-        std::cout << e1->name << " and " << e2->name << " are partners.\n";
+        std::cout << e1.name << " and " << e2.name << " are partners.\n";
     }
      
     //since sending emails is very time consuming, we do it in parallel
     std::thread email_thread[2];
-    email_thread[0] = std::thread(SendEmail, e1, e2);
-    email_thread[1] = std::thread(SendEmail, e2, e1);
+    email_thread[0] = std::thread(SendEmail, std::ref(e1), std::ref(e2));
+    email_thread[1] = std::thread(SendEmail, std::ref(e2), std::ref(e1));
     
     email_thread[0].detach();
     email_thread[1].detach();
@@ -56,9 +89,9 @@ void Pair_partners(Employee * e1, Employee *e2){
 int main(){
     Employee bob ("Bob"), alice("Alice"), mike("Mike"), jim("Jim");
     std::vector<std::thread> make_partners;
-    make_partners.emplace_back(std::thread(Pair_partners, &(bob), &(alice)));
-    make_partners.emplace_back(std::thread(Pair_partners, &alice, &mike));
-    make_partners.emplace_back(std::thread(Pair_partners, &bob, &mike));
+    make_partners.emplace_back(std::thread(Pair_partners, std::ref(bob), std::ref(alice)));
+    make_partners.emplace_back(std::thread(Pair_partners, std::ref(alice), std::ref(mike)));
+    make_partners.emplace_back(std::thread(Pair_partners, std::ref(bob), std::ref(mike)));
 
     for (auto & thread : make_partners){
         if (thread.joinable()){
@@ -69,7 +102,6 @@ int main(){
     std::this_thread::sleep_for(std::chrono::seconds(3));
 }
 
-/*
 //====== 137 =====
 #include <iostream>
 #include <chrono>
