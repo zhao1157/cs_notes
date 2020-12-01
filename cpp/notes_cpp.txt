@@ -1,3 +1,6 @@
+117. since std::lock_guard only accepts adopt_lock, we have to lock the mutexes before adopting them; std::lock(mu1, mu2, ...); std::lock_guard<std::mutex> lock_1(mu_1); std::lock_guard<std::mutex> lock_2(mu_2); ... -> if we forgot to wrapped mu? into lock_guard, then deadlock.
+116. std::unique_lock<std::mutex> lock_1(mu, std::defer_lock); ...; std::lock(lokc_1, lock_2, ...); -> ensure all mutexes are wrapped inside lock_? and get unlocked when out of scope
+115. static std::mutex mu; --> std::mutex MY_CLASS::mu; outside of the class
 114. mu.try_lock() returns true if getting the lock, otherwise false. CAUTION: don't forget to mu.unlock() otherwise keep locked.
 113. we can inherit from std::mutex and impliment a lock_guard class, locking and locking the mutex object
 112. std::lock(mu1, mu2, ...) -> at least two mutexes

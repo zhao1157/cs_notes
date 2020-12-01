@@ -1,3 +1,84 @@
+//====== 144 ======
+//This is to practice std::defer_lock, std::adopt_lock
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <vector>
+
+class BankAccount{
+    private:
+        static std::mutex mu_print;
+        std::mutex mu;
+        std::string name;
+        double balance;
+    public:
+        BankAccount(std::string _name, double _balance): name(_name), balance(_balance){}
+        friend void Transfer(BankAccount &, BankAccount &, double);
+        friend void print_balance(BankAccount &, BankAccount &, double, double, double);
+        friend void print_transaction(BankAccount &, BankAccount &);
+};
+
+std::mutex BankAccount::mu_print; // have to be declared/initialized here?
+
+void print_balance(BankAccount &, BankAccount &);
+ 
+void print_transaction(BankAccount & from, BankAccount & to){
+    std::cout << std::this_thread::get_id() << ": " << from.name << ": " << from.balance << "; "
+        << to.name << ": " << to.balance << std::endl;
+}
+
+void Transfer(BankAccount & from, BankAccount & to, double change){
+    if (&from == &to){
+        return;
+    }
+    double balance_from, balance_to;
+    {
+        //practice lock_guard/unique_lock, only with adopt_lock, since defer_lock is not supported for lock_guard
+        //std::lock(from.mu, to.mu);
+        //std::unique_lock<std::mutex> lock_1 (from.mu, std::adopt_lock);
+        //std::unique_lock<std::mutex> lock_2 (to.mu, std::adopt_lock);
+
+        std::unique_lock<std::mutex> lock_1 (from.mu, std::defer_lock);
+        std::unique_lock<std::mutex> lock_2 (to.mu, std::defer_lock);
+        std::lock(lock_1, lock_2);
+
+        from.balance -= change;
+        to.balance += change;
+        
+        //print_transaction (from, to);
+
+        balance_from = from.balance;
+        balance_to = to.balance;
+    }
+
+    print_balance(from, to, balance_from, balance_to, change);
+}
+void print_balance(BankAccount & from, BankAccount & to, double bal_from, double bal_to, double change){
+    std::lock_guard<std::mutex> lock(BankAccount::mu_print);
+    std::cout << std::this_thread::get_id() << ": " << change << " -> " << from.name << ": " << bal_from << "; " 
+        << to.name << ": " << bal_to << std::endl; 
+}
+
+int main(){
+    BankAccount acc_1("zls", 30000), acc_2("dsy", 15000),
+                acc_3("xxx", 20000), acc_4("yyy", 1000000);
+    
+    std::vector<std::thread> my_threads;
+    my_threads.emplace_back(std::thread(Transfer, std::ref(acc_1), std::ref(acc_2), 25000));
+    my_threads.emplace_back(std::thread(Transfer, std::ref(acc_1), std::ref(acc_3), 500));
+    my_threads.emplace_back(std::thread(Transfer, std::ref(acc_1), std::ref(acc_4), 15000));
+    my_threads.emplace_back(std::thread(Transfer, std::ref(acc_3), std::ref(acc_2), 2000));
+    my_threads.emplace_back(std::thread(Transfer, std::ref(acc_4), std::ref(acc_2), 2000));
+    my_threads.emplace_back(std::thread(Transfer, std::ref(acc_2), std::ref(acc_2), 25000));
+
+    for (std::thread & thread : my_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+/*
 //====== 143 ======
 //This is to practice try_lock(), which returns true if getting the lock, otherwise false
 #include <thread>
@@ -46,7 +127,6 @@ int main(){
     }
 }
 
-/*
 //===== 142 =====
 //This is to practice mutex in the main function
 #include <mutex>
