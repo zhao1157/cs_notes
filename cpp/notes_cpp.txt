@@ -1,3 +1,4 @@
+118. std::unique_lock<std::mutex> lock(mu, std::defer_lock); lock.try_lock(); -> no need to lock.unlock() as the destructor takes care of it, which is unlike mu;
 117. since std::lock_guard only accepts adopt_lock, we have to lock the mutexes before adopting them; std::lock(mu1, mu2, ...); std::lock_guard<std::mutex> lock_1(mu_1); std::lock_guard<std::mutex> lock_2(mu_2); ... -> if we forgot to wrapped mu? into lock_guard, then deadlock.
 116. std::unique_lock<std::mutex> lock_1(mu, std::defer_lock); ...; std::lock(lokc_1, lock_2, ...); -> ensure all mutexes are wrapped inside lock_? and get unlocked when out of scope
 115. static std::mutex mu; --> std::mutex MY_CLASS::mu; outside of the class

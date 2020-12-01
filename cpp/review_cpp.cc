@@ -1,3 +1,60 @@
+//====== 145 =====
+//This is to practice try_lock for std::unique_lock
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+class Test{
+    private:
+        std::mutex &mu;
+        std::chrono::seconds sec;
+        int a, b;
+    public:
+        Test(int _a, int _b, std::chrono::seconds _sec, std::mutex &_mu): mu(_mu), a(_a), b(_b), sec(_sec){}
+
+        void operator () (){
+            //std::unique_lock<std::mutex> lock (mu, std::defer_lock); //no need to call unlock explicitly
+            std::this_thread::sleep_for(sec);
+            while (true){
+                //if (lock.try_lock()){
+                if (mu.try_lock()){
+                    std::cout << "succeeded, a = " << a << std::endl;
+                    //lock.unlock(); // this is not necessary as the destructor will do the job
+                    break;
+                }else{
+                    b ++;
+                    std::cout << "failed to lock: " << b << std::endl;
+                    std::this_thread::sleep_for(sec);
+                    if (b > 10) break;
+                }
+            }
+        }
+
+        void start(){
+            std::lock_guard<std::mutex> lock(mu);
+            std::this_thread::sleep_for(sec*5);
+            a += 2;
+        }
+};
+
+int main(){
+    std::mutex mu;
+    Test test(2, 3, std::chrono::seconds(1), mu);
+
+    std::thread t1 (test);
+    std::thread t2 (&Test::start, &test);
+
+    t1.join();
+    t2.join();
+    
+    //mu.unlock();
+    mu.lock(); // since mu is locked by a child thread, and it will never unlock it, so deadlock here
+}
+
+
+
+/*
 //====== 144 ======
 //This is to practice std::defer_lock, std::adopt_lock
 #include <iostream>
@@ -78,7 +135,6 @@ int main(){
     }
 }
 
-/*
 //====== 143 ======
 //This is to practice try_lock(), which returns true if getting the lock, otherwise false
 #include <thread>
