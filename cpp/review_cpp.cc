@@ -1,4 +1,89 @@
+//===== 141 ======
+//This is to practice writing a lock_guard
+#include <iostream>
+#include <mutex>
+#include <thread>
+#include <vector>
+
+class LockGuard: public std::mutex{
+    private:
+        std::mutex &mu;
+    public:
+        LockGuard(std::mutex & _mu): mu(_mu){
+            mu.lock();
+            std::cout << "\tmu locked\n";
+        } 
+        ~LockGuard(){
+            mu.unlock();              
+            std::cout << "\tmu unlocked\n";
+        }
+};
+
+void TestLG(std::mutex &mu){
+    LockGuard lg(mu);
+    std::cout << std::this_thread::get_id() << ": " << "xxxx\n";
+}
+
+int main(){
+    //std::lock_guard<std::mutex> lock(mu);
+    std::mutex mu;
+    std::cout << "Before the scope\n";
+    {
+        LockGuard lg (mu);
+    }
+    std::cout << "After the scope\n";
+    
+    std::vector<std::thread> my_threads;
+    my_threads.emplace_back(std::thread(TestLG, std::ref(mu)));
+    my_threads.emplace_back(std::thread(TestLG, std::ref(mu)));
+
+    for (auto & thread : my_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+
+}
+
 /*
+//===== 140 ======
+//This is to practice lock_guard and adopt_lock, defer_lock
+#include <thread>
+#include <mutex>
+#include <iostream>
+
+std::mutex mu0, mu01, mu02;
+
+void test_lock(std::mutex & mu){
+    std::lock(mu, mu0, mu01); // without this line, the mutexes are not locked at all, so asynchronized
+    //mu.lock();
+    std::lock_guard<std::mutex> lock(mu, std::adopt_lock); //, std::defer_lock); not work for std::defer_lock, which is only working for std::unique_lock?
+    std::lock_guard<std::mutex> lock_2(mu0, std::adopt_lock);
+    std::unique_lock<std::mutex> lock_3(mu01, std::defer_lock);
+    std::unique_lock<std::mutex> lock_4(mu02, std::defer_lock);
+    //lock_3.unlock();
+    mu01.unlock();
+    //lock_3.lock();
+    std::lock(lock_3, lock_4);
+
+    std::cout << std::this_thread::get_id() << ": xxxx\n";
+}
+
+int main(){
+    std::mutex mu;
+    std::thread my_threads[2];
+    my_threads[0] = std::thread(test_lock, std::ref(mu));
+    my_threads[1] = std::thread(test_lock, std::ref(mu));
+
+
+    for (std::thread & thread : my_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+
 //====== 139 ====
 //This is to figure out how we can pass a class object with mutex members to a function
 #include <iostream>
