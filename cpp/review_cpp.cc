@@ -1,19 +1,49 @@
 //======= 146 =======
-//This is to practice unique_lock try_lock_for
+//This is to practice unique_lock try_lock_for which is only for timed_mutex, not mutex
 #include <iostream>
 #include <thread>
 #include <mutex>
 #include <chrono>
 
-void Try_Lock_For(std::mutex & mu, std::chrono::seconds sl){
-    std::unique_lock<std::mutex> lock(mu, std::defer_lock);
+void Try_Lock_For(std::timed_mutex & mu, std::chrono::seconds sl){
+    std::unique_lock<std::timed_mutex> lock(mu, std::defer_lock);
+    std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+    auto start_count = std::chrono::high_resolution_clock::now();
     if (lock.try_lock_for(sl)){
         std::cout << "succeeded\n";
+    }else{
+        std::cout << "failed to lock mu in 1 second\n";
+        while (true){
+            if (lock.try_lock()){
+                std::cout << "Finally lock the timed_mutex\n";
+                break;
+            } else{
+                std::this_thread::sleep_for(sl);
+            }
+        }
     }
+    auto end_count = std::chrono::high_resolution_clock::now();
+    std::cout << "Time taken " << std::chrono::duration_cast<std::chrono::milliseconds> (end_count - start_count).count() << " millisecs" << std::endl;
+}
+
+void Lock_First(std::timed_mutex & mu, std::chrono::seconds sl){
+    std::lock_guard<std::timed_mutex> lock(mu);
+    std::this_thread::sleep_for(sl*3);
 }
 
 int main(){
+    std::chrono::seconds sl(1);
+    std::timed_mutex timed_mu;
+    std::thread my_threads[2];
+    my_threads[0] = std::thread(Try_Lock_For, std::ref(timed_mu), sl);
+    my_threads[1] = std::thread(Lock_First, std::ref(timed_mu), sl);
 
+
+    for (std::thread & thread : my_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
 }
 
 /*
