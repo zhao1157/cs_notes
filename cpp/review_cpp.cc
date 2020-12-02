@@ -1,3 +1,43 @@
+//====== 147 =====
+//This is to practice try_lock_for() for fireworks
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <vector>
+#include <stdlib.h>
+
+void Fireworks(std::timed_mutex & mu, std::chrono::milliseconds sl){
+    //the trajactory of the firworks is done by the threads that do not lock the timed_mutex
+    std::unique_lock<std::timed_mutex> lock(mu, std::defer_lock);
+    while (!lock.try_lock_for(sl)){
+        std::cout  << "-";
+        std::this_thread::sleep_for(sl);
+    }
+
+    // now the thread got mu locked
+    std::this_thread::sleep_for((1+rand()%20)*sl);
+    std::cout << "----*\n"; //at least this high of the fireworks
+}
+
+int main(){
+    std::vector<std::thread> firwork_threads;
+    std::chrono::milliseconds sl(100);
+    std::timed_mutex timed_mu;
+
+    for (int i = 0; i < 10; i++){
+        firwork_threads.emplace_back(Fireworks, std::ref(timed_mu), sl);
+    }
+
+    for (auto & thread : firwork_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+
+/*
 //======= 146 =======
 //This is to practice unique_lock try_lock_for which is only for timed_mutex, not mutex
 #include <iostream>
@@ -46,7 +86,6 @@ int main(){
     }
 }
 
-/*
 //====== 145 =====
 //This is to practice try_lock for std::unique_lock
 #include <iostream>
