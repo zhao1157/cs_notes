@@ -1,3 +1,33 @@
+//====== 148 ======
+//This is to practice exception handling
+#include <iostream>
+
+int main(){
+    try{
+        throw 2.3;
+        throw 2; // this line is skipped as the control goes out of the scope
+    }catch(int a){ // only takes one argument
+        std::cout << "int\n";
+    }catch(...){
+        std::cout << "others\n";
+    }
+
+    try{
+        try{
+            throw 2;
+        }catch (char a){
+            std::cout << "char\n";
+        }catch(...){
+            throw 2.3;
+        }
+    }catch(double a){
+        std::cout << "double\n"; 
+    }catch (...){
+        std::cout << "extern\n";
+    }
+}
+
+/*
 //====== 147 =====
 //This is to practice try_lock_for() for fireworks
 #include <iostream>
@@ -37,7 +67,6 @@ int main(){
 }
 
 
-/*
 //======= 146 =======
 //This is to practice unique_lock try_lock_for which is only for timed_mutex, not mutex
 #include <iostream>
