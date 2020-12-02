@@ -1,3 +1,64 @@
+//======= 149 ======
+//This is to practice call_once and once_flag
+#include <thread>
+#include <mutex>
+#include <iostream>
+#include <stdlib.h>
+#include <vector>
+
+#define PRIZE_NUM 9 
+
+void Check(std::mutex &);
+
+void print(std::mutex &, int, int, int);
+
+void Lottery(std::once_flag & onceflag, std::mutex &mu){
+    try{
+        std::call_once(onceflag, Check, mu);    
+    } catch(int *arr){
+        print(mu, 0, arr[1], arr[0]);
+    }
+}
+
+void Check(std::mutex & mu){
+    static int order = 1;
+    order += 1;
+    int arr[2];
+    arr[0] = order;
+    int num = rand()%15;
+    arr[1] = num;
+    if (num == PRIZE_NUM){
+        print (mu, 1, num, order);
+    }else{
+        throw arr;
+    }
+}
+void print(std::mutex &mu, int i, int num, int order){
+    std::lock_guard<std::mutex> lock(mu);
+    if (i == 0){
+        std::cout  << order << ". " << num << " checked\n";
+    } else{
+        std::cout << order << ". " << std::this_thread::get_id() << " got the prize number " << num << std::endl;
+    }
+}
+
+int main(){
+    std::once_flag onceflag;
+    std::mutex mu;
+    std::vector<std::thread> participants;
+    for (int i = 0; i < 100; i ++){
+        participants.emplace_back(std::thread(Lottery, std::ref(onceflag), std::ref(mu)));
+    }
+    
+    for (auto & thread : participants){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+
+}
+
+/*
 //====== 148 ======
 //This is to practice exception handling
 #include <iostream>
@@ -25,9 +86,14 @@ int main(){
     }catch (...){
         std::cout << "extern\n";
     }
+
+    try{
+        throw 2.2;
+    }catch(int a){
+        std::cout << "int\n";
+    }
 }
 
-/*
 //====== 147 =====
 //This is to practice try_lock_for() for fireworks
 #include <iostream>
