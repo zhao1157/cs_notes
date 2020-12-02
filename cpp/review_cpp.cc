@@ -1,3 +1,22 @@
+//======= 146 =======
+//This is to practice unique_lock try_lock_for
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+void Try_Lock_For(std::mutex & mu, std::chrono::seconds sl){
+    std::unique_lock<std::mutex> lock(mu, std::defer_lock);
+    if (lock.try_lock_for(sl)){
+        std::cout << "succeeded\n";
+    }
+}
+
+int main(){
+
+}
+
+/*
 //====== 145 =====
 //This is to practice try_lock for std::unique_lock
 #include <iostream>
@@ -54,7 +73,6 @@ int main(){
 
 
 
-/*
 //====== 144 ======
 //This is to practice std::defer_lock, std::adopt_lock
 #include <iostream>
