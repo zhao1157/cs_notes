@@ -1,3 +1,85 @@
+//===== 153 =====
+//This is to practice creating an object only once among the threads
+#include <thread>
+#include <iostream>
+#include <mutex>
+#include <vector>
+#include <time.h>
+#include <stdlib.h>
+
+std::mutex mu_id;
+
+class P;
+void print (P &, int);
+class P{
+    public:
+        int id;
+        P(int i = 999999999): id(i){
+            //std::cout << "\tcreated " << i << std::endl; 
+        }
+        void Getid(){
+            print (*this, 2);
+        }
+};
+
+std::mutex mu0;
+
+void print (P &p, int i){
+    std::lock_guard<std::mutex> lock(mu0);
+    if (i == 0){
+        std::cout << std::this_thread::get_id() << " got the chance\n";
+    }else if (i == 1){
+        std::cout << std::this_thread::get_id() << " missed the chance\n";
+    }else if (i == 2){
+        std::cout <<std::this_thread::get_id() << ": " << p.id << std::endl;
+    }
+
+}
+
+void create_p (int i, P &p){
+    if (i != 3){
+        throw 3;
+    }
+    p = P(i);
+    print (p, 0);
+}
+
+void work(std::once_flag & initialize_flag, int i, P &p){
+    int ready = 3;
+    while (ready){
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        ready --;
+    }
+    try{
+        std::call_once(initialize_flag, create_p, i, std::ref(p));
+    }catch(...){
+        print (p, 1);
+    }
+   
+    //create a barrier 
+    std::this_thread::sleep_for(std::chrono::seconds(1)); //assuming the object is finally created within 1 second, so this
+                                                          //line ensures all threads get the correct object
+    p.Getid();
+}
+
+
+int main(){
+    P p;
+    std::once_flag initialize_flag;
+    std::vector<std::thread> my_threads;
+    for (int i = 0; i < std::thread::hardware_concurrency(); i ++){
+        my_threads.emplace_back(std::thread(work, std::ref(initialize_flag), i, std::ref(p)));
+    }
+
+    for(auto & thread : my_threads) {
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+
+/*
 //======= 152 ========
 //This is to practice pass by reference
 #include <iostream>
@@ -19,7 +101,6 @@ int main(){
 }
 
 
-/*
 //====== 151 ======
 //This is to practice random number generated
 #include <iostream>
