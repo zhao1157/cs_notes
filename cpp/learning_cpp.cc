@@ -6,7 +6,12 @@
 #include <stdlib.h>
 #include <vector>
 
-#define PRIZE_NUM 9 
+#define PRIZE_NUM 19 
+
+struct Arr{
+    int order, num;
+    Arr(int _order, int _num): order(_order), num(_num) {}
+};
 
 void Check(std::mutex &);
 
@@ -15,30 +20,33 @@ void print(std::mutex &, int, int, int);
 void Lottery(std::once_flag & onceflag, std::mutex &mu){
     try{
         std::call_once(onceflag, Check, mu);    
-    } catch(int *arr){
-        print(mu, 0, arr[1], arr[0]);
+    } catch(Arr &arr){ //*arr){
+        print(mu, 0, arr.num, arr.order);
+        //print (mu, 0, -99, order);
     }
 }
 
 void Check(std::mutex & mu){
-    static int order = 1;
+    //print (mu, -1, -1, -1);
+    static int order = 0;
     order += 1;
-    int arr[2];
-    arr[0] = order;
-    int num = rand()%15;
-    arr[1] = num;
+    int num = rand()%20;
+    Arr arr(order, num);
     if (num == PRIZE_NUM){
         print (mu, 1, num, order);
     }else{
+        //print (mu, -1, -1, -1);
         throw arr;
     }
 }
 void print(std::mutex &mu, int i, int num, int order){
     std::lock_guard<std::mutex> lock(mu);
     if (i == 0){
-        std::cout  << order << ". " << num << " checked\n";
-    } else{
+        std::cout  << order << ". " << std::this_thread::get_id() << " " << num << " checked\n";
+    } else if (i == 1){
         std::cout << order << ". " << std::this_thread::get_id() << " got the prize number " << num << std::endl;
+    } else{
+        std::cout << "*** " << std::this_thread::get_id() << std::endl;
     }
 }
 
