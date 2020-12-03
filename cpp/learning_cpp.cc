@@ -1,3 +1,25 @@
+//======= 152 ========
+//This is to practice pass by reference
+#include <iostream>
+#include <functional>
+
+void Test(int &a, int &b){
+    a ++;
+    b ++;
+}
+
+int main(){
+    int a = 3, b = 3;
+    Test(a, b);
+    std::cout << a << " " << b << std::endl;
+
+    std::function<void()> f = std::bind(Test, std::ref(a), b);
+    f();
+    std::cout << a << " " << b << std::endl;
+}
+
+
+/*
 //====== 151 ======
 //This is to practice random number generated
 #include <iostream>
@@ -15,7 +37,6 @@ int main(){
 }
 
 
-/*
 //======= 150 =======
 //This is to test a function that returns an array
 #include <iostream>
