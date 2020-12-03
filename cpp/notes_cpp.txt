@@ -1,3 +1,4 @@
+124. srand(static_cast<unsigned> (time(NULL))) -> set the random seed; rand() -> generate the random number; header files <time.h> <stdlib.h>
 123. int * func(){} -> it is NOT suggested to return an address of a local variable, so make it static or global
 122. try{std::call_once(once_flag, func, arg1, ...)} catch(...){}; if an exception is thrown from one of the threads, then other thread will start to run func.
 121. try{throw 2;}catch(int a){xxx}catch(...){any other exceptions}; try-catch block can be nested inside another try-catch block.

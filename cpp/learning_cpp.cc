@@ -1,3 +1,21 @@
+//====== 151 ======
+//This is to practice random number generated
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+int main(){
+    srand(20000); //with a given seed, the random numbers generated are always the same
+    std::cout << rand() << std::endl << rand() << 
+       std::endl << rand() << std::endl;
+
+    srand(static_cast<unsigned int> (time(NULL)));
+    std::cout << "time: " << time(NULL) << std::endl;
+    std::cout << rand () << " " << rand() << std::endl;
+}
+
+
+/*
 //======= 150 =======
 //This is to test a function that returns an array
 #include <iostream>
@@ -24,7 +42,6 @@ int main(){
 
 }
 
-/*
 //======= 149 ======
 //This is to practice call_once and once_flag
 #include <thread>
