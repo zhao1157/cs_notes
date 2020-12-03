@@ -1,3 +1,75 @@
+//====== 157 ======
+//This is to practice class nested inside a class
+#include <iostream>
+
+class T{
+    public:
+        ~T(){
+            std::cout << "T is destroyed\n";
+        }
+};
+
+class P{
+    private:
+        struct B{ //class B {
+            public:
+                ~B(){
+                    std::cout << "B is destroyed\n";
+                }
+        };
+
+    public:
+        ~P(){
+            std::cout << "P is destroyed\n";
+        }
+        T t;
+        static B b;
+};
+
+P::B P::b; // if not initialized outside, then it won't be created?
+
+int main(){
+    P p;
+    P P2;
+}
+
+
+/*
+//======== 156 ======
+//This is to practice one-instance class
+#include <iostream>
+
+class P{
+    private:
+        int id;
+        static P * ptr;
+        P (int _id): id(_id){}
+    public:
+        static P & GetInstance(int _id){
+            if (ptr == nullptr){
+                ptr = new P(_id);
+            }
+            return *ptr;
+        }
+
+        P * Get(){
+            return ptr;
+        }
+
+};
+
+P * P::ptr; // = nullptr // =NULL
+
+int main(){
+    P p1 = P::GetInstance(2);
+    //P p2 = P::GetInstance(3);
+    P p2 = p1.GetInstance(3);
+
+    if (p1.Get() == p2.Get()){
+        std::cout << "the same object\n";
+    }
+}
+
 //======== 155 =======
 //This is to practice reference variable in a function
 #include <iostream>
@@ -16,7 +88,6 @@ int main(){
     std::cout << X << std::endl;
 }
 
-/*
 //====== 154 ======
 //This is to practice reference member in a class
 #include <iostream>
