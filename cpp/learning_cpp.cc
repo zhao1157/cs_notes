@@ -1,3 +1,24 @@
+//====== 154 ======
+//This is to practice reference member in a class
+#include <iostream>
+
+class P{
+    private:
+        const int &a; // a reference member // use const if don't want to change it
+        int &b;
+    public:
+        //P(int &_a){ a = _a; a ++;} // should explicitly initialize a reference member
+        P(const int &_a, int &_b): a(_a), b(_b){b++;}
+};
+
+int main(){
+    int a = 2, b =3;
+    P p(a, b); // a is changed in p
+    std::cout << a << " " << b << std::endl;
+}
+
+
+/*
 //===== 153 =====
 //This is to practice creating an object only once among the threads
 #include <thread>
@@ -79,7 +100,6 @@ int main(){
 }
 
 
-/*
 //======= 152 ========
 //This is to practice pass by reference
 #include <iostream>
