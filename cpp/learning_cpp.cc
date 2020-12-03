@@ -1,3 +1,22 @@
+//======== 155 =======
+//This is to practice reference variable in a function
+#include <iostream>
+
+int X = 9;
+
+void Test(int & b){
+    int & a = b; // reference variable needs initialization, which makes it unnecessary as we can just make it as an argument
+    int & c = X;
+    c -- ;
+}
+
+int main(){
+    int a = 2;
+    Test(a);
+    std::cout << X << std::endl;
+}
+
+/*
 //====== 154 ======
 //This is to practice reference member in a class
 #include <iostream>
@@ -18,7 +37,6 @@ int main(){
 }
 
 
-/*
 //===== 153 =====
 //This is to practice creating an object only once among the threads
 #include <thread>

@@ -1,3 +1,5 @@
+129. For the class with reference member, we assume the orignal has a lifetime longer than the class object; the original has already exist; avoid the overhead of copying the original, so use a reference.
+128. In a function, we can alos use reference variable, since it needs initialization, we can just put it among the arguments.
 127. reference member in a class means that it has to be explicitly initialized in the constructor; it can modify the original object
 126. std::call_once: if one of the threads fails, it will continue the execution without waiting for the other threads, but before the function is run successfully, the other threads will wait to execute if unsuccessful.
 125. std::bind(f, a, std::ref(b)) -> 'a' is by value, and 'b' is by reference, just like the case of std::thread;
