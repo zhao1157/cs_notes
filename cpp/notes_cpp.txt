@@ -1,3 +1,4 @@
+123. int * func(){} -> it is NOT suggested to return an address of a local variable, so make it static or global
 122. try{std::call_once(once_flag, func, arg1, ...)} catch(...){}; if an exception is thrown from one of the threads, then other thread will start to run func.
 121. try{throw 2;}catch(int a){xxx}catch(...){any other exceptions}; try-catch block can be nested inside another try-catch block.
 120. stdlib.h has rand() which generates pseudo-number, rand()%100 will return a number between 0-99, so if rang()%100+9 -> a number in the range of 9 and 108.

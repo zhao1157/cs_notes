@@ -1,3 +1,30 @@
+//======= 150 =======
+//This is to test a function that returns an array
+#include <iostream>
+
+int *Test(){
+    int arr[4];
+    static int i = 3;
+    i ++;
+    arr[0] = i;
+    arr[1] = i + 2;
+    arr[2] = 99;
+    arr[3] = 100;
+
+    return arr+1; // is not suggested to return a local variable address, make it static.
+}
+
+int main(){
+    int *arr1;
+    arr1 = Test();
+    std::cout << arr1[0] << " " << arr1[1] << arr1[2] << " " << sizeof(arr1)/sizeof(arr1[0]) << std::endl;
+    
+    Test();
+    std::cout << arr1[0] << " " << arr1[1] << std::endl;
+
+}
+
+/*
 //======= 149 ======
 //This is to practice call_once and once_flag
 #include <thread>
@@ -20,7 +47,7 @@ void print(std::mutex &, int, int, int);
 void Lottery(std::once_flag & onceflag, std::mutex &mu){
     try{
         std::call_once(onceflag, Check, mu);    
-    } catch(Arr &arr){ //*arr){
+    } catch(Arr &arr){ // *arr){
         print(mu, 0, arr.num, arr.order);
         //print (mu, 0, -99, order);
     }
@@ -66,7 +93,6 @@ int main(){
 
 }
 
-/*
 //====== 148 ======
 //This is to practice exception handling
 #include <iostream>
