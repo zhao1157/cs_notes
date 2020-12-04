@@ -1,3 +1,16 @@
+//====== 160 ======
+//This is to understand what would happen if a resource is released by delete
+#include <iostream>
+
+int a = 3;
+
+int main(){
+    int * ptr = &a;
+    delete ptr;
+    std::cout << a << std::endl;
+}
+
+/*
 //====== 159 =====
 //This is to practice new class being destroyed
 #include <iostream>
@@ -29,7 +42,6 @@ int main(){
     std::cout << "after the scope\n";
 }
 
-/*
 //====== 158 ======
 //This is to practice limited-instance class
 #include <iostream>
