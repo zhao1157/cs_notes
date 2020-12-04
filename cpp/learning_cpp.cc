@@ -1,3 +1,35 @@
+//====== 159 =====
+//This is to practice new class being destroyed
+#include <iostream>
+
+class P{
+    public:
+        P(){
+            std::cout << "\tcreated\n";
+        }
+        ~P(){
+            std::cout << "\tdestroyed\n";
+        }
+};
+
+int main(){
+    std::cout << "before the scope\n";
+    {
+        P p;
+    }
+    std::cout << "after the scope\n";
+
+    std::cout << "________\n";
+    {
+        P *p = new P;
+        std::cout << "\t****\n";
+        delete p; // without calling delete, the object will not be deleted
+        std::cout << "\t****\n";
+    }
+    std::cout << "after the scope\n";
+}
+
+/*
 //====== 158 ======
 //This is to practice limited-instance class
 #include <iostream>
@@ -69,7 +101,6 @@ int main(){
     std::cout << "xx\n";
 }
 
-/*
 //====== 157 ======
 //This is to practice class nested inside a class
 #include <iostream>

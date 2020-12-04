@@ -1,3 +1,4 @@
+133. if new is used, then delete must be called in order to release the object.
 132. P** GetID(){} -> one * is for the array, and the other * is for the data type stored in the array, i.e. P*, a P pointer
 131. static members are only destroyed once throughout the lifetime of the program
 130. A class/struct can be defined inside another class; the static member has to be defined outside of the class, otherwise not created?
