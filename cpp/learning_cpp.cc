@@ -23,14 +23,13 @@ class P{
             std::cout << "P is destroyed\n";
         }
         T t;
-        static B b;
+        static B b; // it only gets destroyed once throughout the lifetime of the program
 };
 
 P::B P::b; // if not initialized outside, then it won't be created?
 
 int main(){
-    P p;
-    P P2;
+    P p, p2, p3;
 }
 
 

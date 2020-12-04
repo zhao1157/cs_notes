@@ -1,3 +1,4 @@
+131. static members are only destroyed once throughout the lifetime of the program
 130. A class/struct can be defined inside another class; the static member has to be defined outside of the class, otherwise not created?
 129. For the class with reference member, we assume the orignal has a lifetime longer than the class object; the original has already exist; avoid the overhead of copying the original, so use a reference.
 128. In a function, we can alos use reference variable, since it needs initialization, we can just put it among the arguments.
