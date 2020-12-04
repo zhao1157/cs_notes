@@ -1,3 +1,22 @@
+//======= 162 =======
+//This is to practice array size
+#include <iostream>
+
+int aN = 3;
+
+void Test(int N){
+    //static int a[aN];
+    int arr[N];
+    static int * a = arr;
+}
+
+int main(){
+    int a = 3;
+    Test(a);
+    int b[a];
+}
+
+/*
 //======= 161 ========
 //This is to practice multi-instance class without using pointers
 #include <iostream>
@@ -56,7 +75,6 @@ int main(){
     }
 }
 
-/*
 //====== 160 ======
 //This is to understand what would happen if a resource is released by delete
 #include <iostream>
