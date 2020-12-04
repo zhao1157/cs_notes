@@ -1,3 +1,75 @@
+//====== 158 ======
+//This is to practice limited-instance class
+#include <iostream>
+#include <vector>
+#include <thread>
+#include <mutex>
+
+const int N = 2;
+std::mutex mu_print;
+class P{
+    private:
+        int id;
+        static P * ptr[N];
+        P(int ind): id(ind){}
+        static int count;
+        ~P(){
+            delete ptr[this -> id];
+            std::cout << "(Not getting called) destroying " << this -> id << std::endl;
+        }
+    public:
+        static P & GetInstance(int i, std::mutex & mu){
+            int ind = i%N;
+            {
+                std::lock_guard<std::mutex> lock(mu);
+                if (ptr[ind] == NULL){
+                    ptr[ind] = new P(ind);
+                }
+            }
+            {
+                std::lock_guard<std::mutex> lock(mu_print);
+                std::cout << std::this_thread::get_id() << ": " << ptr[ind] -> GetID() << std::endl;
+            }
+            return *ptr[ind];
+        }
+        int GetID(){
+            return this -> id;
+        }
+        static P** GetPtr(){
+            return ptr;
+        }
+};
+int P::count = 0;
+P * P::ptr[N];
+
+int main(){
+    std::mutex mu;
+    std::vector<std::thread> my_threads;
+    for (int i = 0; i < std::thread::hardware_concurrency() + 4; i++){
+        my_threads.emplace_back(P::GetInstance, i, std::ref(mu));
+    }
+
+    for (std::thread & thread : my_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+    
+    for (int i = 0; i < N; i++){
+        std::cout << P::GetPtr()[i] -> GetID() << " ";
+    }
+    std::cout << std::endl;
+
+    P** p_ptr = P::GetPtr();
+    for (int i = 0; i < N; i++){
+        std::cout << p_ptr[i] -> GetID() << " ";
+        std::cout << (*(p_ptr+i)) -> GetID() << std::endl;
+    }
+
+    std::cout << "xx\n";
+}
+
+/*
 //====== 157 ======
 //This is to practice class nested inside a class
 #include <iostream>
@@ -33,7 +105,6 @@ int main(){
 }
 
 
-/*
 //======== 156 ======
 //This is to practice one-instance class
 #include <iostream>
