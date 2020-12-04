@@ -1,3 +1,62 @@
+//======= 161 ========
+//This is to practice multi-instance class without using pointers
+#include <iostream>
+#include <vector>
+
+const int N = 3;
+
+class P{
+    private:
+        static P all_insts[N];
+        static int num_calls;
+        int id;
+        P (int _id = -1): id(_id) {}
+        ~P(){
+            std::cout << "destroyed: " << id << std::endl;
+        }
+    public:
+        static P & GetInstance(int i){
+            int ind = i % N;
+            num_calls ++;
+
+            if (num_calls <= N){
+                all_insts[ind] = P(i);
+            }
+
+            return all_insts[ind];
+        }
+
+        int GetID(){
+            return this -> id;
+        }
+};
+
+int P::num_calls = 0;
+P P::all_insts[N]; // has to be defined outside of the class
+
+int main(){
+    std::vector<P*> all_p;
+    for (int i = 0; i < 2*N; i++){
+        all_p.emplace_back(&(P::GetInstance(i)));
+    }
+
+    for (auto &p : all_p){
+        std::cout << p -> GetID() << std::endl;
+    }
+
+    for (int i = 0; i < N; i++){
+        std::cout << all_p[i] -> GetID() << std::endl;
+        std::cout << all_p[i] << " - " << all_p[i+N] << std::endl;
+        if (all_p[i] == all_p[i+N]){
+            std::cout << "duplicate\n";
+        }
+        else{
+            std::cout << "different\n";
+        }
+    }
+}
+
+/*
 //====== 160 ======
 //This is to understand what would happen if a resource is released by delete
 #include <iostream>
@@ -10,7 +69,6 @@ int main(){
     std::cout << a << std::endl;
 }
 
-/*
 //====== 159 =====
 //This is to practice new class being destroyed
 #include <iostream>
