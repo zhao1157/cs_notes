@@ -1,3 +1,10 @@
+#===== 53 =====
+# instructions to install docker on windows
+#1. open Windows Features, uncheck four boxes (Containers, Hyper-V, Virtual Machine Platform and Windows Hypervisor Platform), then you are prompted to restart your computer, just do it.
+#2. after rebooting, recheck those four boxes, and restart as prompted
+#3. install docker .exe file and uncheck the WSL2 box, and install it
+#4. on the docker settings console, uncheck the WSL2 box and apply the changes
+#5. check the docker installation: open a terminal, check the output of the command "docker version"
 #==== 52 ===
 #on mac find out the number of logical cpus
 sysctl -n hw.ncpu
