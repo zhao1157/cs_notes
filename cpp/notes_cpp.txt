@@ -1,3 +1,5 @@
+141. In singleton class, we need to make constructor as private/protected, copy constructor as delete, and assignment operator as delete.
+140. In singleton we can use a static function which defines a static singleton variable, and it will return the same object whenever it's called. 
 139. When creating a singleton-destroyer class template, make sure the pointer passed in as the initializer is not NULL, otherwise it won't destroy the singleton
 138. int a = 2; int *ptr = &a; delete ptr; -> error since a is not created by new or malloc, don't use delete to release it, it is managed by stack, not heap
 137. the static variable can not have variable length: static int a[N], where N has to be a const, not variable; but static int *a can point to a variable length array.

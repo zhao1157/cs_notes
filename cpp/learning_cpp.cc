@@ -1,3 +1,52 @@
+//=========== 164 ========
+//This is to practice static function in a class to create a singleton
+#include <iostream>
+
+class P{
+    private:
+        int id;
+        std::string name;
+        P()=default;
+    public:
+        P (P&) = delete;
+        P& operator = (P&)=delete;
+        static P & GetIns(){
+            static P ins;
+            return ins;
+        }
+
+        ~P(){
+            std::cout << "Singleton is destroyed\n";
+        }
+
+        void Set(int _id, std::string _name){
+            id = _id;
+            name = _name;
+        }
+        
+        void Get(){
+            std::cout << name << ": " << id << std::endl;
+        }
+
+};
+
+int main(){
+    P & p = P::GetIns();
+    p.Set(2, "zls");
+    p.Get();
+    
+    std::cout << "_________\n";
+    P & pp = P::GetIns();
+    pp.Get();
+
+    std::cout << "___________\n";
+    //P ppp = P::GetIns();
+    //ppp.Get();
+    //P ppp;
+    //ppp = pp;
+}
+
+
 /*
 //========== 163 =========
 //This is to practice deleting an object through another pointer
