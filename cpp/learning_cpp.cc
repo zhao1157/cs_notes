@@ -1,3 +1,46 @@
+//====== 166 =====
+//This is to practice static variable in a function
+#include <iostream>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id = 0): id(_id) {
+            std::cout << "P constructor\n";
+        }
+        void Set(int id){
+            this -> id = id;
+        }
+        void Get(){
+            std::cout << "id: " << this -> id << std::endl;
+        }
+};
+
+void Test(int id){
+    static P p[2] = {P(-1), P(-1)};
+    int ind = id%2;
+    if (ind == 1){
+        p[ind].Set(id+1);
+    } else{
+        p[ind].Set(id);
+    }
+    p[ind].Get();
+}
+
+int main(){
+    Test(0);
+    std::cout << "___\n";
+    Test(1);
+    std::cout << "___\n";
+    Test(2);
+    std::cout << "____\n";
+    Test(3);
+    std::cout << "___\n";
+}
+
+
+/*
 //====== 165 =======
 //This is to practice static member called in the main function
 #include <iostream>
@@ -36,7 +79,6 @@ int main(){
 }
 
 
-/*
 //=========== 164 ========
 //This is to practice static function in a class to create a singleton
 #include <iostream>
