@@ -1,3 +1,4 @@
+142. We can reassign static class variables in the main or other functions as long as they are public
 141. In singleton class, we need to make constructor as private/protected, copy constructor as delete, and assignment operator as delete.
 140. In singleton we can use a static function which defines a static singleton variable, and it will return the same object whenever it's called. 
 139. When creating a singleton-destroyer class template, make sure the pointer passed in as the initializer is not NULL, otherwise it won't destroy the singleton

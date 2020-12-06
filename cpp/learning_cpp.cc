@@ -1,3 +1,42 @@
+//====== 165 =======
+//This is to practice static member called in the main function
+#include <iostream>
+
+class B{
+    public:
+        B(){
+            std::cout << "B constructor\n";
+        }
+        B(int i){
+            std::cout << "new B constructor\n";
+        }
+};
+
+class P{
+    public:
+        static B b;
+    public:
+        static int num;
+        P(){
+            num++;
+        }
+};
+
+B P::b;
+int P::num;
+
+int main(){
+    std::cout << "beginning of main()\n";
+    P::num = 3;
+    //P p(); //error: it is interpreted as a function declaration
+    P p;
+    std::cout << p.num << std::endl;
+
+    P::b = B(2);
+}
+
+
+/*
 //=========== 164 ========
 //This is to practice static function in a class to create a singleton
 #include <iostream>
@@ -47,7 +86,6 @@ int main(){
 }
 
 
-/*
 //========== 163 =========
 //This is to practice deleting an object through another pointer
 #include <iostream>
