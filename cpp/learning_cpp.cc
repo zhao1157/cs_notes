@@ -1,3 +1,59 @@
+//===== 167 =====
+//This is to practice condition_variable
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <stdlib.h>
+#include <chrono>
+
+bool cond (double bal){
+    if (bal > 30000){
+        return true;
+    } else{
+        return false;
+    }
+}
+class Account{
+    private:
+        double balance;
+    public:
+        Account(double _bal): balance(_bal){}
+        void Deposite(double amount, std::mutex & mu, std::condition_variable &cv){
+            std::lock_guard<std::mutex> lock (mu);
+            balance += amount;
+            std::cout << "balance: " << balance << std::endl;
+            cv.notify_one();
+        }
+        void Withdraw(double amount, std::mutex & mu, std::condition_variable & cv){
+            //std::this_thread::sleep_for(std::chrono::seconds(2));
+            std::unique_lock<std::mutex> lock(mu);
+            std::cout << "\tbefore wait\n";
+            cv.wait(lock,[this]{return cond(balance);});
+            //cv.wait(lock, [this]{return (balance) > 30000;});
+            balance -= amount;
+            std::cout << "balance: " << balance << std::endl;
+        }
+        void Get(){
+            std::cout << "Balance: " << balance << std::endl;
+        }
+};
+
+int main(){
+    std::mutex mu;
+    std::condition_variable cv;
+    Account my_account(30000);
+    std::thread actions[2];
+    actions[1] = std::thread(&Account::Withdraw, &my_account, 2000, std::ref(mu), std::ref(cv));
+    actions[0] = std::thread(&Account::Deposite, &my_account, 3000, std::ref(mu), std::ref(cv));
+
+    for (std::thread & thread : actions){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+/*
 //====== 166 =====
 //This is to practice static variable in a function
 #include <iostream>
@@ -40,7 +96,6 @@ int main(){
 }
 
 
-/*
 //====== 165 =======
 //This is to practice static member called in the main function
 #include <iostream>

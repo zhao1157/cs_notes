@@ -1,3 +1,4 @@
+144. std::condition_variable cv; after std::lock/unique_lock<>lock(); cv.wait(lock, []{}) to prevent spurious awake; cv.notify_one() or cv.notify_all()
 143. The static variables in the function are only defined once
 142. We can reassign static class variables in the main or other functions as long as they are public
 141. In singleton class, we need to make constructor as private/protected, copy constructor as delete, and assignment operator as delete.
