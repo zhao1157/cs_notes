@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <chrono>
 
-bool cond (double bal){
-    if (bal > 30000){
+bool cond (const double &balance){
+    if (balance > 30000){
         return true;
     } else{
         return false;
@@ -28,7 +28,8 @@ class Account{
             //std::this_thread::sleep_for(std::chrono::seconds(2));
             std::unique_lock<std::mutex> lock(mu);
             std::cout << "\tbefore wait\n";
-            cv.wait(lock,[this]{return cond(balance);});
+            cv.wait(lock, std::bind(cond, std::ref(balance)));
+            //cv.wait(lock,[this]{return cond(balance);});
             //cv.wait(lock, [this]{return (balance) > 30000;});
             balance -= amount;
             std::cout << "balance: " << balance << std::endl;
