@@ -1,3 +1,108 @@
+//====== 170 =====
+//This is to enhance my understanding of wait()
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::mutex mu, mu_print;
+std::condition_variable cv;
+std::chrono::milliseconds sl(100);
+
+void Wait(){
+    {
+        std::unique_lock<std::mutex> lock(mu);
+        cv.wait(lock); // still only one thread can lock the mutex
+
+        std::unique_lock<std::mutex> lock_print(mu_print, std::defer_lock);
+        lock_print.lock();
+        std::cout << std::this_thread::get_id() << " sleeping for sl milliseconds\n";
+        std::this_thread::sleep_for(sl*20);
+        std::cout << "done sleeping\n";
+    }
+}
+
+void Send_Signal(){
+    std::this_thread::sleep_for(sl*1);
+    //cv.notify_one();
+    //std::this_thread::sleep_for(sl*20);
+    //cv.notify_one();
+    cv.notify_all();
+}
+
+int main(){
+    std::thread my_threads[3];
+    my_threads[0] = std::thread(Wait);
+    my_threads[1] = std::thread(Wait);
+    my_threads[2] = std::thread(Send_Signal);
+
+    //my_threads[3] = std::thread();
+    //my_threads[4] = std::thread();
+
+
+    for (std::thread & thread : my_threads){
+        thread.join();
+    }
+}
+
+/*
+//===== 169 =====
+//This is to enhance my understanding of condition_variable wait_for
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::condition_variable cv;
+std::mutex mu;
+std::chrono::milliseconds sl(100);
+
+int sig;
+
+void Send_Signal(){
+    std::this_thread::sleep_for(sl*1);
+    sig = 11;
+    cv.notify_all();
+    std::cout << "Done notifying 1\n";
+
+    std::this_thread::sleep_for(sl*2);
+    sig = 22;
+    cv.notify_one();
+    std::cout << "Done notifying 2\n";
+
+    std::this_thread::sleep_for(sl*3);
+    sig = 33;
+    cv.notify_one();
+    std::cout << "Done notifying 3\n";
+}
+
+
+void Wait(){
+    int i = 3;
+            std::unique_lock<std::mutex> lock(mu);
+    while (i --){
+        auto start_count = std::chrono::high_resolution_clock::now();
+        //{
+            //cv.wait(lock, []{return true;});
+            cv.wait(lock);
+        //}
+        auto end_count = std::chrono::high_resolution_clock::now();
+        std::cout << "time taken: " << std::chrono::duration_cast<std::chrono::milliseconds> (end_count - start_count).count() << "milliseconds: " << sig << std::endl;
+    }
+}
+
+int main(){
+    std::thread two_threads[2];
+    two_threads[0] = std::thread(Send_Signal);
+    two_threads[1] = std::thread(Wait);
+
+    for (auto & thread : two_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
 //===== 168 =====
 //This is to practice wait_for for condition variable.
 //lock can be acquired if notify_all/one() and condtion are both met, or the time-duration is exceeded
@@ -56,7 +161,6 @@ int main(){
     }
 }
 
-/*
 //===== 167 =====
 //This is to practice condition_variable
 #include <iostream>

@@ -1,3 +1,7 @@
+150. For condition_variable, cv.notify_all() will send signals to all threads, but only one thread can own the mutex lock at a time;
+149. For condition_variable, cv.wait(lock); -> determined only by cv.notify_all/one()
+148. For condition_variable, cv.wait(lock, cond); -> first check cond, if true then exit, otherwise wait(lock) before notify_all/one, repeat this process
+147. For condition_variable, make sure notify_one/all() executes before the waiting thread, otherwise deadlock as the waiting thread is waiting for the sginal which happened before the waiting thread is running.
 146. std::condition_variable cv; cv.wait_for(lock, duration, cond); -> cond is checked everytime notify_all() is called, is true then return, otherwise keep sleeping till the end of duration and return cond() value
 145. std::condition_variable cv; cv.wait(lock, std::bind(cond, std::ref(arg1), ...)); -> the predicator has to be a function or a lambda function
 144. std::condition_variable cv; after std::lock/unique_lock<>lock(); cv.wait(lock, []{}) to prevent spurious awake; cv.notify_one() or cv.notify_all()
