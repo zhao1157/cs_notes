@@ -1,3 +1,62 @@
+//===== 168 =====
+//This is to practice wait_for for condition variable.
+//lock can be acquired if notify_all/one() and condtion are both met, or the time-duration is exceeded
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <vector>
+#include <mutex>
+
+int sig = -1;
+
+bool cond(){
+    std::cout << std::this_thread::get_id() << " checking\n";
+    return sig == 1;
+}
+
+void actions(int id, std::chrono::milliseconds sl, std::mutex & mu, std::condition_variable & cv){
+    id += 1;
+    std::unique_lock<std::mutex> lock(mu);
+    if (cv.wait_for(lock, id*sl, cond)){
+        std::cout << id << ". cond is met: " << sig << std::endl;
+    }else{
+        std::cout << id << ". timed out: " << sig << std::endl;
+    }
+}
+
+void ssignal(std::chrono::milliseconds sl, std::condition_variable & cv){
+    std::this_thread::sleep_for(sl + std::chrono::milliseconds(50)); // thread 1 timed out
+    std::cout << "notifying all\n";
+    cv.notify_one(); // since sig is still 0, pred() will be false, thus thread 2 will be timed out
+
+    std::this_thread::sleep_for(sl*1);
+    sig = 1;
+    std::cout << "nofitying all\n";
+    cv.notify_all(); // since sig = 1, thread 3 will exit before hitting timeout
+}
+
+int main(){
+    std::mutex mu;
+    std::condition_variable cv;
+    std::chrono::milliseconds sl(500);
+
+    std::vector<std::thread> my_threads;
+
+    for (int i = 0; i < std::thread::hardware_concurrency()-1; i++){
+        my_threads.push_back(std::thread(actions, i, sl, std::ref(mu), std::ref(cv)));
+    }
+
+    my_threads.push_back(std::thread(ssignal, sl, std::ref(cv)));
+    //my_threads.push_back(std::thread(ssignal));
+
+    for (std::thread & thread : my_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+/*
 //===== 167 =====
 //This is to practice condition_variable
 #include <iostream>
@@ -54,7 +113,6 @@ int main(){
     }
 }
 
-/*
 //====== 166 =====
 //This is to practice static variable in a function
 #include <iostream>
