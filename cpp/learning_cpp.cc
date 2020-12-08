@@ -1,3 +1,108 @@
+//====== 174 =====
+//This is to confirm threads are serialized in wait
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <vector>
+
+std::condition_variable cv;
+std::mutex mu;
+
+std::chrono::milliseconds sl(500);
+void SendSignal(){
+    std::this_thread::sleep_for(sl*2);
+    cv.notify_all();
+}
+
+void Work(){
+    std::unique_lock<std::mutex> lock(mu);
+    cv.wait(lock);
+    std::cout << std::this_thread::get_id() << "\n";
+    for (int i = 0; i < 2; i++){
+        std::this_thread::sleep_for(sl*2);
+        std::cout << "\t" << i+1 << "\n";
+    }
+}
+
+int main(){
+    std::vector<std::thread> all_threads;
+    all_threads.push_back(std::thread(SendSignal));    
+    all_threads.push_back(std::thread(Work));
+    all_threads.push_back(std::thread(Work));
+
+    for (auto & thread : all_threads){
+        thread.join();
+    }
+}
+
+/*
+//====== 173 =====
+//This is to practice always making one thread execute one block of first
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <vector>
+#include <chrono>
+#include <atomic>
+
+std::condition_variable produce_cv, consume_cv;
+std::mutex produce_mu, consume_mu;
+
+std::atomic<bool> start_produce (false), start_consume ( false);
+
+std::vector<int> vecs;
+
+void produce(){
+    std::unique_lock<std::mutex> lock_produce(produce_mu);
+    produce_cv.wait(lock_produce, []{std::cout << "checked\n"; return &start_produce;});    
+
+    //start producing
+    for (int i = 0; i < 3; i++)
+        vecs.push_back(2*i);
+
+    //done producing
+    start_consume = true;
+    consume_cv.notify_one();
+}
+
+bool cond(){
+    static int count = 1;
+    if (count == 1){
+        start_produce = true;
+        produce_cv.notify_one();
+    }
+    count ++;
+    return start_consume;
+}
+
+void consume(){
+    //std::cout << "c\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::unique_lock<std::mutex> lock_consume(consume_mu);
+    consume_cv.wait(lock_consume, cond);
+    std::cout << start_consume << std::endl;
+    
+    std::cout << "cosuming\n";
+    //start consuming
+    while(! vecs.empty()){
+        std::cout << vecs.back() << " ";
+        vecs.pop_back();
+    }
+    std::cout << "\n";
+}
+
+int main(){
+    std::thread pro_con[2];
+    pro_con[0] = std::thread(produce);
+    pro_con[1] = std::thread(consume);
+
+    for (auto & thread : pro_con){
+        thread.join();
+    }
+}
+
+
 //===== 172 =====
 //This is to enhance my understanding of wait
 #include <iostream>
@@ -38,7 +143,6 @@ int main(){
 }
 
 
-/*
 //====== 171 ======
 //This is to practice producer/consumer design pattern
 #include <iostream>

@@ -1,3 +1,5 @@
+153. notify_all/one() just send signal to cv.wait()
+152. In condition_variable cv, cv.wait(unique_lock, cond) is not atomic operation, but cv.wait(unique_lock) is atomic operation
 151. mutex is not released if the the code in the same scope is still running.
 150. For condition_variable, cv.notify_all() will send signals to all threads, but only one thread can own the mutex lock at a time;
 149. For condition_variable, cv.wait(lock); -> determined only by cv.notify_all/one()
