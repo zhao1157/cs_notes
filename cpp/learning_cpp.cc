@@ -1,3 +1,101 @@
+//===== 172 =====
+//This is to enhance my understanding of wait
+#include <iostream>
+#include <thread>
+#include <mutex>
+
+std::mutex mu;
+std::condition_variable cv;
+int sig = 0;
+
+bool cond(int id){
+    std::cout << std::this_thread::get_id() << ": checking " << id << sig << std::endl;
+    return sig == 1 || id == 0;
+}
+
+void Work(int id){
+    //if (id == 1)
+    //    std::this_thread::sleep_for(std::chrono::microseconds(5));
+    std::unique_lock<std::mutex> lock(mu);
+    cv.wait(lock, std::bind(cond, id));    
+    if (id == 0){
+        sig = 1;
+        cv.notify_one();
+    }
+        
+}
+
+int main(){
+    std::thread my_threads[2];
+    my_threads[0] = std::thread(Work, 0);
+    my_threads[1] = std::thread(Work, 1);
+    
+    //std::this_thread::sleep_for(std::chrono::seconds(1));
+    //sig = 1;
+    //cv.notify_all();
+    for (auto & thread : my_threads)
+        thread.join();
+}
+
+
+/*
+//====== 171 ======
+//This is to practice producer/consumer design pattern
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <vector>
+#include <stdlib.h>
+#include <time.h>
+#include <chrono>
+
+std::vector <int> buckets;
+bool full = false;
+
+std::condition_variable cv;
+std::mutex mu;
+
+void produce(){
+    int iterations = std::thread::hardware_concurrency() - 1;
+    while(iterations --){
+        std::unique_lock<std::mutex> lock(mu);
+        for (int i = iterations + 1; i > 0; i --)
+            buckets.push_back(i);
+        full = true;
+        std::cout << "size of buckets: " << buckets.size() << std::endl;
+        lock.unlock();
+        cv.notify_one();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+}
+
+void consume(){
+    std::unique_lock<std::mutex> lock(mu);
+    cv.wait(lock, []{std::cout << std::this_thread::get_id() << ": checking\n"; return full;});
+    std::cout << std::this_thread::get_id() << " ";
+    while(!buckets.empty()){
+        std::cout << buckets.back() << " ";
+        buckets.pop_back();
+    }
+    full = false;
+    std::cout << std::endl;
+}
+
+int main(){
+    std::vector<std::thread> my_threads;
+    my_threads.emplace_back(std::thread(produce));
+    for (int i = 0; i < std::thread::hardware_concurrency() - 1; i ++){
+        my_threads.emplace_back(std::thread(consume));
+    }
+
+    for (std::thread & thread : my_threads){
+        if (thread.joinable()){
+            thread.join();
+        }
+    }
+}
+
+
 //====== 170 =====
 //This is to enhance my understanding of wait()
 #include <iostream>
@@ -45,7 +143,6 @@ int main(){
     }
 }
 
-/*
 //===== 169 =====
 //This is to enhance my understanding of condition_variable wait_for
 #include <iostream>

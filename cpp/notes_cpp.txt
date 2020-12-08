@@ -1,3 +1,4 @@
+151. mutex is not released if the the code in the same scope is still running.
 150. For condition_variable, cv.notify_all() will send signals to all threads, but only one thread can own the mutex lock at a time;
 149. For condition_variable, cv.wait(lock); -> determined only by cv.notify_all/one()
 148. For condition_variable, cv.wait(lock, cond); -> first check cond, if true then exit, otherwise wait(lock) before notify_all/one, repeat this process
