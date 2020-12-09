@@ -1,3 +1,35 @@
+//===== 180 ======
+//This is to enhancing my understanding of condition_variable
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::condition_variable cv;
+std::mutex mu;
+
+void work(int & num){
+    num ++;
+    cv.notify_all();
+}
+
+int main(){
+    int a = 3;
+    std::thread my_thread;
+    my_thread = std::thread(&work, std::ref(a));
+    my_thread.detach();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    
+    {
+        std::unique_lock<std::mutex> lock(mu);
+        std::cout << a << std::endl;
+        cv.wait(lock, [a]{std::cout << "checking\n"; return a == 4;});
+    }
+    std::cout << a << std::endl;
+
+}
+
+/*
 //====== 179 =====
 //This is to enhance my understanding of cv.wait_for(unique_lock, duration, cond)
 #include <iostream>
@@ -39,7 +71,6 @@ int main(){
 }
 
 
-/*
 //====== 178 ======
 //This is to practice cv.wait_until()
 #include <iostream>
