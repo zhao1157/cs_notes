@@ -1,3 +1,4 @@
+159. cv.wait_for(unique_lock, duration, cond) -> in duration, cond may get checked multiple times when cv.notify_all/one() executes
 158. cv.wait_until(unique_lock, time_point) -> returns std::cv_status::no_timeout, otherwise std::cv_status::timeout
 157. cv.wait_for(unique_lock, duration, cond) - returns true if cond is met, otherwise false; it checks cond the very first beginning, and everytime it's waken up by notify_all/one() or duration runs out.
 156. cv.wait_for(unique_lock, duration) -> returns when cv.notify_all/one() is called or when duration runs out

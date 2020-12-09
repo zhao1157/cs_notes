@@ -1,3 +1,45 @@
+//====== 179 =====
+//This is to enhance my understanding of cv.wait_for(unique_lock, duration, cond)
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::chrono::milliseconds sl(100);
+std::condition_variable cv;
+std::mutex mu;
+
+int sig = 0;
+
+void SendSignal(){
+    std::this_thread::sleep_for(sl);
+    cv.notify_all();
+    std::this_thread::sleep_for(sl*0.2);
+    sig = 1;
+    cv.notify_all();
+}
+
+void Work(){
+    auto start = std::chrono::high_resolution_clock::now();
+    std::unique_lock<std::mutex> lock(mu);
+    cv.wait_for(lock, sl*1.5, []{std::cout << "checking\n"; return sig == 1;});
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::cout << "time taken " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "\n";
+}
+
+int main(){
+    std::thread my_threads[2];
+    my_threads[0] = std::thread(SendSignal);
+    my_threads[1] = std::thread(Work);
+
+
+    my_threads[0].join();
+    my_threads[1].join();
+}
+
+
+/*
 //====== 178 ======
 //This is to practice cv.wait_until()
 #include <iostream>
@@ -43,7 +85,6 @@ int main(){
 
 }
 
-/*
 //====== 177 ======
 //This is to practice cv.wait_for(unique_lock, duration, cond) which returns bool, not std::cv_status::timeout/no_timeout
 //to prevent spurious wakening
