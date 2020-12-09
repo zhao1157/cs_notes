@@ -1,3 +1,48 @@
+//====== 177 ======
+//This is to practice cv.wait_for(unique_lock, duration, cond) which returns bool, not std::cv_status::timeout/no_timeout
+//to prevent spurious wakening
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::condition_variable cv;
+std::mutex mu;
+
+int sig = 0;
+std::chrono::milliseconds sl(500);
+
+void SendSignal(){
+    cv.notify_all();
+    std::this_thread::sleep_for(sl*1.2);
+
+    sig = 1;
+    cv.notify_all();
+    
+}
+
+void Work(int i){
+    std::unique_lock<std::mutex> lock(mu);
+    if (cv.wait_for(lock, sl*i, []{return sig == 1;})){
+        std::cout << i << ". sig = " << sig << std::endl;
+    } else{
+        std::cout << i << ". timeout sig = " << sig << std::endl;
+    }
+
+}
+
+int main(){
+    std::thread my_threads[3];
+    my_threads[0] = std::thread(SendSignal);
+    my_threads[1] = std::thread(Work, 1);
+    my_threads[2] = std::thread(Work, 2);
+
+    for (auto & thread : my_threads){
+        thread.join();
+    }
+}
+
+/*
 //====== 176 =====
 //This is to practice wait_for(unique_lock, duration)
 #include <iostream>
@@ -35,7 +80,6 @@ int main(){
         thread.join();
 }
 
-/*
 //====== 175 =====
 //This is to test that cv.wait() only works for unique_lock, not lock_guard
 #include <iostream>
