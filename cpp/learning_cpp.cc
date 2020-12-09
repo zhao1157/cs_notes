@@ -1,3 +1,49 @@
+//====== 178 ======
+//This is to practice cv.wait_until()
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <vector>
+
+std::chrono::high_resolution_clock::time_point init_time;
+std::chrono::milliseconds sl(100);
+std::condition_variable cv;
+std::mutex mu;
+
+void SendSignal(){
+    std::this_thread::sleep_for(sl*3);
+    cv.notify_one();
+    cv.notify_one();
+    std::cout << "Done signaling\n";
+}
+
+void Work(int i){
+    std::this_thread::sleep_for(sl*i);
+    std::unique_lock<std::mutex> lock(mu);
+    std::cv_status status = cv.wait_until(lock, init_time - sl * 1.05);
+    if (status == std::cv_status::timeout){
+        std::cout << "timeout\n";
+    } else if (status == std::cv_status::no_timeout) {
+        std::cout << "received notify_all() first\n";
+    }
+    std::this_thread::sleep_for(sl*i*10);
+}
+
+int main(){
+    init_time = std::chrono::high_resolution_clock::now();
+    std::vector<std::thread> my_threads;
+    my_threads.emplace_back(std::thread(SendSignal));
+    my_threads.emplace_back(std::thread(Work, 1));
+    my_threads.emplace_back(std::thread(Work, 2));
+
+    for (auto & thread : my_threads){
+        thread.join();
+    }
+
+}
+
+/*
 //====== 177 ======
 //This is to practice cv.wait_for(unique_lock, duration, cond) which returns bool, not std::cv_status::timeout/no_timeout
 //to prevent spurious wakening
@@ -42,7 +88,6 @@ int main(){
     }
 }
 
-/*
 //====== 176 =====
 //This is to practice wait_for(unique_lock, duration)
 #include <iostream>
