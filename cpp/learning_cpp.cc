@@ -9,12 +9,13 @@ std::mutex mu;
 std::condition_variable cv;
 
 void SendSignal(){
-    std::this_thread::sleep_for(std::chrono::milliseconds(990));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::cout << "sending signal\n";
     cv.notify_all();
 }
 
-void Work(){
+void Work(int i){
+    std::this_thread::sleep_for(std::chrono::seconds(i));
     std::unique_lock<std::mutex> lock(mu);
     std::cv_status status = cv.wait_for(lock, std::chrono::seconds(1));
     if (status == std::cv_status::timeout){
@@ -25,9 +26,10 @@ void Work(){
 }
 
 int main(){
-    std::thread my_threads[2];
+    std::thread my_threads[3];
     my_threads[0] = std::thread(SendSignal);
-    my_threads[1] = std::thread(Work);
+    my_threads[1] = std::thread(Work, 0); // returns when cv.notify_all() is called
+    my_threads[2] = std::thread(Work, 1); // returns when duration runs out
 
     for (auto & thread : my_threads)
         thread.join();
