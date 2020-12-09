@@ -1,3 +1,32 @@
+/*
+//====== 175 =====
+//This is to test that cv.wait() only works for unique_lock, not lock_guard
+#include <iostream>
+#include <thread>
+#include <mutex>
+
+std::condition_variable cv;
+std::mutex mu;
+
+void SendSignal(){
+    cv.notify_all();
+}
+
+void Work(){
+    std::lock_guard<std::mutex> lock(mu);
+    cv.wait(lock, []{return true;}); //here wait() only takes unique_lock template class, not lock_guard template type
+}
+
+int main(){
+    std::thread my_threads[2];
+
+    my_threads[0] = std::thread(SendSignal);
+    my_threads[1] = std::thread(Work);
+
+    my_threads[0].join();
+    my_threads[1].join();
+}
+
 //====== 174 =====
 //This is to confirm threads are serialized in wait
 #include <iostream>
@@ -36,7 +65,6 @@ int main(){
     }
 }
 
-/*
 //====== 173 =====
 //This is to practice always making one thread execute one block of first
 #include <iostream>
