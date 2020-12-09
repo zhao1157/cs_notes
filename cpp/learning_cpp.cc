@@ -1,3 +1,38 @@
+//====== 176 =====
+//This is to practice wait_for(unique_lock, duration)
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::mutex mu;
+std::condition_variable cv;
+
+void SendSignal(){
+    std::this_thread::sleep_for(std::chrono::milliseconds(990));
+    std::cout << "sending signal\n";
+    cv.notify_all();
+}
+
+void Work(){
+    std::unique_lock<std::mutex> lock(mu);
+    std::cv_status status = cv.wait_for(lock, std::chrono::seconds(1));
+    if (status == std::cv_status::timeout){
+        std::cout << "timeout\n";
+    }else if (status == std::cv_status::no_timeout){
+        std::cout << "no_timeout\n";
+    }
+}
+
+int main(){
+    std::thread my_threads[2];
+    my_threads[0] = std::thread(SendSignal);
+    my_threads[1] = std::thread(Work);
+
+    for (auto & thread : my_threads)
+        thread.join();
+}
+
 /*
 //====== 175 =====
 //This is to test that cv.wait() only works for unique_lock, not lock_guard

@@ -1,3 +1,4 @@
+155. cv.wait_for(unique_lock, duration) -> returns std::cv_status::timeout/no_timeout depending on if it exceeds the durtion or not
 154. cv.wait() -> it only takes in the unique_lock, not lock_guard or any other type
 153. notify_all/one() just send signal to cv.wait()
 152. In condition_variable cv, cv.wait(unique_lock, cond) is not atomic operation, but cv.wait(unique_lock) is atomic operation
