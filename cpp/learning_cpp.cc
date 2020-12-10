@@ -1,3 +1,84 @@
+//===== 182 =====
+//how to make sure all threads are ready?
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <vector>
+
+class Prize{
+    private: 
+        static int id;
+        Prize(int _id = -1){
+            id = _id;
+        }
+    public:
+        Prize(const Prize &) = delete;
+        Prize & operator = (const Prize &) = delete;
+        static Prize & GetPrize(int _id){
+            static Prize p(_id);
+            std::cout << "Attending " << _id << std::endl;
+            return p;
+        }
+
+        static void GetWinner(){
+            std::cout << "The winner is " << id << std::endl;
+        }
+};
+
+int Prize::id;
+
+int ready = 0, go = 0, done = 0;
+std::mutex mu, mu_work, mu_done;
+std::condition_variable cv, cv_work, cv_done;
+
+void Work(int id){
+    {
+        std::unique_lock<std::mutex> lock(mu);
+        ready ++;
+    }
+    cv.notify_one();
+
+    {
+        std::unique_lock<std::mutex> lock(mu_work);
+        cv_work.wait(lock, [] {return go == 1;});
+        Prize::GetPrize(id);
+    }
+
+    {
+        std::unique_lock<std::mutex> lock(mu_done);
+        done ++;
+        cv_done.notify_one();
+    }
+
+}
+
+int main(){
+    std::vector<std::thread> my_threads;
+    for (int i = 0; i < 5; i++) my_threads.emplace_back(Work, i); 
+
+    {
+        std::unique_lock<std::mutex> lock(mu);
+        cv.wait(lock, []{std::cout << "checking\n"; return ready == 5;});
+        std::cout << "ready\n";
+    }
+
+    { 
+        std::unique_lock<std::mutex> lock(mu_work);
+        go = 1;
+        cv_work.notify_all();
+        std::cout << "go\n";
+    }
+
+    {
+        std::unique_lock<std::mutex> lock(mu_done);
+        cv_done.wait(lock, []{return done == 5;});
+        std::cout << "Time to find out the winner\n";
+    }
+    Prize::GetWinner();
+
+    for (auto & thread : my_threads) thread.join();
+}
+/*
 //====== 181 ======
 //This is to enhance my understanding of cv.wait
 #include <iostream>
@@ -41,7 +122,6 @@ int main(){
 
 
 
-/*
 //===== 180 ======
 //This is to enhancing my understanding of condition_variable
 #include <iostream>
