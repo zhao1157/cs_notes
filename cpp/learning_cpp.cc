@@ -1,10 +1,33 @@
+//======= 184 =======
+//This is to practice std::async
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+#include <future> //std::async
+
+std::chrono::seconds sl(1);
+void Work(){
+    std::this_thread::sleep_for(sl);
+    std::cout << std::this_thread::get_id() << " done sleeping\n";
+}
+
+int main(){
+    //std::launch::deferred -> in the same thread, not spawned in another thread
+    std::future<void> sync = std::async(std::launch::deferred, Work);
+    std::cout << std::this_thread::get_id() << " main\n";
+    sync.wait(); // blocks until the result becomes available
+}
+
+
+/*
 //====== 183 =====
 //This is to verify the assignment operator overloading working for static?
 #include <iostream>
 
 class P{
     public:
-        static void operator () (){
+        static void operator () (){ //operato () overloading does not work for static methods
             std::cout << "static () operator overloading\n";
         }
 };
@@ -14,7 +37,6 @@ int main(){
 }
 
 
-/*
 //===== 182 =====
 //how to make sure all threads are ready?
 #include <iostream>
