@@ -1,3 +1,4 @@
+160. mutex and wait are not interfering each other, so if mutex is still held by one thread and it executes cv.notify_all(), other threads will not be able to acquire the lock and continue its own work and they have to wait till the mutex is released and trying to get the mutex lock, if successful it will continue
 159. cv.wait_for(unique_lock, duration, cond) -> in duration, cond may get checked multiple times when cv.notify_all/one() executes
 158. cv.wait_until(unique_lock, time_point) -> returns std::cv_status::no_timeout, otherwise std::cv_status::timeout
 157. cv.wait_for(unique_lock, duration, cond) - returns true if cond is met, otherwise false; it checks cond the very first beginning, and everytime it's waken up by notify_all/one() or duration runs out.

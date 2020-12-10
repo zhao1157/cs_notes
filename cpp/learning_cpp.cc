@@ -1,3 +1,47 @@
+//====== 181 ======
+//This is to enhance my understanding of cv.wait
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <chrono>
+
+std::mutex mu;
+std::condition_variable cv;
+
+std::chrono::milliseconds sl(100);
+
+void SendSignal(){
+    std::this_thread::sleep_for(sl);
+    std::lock_guard<std::mutex> lock(mu);
+    std::cout << "defer signal\n";
+    std::this_thread::sleep_for(sl*10);
+    std::cout << "signal\n";
+    cv.notify_all();    
+    std::this_thread::sleep_for(sl*10);
+    std::cout << "signal\n";
+    cv.notify_all();
+    std::this_thread::sleep_for(sl*10);
+}
+
+void Work(){
+    std::unique_lock<std::mutex> lock(mu);
+    std::cout << "here\n";
+    cv.wait(lock);
+    std::cout << "done\n";
+}
+
+int main(){
+    std::thread my_threads[2];
+    my_threads[0] = std::thread(SendSignal);
+    my_threads[1] = std::thread(Work);
+
+    my_threads[0].join();
+    my_threads[1].join();
+}
+
+
+
+/*
 //===== 180 ======
 //This is to enhancing my understanding of condition_variable
 #include <iostream>
@@ -29,7 +73,6 @@ int main(){
 
 }
 
-/*
 //====== 179 =====
 //This is to enhance my understanding of cv.wait_for(unique_lock, duration, cond)
 #include <iostream>
