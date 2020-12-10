@@ -1,3 +1,4 @@
+163. std::future<int> res = std::async(std::launch::aysnc, func, args); int i = res.get() -> get the return value of the function
 162. #include <future>; std::future<return_type> res = std::async(std::launch::deferred, func, arg); res.wait(); -> in the same thread, not spawned in another thread, and blocks till the result becomes available
 161. In a class, we can not have operator() overloading for static type, as it will conflict with the non-static operator() overloading.
 160. mutex and wait are not interfering each other, so if mutex is still held by one thread and it executes cv.notify_all(), other threads will not be able to acquire the lock and continue its own work and they have to wait till the mutex is released and trying to get the mutex lock, if successful it will continue

@@ -1,3 +1,23 @@
+//====== 185 ======
+//This is to practice std::async(std::launch::async, func, arg), which is spawned in a different thread
+#include <iostream>
+#include <thread>
+#include <future>
+
+int Work(){
+    std::cout << std::this_thread::get_id() << " 23\n";
+    return 23;
+}
+
+int main(){
+    std::future<int> res = std::async(std::launch::async, Work);
+    res.wait();
+    int i = res.get();
+    std::cout << std::this_thread::get_id() << " main " << i << "\n";
+}
+
+
+/*
 //======= 184 =======
 //This is to practice std::async
 #include <iostream>
@@ -20,7 +40,6 @@ int main(){
 }
 
 
-/*
 //====== 183 =====
 //This is to verify the assignment operator overloading working for static?
 #include <iostream>
