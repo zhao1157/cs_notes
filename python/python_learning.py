@@ -1,3 +1,6 @@
+#========= 210 =======
+pip install gin-config==0.1.1
+
 #========= 209 =======
 # find out the number of records in tfrecord file
 c = 0
