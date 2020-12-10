@@ -1,3 +1,11 @@
+#========= 210 =======
+pip install gin-config==0.1.1
+
+#========= 209 =======
+# find out the number of records in tfrecord file
+c = 0
+for record in tf.python_io.tf_record_iterator("wmt-val-00001-of-00001"):
+    c+=1
 #======  208 ====
 # clear() to remove all elements
 a = {2:3, 's': 3}
