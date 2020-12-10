@@ -1,3 +1,20 @@
+//====== 183 =====
+//This is to verify the assignment operator overloading working for static?
+#include <iostream>
+
+class P{
+    public:
+        static void operator () (){
+            std::cout << "static () operator overloading\n";
+        }
+};
+
+int main(){
+    P p;
+}
+
+
+/*
 //===== 182 =====
 //how to make sure all threads are ready?
 #include <iostream>
@@ -78,7 +95,9 @@ int main(){
 
     for (auto & thread : my_threads) thread.join();
 }
-/*
+
+
+
 //====== 181 ======
 //This is to enhance my understanding of cv.wait
 #include <iostream>
