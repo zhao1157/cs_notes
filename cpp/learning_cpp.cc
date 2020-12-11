@@ -1,3 +1,37 @@
+//======= 188 =======
+//This is to practice passing values to threads using std::promise and std::future
+#include <iostream>
+#include <thread>
+#include <future>
+#include <stdlib.h>
+#include <time.h>
+#include <chrono>
+
+std::chrono::nanoseconds sl(1);
+
+void Work(std::future<int> &fu){
+    std::cout << "waiting ...\n";
+    int a = fu.get();
+    std::cout << "done waiting\n";
+
+    std::cout << a << std::endl;
+    //fu.get(); // only get() once
+}
+
+int main(){
+    std::promise <int> prom;
+    std::future <int> fu = prom.get_future();
+    
+    // we need to assign std::async to a variable, otherwise hang 
+    std::future<void> ret = std::async(std::launch::async, Work, std::ref(fu));
+    
+    std::this_thread::sleep_for(sl);
+    prom.set_value(2);
+
+}
+
+
+/*
 //======= 187 ======
 //This is to practice one thread sending info while others receiving it
 #include <iostream>
@@ -49,7 +83,6 @@ int main(){
 
 }
 
-/*
 //====== 186 =====
 //This is to practice std::promise and std::future pair, which provides another way of communicating among threads
 #include <iostream>

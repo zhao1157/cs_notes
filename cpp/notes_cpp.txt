@@ -1,3 +1,6 @@
+169. std::future <int> fu; fu.get(); -> only once
+168. std::async() is a function template
+167. when using std::async(), make sure it is assigned to a variable std::future<return_type> ret = std::async(); otherwise hang
 166. std::promise<int*> prom; std::future <int*> fu= prom.get_future(); prom.set_value(new int [2] {2, 3}); int * arr = fu.get()
 165. std::promise <void> prom; std::future<void> fu = prom.get_future(); prom.set_value(); fu.get(); -> used to signal states
 164. To communicate info among threads, we can use std::promise and std::future to send and receive the messages
