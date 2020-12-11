@@ -1,23 +1,108 @@
+//======= 187 ======
+//This is to practice one thread sending info while others receiving it
+#include <iostream>
+#include <thread>
+#include <future>
+#include <stdlib.h>
+#include <mutex>
+#include <time.h>
+
+struct P{
+    std::string name;
+    int age;
+    P (std::string _name="xx", int _age=-9): name(_name), age(_age){}
+};
+
+std::mutex mu;
+
+void Work(int id, std::promise<void> &prom, std::future<void> & fu){
+    static P p;
+    if (id == 0){
+        srand(time(NULL));
+        p = P("zls", rand()%70+30);
+        prom.set_value();
+        {
+            std::lock_guard<std::mutex> lock(mu);
+            std::cout << "The correct info is " << p.name << ": " << p.age << std::endl;
+        }
+    } else{
+        fu.wait();
+        {
+            std::lock_guard<std::mutex> lock(mu);
+            std::cout << p.name << ": " << p.age << std::endl;
+        }
+    }
+}
+
+
+int main(){
+    std::promise <void> prom;
+    std::future <void> fu = prom.get_future();
+    
+    int num = std::thread::hardware_concurrency();
+
+    std::thread all_threads[num];
+
+    for (int i = 0; i < num; i++) all_threads[i] = std::thread(Work, i, std::ref(prom), std::ref(fu));
+
+    for (int i = 0; i < num; i++) all_threads[i].join();
+
+}
+
+/*
+//====== 186 =====
+//This is to practice std::promise and std::future pair, which provides another way of communicating among threads
+#include <iostream>
+#include <thread>
+#include <future>
+#include <chrono>
+
+std::chrono::seconds sl(1);
+
+void Work(std::promise<int*> prom){ // don't use reference as we move the object here
+    int a = 2;
+    std::this_thread::sleep_for(sl);
+    static int arr[2] = {a, a+a}; // make arr global or static, otherwise setmentation fault
+    //prom.set_value(new int [2] {a, a+1});
+    prom.set_value(arr);
+}
+
+int main(){
+    std::promise<int *> prom;
+    std::future <int *> fu = prom.get_future();
+
+    std::thread my_thread = std::thread(Work, std::move(prom));
+    
+    std::cout << "waiting for arr\n";
+    int *arr = fu.get();
+    std::cout << "got arr\n";
+    std::cout << arr[0] << " " << arr[1] << std::endl;
+    my_thread.join();
+}
+
 //====== 185 ======
 //This is to practice std::async(std::launch::async, func, arg), which is spawned in a different thread
 #include <iostream>
 #include <thread>
 #include <future>
+#include <chrono>
+
+std::chrono::seconds sl(1);
 
 int Work(){
     std::cout << std::this_thread::get_id() << " 23\n";
+    std::this_thread::sleep_for(sl);
     return 23;
 }
 
 int main(){
     std::future<int> res = std::async(std::launch::async, Work);
-    res.wait();
+    std::cout << "waiting for res\n";
     int i = res.get();
     std::cout << std::this_thread::get_id() << " main " << i << "\n";
 }
 
 
-/*
 //======= 184 =======
 //This is to practice std::async
 #include <iostream>

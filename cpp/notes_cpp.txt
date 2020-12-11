@@ -1,3 +1,6 @@
+166. std::promise<int*> prom; std::future <int*> fu= prom.get_future(); prom.set_value(new int [2] {2, 3}); int * arr = fu.get()
+165. std::promise <void> prom; std::future<void> fu = prom.get_future(); prom.set_value(); fu.get(); -> used to signal states
+164. To communicate info among threads, we can use std::promise and std::future to send and receive the messages
 163. std::future<int> res = std::async(std::launch::aysnc, func, args); int i = res.get() -> get the return value of the function
 162. #include <future>; std::future<return_type> res = std::async(std::launch::deferred, func, arg); res.wait(); -> in the same thread, not spawned in another thread, and blocks till the result becomes available
 161. In a class, we can not have operator() overloading for static type, as it will conflict with the non-static operator() overloading.
