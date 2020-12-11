@@ -1,3 +1,35 @@
+//====== 189 =======
+//This is to practice std::shared_future<type> sf = std::future<type> fu.share()
+#include <iostream>
+#include <thread>
+#include <future>
+#include <mutex>
+#include <vector>
+
+std::mutex mu;
+
+void Work(std::shared_future<int> sfu){
+    std::lock_guard<std::mutex> lock(mu);
+    std::cout << std::this_thread::get_id() << ": " << sfu.get() << std::endl;
+}
+
+int main(){
+    int num = std::thread::hardware_concurrency();
+
+    std::vector<std::future<void>> thd;
+
+    std::promise<int> prom;
+    std::future<int> fu = prom.get_future();
+    std::shared_future<int> sfu = fu.share();
+
+    for (int i = 0; i < num - 1; i++)
+        thd.emplace_back(std::async(Work, sfu));
+
+    prom.set_value(4);
+}
+
+
+/*
 //======= 188 =======
 //This is to practice passing values to threads using std::promise and std::future
 #include <iostream>
@@ -31,7 +63,6 @@ int main(){
 }
 
 
-/*
 //======= 187 ======
 //This is to practice one thread sending info while others receiving it
 #include <iostream>

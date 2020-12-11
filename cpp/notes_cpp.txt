@@ -1,3 +1,4 @@
+170. std::promise<int> prom; std::shared_future<int> sf = prom.get_future(); or std::future<int> fu=prom.get_future(); sf = fu.share(); for each thread, use ITS OWN copy of shared future object, not the same object, otherwise unsafe.
 169. std::future <int> fu; fu.get(); -> only once
 168. std::async() is a function template
 167. when using std::async(), make sure it is assigned to a variable std::future<return_type> ret = std::async(); otherwise hang
