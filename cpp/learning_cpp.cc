@@ -1,3 +1,26 @@
+//========= 193 ==========
+//This is to practice std::bind
+#include <iostream>
+#include <functional>
+
+void work(int a, double b, std::string c){
+    std::cout << a << ", " << b << ", " << c << std::endl;
+}
+
+int main(){
+    int a = 2;
+    double b = 3.14;
+    std::string c = "zls";
+
+    std::function<void()> f1 = std::bind(work, a, b, c);
+    f1();
+
+    std::function<void(double, int)> f2 = std::bind(work, std::placeholders::_2, std::placeholders::_1, c);
+    f2(b, 2*a);
+}
+
+
+/*
 //=========== 192 ==========
 //This is to practice packaged_task<return_type(arg_tyep1, arg_type2, ...)>
 #include <iostream>
@@ -17,7 +40,7 @@ int main(){
     std::cout << " std::packaged_task<void()>\n";
     task();
 }
-/*
+
 //======= 191 ======
 //This is to practice std::move
 #include <iostream>
