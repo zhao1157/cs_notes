@@ -1,3 +1,60 @@
+//======== 195 ==========
+//This is to test passing arguments to packaged_task
+#include <iostream>
+#include <future>
+#include <functional>
+
+int work(double a){
+    std::cout << a << std::endl;
+    return static_cast<int> (2*a);
+}
+
+void test(int a, double b, std::string c){
+    std::cout << a << ", " << b << ", " << c << std::endl;
+}
+
+int main(){
+    std::packaged_task<int(double)> task(work);
+    task(3.14);
+
+    std::future<int> fu = task.get_future();
+    std::cout << fu.get() << std::endl;
+    
+    std::packaged_task<void(double, int)> t1 (std::bind(test, std::placeholders::_2, std::placeholders::_1, "zls"));
+
+    t1(3.9, 23);
+   
+}
+
+
+/*
+//========= 194 ============
+//This is to test the scope a class object
+#include <iostream>
+#include <functional>
+
+class P{
+    public:
+        ~P(){
+            std::cout << "P is destroyed\n";
+        }
+};
+
+void test(P &p, int i){
+}
+
+int main(){
+    P p;
+    int i = 2;
+
+    //test(std::move(p), std::move(i));
+    test(std::ref(p), i);
+
+    std::cout << "after test\n";
+    std::cout << i << std::endl;
+}
+
+
 //========= 193 ==========
 //This is to practice std::bind
 #include <iostream>
@@ -20,7 +77,6 @@ int main(){
 }
 
 
-/*
 //=========== 192 ==========
 //This is to practice packaged_task<return_type(arg_tyep1, arg_type2, ...)>
 #include <iostream>

@@ -1,3 +1,4 @@
+176. std::packaged_task<void(double, int)> task(std::bind(work, std::placeholders::_2, std::placeholders::_1, "zls")); task(3.14, 2)
 175. std::function<void(int, double)> f = std::bind(work, std::placeholders::_2, std::placeholders::_1, "zls"); f(2, 3.14); we can use std::placeholders::_1/2/3... to change the order of arguments in the new function
 174. (it is a class template) std::packaged_task<return_tye(arg_type1, ...)> task(fn, arg1, arg2, ...); it stores a task, and a shared state; std::future<return_type> fu = task.get_future(); fu.get() -> get the results returned from fn after executing in task object.
 173. (it is a function) std::bind(func, arg, ...) returns a std::function<return_tye(arg_type1, ...)> function, which can be invoked by f(arg, ...)
