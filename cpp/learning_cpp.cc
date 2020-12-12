@@ -1,3 +1,39 @@
+//====== 196 =====
+//This is to test virtual and dynamic_cast
+#include <iostream>
+
+class B{
+    public:
+        virtual ~B(){
+            std::cout << "B is destroyed\n";
+        }
+};
+
+class D: public B{
+    public:
+        ~D(){
+            std::cout << "D is destroyed\n";
+        }
+};
+
+int main(){
+    B * ptr;
+
+    ptr = dynamic_cast<B*> (new D);
+
+    if (ptr){
+        std::cout << "dynamic_cast succeeded\n";
+    } else{
+        std::cout << "dynamic_cast failed\n";
+    }
+
+    delete ptr;
+    std::cout << "_____\n";
+    D *p = new D;
+    delete p;
+}
+
+/*
 //======== 195 ==========
 //This is to test passing arguments to packaged_task
 #include <iostream>
@@ -27,7 +63,6 @@ int main(){
 }
 
 
-/*
 //========= 194 ============
 //This is to test the scope a class object
 #include <iostream>
