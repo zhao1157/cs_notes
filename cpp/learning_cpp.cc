@@ -1,3 +1,60 @@
+//======= 191 ======
+//This is to practice std::move
+#include <iostream>
+#include <deque>
+
+int main(){
+    int a [2] = {2, 3};
+    int b = std::move(a[1]);
+
+    std::cout << a[1] << std::endl;
+
+    std::deque<int> deq;
+    deq.push_back(2);
+    deq.push_back(9);
+    deq.push_back(22);
+
+    b = std::move(deq.front());
+    deq.pop_front();
+    for(auto & ele : deq) 
+        std::cout << ele << " ";
+    std::cout << "\n";
+}
+/*
+//======= 190 ======
+//This is to practice shared_future<void> to synchronize without a state
+#include <iostream>
+#include <mutex>
+#include <thread>
+#include <future>
+#include <chrono>
+#include <vector>
+
+void Work(std::shared_future<void> sfu, std::mutex & mu){
+    std::lock_guard<std::mutex> lock(mu);
+    sfu.wait();
+    std::cout << "\t" << std::this_thread::get_id() << " done waiting\n";
+}
+
+int main(){
+    std::mutex mu;
+    std::promise<void> prom;
+    std::shared_future<void> sfu = prom.get_future();
+    
+    int num = std::thread::hardware_concurrency() - 1;
+
+    std::vector<std::thread> my_threads;
+    for (int i = 0; i < num; i++)
+        my_threads.emplace_back(std::thread(Work, sfu, std::ref(mu)));
+    
+    std::cout << "sending signal\n"; 
+    prom.set_value();
+    
+    for (auto & thread : my_threads)
+        thread.join();
+}
+
+
 //====== 189 =======
 //This is to practice std::shared_future<type> sf = std::future<type> fu.share()
 #include <iostream>
@@ -29,7 +86,6 @@ int main(){
 }
 
 
-/*
 //======= 188 =======
 //This is to practice passing values to threads using std::promise and std::future
 #include <iostream>
