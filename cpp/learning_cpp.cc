@@ -1,3 +1,23 @@
+//=========== 192 ==========
+//This is to practice packaged_task<return_type(arg_tyep1, arg_type2, ...)>
+#include <iostream>
+#include <future>
+#include <functional> // for std::function, std::bind
+
+void work(){
+    std::cout << "In task\n";
+}
+
+int main(){
+    std::packaged_task<void()> task(work);
+
+    std::function<void()> f = std::bind(work);
+    std::cout << " std::bind(), std::function<void()> \n";
+    f();
+    std::cout << " std::packaged_task<void()>\n";
+    task();
+}
+/*
 //======= 191 ======
 //This is to practice std::move
 #include <iostream>
@@ -20,7 +40,7 @@ int main(){
         std::cout << ele << " ";
     std::cout << "\n";
 }
-/*
+
 //======= 190 ======
 //This is to practice shared_future<void> to synchronize without a state
 #include <iostream>
