@@ -1,3 +1,78 @@
+//======= 199 ======
+//This is to compare the performance of copying and moving 
+#include <iostream>
+#include <chrono>
+
+class Timer{
+    private:
+        std::chrono::high_resolution_clock::time_point start, end;
+    public:
+        void Start(){
+            start = std::chrono::high_resolution_clock::now();
+        }
+        void Time(){
+            end = std::chrono::high_resolution_clock::now();
+            std::cout << "Time taken is " << std::chrono::duration_cast<std::chrono::milliseconds> (end-start).count() << std::endl;
+        }
+};
+
+template<typename T>
+class DynamicArray{
+    private:
+        T *arr;
+        int length;
+    public:
+        DynamicArray(int _len): arr(new T[_len]), length(_len){}
+        ~DynamicArray(){
+            delete [] arr;
+        }
+        T & operator[] (int ind){
+            return arr[ind];
+        }
+
+        DynamicArray & operator = (DynamicArray & darr){
+            if (this != & darr){
+                delete [] arr;
+                arr = new T[length];
+                for (int i = 0; i < length; i++){
+                    arr[i] = darr[i];
+                }
+            }
+            return *this;
+        }
+
+        DynamicArray & operator = (DynamicArray && darr){
+            if (this != &darr){
+                delete [] arr;
+                arr = darr.arr;
+                length = darr.length;
+                darr.arr = nullptr;
+                darr.length = 0;
+            }
+            return *this;
+        }
+};
+
+int main(){
+    int size = 10000000;
+    DynamicArray<double> arr(size);
+    for (int i = 0; i < size; i++){
+        arr[i] = i;
+    }
+    DynamicArray<double> arr_copy(size);
+
+    Timer time;
+    time.Start();
+    arr_copy = arr;
+    time.Time();
+
+    DynamicArray<double> arr_move(size);
+    time.Start();
+    arr_move = std::move(arr);
+    time.Time();
+}
+
+/*
 //======= 198 ======
 //This is to practice copy/move constructor/assignment
 #include <iostream>
@@ -26,14 +101,12 @@ class P{
             }
             return * this;
         }
-        /*
         //======= move constructor/assignment =======
         P (P && p) {
             std::cout << "move constructor\n";
             arr = p.arr;
             p.arr = nullptr;
         }
-        */
         P & operator = (P && p){
             std::cout << "move assignment\n";
             if (this != &p){
@@ -56,7 +129,6 @@ int main(){
 }
 
 
-/*
 //====== 197 =====
 //This is to practice move constructor and assignment 
 #include <iostream>
