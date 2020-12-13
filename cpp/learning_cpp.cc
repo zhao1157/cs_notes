@@ -1,3 +1,62 @@
+//======= 198 ======
+//This is to practice copy/move constructor/assignment
+#include <iostream>
+
+class P{
+    private:
+        double *arr;
+    public:
+        P(): arr(new double(-3.14)){std::cout << "constructor\n";}
+        ~P(){
+            delete arr;
+        }
+        
+        //======== copy constructor/assignment =======
+        P(const P & p): arr(new double){
+            std::cout << "copy constructor\n";
+            * arr = * p.arr;
+        }
+
+        P & operator = (const P & p){
+            std::cout << "copy assignment\n";
+            if (this != &p){
+                delete arr;
+                arr = new double;
+                * arr = * p.arr;
+            }
+            return * this;
+        }
+        /*
+        //======= move constructor/assignment =======
+        P (P && p) {
+            std::cout << "move constructor\n";
+            arr = p.arr;
+            p.arr = nullptr;
+        }
+        */
+        P & operator = (P && p){
+            std::cout << "move assignment\n";
+            if (this != &p){
+                delete arr;
+                arr = p.arr;
+                p.arr = nullptr;
+            }
+            return * this;
+        }
+};
+
+int main(){
+    P p1;
+    P p2 = p1;
+
+    p2 = p1;
+
+    P p3 = std::move(p1);
+    p3 = static_cast<P &&>(p2);
+}
+
+
+/*
 //====== 197 =====
 //This is to practice move constructor and assignment 
 #include <iostream>
@@ -47,7 +106,6 @@ int main(){
 }
 
 
-/*
 //====== 196 =====
 //This is to test virtual and dynamic_cast
 #include <iostream>
