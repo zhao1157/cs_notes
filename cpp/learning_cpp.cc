@@ -1,3 +1,53 @@
+//====== 197 =====
+//This is to practice move constructor and assignment 
+#include <iostream>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id=-1): id(_id){}
+
+        P(const P && p): id(std::move(p.id)){
+            std::cout << "constructor: move\n"; 
+        }
+        P & operator = (const P && p){
+            std::cout << "assignment: move\n";
+            if (this != &p)
+                id = std::move(p.id);
+            return *this;
+        }
+        void Get(){
+            std::cout << "id: " << id << ", " << & id << std::endl;
+        }
+};
+
+int main(){
+    {
+        P p1(2);
+        P p(std::move(p1));
+        P p2 = std::move(p1);
+    }
+    P p1(3);
+    {
+        P p2;
+        //p2 = std::move(p1);
+        p2 = static_cast<P&&> (p1);
+        //p2 = p1;
+        p2.Get();
+    }
+
+    p1.Get();
+
+    {
+        int a = 2;
+        int b = std::move(a);
+        std::cout << &a << ", " << &b << std::endl;
+    }
+}
+
+
+/*
 //====== 196 =====
 //This is to test virtual and dynamic_cast
 #include <iostream>
@@ -33,7 +83,6 @@ int main(){
     delete p;
 }
 
-/*
 //======== 195 ==========
 //This is to test passing arguments to packaged_task
 #include <iostream>
