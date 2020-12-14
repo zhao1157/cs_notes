@@ -1,3 +1,99 @@
+//======= 211 ======
+//This is to practice thread pool
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <vector>
+#include <queue>
+#include <functional>
+#include <atomic>
+#include <chrono>
+
+std::condition_variable cv_task;
+std::mutex mu_task;
+
+//since Threads are not copy-able, we make this class as a singleton
+class ThreadPool{
+    private:
+        std::vector<std::thread> all_threads;
+        std::queue<std::function<void()>> all_tasks;
+
+        std::atomic<bool> stop;
+        bool new_task;
+        std::atomic<int> num_done;
+
+        ThreadPool(int num = std::thread::hardware_concurrency() -1) {
+            stop = false;
+            new_task = false;
+            num_done = 0;
+
+            if (num > std::thread::hardware_concurrency() - 1){
+                num = std::thread::hardware_concurrency() - 1;
+            } 
+            for (int i = 0; i < num; i++){
+                all_threads.emplace_back(std::thread(&ThreadPool::thread_loop, this));        
+            }
+        }
+
+        ~ThreadPool(){
+            std::cout << "destroying\n";
+            if (stop){
+                std::cout << "stopping threads\n";
+                for (auto & thread : all_threads){
+                    if (thread.joinable())
+                        thread.join();
+                }
+            }
+        }
+    public:
+        ThreadPool(const ThreadPool & )=delete;
+        ThreadPool & operator = (const ThreadPool &) = delete;
+        static ThreadPool & GetThreadPool(){
+            static ThreadPool threadpool;
+            return threadpool;
+        }
+        void thread_loop(){
+            int i = 1;
+            std::function<void()> task;
+            while(true){
+                {
+                    std::unique_lock<std::mutex> lock(mu_task);
+                    cv_task.wait(lock, [this]{return new_task;});
+                    task = std::move(all_tasks.front());
+                    all_tasks.pop();
+                }
+                //runing this task
+                task();
+                i ++;
+                std::cout << "____\n";
+                num_done ++;
+                if (num_done == 3 or i == 2)
+                    break;
+            }
+            stop = (num_done == 3) ? true : false;
+        }
+        void add_task(std::function<void()> tsk){
+            std::unique_lock<std::mutex> lock(mu_task);
+            all_tasks.push(tsk);
+            new_task = true;
+            cv_task.notify_one();
+        }
+};
+
+void work(){
+    std::cout << "*\n";
+}
+
+int main(){
+    for (int i = 0; i < 3; i++){
+        ThreadPool::GetThreadPool().add_task(work);
+    }
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+}
+
+
+/*
 //====== 210 ======
 //This is to practice std::accumulate(iter_start, iter_end, init_val)
 #include <iostream>
@@ -22,7 +118,6 @@ int main(){
 }
 
 
-/*
 //===== 200 =====
 //This is to practice noexcept specifier or operator
 #include <iostream>
