@@ -1,3 +1,47 @@
+//===== 200 =====
+//This is to practice noexcept specifier or operator
+#include <iostream>
+
+void f1(int i){
+    throw(3);
+}
+
+void f2() noexcept{
+}
+
+void f3() noexcept(false){
+
+}
+
+void f4() noexcept(!noexcept(f1(33))){ // since declare as noexcept(true), if exception is not handled within the function, it will not be passed out, so we have to deal with this exception within
+    try{
+    f1(33);
+    } catch(int i){
+        std::cout << "caught within\n";
+    }
+}
+
+void f5() noexcept(noexcept(f1(2))){ // since noexcept false, it can throw exception, thus we can handle the exception outside
+    f1(33);
+}
+
+int main(){
+    std::cout << "f1 noexcept: " << static_cast<bool>(noexcept(f1(2))) << std::endl;
+    std::cout << "f2 noexcept: " << static_cast<bool> (noexcept(f2())) << std::endl;
+    std::cout << "f3 noexcept: " << static_cast<bool> (noexcept(f3())) << std::endl;
+    std::cout << "f4 noexcept: " << static_cast<bool> (noexcept(f4())) << std::endl;
+    std::cout << "f5 noexcept: " << static_cast<bool> (noexcept(f5())) << std::endl; 
+
+    f4();
+
+    try{
+        f5();
+    } catch(int i){
+        std::cout << "caught outside\n";
+    }
+}
+
+/*
 //======= 199 ======
 //This is to compare the performance of copying and moving 
 #include <iostream>
@@ -72,7 +116,6 @@ int main(){
     time.Time();
 }
 
-/*
 //======= 198 ======
 //This is to practice copy/move constructor/assignment
 #include <iostream>
