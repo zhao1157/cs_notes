@@ -1,3 +1,28 @@
+//====== 210 ======
+//This is to practice std::accumulate(iter_start, iter_end, init_val)
+#include <iostream>
+#include <numeric> //std::accumulate
+#include <vector>
+
+double f1(double init, double ele){
+    return ele - init;
+}
+
+
+int main(){
+    // array
+    double arr [] = {2, 3, 9, -1};
+    std::cout << "array: " << std::accumulate(arr, arr+4, 10) << std::endl;
+    std::cout << "array: " << std::accumulate(arr, arr+4, 10, f1) << std::endl; // the result of the last round goes to the first argument, and each element goes to the second position
+
+    std::cout << "_____________\n";
+    std::vector<double> vecs {2, -2, 9, 8};
+    std::cout << "vector: " << std::accumulate(vecs.begin(), vecs.end()-1, 10) << std::endl;
+    std::cout << "vector: " << std::accumulate(vecs.begin(), vecs.end(), 10, f1) << std::endl;
+}
+
+
+/*
 //===== 200 =====
 //This is to practice noexcept specifier or operator
 #include <iostream>
@@ -41,7 +66,6 @@ int main(){
     }
 }
 
-/*
 //======= 199 ======
 //This is to compare the performance of copying and moving 
 #include <iostream>
