@@ -1,3 +1,36 @@
+//====== 212 =====
+//This is to practice lvalue reference and rvalue reference
+#include <iostream>
+
+void f1(double && a){
+    std::cout << "rvalue ref\n";
+}
+
+void f1(double & a){
+    std::cout << "lvalue ref\n";
+}
+int main(){
+    int a = 2;
+    int & b = a;
+    std::cout << &a << " " << & b << std::endl;
+    if (&a != &b)
+        throw("a and b are not aliase");
+
+    const int & c = 3; // under the hood a temporary variable of value 3 is created, and the reference is bound this variable
+    std::cout << c << std::endl;
+
+    double && d = 3.14; // accepts a rvalue
+    d -= 1;
+    std::cout << d << std::endl;
+    d = a;
+
+    double && e = a;
+    std::cout << e << std::endl;
+
+    f1(a);
+}
+
+/*
 //======= 211 ======
 //This is to practice thread pool
 #include <iostream>
@@ -93,7 +126,6 @@ int main(){
 }
 
 
-/*
 //====== 210 ======
 //This is to practice std::accumulate(iter_start, iter_end, init_val)
 #include <iostream>
