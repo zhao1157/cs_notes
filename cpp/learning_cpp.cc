@@ -1,3 +1,35 @@
+//======= 213 =======
+//This is to practice queue
+#include <iostream>
+#include <queue>
+#include <stdlib.h>
+#include <time.h>
+
+int main(){
+    std::queue <int> que;
+    for (int i = 0; i < 5; i++){
+        que.emplace(i);
+    }
+    std::cout << que.size() << std::endl;
+    for (int i = 0; i < 5; i++){
+        std::cout << que.front();
+        que.pop();
+    }
+    std::cout << "\n";
+    std::cout << que.size() << std::endl;
+    
+    srand(time(NULL));
+    for (int i = 0; i < 9; i++)
+        que.push(rand()%10);
+    std::cout << que.size() << que.empty() << std::endl;
+    while(!que.empty()){
+        std::cout << que.front() << que.back() << " ";
+        que.pop();
+    }
+    std::cout << std::endl;
+}
+
+/*
 //====== 212 =====
 //This is to practice lvalue reference and rvalue reference
 #include <iostream>
@@ -36,7 +68,6 @@ int main(){
     f1(std::move(a));
 }
 
-/*
 //======= 211 ======
 //This is to practice thread pool
 #include <iostream>
