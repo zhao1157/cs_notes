@@ -2,13 +2,13 @@
 //This is to practice lvalue reference and rvalue reference
 #include <iostream>
 
-void f1(double && a){
+void f1(int && a){
     std::cout << "rvalue ref\n";
 }
-
-void f1(double & a){
+void f1(int & a){
     std::cout << "lvalue ref\n";
 }
+
 int main(){
     int a = 2;
     int & b = a;
@@ -27,7 +27,13 @@ int main(){
     double && e = a;
     std::cout << e << std::endl;
 
+    f1(d);
     f1(a);
+    f1(a);
+    f1(b);
+    f1(e);
+    f1(20);
+    f1(std::move(a));
 }
 
 /*
