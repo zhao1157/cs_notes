@@ -86,6 +86,10 @@ int main(){
     deq.emplace_back(99);
     deq.emplace_front(20);
     traverse(deq);
+    
+    std::cout << deq[2] << " " << deq.at(2) << std::endl;
+    std::cout << deq[4] << std::endl;
+    std::cout << deq.at(4) << std::endl;
 }
 
 
