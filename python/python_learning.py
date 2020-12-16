@@ -1,3 +1,10 @@
+#======== 211 =======
+# checkout the tensors saved in the checkpoint
+from tensorflow.python.tools.inspect_checkpoint import print_tensors_in_checkpoint_file
+latest_ckpt = tf.train.latest_checkpoint("./tmp_old/")
+#print_tensors_in_checkpoint_file (latest_ckpt, all_tensors=False, tensor_name="v0/cg/affine0/biases")
+print_tensors_in_checkpoint_file (latest_ckpt, all_tensors=True, tensor_name="")
+
 #========= 210 =======
 pip install gin-config==0.1.1
 
