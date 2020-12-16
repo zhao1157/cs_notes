@@ -1,3 +1,4 @@
+186. std::deque<int>; for efficient insersion/removal at both ends (constant time) while linear at other positions, memory is partially continuous, support random accessing [] or at(); size(), empty(), front(), back(), emplace(), emplace_back(), emlace_front(), pop_front(), pop_back(), erase("not support reverse_iterator"), clear(), std::deque<int>::iterator/reverse_iterator; begin(); end(); rbegin(); rend(); rbegin()++; < r.end(); * iter; 
 185. rvalue/lvalue reference can be used in function overloading
 184. #include <numeric>; std::accumulate(arr, arr+3, 10, my_func); by default the initial value is 0, and the function is add, but we can customize our own function.
 183. if f2 depends on f1 for exception, we can declare and define f2 as, e.g. void f2(...) noexcept(noexcept(f1(..))){...}, where noexcept() within is a function which return bool value, and the one outside is a specifier

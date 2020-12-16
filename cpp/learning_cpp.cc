@@ -1,3 +1,95 @@
+//====== 214 =====
+//This is to practice deque
+#include <iostream>
+#include <deque>
+
+void fill_deq(std::deque<int> & deq){
+    int val;
+    do { 
+        std::cin >> val; 
+        if (val % 2 == 0){
+            deq.push_back(val);
+        } else{
+            deq.push_front(val);
+        }    
+        // remove 0
+        if (val == 0){
+            deq.pop_back(); // for practice purpose
+        }    
+    } while(val);
+}
+
+void traverse(std::deque<int> & deq){
+    for (std::deque<int>::iterator iter = deq.begin(); iter < deq.end(); iter ++)
+        std::cout << *iter << " ";
+    std::cout << "\n";
+}
+
+void rtraverse(std::deque<int> & deq){
+    //for reverse iterator, use std::deque<int>::reverse_iterator
+    for (std::deque<int>::reverse_iterator iter = deq.rbegin(); iter < deq.rend(); iter++){
+        std::cout << *iter << " ";
+    }
+    std::cout << "\n";
+}
+
+void pop_both(std::deque<int> & deq){
+    int count = 0;
+    while(!deq.empty()){
+        count ++;
+        if (count % 2 == 0){
+            std::cout << deq.back() << " ";
+            deq.pop_back();
+        } else{
+            std::cout << deq.front() << " ";
+            deq.pop_front();
+        }
+    }
+    std::cout << "\n";
+}
+
+int main(){
+    std::deque<int> deq;
+    std::cout << "max number of elements can be held " << deq.max_size() << "\n";
+    std::cout << "filing ...\n";
+    fill_deq(deq);
+    traverse(deq);
+    rtraverse(deq);
+    std::cout << "size of deque: " << deq.size() << std::endl;
+    pop_both(deq);
+
+    deq.resize(8, 100); // number of elements to resize to, value to fill if to expand
+    traverse(deq);
+    deq.resize(2); // remove and destroy the elements beyond the limit
+    traverse(deq);
+    deq.resize(5); // if not specified, use the default value for that type
+    traverse(deq);
+    std::cout << "current size " << deq.size() << std::endl;
+    deq.shrink_to_fit(); // only allocate the memory size to the current number of elements
+    int i = 0;
+    for (std::deque<int>::reverse_iterator iter = deq.rbegin(); iter < deq.rend(); iter ++)
+        //std::cout << *iter << " ";
+        std::cout << deq[i++] << " ";
+
+    std::cout << "\n";
+    deq.push_back(99);
+    deq.erase(deq.end()-2, deq.end()-1); // does not support reverse_iterator
+    traverse(deq);
+
+    deq.clear();
+    std::cout << "size after clear " << deq.size() << std::endl;
+    if (deq.begin() == deq.end()){
+        std::cout << "empty\n";
+    }
+    deq.push_back(2);
+    deq.emplace(deq.end(), 9); // it is equivalent to emplace_back(9);
+    deq.emplace_back(99);
+    deq.emplace_front(20);
+    traverse(deq);
+}
+
+
+/*
 //======= 213 =======
 //This is to practice queue
 #include <iostream>
@@ -29,7 +121,6 @@ int main(){
     std::cout << std::endl;
 }
 
-/*
 //====== 212 =====
 //This is to practice lvalue reference and rvalue reference
 #include <iostream>
