@@ -1,3 +1,54 @@
+//======= 215 =====
+//This is to practice list (constant time to insert/remove at any position, not support random accessing, so linear)
+#include <list>
+#include <iostream>
+
+void traverse(std::list<int> & lt){
+    //can not use < or >, use != or ==
+    for (std::list<int>::iterator iter = lt.begin(); iter != lt.end(); iter++){
+        std::cout << *iter << " ";
+    }
+    std::cout << "\n";
+}
+
+void pop_ends(std::list<int> & lt){
+    int count = 0;
+    while(!lt.empty()){
+        count ++;
+        if (count % 2 == 0){
+            std::cout << lt.front();
+            lt.pop_front();
+        } else {
+            std::cout << lt.back();
+            lt.pop_back();
+        }
+    }
+    std::cout << "\n";
+}
+
+int main(){
+    std::list<int> lt;
+    if (lt.begin() == lt.end()){
+        std::cout << "empty\n";
+    }
+    std::list<int>::iterator iter;
+    iter = lt.begin();
+    lt.push_back(2);
+    lt.push_front(3);
+    lt.emplace_back(4);
+    lt.emplace_front(5);
+    //iter += 2; // no viable += operator
+    iter ++;
+    iter ++;
+    lt.emplace(iter, 6);
+    
+    traverse(lt);
+
+    pop_ends(lt);
+    std::cout << "after popping, size of lt is " << lt.size() << std::endl;
+}
+
+/*
 //====== 214 =====
 //This is to practice deque
 #include <iostream>
@@ -93,7 +144,6 @@ int main(){
 }
 
 
-/*
 //======= 213 =======
 //This is to practice queue
 #include <iostream>

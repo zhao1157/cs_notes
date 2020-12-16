@@ -1,3 +1,4 @@
+188. std::list<int> lt; std::list<int>::iterator iter; iter != lt.end(), can use NOT < or > lt.end()/begin(), maybe it is because the iterator returned is bidirectional; iter += 2 is not viable, iter++/-- works
 187. std::deque<int> deq; deq[end]; deq.at(end); -> [] does not check the range while .at() does
 186. std::deque<int>; for efficient insersion/removal at both ends (constant time) while linear at other positions, memory is partially continuous, support random accessing [] or at(); size(), empty(), front(), back(), emplace(), emplace_back(), emlace_front(), pop_front(), pop_back(), erase("not support reverse_iterator"), clear(), std::deque<int>::iterator/reverse_iterator; begin(); end(); rbegin(); rend(); rbegin()++; < r.end(); * iter; 
 185. rvalue/lvalue reference can be used in function overloading
