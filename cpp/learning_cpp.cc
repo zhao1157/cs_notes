@@ -1,3 +1,23 @@
+//====== 216 ======
+//This is to test queue does not support indexing, iterator, we can only access it through .front() or .back(), not through iterator
+#include <queue>
+#include <iostream>
+
+int main(){
+    std::queue<int> que;
+    que.push(2);
+    que.push(3);
+    //std::cout << que[0] << std::endl;
+    std::cout << que.back() << que.front() << std::endl;
+    //std::queue<int>::iterator iter; //does not support iterator
+    while(!que.empty()){
+        std::cout << que.front() << std::endl;
+        que.pop();
+    }
+}
+
+
+/*
 //======= 215 =====
 //This is to practice list (constant time to insert/remove at any position, not support random accessing, so linear)
 #include <list>
@@ -48,7 +68,6 @@ int main(){
     std::cout << "after popping, size of lt is " << lt.size() << std::endl;
 }
 
-/*
 //====== 214 =====
 //This is to practice deque
 #include <iostream>
