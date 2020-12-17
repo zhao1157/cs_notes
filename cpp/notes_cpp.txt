@@ -1,3 +1,4 @@
+192. std::queue<> only exposes its elements at two ends, not at other places, so not support iterators, access the ends by .front(), .back(), modify by .push(), .emplace() at one end and .pop() at the other end
 191. std::stack<> only opens one end, so can only access it at that end, which is top by calling top();
 190. std::stack<int> stak; does not support iterator, so no .begin(), .end() functions; .push(), .pop()
 189. std::queue<int> que; que does not support indexing or random access, we can only access the elements through .front(), .back(), i.e. two ends, it does not support iterator, so we can not do deferencing

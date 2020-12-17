@@ -1,3 +1,41 @@
+//======== 218 =======
+//This is to practice queue, which opens at two ends, and one in one out, the two ends are the only places exposed to the outside, can not support iterator
+#include <iostream>
+#include <queue>
+#include <stack> 
+
+int main(){
+    std::queue<int> que;
+
+    que.emplace(2);
+    que.push(3);
+    que.push(23);
+
+    //std::queue<int> ::iterator iter; // does not support iterators
+    while (! que.empty()){
+        std::cout << que.front() << que.back() << " " << que.size() << " ";
+        que.pop();
+    }
+    std::cout << "\n";
+
+
+    std::queue <int> que2, que3;
+    que2.push(2);
+    que.swap(que2);
+    std::cout << que.size() << que2.size() << std::endl;
+
+    que3.push(2);
+    que3.pop();
+    std::cout << que3.front(); // even though it is empty, it does not throw error
+
+    std::stack<int> stak;
+    stak.push(2);
+    stak.pop();
+    //std::cout << stak.top() << std::endl; // if the stack is empty, we can not call .top(), throw an error
+}
+
+
+/*
 //==== 217 =====
 //This is to practice std::stack which only access its elements by top(), the underlying container could be vector, deque, list, not forward_list as which has no size() function
 #include <iostream>
@@ -31,7 +69,6 @@ int main(){
 }
 
 
-/*
 //====== 216 ======
 //This is to test queue does not support indexing, iterator, we can only access it through .front() or .back(), not through iterator
 #include <queue>
