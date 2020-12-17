@@ -1,3 +1,37 @@
+//==== 217 =====
+//This is to practice std::stack which only access its elements by top(), the underlying container could be vector, deque, list, not forward_list as which has no size() function
+#include <iostream>
+#include <stack>
+
+int main(){
+    std::stack<int> stak;
+    stak.push(2);
+    stak.push(3);
+    stak.push(-1);
+
+    std::cout << stak.top() << std::endl;
+    //std::stack<int>::iterator iter; //does not support iterator
+    //stak.begin();
+    std::cout << stak.size() << std::endl;
+    stak.emplace(23);
+
+    while(! stak.empty()){
+        std::cout << stak.top() << " ";
+        stak.pop(); // pop the element in reverse order
+    }
+    std::cout << "\n";
+
+    std::stack<int> b;
+    b.push(999);
+    std::cout << b.size() << std::endl;
+    b.swap(stak);
+    std::cout << stak.size() << " " << b.size() << std::endl;
+
+    std::cout << stak.top() << " \n" ;//<< b.top() << "\n";
+}
+
+
+/*
 //====== 216 ======
 //This is to test queue does not support indexing, iterator, we can only access it through .front() or .back(), not through iterator
 #include <queue>
@@ -17,7 +51,6 @@ int main(){
 }
 
 
-/*
 //======= 215 =====
 //This is to practice list (constant time to insert/remove at any position, not support random accessing, so linear)
 #include <list>

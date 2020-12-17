@@ -1,3 +1,5 @@
+191. std::stack<> only opens one end, so can only access it at that end, which is top by calling top();
+190. std::stack<int> stak; does not support iterator, so no .begin(), .end() functions; .push(), .pop()
 189. std::queue<int> que; que does not support indexing or random access, we can only access the elements through .front(), .back(), i.e. two ends, it does not support iterator, so we can not do deferencing
 188. std::list<int> lt; std::list<int>::iterator iter; iter != lt.end(), can use NOT < or > lt.end()/begin(), maybe it is because the iterator returned is bidirectional; iter += 2 is not viable, iter++/-- works
 187. std::deque<int> deq; deq[end]; deq.at(end); -> [] does not check the range while .at() does
