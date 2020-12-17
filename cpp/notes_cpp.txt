@@ -1,3 +1,5 @@
+194. std::vector<>; underlying is array, both are contiguous memory allocation, it is dynamic array, always allocates more than needed to decrease the reallocation
+193. std::vector<>; .reserve(n) -> make the capacity this big if smaller; .pop_back(), .push_back(), .emplace_back(), .emplace(), .empty(), .size()
 192. std::queue<> only exposes its elements at two ends, not at other places, so not support iterators, access the ends by .front(), .back(), modify by .push(), .emplace() at one end and .pop() at the other end
 191. std::stack<> only opens one end, so can only access it at that end, which is top by calling top();
 190. std::stack<int> stak; does not support iterator, so no .begin(), .end() functions; .push(), .pop()

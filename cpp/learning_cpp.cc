@@ -1,3 +1,51 @@
+//======= 219 ======
+//This is to practice vector, which is a dynamic array by allocating more memory than its needs in exchange for expanding efficiency, allowing random access
+#include <vector>
+#include <iostream>
+
+void traverse(std::vector<int> &vec){
+    for (std::vector<int> ::iterator iter = vec.begin(); iter < vec.end(); iter ++)
+        std::cout << *iter << " ";
+    std::cout << "\n";
+}
+
+void pop_end(std::vector<int> & vec){
+    std::cout << "before pop " << vec.capacity() << "\n"; // capcity() can be larger than the actual number of elements
+    while(! vec.empty()){
+        std::cout << vec.front() << vec.back() << " ";
+        vec.pop_back();
+    }
+    std::cout << "after pop " << vec.capacity() << "\n";
+}
+
+int main(){
+    std::vector<int> vec;
+
+    vec.push_back(2);
+    vec.push_back(23);
+    vec.emplace_back(9);
+    vec.emplace(vec.begin(), 10);
+
+    traverse(vec);
+    vec.erase(vec.begin()+1, vec.end()-1); // [)
+    vec.erase(vec.end()-1);
+    traverse(vec);
+    vec.clear();
+    std::cout << vec.size() << std::endl;
+    
+    vec.push_back(2);
+    vec.push_back(3);
+    vec.push_back(9);
+    vec.push_back(9);
+    vec.push_back(2);
+
+    pop_end(vec);
+    vec.reserve(200); // if this number is samller than the current capacity(), then nothing done
+    std::cout << "reserve " << vec.capacity() << std::endl;
+}
+
+
+/*
 //======== 218 =======
 //This is to practice queue, which opens at two ends, and one in one out, the two ends are the only places exposed to the outside, can not support iterator
 #include <iostream>
@@ -35,7 +83,6 @@ int main(){
 }
 
 
-/*
 //==== 217 =====
 //This is to practice std::stack which only access its elements by top(), the underlying container could be vector, deque, list, not forward_list as which has no size() function
 #include <iostream>
