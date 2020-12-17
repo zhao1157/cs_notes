@@ -1,3 +1,27 @@
+//===== 220 =====
+//This is to practice array container
+#include <iostream>
+#include <array>
+
+int main(){
+    std::array<int, 5> arr = {2,3,4};
+    std::cout << arr.size() << std::endl;
+    arr[0] = 2;
+    std::cout << *(2+arr.data()) << std::endl;
+    std::cout << "max_size " << arr.max_size() << " size " << arr.size() << std::endl;
+
+    for (std::array<int, 5>::iterator iter = arr.begin(); iter < arr.end(); iter++)
+        std::cout << *iter << " ";
+    std::cout << "\n";
+
+    std::cout << arr.front() << arr.back() << std::endl;
+    arr.fill(2);
+    for (auto & ele : arr)
+        std::cout << ele << " ";
+    std::cout << "\n";
+}
+
+/*
 //======= 219 ======
 //This is to practice vector, which is a dynamic array by allocating more memory than its needs in exchange for expanding efficiency, allowing random access
 #include <vector>
@@ -45,7 +69,6 @@ int main(){
 }
 
 
-/*
 //======== 218 =======
 //This is to practice queue, which opens at two ends, and one in one out, the two ends are the only places exposed to the outside, can not support iterator
 #include <iostream>

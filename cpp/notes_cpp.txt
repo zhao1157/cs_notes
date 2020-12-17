@@ -1,3 +1,4 @@
+196. std::array<int, 3> arr; fixed-size contiguous memory allocation; .fron(), .back(), []; std::array<int, 3>::iterator iter; .begin(), .end(), *iter, .fill(3) -> all elements are set to 3;
 195. std::list<int> and std::vector<int> comparision; when it comes to random removing and insersion, list is preferred if the data structure is large, and vector is preferred if the data stored is small, because list suffer more on the cache misses while not having to reallocate elements, vector can benefit a lot more from the cache hits while having to reallocating some elements, either of them can win in a certain case, depending on the size of the data.
 194. std::vector<>; underlying is array, both are contiguous memory allocation, it is dynamic array, always allocates more than needed to decrease the reallocation
 193. std::vector<>; .reserve(n) -> make the capacity this big if smaller; .pop_back(), .push_back(), .emplace_back(), .emplace(), .empty(), .size()
