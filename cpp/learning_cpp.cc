@@ -1,3 +1,30 @@
+//===== 221 =====
+//This is to practice forward_list<>
+#include <iostream>
+#include <forward_list>
+
+void traverse(std::forward_list<int> &flist){
+    for (std::forward_list<int>::iterator iter = flist.begin(); iter != flist.end(); iter++) // can not use <, cause of incontiguous memory
+        std::cout << *iter << " ";
+    std::cout << "\n";
+}
+
+int main(){
+    std::forward_list<int> flist;
+    std::forward_list<int>::iterator flist_iter;
+    flist.push_front(2);
+    flist.push_front(3);
+    flist_iter = flist.begin();
+    flist_iter++; // can not --, as it is singly linked, only in forward direction, not backwards
+    flist.emplace_after(flist_iter, 4); 
+    flist_iter++;
+    flist.insert_after(flist_iter, 5);
+    flist.erase_after(flist_iter);
+    
+    traverse(flist);
+}
+
+/*
 //===== 220 =====
 //This is to practice array container
 #include <iostream>
@@ -21,7 +48,6 @@ int main(){
     std::cout << "\n";
 }
 
-/*
 //======= 219 ======
 //This is to practice vector, which is a dynamic array by allocating more memory than its needs in exchange for expanding efficiency, allowing random access
 #include <vector>
