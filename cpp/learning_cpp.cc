@@ -1,3 +1,25 @@
+//======= 223 =======
+//This is to practice template function inside a class
+#include <iostream>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id = -1): id(_id){}
+        template<typename T>
+        void test(T a){
+            std::cout << a << id << std::endl;
+        }
+};
+
+int main(){
+    P p(2);
+    p.test<int>(3); // also works without typename as template function can infer it from invoking
+}
+
+
+/*
 //====== 222 ======
 //This is to practice implementing unique_ptr
 #include <iostream>
@@ -35,7 +57,6 @@ int main(){
 }
 
 
-/*
 //===== 221 =====
 //This is to practice forward_list<>
 #include <iostream>
