@@ -1,3 +1,60 @@
+//======= 224 =======
+//This is to practice unique_ptr
+#include <iostream>
+#include <memory>
+
+class P{
+    public:
+        ~P(){
+            std::cout << "P is destroyed\n";
+        }
+};
+
+int main(){
+    std::unique_ptr<int> a;
+    if (a.get()){
+        std::cout << "not empty\n";
+    } else {
+        std::cout << "empty\n";
+    }
+
+    std::unique_ptr<int> b(new int);
+    *(b.get()) = 3;
+    std::cout << *b << std::endl;
+
+    std::unique_ptr<int[]> c;
+    c = std::unique_ptr<int[]>(new int[5]{2, 3, 4, 5, 6});
+    std::cout << c[0] << c[1] << c[2] << c[3] << c[4] << std::endl;
+    
+    std::cout << c.get() << std::endl;
+    std::unique_ptr<int[]> d = std::move(c);
+    std::cout << "after being moved from: " << c << std::endl;
+    std::cout << d.get() << std::endl;
+    std::cout << d[0] << d[1] << d[2] << d[3] << d[4] << std::endl;
+
+    std::unique_ptr<int> e (new int);
+    *e = 33; // if e is not initialized, i.e. still holds nullptr, i.e. not allocating memory, so can not store object 
+    std::cout << *e << std::endl;
+
+    std::unique_ptr<int[]> f (std::move(d));
+    std::cout << d.get() << " " << f.get() << std::endl;
+
+    e = std::unique_ptr<int> (new int(9));
+    std::cout << *e << std::endl;
+
+
+    std::unique_ptr<P> pptr(new P);
+    std::cout << "______\n";
+    pptr = std::unique_ptr<P> (new P); // when new unique_ptr is assigned to pptr, the old object is released
+    std::cout << "*******\n";
+    std::unique_ptr<P> ppptr(new P);
+    ppptr = std::move(pptr);
+    std::cout << "_____\n";
+
+}
+
+
+/*
 //======= 223 =======
 //This is to practice template function inside a class
 #include <iostream>
@@ -19,7 +76,6 @@ int main(){
 }
 
 
-/*
 //====== 222 ======
 //This is to practice implementing unique_ptr
 #include <iostream>

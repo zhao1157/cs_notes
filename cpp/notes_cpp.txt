@@ -1,3 +1,6 @@
+201. std::unique_ptr<int> p (new int(2)); p = std::unique_ptr<int>(new int(3)); object 2 is destroyed before it is managing new object 3;
+200. std::unique_ptr<int> p (new int(2)); *p; p.get() returns the pointer inside; p = std::unique_ptr<int>(new int(2));
+199. std::unique_ptr<int[]> p (new int[3]{2,3,4}); b = std::move(p); p is now nullptr, the pointer is transferred to b;
 198. we can put a template function inside a class, and call it normally like p.test<int>(2) or without <int> if works
 197. std::forward_list<int> flist; flist.end()+1 is not supported; std::forward_list<int> flist_iter; flist_iter++, not --, as it is singly linked, only in the forward direction, not in the backward direction;
 196. std::array<int, 3> arr; fixed-size contiguous memory allocation; .fron(), .back(), []; std::array<int, 3>::iterator iter; .begin(), .end(), *iter, .fill(3) -> all elements are set to 3;
