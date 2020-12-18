@@ -1,3 +1,4 @@
+202. std::unique_ptr<int[]> p; int *pp = p.release(); delete[]pp; p released the ownership of the array, which is later destroyed by pp pointer;
 201. std::unique_ptr<int> p (new int(2)); p = std::unique_ptr<int>(new int(3)); object 2 is destroyed before it is managing new object 3;
 200. std::unique_ptr<int> p (new int(2)); *p; p.get() returns the pointer inside; p = std::unique_ptr<int>(new int(2));
 199. std::unique_ptr<int[]> p (new int[3]{2,3,4}); b = std::move(p); p is now nullptr, the pointer is transferred to b;

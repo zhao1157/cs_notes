@@ -1,3 +1,26 @@
+//======= 225 ======
+//This is to practice get() and release() of unique_ptr
+#include <iostream>
+#include <memory>
+
+int main(){
+    std::unique_ptr<int> a (new int(3));
+    std::unique_ptr<int[]> aa (new int[2]{9, 8});
+
+    int *pa;
+    int *paa;
+
+    pa = a.release();
+    std::cout << *pa << std::endl;
+    delete pa;
+
+    paa = aa.release();
+    std::cout << paa[0] << paa[1] << std::endl;
+    delete[] paa;
+}
+
+
+/*
 //======= 224 =======
 //This is to practice unique_ptr
 #include <iostream>
@@ -54,7 +77,6 @@ int main(){
 }
 
 
-/*
 //======= 223 =======
 //This is to practice template function inside a class
 #include <iostream>
