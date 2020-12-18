@@ -1,3 +1,41 @@
+//====== 222 ======
+//This is to practice implementing unique_ptr
+#include <iostream>
+
+template<typename T>
+class Unique_Ptr{
+    private:
+        T *ptr = nullptr;
+    public:
+        Unique_Ptr(int id = 0): ptr(new T(id)){}
+        ~Unique_Ptr(){
+            delete ptr;
+            std::cout << "ptr is deleted\n";
+        }
+        T & operator *(){
+            return *ptr;
+        }
+};
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id):id (_id){}
+        ~P(){
+            std::cout << "P is destroyed\n";
+        }
+};
+
+int main(){
+    Unique_Ptr<int> uptr(2);
+    std::cout << *uptr << std::endl;
+
+    Unique_Ptr<P> puptr;
+}
+
+
+/*
 //===== 221 =====
 //This is to practice forward_list<>
 #include <iostream>
@@ -24,7 +62,6 @@ int main(){
     traverse(flist);
 }
 
-/*
 //===== 220 =====
 //This is to practice array container
 #include <iostream>
