@@ -1,3 +1,22 @@
+//====== 226 ======
+//This is to practice reset() of unique_ptr
+#include <iostream>
+#include <memory>
+
+int main(){
+    std::unique_ptr<int> a(new int(3));
+    std::cout << a.get() << std::endl;
+    a.reset(); // first destroys the old pointer, then accetps the new pointer
+    std::cout << a.get() << std::endl;
+
+    std::unique_ptr<int> b (new int(9));
+    a.reset(b.get()); // b returns the pointer, but not destroy it, a also manages the pointer
+    b.release(); // free b from managing the pointer
+    //b.reset();
+}
+
+
+/*
 //======= 225 ======
 //This is to practice get() and release() of unique_ptr
 #include <iostream>
@@ -20,7 +39,6 @@ int main(){
 }
 
 
-/*
 //======= 224 =======
 //This is to practice unique_ptr
 #include <iostream>
