@@ -1,3 +1,26 @@
+//======= 229 ======
+//This is to practice class template functor in unique_ptr
+#include <iostream>
+#include <memory>
+
+class P{
+    public:
+        template<typename T>
+        void operator ()(T *a){
+            delete a;
+            std::cout << "deleted\n";
+        }
+};
+
+int main(){
+    int *a = new int(2);
+    P p;
+    //p(a);
+    p.operator()<int>(a);
+}
+
+
+/*
 //======= 228 =======
 //This is to practice move in template class
 #include <iostream>
@@ -26,7 +49,6 @@ int main(){
 }
 
 
-/*
 //======= 227 =======
 //This is to practice deleter in unique_ptr
 #include <iostream>
