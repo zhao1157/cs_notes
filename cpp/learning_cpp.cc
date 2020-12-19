@@ -1,3 +1,128 @@
+//======= 232 =====
+//This is to practice implementing unique_ptr
+#include <iostream>
+
+class Deleter{
+    public:
+        template<typename T>
+        void operator ()(T *ptr){
+            std::cout << ">>>>>>\n";
+            delete ptr; 
+            std::cout << "<<<<<\n";
+        }
+};
+
+template<typename T, typename D = std::default_delete<T>>
+class unique_ptr{
+    private:
+        T * ptr;
+        D deleter;
+    public:
+        unique_ptr(T * _ptr): ptr(_ptr){
+            deleter = D(); 
+        }
+        ~unique_ptr(){
+            deleter(ptr);
+        }
+        unique_ptr(const unique_ptr &) = delete;
+
+        T * get(){
+            return ptr;
+        }
+
+        T * release(){
+            T * _ptr = ptr;
+            ptr = nullptr; // not deleting it yet, someone else should be responsible for it
+            return _ptr;
+        }
+        
+        void reset (T * _ptr = nullptr){
+            deleter(ptr); // deleting the object
+            ptr = _ptr;
+        }    
+
+        unique_ptr & operator = (unique_ptr && uptr){
+            deleter(ptr);
+
+            ptr = uptr.ptr;
+            deleter = uptr.deleter;
+
+            uptr.ptr = nullptr;
+
+            return *this;
+        }
+
+        T * operator -> (){
+            return ptr;
+        }
+
+        T & operator *(){
+            return *ptr;
+        }
+};
+
+class P{
+    public:
+        ~P(){
+            std::cout << "destroyed\n";
+        }
+        void GET(){
+            std::cout << "GET\n";
+        }
+};
+int main(){
+    std::default_delete<P> deleter = std::default_delete<P>();
+    deleter(new P);
+    std::cout << "_________\n";
+    unique_ptr<P, std::default_delete<P>> uptr(new P), uptr2(new P);
+    std::cout << "****\n";
+    uptr2 = std::move(uptr);
+    std::cout << "***\n";
+
+    uptr2->GET();
+    (*uptr2).GET();
+
+    P *p = uptr2.release();
+    delete p;
+
+    std::cout << "_______\n";
+    unique_ptr<P, Deleter> uuptr(new P);
+}
+
+
+/*
+//===== 231 ======
+//This is to practice a[2], and a[2]=3
+#include <iostream>
+
+class SmartPointer{
+    private:
+        int * ptr;
+    public:
+        SmartPointer(int * arr): ptr(arr){}
+        ~SmartPointer(){
+            delete [] ptr;
+        }
+
+        int & operator[](int ind){
+            return ptr[ind];
+        }
+
+        int & get(int ind) {
+            return ptr[ind];
+        }
+};
+
+int main(){
+    SmartPointer sp(new int[2]{2,3});
+
+    sp[1] = 9;
+
+    sp.get(0) = 9;
+    std::cout << sp[0] << sp[1] << std::endl;
+}
+
+
 //======= 230 =======
 //This is to practice get_deleter() in unique_ptr, which gets the deleter class object
 #include <iostream>
@@ -37,7 +162,6 @@ int main(){
 }
 
 
-/*
 //======= 229 ======
 //This is to practice class template functor in unique_ptr
 #include <iostream>
