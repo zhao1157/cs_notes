@@ -1,3 +1,43 @@
+//======= 230 =======
+//This is to practice get_deleter() in unique_ptr, which gets the deleter class object
+#include <iostream>
+#include <memory>
+
+class Deleter{
+    private:
+        int count;
+    public:
+        Deleter(int _count=0): count(_count){}
+        template<typename T>
+        void operator()(T * ptr){
+            delete ptr;
+            std::cout << "deleted " << ++count << std::endl;
+        }
+};
+
+int main(){
+    int *arr = new int [2] {-2, 3};
+    Deleter()(arr);
+    
+    //std::unique_ptr<int, Deleter> uptr(new int (2), Deleter());
+
+    Deleter del;
+    std::cout << "___\n";
+    del(new int);
+    std::cout << "___\n";
+    std::unique_ptr<int[], Deleter &> ptr(new int [2]{2,3}, del);
+
+    std::cout << "****\n";
+    ptr.get_deleter()(new int[2]);
+    std::cout << "****\n";
+
+    std::cout << "=====\n";
+    ptr.reset();
+    std::cout << "=====\n";
+}
+
+
+/*
 //======= 229 ======
 //This is to practice class template functor in unique_ptr
 #include <iostream>
@@ -20,7 +60,6 @@ int main(){
 }
 
 
-/*
 //======= 228 =======
 //This is to practice move in template class
 #include <iostream>

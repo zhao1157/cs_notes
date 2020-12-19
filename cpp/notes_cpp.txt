@@ -1,3 +1,4 @@
+207. std::unique_ptr<int, delete_type> ptr(another_ptr, deleter()); ptr.get_deleter(); it is called when out of scope, or reset() is called.
 206. for a template class functor, p.operator()<int> (a); is the direct way of calling this with the template parameter.
 205. template<typename T> class P; the copy constructor could be P(const P &p) or P(P<int> & p) or some other specific cases, but the first one includes all other specific cases, so can not be present simultaneously; the first case requires the copy-from and copy-to objects take same template parameters, i.e. same P type.
 204. std::unique_ptr<int, deleter_class_type> ptr(new int(2), deleter()); or we can pass a deleter reference, but not rvalue reference, only lvalue reference.
