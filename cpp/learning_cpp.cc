@@ -1,3 +1,57 @@
+//======= 228 =======
+//This is to practice move in template class
+#include <iostream>
+
+template<typename T>
+class P{
+    public:
+        T a;
+        P(T _a): a(_a){}
+        //This one includes all other cases, but it requires T is the same for copy-from and copy-to objects
+        //P(P & p){
+        //    a = p.a;
+        //}
+        P(P<int> &p){
+            a = static_cast<T> (p.a);
+        }
+        P(P<double> & p){
+            a = static_cast<T> (p.a);
+        }
+};
+
+int main(){
+    P<double> p1(2.1415);
+    P<int> p2(p1);
+    std::cout << p1.a << " " << p2.a << std::endl;
+}
+
+
+/*
+//======= 227 =======
+//This is to practice deleter in unique_ptr
+#include <iostream>
+#include <memory>
+
+template<typename T>
+class Del{
+    public:
+        Del() = default;
+        ~Del(){
+            std::cout << "del\n";
+        }
+        void operator()(T *ptr){
+            delete ptr;
+            std::cout << "deleted\n";
+        }
+};
+
+int main(){
+    //Del<double> d;
+    Del<int> del;
+    std::unique_ptr<int, Del<int>&> uptr(new int(2), del);
+}
+
+
 //====== 226 ======
 //This is to practice reset() of unique_ptr
 #include <iostream>
@@ -16,7 +70,6 @@ int main(){
 }
 
 
-/*
 //======= 225 ======
 //This is to practice get() and release() of unique_ptr
 #include <iostream>
