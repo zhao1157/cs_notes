@@ -1,3 +1,41 @@
+//======= 234 =======
+//This is to practice shared_ptr
+#include <iostream>
+#include <memory>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id = -1): id (_id){}
+        ~P(){
+            std::cout << id <<  " is destroyed\n";
+        }
+};
+
+int main(){
+    std::shared_ptr<int> p;
+    std::cout << p.use_count() << std::endl;
+
+    p = std::make_shared<int>();
+    std::cout << p.use_count() << std::endl;
+    
+    {
+        std::shared_ptr<int> p1 (p);
+        std::cout << p.use_count() << " " << p1.use_count() << std::endl;
+    }
+    std::cout << p.use_count() << std::endl;
+
+    std::cout << "________\n";
+    std::shared_ptr<P> pp(new P[2]{P(7), P(9)}, std::default_delete<P[]>());
+    //pp = std::make_shared<P>(9);
+    std::cout << pp.use_count() << std::endl;
+    std::shared_ptr<P> ppp = std::move(pp);
+    std::cout << pp.use_count() << ppp.use_count() << std::endl;
+}
+
+
+/*
 //====== 233 ======
 //This is to practice default_delete<>
 #include <iostream>
@@ -15,7 +53,6 @@ int main(){
 }
 
 
-/*
 //======= 232 =====
 //This is to practice implementing unique_ptr
 #include <iostream>
