@@ -1,3 +1,21 @@
+//====== 233 ======
+//This is to practice default_delete<>
+#include <iostream>
+
+int main(){
+    int * ptr = new int (2);
+    int * ptr_arr = new int [2] {9, 8};
+
+    std::default_delete<int> del;
+    std::default_delete<int[]> del_arr;
+    del(ptr);
+
+    del_arr(ptr_arr);
+    //std::cout << ptr_arr[0] << std::endl;
+}
+
+
+/*
 //======= 232 =====
 //This is to practice implementing unique_ptr
 #include <iostream>
@@ -90,7 +108,6 @@ int main(){
 }
 
 
-/*
 //===== 231 ======
 //This is to practice a[2], and a[2]=3
 #include <iostream>
