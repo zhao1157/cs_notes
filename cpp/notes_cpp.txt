@@ -1,3 +1,5 @@
+214. std::shared_ptr<int> p; p.unique() is false if p is empty or there is more than one shared_ptr pointing to the managed object
+213. just like std::unique_ptr<int> p(new int(3)); p.reset(); the managed object is freed; std::shared_ptr<int> p(new int (3)); p.reset(); the object is also freed.
 212. std::shared_ptr<P> ppp = std::move(pp); pp is now empty, and its content is moved to ppp
 211. std::make_shared<P>(3) returns a shared_ptr<P> object;
 210. std::shared_ptr<P> pp(new P[2]{P(3), P(4)}, std::default_delete<P[]>); it will delete the array

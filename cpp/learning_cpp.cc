@@ -1,3 +1,33 @@
+//======= 235 ======
+#include <iostream>
+#include <memory>
+
+int main(){
+    int * p = new int (2);
+    {
+        std::shared_ptr<int> sp (p);
+        std::cout << *sp << std::endl;
+        int *p1 = new int (9);
+        sp.reset(p1);
+        //std::cout << *p << std::endl; // p is freed by reset()
+        std::cout << *sp << std::endl;
+        *sp = 99;
+        std::cout << *p1 << std::endl;
+        std::cout << sp.get() << " " << p1 << std::endl;
+    }
+
+    std::shared_ptr<int> sp;
+    std::cout << sp.unique() << std::endl;
+    sp = std::make_shared<int>(3);
+    std::cout << sp.unique() << std::endl;
+    std::shared_ptr<int> spp = sp;
+    std::cout << sp.unique() << spp.unique() << std::endl;
+    spp.reset();
+    std::cout << sp.unique() << spp.unique() << std::endl;
+}
+
+
+/*
 //======= 234 =======
 //This is to practice shared_ptr
 #include <iostream>
@@ -35,7 +65,6 @@ int main(){
 }
 
 
-/*
 //====== 233 ======
 //This is to practice default_delete<>
 #include <iostream>
