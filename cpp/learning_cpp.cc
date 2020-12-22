@@ -1,3 +1,73 @@
+//======= 238 ======
+//This is to practice implementing shared_ptr
+#include <iostream>
+
+template<typename T>
+class shared_ptr{
+    private:
+        T * ptr;
+    public:
+        static int num_ref, num_del;
+        shared_ptr(T * _ptr = nullptr): ptr(_ptr){
+            if (ptr != nullptr){
+                std::cout << "constructor\n";
+                num_ref ++; 
+            }
+        }
+        ~shared_ptr(){
+            if (num_ref == 1 && num_del == 0)
+                delete ptr;
+                num_del ++;
+        }
+        shared_ptr(shared_ptr<T>& sp){
+            std::cout << "copy assignment\n";
+            ptr = sp.ptr;
+        }
+        shared_ptr<T> & operator = (shared_ptr<T> & sp){
+            //num_ref ++;
+            std::cout << "calling value assignment operator\n";
+            delete ptr;
+            ptr = sp.ptr;
+            sp.ptr = nullptr;
+
+            return *this;
+        }
+};
+
+template<typename T>
+int shared_ptr<T>::num_ref = 0;
+
+template<typename T>
+int shared_ptr<T>::num_del = 0;
+
+template <typename T>
+shared_ptr<T> make_shared(int id){
+    return shared_ptr<T> (new T(id));
+}
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id = -1): id(_id){}
+        ~P(){
+            std::cout << id << " is destroyed\n";
+        }
+};
+
+
+int main(){
+    shared_ptr<P> sp(new P(2)), sp2, sp3;
+    sp2 = sp;
+    sp3 = sp;
+
+    //sp = make_shared<P> (3);
+
+    std::cout << shared_ptr<P>::num_ref << std::endl;
+}
+
+
+/*
 //====== 237 ======
 //This is to practice shared_ptr bool
 #include <iostream>
@@ -13,7 +83,6 @@ int main(){
 }
 
 
-/*
 //======= 236 ======
 //This is to practice deleting array
 #include <iostream>
