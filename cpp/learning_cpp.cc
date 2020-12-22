@@ -1,3 +1,19 @@
+//====== 237 ======
+//This is to practice shared_ptr bool
+#include <iostream>
+#include <memory>
+
+int main(){
+    std::shared_ptr<int> sp;
+    std::cout << sp << (sp == nullptr) << std::endl;
+    std::cout << sp.get() << std::endl;
+
+    std::unique_ptr<int> up;
+    std::cout << up << (up.get() == nullptr) << (up == nullptr) << std::endl;
+}
+
+
+/*
 //======= 236 ======
 //This is to practice deleting array
 #include <iostream>
@@ -23,7 +39,6 @@ int main(){
 }
 
 
-/*
 //======= 235 ======
 #include <iostream>
 #include <memory>
