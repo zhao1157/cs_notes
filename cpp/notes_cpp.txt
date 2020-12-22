@@ -1,3 +1,4 @@
+218. operator bool(){return ptr != nullptr;} -> std::cout << sp << std::endl; if (sp) std::cout << "not nullptr\n";
 217. std::shared_ptr<int> sp; std::unique_ptr<int> up; (sp == nullptr); (up == nullptr); (sp.get() == nullptr); (up.get() == nullptr)
 216. in std::shared_ptr<P> sp(new P[2]{P(), P(3)}, std::shared_delete<P[]> ()); array deleter should be used, otherwise error
 215. int * arr = new int[2]{2,3}; delete [] arr; -> if delete arr, it will throw a warning 

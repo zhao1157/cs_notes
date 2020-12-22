@@ -15,30 +15,56 @@ class shared_ptr{
             }
         }
         ~shared_ptr(){
-            if (num_ref == 1 && num_del == 0)
+            if (ptr == nullptr){
+                std::cout << "empty pointer\n";
+                return;
+            }
+            num_ref --;
+            if (num_ref == 0){
                 delete ptr;
-                num_del ++;
+                std::cout << "deleting\n";
+            }
         }
         shared_ptr(shared_ptr<T>& sp){
-            std::cout << "copy assignment\n";
+            std::cout << "copy constructor\n";
             ptr = sp.ptr;
+            num_ref ++;
         }
         shared_ptr<T> & operator = (shared_ptr<T> & sp){
-            //num_ref ++;
+            num_ref ++;
             std::cout << "calling value assignment operator\n";
             delete ptr;
             ptr = sp.ptr;
-            sp.ptr = nullptr;
+            //sp.ptr = nullptr;
 
             return *this;
+        }
+
+        shared_ptr(shared_ptr<T> && sp){
+            if (this != & sp){
+                std::cout << "move constructor\n";
+                ptr = sp.ptr;
+                sp.ptr = nullptr;
+            }
+        }
+
+        shared_ptr<T> & operator = (shared_ptr<T> && sp){
+            if (this == &sp){
+                return * this;
+            }
+            std::cout << "move assignment\n";
+            delete ptr;
+            ptr = sp.ptr;
+            sp.ptr = nullptr;
+            return *this;
+        }
+        operator bool(){
+            return ptr != nullptr;
         }
 };
 
 template<typename T>
 int shared_ptr<T>::num_ref = 0;
-
-template<typename T>
-int shared_ptr<T>::num_del = 0;
 
 template <typename T>
 shared_ptr<T> make_shared(int id){
@@ -49,7 +75,9 @@ class P{
     private:
         int id;
     public:
-        P(int _id = -1): id(_id){}
+        P(int _id = -1): id(_id){
+            std::cout << id << std::endl;
+        }
         ~P(){
             std::cout << id << " is destroyed\n";
         }
@@ -57,13 +85,18 @@ class P{
 
 
 int main(){
-    shared_ptr<P> sp(new P(2)), sp2, sp3;
+    shared_ptr<P> sp(new P(2)), sp2, sp3, sp4(sp);
     sp2 = sp;
     sp3 = sp;
+
+    shared_ptr<P> sp5 (std::move(sp3));
+    shared_ptr<P> sp6;
+    sp6 = std::move(sp5);
 
     //sp = make_shared<P> (3);
 
     std::cout << shared_ptr<P>::num_ref << std::endl;
+    std::cout << "not null " << sp << std::endl;
 }
 
 
