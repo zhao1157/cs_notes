@@ -1,3 +1,5 @@
+216. in std::shared_ptr<P> sp(new P[2]{P(), P(3)}, std::shared_delete<P[]> ()); array deleter should be used, otherwise error
+215. int * arr = new int[2]{2,3}; delete [] arr; -> if delete arr, it will throw a warning 
 214. std::shared_ptr<int> p; p.unique() is false if p is empty or there is more than one shared_ptr pointing to the managed object
 213. just like std::unique_ptr<int> p(new int(3)); p.reset(); the managed object is freed; std::shared_ptr<int> p(new int (3)); p.reset(); the object is also freed.
 212. std::shared_ptr<P> ppp = std::move(pp); pp is now empty, and its content is moved to ppp

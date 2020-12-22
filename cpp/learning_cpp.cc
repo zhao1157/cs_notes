@@ -1,3 +1,29 @@
+//======= 236 ======
+//This is to practice deleting array
+#include <iostream>
+#include <memory>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id = -1): id(_id){}
+        ~P(){
+            std::cout << id << " is destroyed\n";
+        }
+
+};
+
+int main(){
+    int * arr = new int[2]{3, 4};
+    delete []arr; // deleting array
+
+    std::cout << "______\n";
+    std::shared_ptr<P> sp(new P[2]{P(), P(2)}, std::default_delete<P[]>()); //for array pointer, we have to use array deleter
+}
+
+
+/*
 //======= 235 ======
 #include <iostream>
 #include <memory>
@@ -27,7 +53,6 @@ int main(){
 }
 
 
-/*
 //======= 234 =======
 //This is to practice shared_ptr
 #include <iostream>
