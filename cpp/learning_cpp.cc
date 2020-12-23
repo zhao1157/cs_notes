@@ -1,3 +1,32 @@
+//======= 240 ======
+//This is to practice weak_ptr
+#include <iostream>
+#include <memory>
+
+int main(){
+    std::shared_ptr<int> sp(new int (2));
+    std::shared_ptr<int> spp(sp);
+    std::cout << sp.use_count() << spp.use_count() << std::endl;
+
+    std::weak_ptr<int> wp (sp);
+    std::cout << sp.use_count() << wp.use_count() << std::endl;
+
+    //std::cout << *wp << std::endl; // weak_ptr does not provide accessing the object. weird
+    sp.reset();
+    std::cout << wp.use_count () << spp.use_count() << std::endl;
+    std::cout << wp.expired() << std::endl;
+    sp = wp.lock();
+    spp.reset();
+    std::cout << wp.use_count () << spp.use_count ()  << std::endl;
+    wp.reset(); // does not decrease the use_count(), just make weak_ptr empty
+    std::cout << wp.expired() << std::endl;
+    std::cout << wp.use_count() << sp.use_count () << std::endl;
+
+    std::shared_ptr<int>(new int(2));
+}
+
+
+/*
 //======= 239 =======
 //This is to practice shared_ptr cycle
 #include <iostream>
@@ -41,7 +70,6 @@ int main(){
 }
 
 
-/*
 //======= 238 ======
 //This is to practice implementing shared_ptr
 #include <iostream>

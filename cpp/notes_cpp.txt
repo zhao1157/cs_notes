@@ -1,3 +1,5 @@
+221. std::weak_ptr<>; .reset() does not modify use_count(), just make the weak_ptr empty; .expired() whether empty pointer or use_count() is 0; .lock() returns a shared_ptr<> which can be assigned to a shared_ptr<> object, and the operation is atomic;
+220. std::weak_ptr<> does not provide a way of accessing the managed object, but it can wp.lock() to a shared_ptr which can access the managed object
 219. std::weak_ptr<P>; can help resolve cycles in shared_ptr as it can refer to the managed object, but does not change use_count()
 218. operator bool(){return ptr != nullptr;} -> std::cout << sp << std::endl; if (sp) std::cout << "not nullptr\n";
 217. std::shared_ptr<int> sp; std::unique_ptr<int> up; (sp == nullptr); (up == nullptr); (sp.get() == nullptr); (up.get() == nullptr)
