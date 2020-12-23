@@ -1,3 +1,47 @@
+//======= 239 =======
+//This is to practice shared_ptr cycle
+#include <iostream>
+#include <memory>
+
+class Son;
+
+class Mother{
+    public:
+        ~Mother(){
+            std::cout << "Mother destroyed\n";
+        }
+        void set_son(std::shared_ptr<Son> &sp){
+            sp_son = sp;
+            std::cout << "son count " << sp_son.use_count() << std::endl;
+        }
+        std::weak_ptr<Son> sp_son;
+};
+
+class Son{
+    public:
+        ~Son(){
+            std::cout << "son destroyed\n";
+        }
+        void set_mother(std::shared_ptr<Mother> & sp){
+            sp_mother = sp;
+        }
+        std::shared_ptr<Mother> sp_mother;
+
+};
+
+int main(){
+    std::shared_ptr<Mother> sp_m(new Mother);
+    std::shared_ptr<Son> sp_s(new Son);
+
+    sp_m -> set_son(sp_s);
+    std::cout << sp_s.use_count() << std::endl;
+    sp_s -> set_mother(sp_m);
+    std::cout << sp_s.use_count() << std::endl;
+
+}
+
+
+/*
 //======= 238 ======
 //This is to practice implementing shared_ptr
 #include <iostream>
@@ -100,7 +144,6 @@ int main(){
 }
 
 
-/*
 //====== 237 ======
 //This is to practice shared_ptr bool
 #include <iostream>
