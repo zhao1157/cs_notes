@@ -1,3 +1,7 @@
+#========== 54 ========
+# if script color is lost after deleting .swp file
+:set filetype=python # if it is a python script
+:set filetype=cpp # if it is a cpp file
 #===== 53 =====
 # instructions to install docker on windows
 #1. open Windows Features, uncheck four boxes (Containers, Hyper-V, Virtual Machine Platform and Windows Hypervisor Platform), then you are prompted to restart your computer, just do it.
