@@ -1,3 +1,55 @@
+//======= 247 ======
+//This is to practice set
+#include <iostream>
+#include <set>
+
+int main(){
+    int arr [] = {2, 3, 4, 5, 5, 6, 6, 7, 7, 7};
+    std::set<int> s;
+    std::cout << s.size() << std::endl;
+
+    s.insert(arr, arr+2); // return type is void 
+    std::cout << s.size() << std::endl;
+
+    std::set<int>::iterator it = s.insert(s.end(), arr[2]); // can not do s.begin()+?
+    std::cout << *it << std::endl;
+    it --; //only ++ or -- for iterator
+    std::cout << * it << *(--it)<< std::endl;
+    std::cout << *it << std::endl;
+
+    std::pair<std::set<int>::iterator, bool> it_bool = s.insert(arr[3]);
+    std::cout << *it_bool.first << it_bool.second << std::endl;
+    
+    it_bool = s.insert(arr[4]);
+    std::cout << *it_bool.first << it_bool.second << std::endl;
+
+    for (auto & ele : s)
+        std::cout << ele << " ";
+    std::cout << std::endl;
+
+    for (std::set<int>::iterator iter = s.begin(); iter != s.end(); iter++)
+        std::cout << * iter << " ";
+    std::cout << std::endl;
+
+    for (std::set<int>::reverse_iterator iter = s.rbegin(); iter != s.rend(); iter ++)
+        std::cout << *iter << " ";
+    std::cout << std::endl;
+
+    it_bool = s.emplace(arr[5]);
+    if (it_bool.second)
+        std::cout << "successfully emplaced " << *it_bool.first << std::endl;
+    it_bool = s.emplace(arr[6]);
+    if (not it_bool.second)
+        std::cout << "failed " << *it_bool.first << " already exists\n";
+
+    it = s.emplace_hint(it_bool.first, arr[7]);
+    std::cout << *it << std::endl;
+    it = s.emplace_hint(it, arr[8]);
+    std::cout << *it << std::endl;
+}
+
+
+/*
 //======== 246 =========
 //This is to practice thread and shared_ptr
 #include <iostream>
@@ -54,7 +106,6 @@ int main(){
 }
 
 
-/*
 //========= 245 =======
 //This is to practice weak_ptr with customer class
 #include <iostream>

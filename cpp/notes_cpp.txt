@@ -1,3 +1,6 @@
+227. std::set<int> s; s.emplace_hint(iter, 2); s.insert(iter, 2); -> iter serves as the starting point where to start searching
+226. std::set<int>::iterator iter = s.begin(); iter != s.end(); not < s.end(), maybe because it is not continuous; std::set<int>::reverse_iterator iter = s.rbegin(); iter != s.rend(); iter++;
+225. std::set<int> s; std::set<int>::iterator iter; iter++/-- not +/-; std::pair<std::set<int>::iterator, bool> iter_bool = s.insert(2); * iter_bool.first; iter_bool.second is true if insert successfully, otherwise false; iter_bool.first is the position where it is inserted or already existed; s.insert(arr, arr+2) return type is void;
 224. we can use std::weak_ptr<> peeks into the managed object to see if it's released or not, by .use_count() or .expired(), if not then wp.lock() will create a temporary shared_ptr<> which can access the mananged object.
 223. std::shared_ptr<P> sp(new P); std::weak_ptr<P> wp(sp); std::cout << wp.use_count() << wp.lock().use_count() << wp.use_count() << std::endl; use_count() increments by one from the second expression, and decrements by one when the whole std::cout finishes.
 222. std::shared_ptr<int> sp1(ptr); std::shared_ptr<int> sp2(ptr); ERROR: as sp1 and sp2 are not sharing use_count(), thus causing deleting twice
