@@ -1,3 +1,49 @@
+//========= 245 =======
+//This is to practice weak_ptr with customer class
+#include <iostream>
+#include <memory>
+
+class P{
+    public:
+        ~P(){
+            std::cout << "P is destroyed\n";
+        }
+};
+
+int main(){
+    std::shared_ptr<P> sp(new P), sp2(sp);
+    std::weak_ptr<P> wp(sp);
+
+    if (!wp.expired()){
+        std::cout << wp.use_count() << wp.lock().use_count() << wp.use_count()<< std::endl;
+        std::cout << wp.use_count() << std::endl;
+    }
+}
+
+
+/*
+//======= 244 =======
+//This is to practice weak_ptr
+#include <iostream>
+#include <memory>
+
+int main(){
+    int * ptr = new int (3);
+
+    std::shared_ptr<int> sp(ptr), sp2(sp);
+    std::weak_ptr<int> wp (sp);
+
+    sp.reset();
+    std::cout << wp.use_count () << sp.use_count () << std::endl;
+    
+    //wp.reset();
+    //sp2.reset();
+    if (! wp.expired()){
+        std::cout << "the object is not deleted: " << *(wp.lock()) << std::endl;
+    }
+}
+
+
 //======= 243 ========
 //This is to practice shared_ptr and weak_ptr
 #include <iostream>
@@ -60,7 +106,6 @@ int main(){
 }
 
 
-/*
 //======== 242 =======
 //This is to practice shared_ptr
 #include <iostream>
