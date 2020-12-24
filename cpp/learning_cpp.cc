@@ -1,3 +1,66 @@
+//======= 243 ========
+//This is to practice shared_ptr and weak_ptr
+#include <iostream>
+#include <memory>
+
+class Son;
+
+class Mot{
+    private:
+        std::string name;
+    public:
+        Mot(std::string _name): name(_name){}
+        ~Mot(){
+            std::cout << name << " is destroyed\n";
+        }
+        void set_son(std::shared_ptr<Son> & sp){
+            wp_son = sp;
+        }
+        std::weak_ptr<Son> wp_son;
+        void get_son();
+};
+
+class Son{
+    private:
+        std::string name;
+    public:
+        Son(std::string _name): name(_name){}
+        ~Son(){
+            std::cout << name << " is destroyed\n";
+        }
+        void set_mot(std::shared_ptr<Mot> & sp){
+            sp_mot = sp;
+        }
+        std::shared_ptr<Mot> sp_mot;
+
+        std::string GetName(){
+            return name;
+        }
+
+};
+
+void Mot::get_son(){
+    std::cout << wp_son.lock() -> GetName() << std::endl;
+}
+
+int main(){
+    std::shared_ptr<Mot> sp_mot(new Mot("dsy"));
+    std::shared_ptr<Son> sp_son (new Son("cow"));
+
+    std::weak_ptr<Mot> wp_mot = sp_mot;
+    std::weak_ptr<Son> wp_son = sp_son;
+
+    sp_mot -> set_son(sp_son);
+    sp_son -> set_mot(sp_mot);
+    //sp_mot.reset();
+    std::cout << sp_mot.use_count() << sp_son.use_count() << std::endl;
+    std::cout << wp_mot.use_count() << wp_son.use_count() << std::endl;
+
+    sp_mot -> get_son();
+}
+
+
+/*
 //======== 242 =======
 //This is to practice shared_ptr
 #include <iostream>
@@ -16,7 +79,6 @@ int main(){
 }
 
 
-/*
 //======= 241 =======
 //This is to practice using shared_ptr and weak_ptr
 #include <iostream>
