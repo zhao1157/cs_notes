@@ -1,3 +1,60 @@
+//======== 246 =========
+//This is to practice thread and shared_ptr
+#include <iostream>
+#include <memory>
+#include <thread>
+#include <vector>
+#include <mutex>
+#include <numeric>
+#include <chrono>
+#include <future>
+
+int sum = 0;
+std::mutex mu;
+std::condition_variable cv;
+std::once_flag onceflag;
+
+std::chrono::milliseconds sl(1);
+
+void Task(int i, std::shared_ptr<std::vector<int>> sp, std::promise<void> & prom){
+    //std::call_once(onceflag,[]{std::this_thread::sleep_for(sl); cv.notify_one();});
+    std::call_once(onceflag, [&prom]{prom.set_value(); std::cout << "thread " << std::endl;});
+    int part_sum = std::accumulate(sp -> begin()+i, sp -> end(), 0);
+    std::lock_guard<std::mutex> lock(mu);
+    sum += part_sum;
+}
+
+
+
+int main(){
+    std::shared_ptr<std::vector<int>> sp (new std::vector<int>({1, 2, 3, 4}));
+    std::weak_ptr<std::vector<int>> wp (sp);
+
+    std::vector<std::thread> my_threads;
+    std::promise<void> prom;
+    std::future<void> fu = prom.get_future();
+    
+    for (int i = 0; i < std::thread::hardware_concurrency(); i ++)
+        my_threads.emplace_back(Task, i, sp, std::ref(prom));
+   
+    //std::mutex mu_;
+    //std::unique_lock<std::mutex> lock(mu_);
+    //cv.wait(lock);
+    fu.wait();
+    std::cout << "done waiting\n";
+    while (wp.use_count() > 1){
+        std::cout << wp.use_count() << " ";
+    }
+    std::cout << std::endl;
+    std::cout << wp.use_count() << std::endl;
+    for (auto & thread:my_threads){
+        if (thread.joinable())
+            thread.join();
+    }
+}
+
+
+/*
 //========= 245 =======
 //This is to practice weak_ptr with customer class
 #include <iostream>
@@ -21,7 +78,6 @@ int main(){
 }
 
 
-/*
 //======= 244 =======
 //This is to practice weak_ptr
 #include <iostream>
