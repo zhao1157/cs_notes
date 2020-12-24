@@ -1,3 +1,94 @@
+//======== 242 =======
+//This is to practice shared_ptr
+#include <iostream>
+#include <memory>
+
+int main(){
+    int * ptr = new int (3);
+
+    std::shared_ptr<int> sp1 (ptr);
+    //std::shared_ptr<int> sp2 (ptr); //double-free a memory block
+    std::shared_ptr<int> sp2(sp1);
+    std::cout << sp1.use_count() << std::endl;
+    sp2.reset();
+    std::weak_ptr<int> wp(sp1);
+    std::cout << wp.use_count() << std::endl;
+}
+
+
+/*
+//======= 241 =======
+//This is to practice using shared_ptr and weak_ptr
+#include <iostream>
+#include <memory>
+
+class Son;
+
+class Mot{
+    private:
+        std::string name;
+    public:
+        Mot(std::string _name): name(_name){}
+        ~Mot(){
+            std::cout << name << " is destroyed\n";
+        }
+
+        void set_son(std::shared_ptr<Son> & sp){
+            sp_son = sp;
+        }
+
+        void GetName(){
+            std::cout << name << std::endl;
+        }
+
+        std::shared_ptr<Son> sp_son;
+};
+
+class Son{
+    private:
+        std::string name;
+    public:
+        Son(std::string _name): name(_name){}
+        ~Son(){
+            std::cout << name << " is destroyed\n";
+        }
+
+        void set_mother(std::shared_ptr<Mot> & sp){
+            sp_mot = sp;
+        }
+        std::shared_ptr<Mot> sp_mot;
+
+        void GetName(){
+            std::cout << name << std::endl;
+        }
+};
+
+int main(){
+    std::weak_ptr<Mot> wp_mot;
+    std::weak_ptr<Son> wp_son;
+    Mot * ptr_mot = new Mot("dsy");
+    Son * ptr_son = new Son("cow");
+
+    {
+        std::shared_ptr<Mot> sp_mot(ptr_mot);
+        std::shared_ptr<Son> sp_son(ptr_son);
+
+        wp_mot = sp_mot;
+        wp_son = sp_son;
+
+        sp_mot->set_son(sp_son);
+        sp_son -> set_mother(sp_mot);
+    }
+
+    //std::shared_ptr<Mot> sp_motx = std::shared_ptr<Mot>(ptr_mot); //(wp_mot); //(new Mot("xx"));
+
+    std::cout << wp_mot.use_count() << " " << wp_son.use_count() << std::endl;
+
+    wp_mot.lock().get() -> GetName(); // -> ~Mot();
+    wp_son.lock().get() -> GetName();
+}
+
+
 //======= 240 ======
 //This is to practice weak_ptr
 #include <iostream>
@@ -26,7 +117,6 @@ int main(){
 }
 
 
-/*
 //======= 239 =======
 //This is to practice shared_ptr cycle
 #include <iostream>
