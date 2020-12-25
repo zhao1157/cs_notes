@@ -1,3 +1,57 @@
+//======== 249 ========
+//This is to practice set .erase() and .find()
+#include <iostream>
+#include <set>
+
+int main(){
+    int arr [] = {2, 3, 4};
+    int num = sizeof(arr)/sizeof(arr[0]);
+    std::cout << num << std::endl;
+    std::set<int> s (arr, arr+num);
+
+    for (auto & ele : s)
+        std::cout << ele << " ";
+    std::cout << "\n";
+
+    s.emplace_hint(s.end(), 9);
+    s.insert(s.begin(), 0);
+
+    for (std::set<int>::reverse_iterator iter = s.rbegin(); iter != s.rend(); iter ++)
+        std::cout << *iter << " ";
+    std::cout << std::endl;
+
+    std::set<int>::iterator iter = s.end();
+    //std::cout << *iter << std::endl;
+    iter--;
+    std::cout << *iter << std::endl;
+
+    std::set<int>::reverse_iterator riter = s.rend();
+    riter --;
+    riter --;
+    std::cout << *riter << std::endl;
+    
+    std::set<int>::iterator it = s.find(3);
+
+    if (it != s.end()){
+        std::cout << "found\n";
+        s.erase(it);
+        //s.erase(9);
+    } else{
+        std::cout << "not found\n";
+    }
+
+    //std::cout << *it << std::endl;
+    //it --; // once erased, the iterator is not valid anymore
+    for (auto i = s.begin(); i != s.end(); i++)
+        if (it == i) std::cout << "in\n";
+
+    it = s.end();
+    int i = s.erase(9);
+    std::cout << i << std::endl;
+    s.erase(--it, it);
+}
+
+/*
 //======== 248 ========
 //This is to practice std::set<> with customer class, it is sorted by a compare class, or through a friend funtion operator <, not its member function
 #include <iostream>
@@ -32,7 +86,6 @@ class P{
 };
 
 
-/*
 class Compare{
     public:
         bool operator ()(const P &p1, const P &p2) const{
@@ -40,7 +93,6 @@ class Compare{
             return p1.id < p2.id;
         }
 };
-*/
 
 bool operator < (const P &p1, const P &p2){
     std::cout << "calling non-member function\n";
@@ -65,7 +117,6 @@ int main(){
 }
 
 
-/*
 //======= 247 ======
 //This is to practice set
 #include <iostream>
