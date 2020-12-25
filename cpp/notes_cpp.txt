@@ -1,3 +1,5 @@
+229. std::set<P, Compare_class_type> sp; the compare class functor will do the comparison; or if an friend operator < (,) is declared within P, then it can be used to do the sorting.
+228. std::set<P> p; std::cout << p << std::endl; operator bool(){return ...}; here bool does not specify a return type and it does return a bool value, i.e. 0/1;
 227. std::set<int> s; s.emplace_hint(iter, 2); s.insert(iter, 2); -> iter serves as the starting point where to start searching
 226. std::set<int>::iterator iter = s.begin(); iter != s.end(); not < s.end(), maybe because it is not continuous; std::set<int>::reverse_iterator iter = s.rbegin(); iter != s.rend(); iter++;
 225. std::set<int> s; std::set<int>::iterator iter; iter++/-- not +/-; std::pair<std::set<int>::iterator, bool> iter_bool = s.insert(2); * iter_bool.first; iter_bool.second is true if insert successfully, otherwise false; iter_bool.first is the position where it is inserted or already existed; s.insert(arr, arr+2) return type is void;

@@ -1,3 +1,71 @@
+//======== 248 ========
+//This is to practice std::set<> with customer class, it is sorted by a compare class, or through a friend funtion operator <, not its member function
+#include <iostream>
+#include <set>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id=-1): id(_id){}
+        operator bool(){
+            return id == 9;
+        }
+
+        friend bool operator <(const P &p1, const P &p2);
+        bool operator < (const P & p){
+            std::cout << "calling member function\n";
+            return id < p.id;
+        }
+
+        P & operator + (int a){
+            id += a;
+            return *this;
+        }
+
+        P & operator - (int a){
+            id -= a;
+            return *this;
+        }
+
+        friend class Compare;
+};
+
+
+/*
+class Compare{
+    public:
+        bool operator ()(const P &p1, const P &p2) const{
+            std::cout << "Comapre class\n";
+            return p1.id < p2.id;
+        }
+};
+*/
+
+bool operator < (const P &p1, const P &p2){
+    std::cout << "calling non-member function\n";
+    return p1.id < p2.id;
+}
+
+int main(){
+    P p(11), p2(9);
+    std::cout << p << p2 << std::endl;
+
+    //std::set<P, Compare> sp;
+    std::set<P> sp;
+    std::cout << "______ 1 ______\n";
+    sp.insert(p);
+    std::cout << "______ 2 ______\n";
+    sp.insert(p2);
+    std::cout << "______ 3 ______\n";
+    
+    std::cout << (p < p2) << std::endl;
+    std::cout << (p-9 < p2+2) << std::endl;
+    p.test();
+}
+
+
+/*
 //======= 247 ======
 //This is to practice set
 #include <iostream>
@@ -49,7 +117,6 @@ int main(){
 }
 
 
-/*
 //======== 246 =========
 //This is to practice thread and shared_ptr
 #include <iostream>
