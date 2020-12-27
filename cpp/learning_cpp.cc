@@ -1,3 +1,66 @@
+//======= 250 =======
+//This is to practice set.count()
+#include <iostream>
+#include <set>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id): id(_id){}
+        ~P(){
+            std:: cout << "P " << id << " is destroyed\n";
+        }
+        friend bool operator <(const P &, const P &);
+        
+        P(const P &p){
+            std::cout << "P copy\n";
+            id = p.id;
+        }
+
+        P(const P && p){
+            std::cout << "P move\n";
+            id = p.id;
+        }
+
+        bool operator < (const P &p){
+            std::cout << "member <\n";
+            return id < p.id;
+        }
+};
+
+bool operator < (const P & p1, const P & p2){
+    std::cout << p1.id << " " << p2.id << "  compare\n";
+    return p1.id < p2.id;
+}
+
+int main(){
+    std::set <P> sp;
+    for (int i = 0; i < 5; i++){
+        //sp.insert(sp.end(), std::move(P(i)));
+        sp.emplace_hint(sp.end(), P(i));
+    }
+    std::set<P>::iterator it = sp.end();
+    it--;
+    for (auto iter = sp.begin(); iter != it; iter ++){
+        std::cout << (*iter < *(++iter)) << std::endl;
+        iter--;
+    }
+
+    /*
+    P p1 = *sp.begin();
+    P p2 = *it;
+    std::cout << (p1 < p2) << std::endl;
+    */
+   
+    std::cout << "size " << sp.size() << std::endl; 
+    std::cout << "________\n";
+    std::cout << "count: " << sp.count(P(2)) << std::endl;
+    std::cout << "________\n";
+}
+
+
+/*
 //======== 249 ========
 //This is to practice set .erase() and .find()
 #include <iostream>
@@ -51,7 +114,6 @@ int main(){
     s.erase(--it, it);
 }
 
-/*
 //======== 248 ========
 //This is to practice std::set<> with customer class, it is sorted by a compare class, or through a friend funtion operator <, not its member function
 #include <iostream>

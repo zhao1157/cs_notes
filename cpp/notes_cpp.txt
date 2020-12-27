@@ -1,3 +1,4 @@
+231. std::set<P>; (*iter < *(++iter)) use the compare object in iterator/set class; p1 = *iter1; p2 = *iter2; (p1 < p2) uses the < member function in P object;
 230. std::set<int> s; s.erase(9) returns the number of elements erased (0/1); s.erase(iter, s.end()); s.erase(iter);
 229. std::set<P, Compare_class_type> sp; the compare class functor will do the comparison; or if an friend operator < (,) is declared within P, then it can be used to do the sorting.
 228. std::set<P> p; std::cout << p << std::endl; operator bool(){return ...}; here bool does not specify a return type and it does return a bool value, i.e. 0/1;
