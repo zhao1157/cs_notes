@@ -1,3 +1,38 @@
+//======== 252 =======
+//This is to practice map
+#include <iostream>
+#include <map>
+
+int main(){
+    std::map<int, double> id;
+    id[2] = 2.3;
+    id[3] = 3.2;
+    //id[2] = 3;
+
+    id.insert(std::pair<int, double>(4, 4.1));
+    id.insert(id.end(), std::pair<int, double>(10, 10.1));
+    id.insert(id.find(10), std::pair<int, double>(5, 5.1));
+    id.insert(id.find(9), std::pair<int, double>(9, 9.1));
+    id.erase(2);
+    std::map<int, double>::iterator it = id.end();
+    it --;
+    id.erase(it);
+    //it --; // since it is erased, we just lost the information, so can not use it again
+    it = id.find(3);
+    if (it != id.end()){
+        std::cout << it->first << " " << it->second << std::endl;;
+    } else {
+        std::cout << "not found\n";
+    }
+
+    for (std::map<int, double>::iterator it = id.begin(); it != id.end(); it++)
+        std::cout << it->first << " " << it-> second << std::endl;
+
+
+}
+
+
+/*
 //======== 251 ========
 //This is to practice multset which can has multiple save-value elements
 #include <iostream>
@@ -25,7 +60,6 @@ int main(){
     std::cout << std::endl;
 }
 
-/*
 //======= 250 =======
 //This is to practice set.count()
 #include <iostream>
