@@ -1,3 +1,31 @@
+//======== 251 ========
+//This is to practice multset which can has multiple save-value elements
+#include <iostream>
+#include <set>
+
+int main(){
+    std::multiset<int> ms;
+    for (int i = 0; i < 5; i++)
+        ms.insert(ms.end(), i);
+
+    for (int i = 0; i < 5; i++)
+        ms.insert(i);
+
+    for (std::multiset<int>::iterator it = ms.begin(); it != ms.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    
+    std::set<int> s;
+    for(auto it = ms.rbegin(); it != ms.rend(); it++){
+        s.insert(*it);
+    }
+
+    for (auto & ele : s)
+        std::cout << ele << " ";
+    std::cout << std::endl;
+}
+
+/*
 //======= 250 =======
 //This is to practice set.count()
 #include <iostream>
@@ -47,11 +75,9 @@ int main(){
         iter--;
     }
 
-    /*
     P p1 = *sp.begin();
     P p2 = *it;
     std::cout << (p1 < p2) << std::endl;
-    */
    
     std::cout << "size " << sp.size() << std::endl; 
     std::cout << "________\n";
@@ -60,7 +86,6 @@ int main(){
 }
 
 
-/*
 //======== 249 ========
 //This is to practice set .erase() and .find()
 #include <iostream>
