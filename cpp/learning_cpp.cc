@@ -1,3 +1,33 @@
+//======= 258 =======
+//This is to practice map
+#include <iostream>
+#include <map>
+#include <set>
+#include <vector>
+
+int main(){
+    std::map<int, std::set<int>> mp;
+    mp[2] = std::set<int>{2, 3};
+    //typedef std::pair<int, std::set<int>> ele_type;
+    using ele_type = std::pair<int, std::set<int>>;
+    mp.insert(ele_type(3, std::set<int> {4, 5, 6}));
+
+    for (const ele_type & ele : mp)
+        std::cout << ele.first << " " << ele.second.size() << std::endl;
+    std::cout << mp.size() << std::endl;
+    mp.erase(2);
+    std::cout << mp.size() << std::endl;
+    mp.erase(mp.begin());
+    std::cout << mp.size() << std::endl;
+
+    mp.emplace(4, std::set<int>{4, 44, 444, 4444});
+    mp.emplace_hint(mp.end(), 5, std::set<int> {5, 55, 555, 5555, 55555});
+    std::cout << mp.size() << std::endl;
+    mp.clear();
+    std::cout << mp.size() << std::endl;
+}
+
+/*
 //======= 257 ======
 //This is to practice map which includes vectors as values
 #include <iostream>
@@ -50,7 +80,6 @@ int main(){
     }
 }
 
-/*
 //====== 256 ======
 //This is to practice map
 #include <iostream>
