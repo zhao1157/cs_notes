@@ -1,3 +1,84 @@
+//======= 257 ======
+//This is to practice map which includes vectors as values
+#include <iostream>
+#include <vector>
+#include <map>
+
+class Person{
+    private:
+        std::string name;
+        int age;
+    public:
+        Person(std::string _name, int _age): name(_name), age(_age) {}
+        void Get()const {
+            std::cout << name << ": " << age << std::endl;
+        }
+};
+
+class Compare{
+    public:
+        bool operator ()(const std::vector<Person> & p1, const std::vector<Person> & p2) const{
+            return p1.size() > p2.size();
+        }
+};
+
+int main(){
+    std::map<std::string, std::vector<Person>, std::greater<std::string>> families;
+    families["zls"].push_back(Person("zls", 30));
+    families["zls"].push_back(Person("dsy", 32));
+    families["wsh"].push_back(Person("wsh", 40));
+
+    for (const std::pair<std::string, std::vector<Person>> & ele : families){
+        std::cout << ele.first << std::endl;
+
+        for (const Person & p : ele.second) // here const is required
+            p.Get();
+    }
+
+    std::vector<int> vec={2,3,4};
+    for(int & ele : vec) // here const is not required
+        std::cout << ele << " ";
+    std::cout << std::endl;
+
+    std::cout << "__________\n";
+    std::map<std::vector<Person>, std::string, Compare> mm;
+    mm.insert(std::pair<std::vector<Person>, std::string> (families["zls"], "zls"));
+    mm.insert(std::pair<std::vector<Person>, std::string> (families["wsh"], "wsh"));
+
+    for (auto & ele : mm){
+        std::cout << ele.first.size() << ": " << ele.second << std::endl;
+    }
+}
+
+/*
+//====== 256 ======
+//This is to practice map
+#include <iostream>
+#include <map>
+
+class P{
+    private:
+        std::string name;
+        int age;
+    public:
+        P(std::string _name, int _age): name(_name), age(_age) {}
+};
+
+int main(){
+    std::map<std::string, P, std::greater<std::string>> mp;
+    mp.insert(std::pair<std::string, P>("zls", P("zls", 30)));
+    mp.insert(mp.end(), std::pair<std::string, P> ("dsy", P("dsy", 32)));
+    
+    for (std::map<std::string, P>::iterator it = mp.begin(); it != mp.end(); it++){
+        std::cout << it -> first << " ";
+    }
+    std::cout << std::endl;
+
+    for (const std::pair<std::string, P> & ele : mp)
+        std::cout << ele . first << " ";
+    std::cout << std::endl;
+}
+
 //====== 255 =======
 //This is to practice set compare greater in a customer class
 #include <iostream>
@@ -33,7 +114,6 @@ int main(){
 }
 
 
-/*
 //====== 254 =====
 //This is to practice class greater in set
 #include <iostream>

@@ -1,3 +1,4 @@
+238. std::map<std::vector<Person>, std::string, Compare> mm; Compare can compres the size of the vector
 237. std::set <P, Compare> s; s.begin() -> Getid() => Getid() should be specified by const
 236. std::set <P, Compare>s; in Compare class the functor should be specified by const at the end; inside the functor we can make the comparison as > or < or == or any other comparison
 235. std::set <P, std::greater<P>> s; in P class we should add a friend function/class operator >(const P &, const P &)
