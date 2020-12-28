@@ -1,3 +1,7 @@
+237. std::set <P, Compare> s; s.begin() -> Getid() => Getid() should be specified by const
+236. std::set <P, Compare>s; in Compare class the functor should be specified by const at the end; inside the functor we can make the comparison as > or < or == or any other comparison
+235. std::set <P, std::greater<P>> s; in P class we should add a friend function/class operator >(const P &, const P &)
+234. std::set<int> s; for (const int & ele : s) std::cout << ele << " "; -> const must be included, otherwise error, make sense since we should not modify the element which will cause the disordering of the elements
 233. std::map<int, double> id; id[2] = 3.1; id.insert(std::pair<int, double>(3, 3.1)); id.insert(id.end(), std::pair<int, double>(4, 4.1)); id.insert(id.find(9), std::pair<int, double>(10, 10.9)); iter->first; iter->second; id[2];
 232. std::multiset<int>; it can have multiple same-value elements; the APIs are the same as the std::set<>;
 231. std::set<P>; (*iter < *(++iter)) use the compare object in iterator/set class; p1 = *iter1; p2 = *iter2; (p1 < p2) uses the < member function in P object;

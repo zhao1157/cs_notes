@@ -1,3 +1,106 @@
+//====== 255 =======
+//This is to practice set compare greater in a customer class
+#include <iostream>
+#include <set>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id): id(_id){}
+        friend class Compare;
+
+        int Getid() const{
+            return id;
+        }
+};
+
+class Compare{
+    public:
+        bool operator ()(const P &p1, const P &p2) const{
+            return p1.id > p2.id;
+        }
+};
+
+int main(){
+    std::set <P, Compare> s;
+    for (int i = 1; i < 9; i ++)  
+        s.insert(i);
+    
+    for (const P &p : s)
+        std::cout << p.Getid() << " ";
+    std::cout << std::endl;
+}
+
+
+/*
+//====== 254 =====
+//This is to practice class greater in set
+#include <iostream>
+#include <set>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id): id(_id){}
+        friend bool operator > (const P &p1, const P &p2);
+
+        int Getid() const{
+            return id;
+        }
+};
+
+bool operator >(const P &p1, const P &p2){
+    return p1.id > p2.id;
+}
+
+int main(){
+    std::set<P, std::greater<P>> s;
+
+    for (int i = 0; i < 5; i++)
+        s.insert(P(i));
+    
+    std::set<P, std::greater<P>>::iterator iter;
+    iter = s.begin();
+    std::cout << s.size() << std::endl;
+    std::cout << iter -> Getid() << std::endl;
+
+    iter ++;
+    std::cout << iter -> Getid() << std::endl;
+
+    for (std::set<P, std::greater<P>>::iterator it = s.begin(); it != s.end(); it ++)
+        std::cout << it -> Getid() << " ";
+    std::cout << std::endl;
+
+    for (const P & p : s)
+        std::cout << p.Getid() << " ";
+    std::cout << std::endl;
+
+    std::set<int> ss;
+    for (int i = 9; i < 15; i ++)
+        ss.insert(i);
+    for (const int & ele : ss)
+        std::cout << ele << " ";
+    std::cout << std::endl;
+}
+
+
+//======= 253 =======
+//This is to practice replace std::less by std::greater in set
+#include <iostream>
+#include <set>
+
+int main(){
+    std::set<int, std::greater<int>> s;
+    for (int i = 0; i < 5; i++)
+        s.insert(s.end(), i);
+
+    for (auto & ele : s)
+        std::cout << ele << " ";
+    std::cout << std::endl;
+}
+
 //======== 252 =======
 //This is to practice map
 #include <iostream>
@@ -32,7 +135,6 @@ int main(){
 }
 
 
-/*
 //======== 251 ========
 //This is to practice multset which can has multiple save-value elements
 #include <iostream>
