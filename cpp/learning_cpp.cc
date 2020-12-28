@@ -1,3 +1,27 @@
+//======= 259 =======
+//This is to practice multimap
+#include <iostream>
+#include <map>
+
+int main(){
+    std::multimap<int, double> mp;
+    using ele_type = std::pair<int, double>;
+    mp.insert(ele_type(2, 3.14));
+    mp.emplace(2, 3.1415);
+    std::cout << mp.size() << std::endl;
+    for (const ele_type & ele : mp){
+        std::cout << ele.first << ": " << ele.second << std::endl;
+    }
+
+    std::cout << mp.find(2) -> second << std::endl;
+    mp.erase(mp.find(2));
+    std::cout << mp.find(2) -> second << std::endl;
+    mp.erase(mp.find(2));
+    std::cout << mp.size() << std::endl;
+}
+
+
+/*
 //======= 258 =======
 //This is to practice map
 #include <iostream>
@@ -27,7 +51,6 @@ int main(){
     std::cout << mp.size() << std::endl;
 }
 
-/*
 //======= 257 ======
 //This is to practice map which includes vectors as values
 #include <iostream>

@@ -1,3 +1,4 @@
+241. std::multimap<int, double> mp; mp does not have [] operator as mp can have multiple same-key elements; mp.find(2) returns only one element iterator; mp.erase(mp.find(2));
 240. std::map<int, std::set<int>> mp; mp.emplace(2, std::set<int>{2, 3}); mp.emplace_hint(mp.end(), 3, std::set<int> {0, 0, 0})
 239. using ele_type = std::pair<int, std::set<std::string>>; mp.insert(mp.end(), ele_type(23, std::set<std::string>{"zls", "abd"}))
 238. std::map<std::vector<Person>, std::string, Compare> mm; Compare can compres the size of the vector
