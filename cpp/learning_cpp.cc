@@ -1,3 +1,24 @@
+//======== 260 =========
+//This is to practice map and multimap
+#include <iostream>
+#include <map>
+
+int main(){
+    std::map<std::string, int> families;
+    using ele_type = std::pair<std::string, int>;
+    families.insert(ele_type("zls", 30));
+    
+    std::cout << families.count("zls") << " " << families.count("zlsx") << std::endl;
+
+    std::multimap<std::string, int> mf;
+    mf.insert(ele_type("zls", 30));
+    mf.emplace_hint(mf.end(), ele_type("dsy", 32));
+    mf.emplace(ele_type("zls", 32));
+
+    std::cout << mf.count("zls") << " " << mf.count("dsy") << std::endl;
+}
+
+/*
 //======= 259 =======
 //This is to practice multimap
 #include <iostream>
@@ -21,7 +42,6 @@ int main(){
 }
 
 
-/*
 //======= 258 =======
 //This is to practice map
 #include <iostream>
