@@ -1,3 +1,6 @@
+#========== 57 ==========
+# set working directory
+docker run -w /home/zhaolianshui/xxx
 #=========== 56 ==========
 # find out network interface status
 netstat -an | grep 2234
