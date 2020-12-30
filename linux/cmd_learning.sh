@@ -1,3 +1,6 @@
+#========== 55 ==========
+#save a container to an image
+docker commit -m "some comment about this update" -a "author name who made such commit/update" ${container_id_or_name} ${new_name:tag}
 #========== 54 ========
 # if script color is lost after deleting .swp file
 :set filetype=python # if it is a python script
