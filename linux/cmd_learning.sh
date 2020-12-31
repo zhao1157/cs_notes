@@ -1,3 +1,9 @@
+#========= 58 =========
+#change the name of a network interface in linux
+ifconfig peth0 down
+ip link set peth0 name eth0
+ifconfig eth0 up
+
 #========== 57 ==========
 # set working directory
 docker run -w /home/zhaolianshui/xxx
