@@ -1,3 +1,36 @@
+//======= 261 ======
+//This is to practice using, which is the same as typedef
+#include <iostream>
+#include <vector>
+#include <chrono>
+#include <thread>
+
+template <typename T>
+using vect = std::vector<T>;
+
+int main(){
+    using vec_int = std::vector<int>;
+    vec_int my_vec = {2, 3};
+    for (auto & ele : my_vec)
+        std::cout << ele << " ";
+    std::cout << std::endl;
+    
+    using time_unit = std::chrono::seconds;
+    time_unit sl (1);
+    std::this_thread::sleep_for(sl);
+    std::cout << "Done sleeping\n";
+    
+    vect<double> vec_d = {2.3, 4.6};
+    for (auto & ele : vec_d)
+        std::cout << ele << " ";
+    std::cout << std::endl;
+
+
+    typedef std::vector<int> vdef;
+    vdef me = {2,3};
+}
+
+/*
 //======== 260 =========
 //This is to practice map and multimap
 #include <iostream>
@@ -18,7 +51,6 @@ int main(){
     std::cout << mf.count("zls") << " " << mf.count("dsy") << std::endl;
 }
 
-/*
 //======= 259 =======
 //This is to practice multimap
 #include <iostream>
