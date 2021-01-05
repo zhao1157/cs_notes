@@ -1,3 +1,44 @@
+//======= 267 ======
+//This is to practice async
+#include <iostream>
+#include <future>
+#include <mutex>
+#include <chrono>
+#include <functional>
+
+typedef std::chrono::seconds sec;
+
+std::mutex mu;
+
+struct Me{
+    public:
+        void Foo(int id, std::string const & str){
+            std::lock_guard<std::mutex> lock(mu);
+            std::cout << id << ": " << str << std::endl;
+        }        
+
+        void operator ()(int id){
+            std::lock_guard<std::mutex> lock(mu);
+            std::cout << id << std::endl;
+            std::this_thread::sleep_for(sec(1));
+        }
+};
+
+int main(){
+    Me me;
+    std::string str_1 = "first";
+    std::future<void> fu_1 = std::async(std::launch::deferred, &Me::Foo, &me, 2, "first_1");
+    std::future<void> fu_2 = std::async(std::launch::deferred, &Me::Foo, &me, 2, std::ref(str_1));
+    std::shared_future<void> fu = fu_2.share(), fu_3 = fu; // fu_2 no longer holds the value, which is transferred to fu, and shared with fu_3
+
+    std::async(std::launch::async, [&fu_1]{fu_1.get();});
+    std::async(std::launch::async, [&fu, &fu_3]{fu.get(); fu_3.get();});
+
+    std::async(std::launch::async, me, 3);
+    std::async(std::launch::async, me, 4);
+}
+
+/*
 //===== 265 =====
 //This is to test the memory allocation for string
 #include <iostream>
@@ -8,7 +49,6 @@ int main(){
 }
 
 
-/*
 //====== 264 ======
 //This is to practice recursive call in std::async
 #include <iostream>

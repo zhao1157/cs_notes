@@ -1,3 +1,4 @@
+247. std::future<> is non-copyable, no if used in std::async or other cases, make sure use refrence, [&fu]{fu.get();}; std::shared_future<> sfu = fu.share(); fu is no longer holding the state which is transferred to sfu, and sfu2 = sfu is valid;
 246. sizeof(ptr); sizeof (*ptr); sizeof(NULL); sizeof(nullptr)
 245. std::async(std::launch::async, accum<ITR>, arg1, arg2); -> don't forget the template parameter if it is a template function
 244. std::async(std::launch::async, []{std::this_thread::sleep_for(sec(2));}) -> will block as it's not assigned or moved to std::future object; by std::future<void> fu = std::async(std::launch::async, func), the main thread will not wait for the spawned function to finish
