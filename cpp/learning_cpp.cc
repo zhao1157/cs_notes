@@ -1,3 +1,20 @@
+//======= 263 =======
+//This is to practice std::async
+#include <iostream>
+#include <future>
+#include <chrono>
+
+typedef std::chrono::seconds sec;
+
+int main(){
+    std::cout << "sleeping\n";
+    std::future<void> fu;
+    //fu = std::async(std::launch::async, []{std::this_thread::sleep_for(sec(2));}); // will not block
+    std::async(std::launch::async, []{std::this_thread::sleep_for(sec(2));}); // will block till it's finished
+    std::cout << "done sleeping\n";
+}
+
+/*
 //====== 262 =======
 //This is to practice this pointer
 #include <iostream>
@@ -25,7 +42,6 @@ int main(){
 }
 
 
-/*
 //======= 261 ======
 //This is to practice using, which is the same as typedef
 #include <iostream>
