@@ -1,3 +1,31 @@
+//====== 262 =======
+//This is to practice this pointer
+#include <iostream>
+
+class P{
+    private:
+        int id;
+    public:
+        P(int _id){
+            // const P * ptr = this; // wrong, as we need to modify this pointer object
+            P * const ptr = this;
+            ptr -> id = _id;
+        }
+
+        void Get() const{
+            const P * ptr = this; // const here makes sure that this pointer object is not modified
+            std::cout << ptr -> id << std::endl;
+        }
+};
+
+int main(){
+    P p(2);
+
+    p.Get();
+}
+
+
+/*
 //======= 261 ======
 //This is to practice using, which is the same as typedef
 #include <iostream>
@@ -30,7 +58,6 @@ int main(){
     vdef me = {2,3};
 }
 
-/*
 //======== 260 =========
 //This is to practice map and multimap
 #include <iostream>
