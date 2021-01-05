@@ -1,3 +1,14 @@
+//===== 265 =====
+//This is to test the memory allocation for string
+#include <iostream>
+
+int main(){
+    int * p = new int (2);
+    std::cout << sizeof(p) << " " << sizeof(*p) << " " << sizeof(int) << " " << sizeof(NULL) << " " << sizeof(nullptr) << std::endl;
+}
+
+
+/*
 //====== 264 ======
 //This is to practice recursive call in std::async
 #include <iostream>
@@ -23,7 +34,6 @@ int main(){
 }
 
 
-/*
 //======= 263 =======
 //This is to practice std::async
 #include <iostream>
