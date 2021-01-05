@@ -1,3 +1,4 @@
+245. std::async(std::launch::async, accum<ITR>, arg1, arg2); -> don't forget the template parameter if it is a template function
 244. std::async(std::launch::async, []{std::this_thread::sleep_for(sec(2));}) -> will block as it's not assigned or moved to std::future object; by std::future<void> fu = std::async(std::launch::async, func), the main thread will not wait for the spawned function to finish
 243. using type_vec=std::vector<int>; type_vec v; v.push_back(2); -> it can also be used in template; typedef std::vector<int> def_vec; def_vec m = {2, 3};
 242. map, multimap, set, multiset are constructed by balanced binary tree; unsorted of those containers are constructed by hash tables, which is faster to retrieve an entry (constant);

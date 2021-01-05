@@ -1,3 +1,29 @@
+//====== 264 ======
+//This is to practice recursive call in std::async
+#include <iostream>
+#include <future>
+#include <numeric>
+#include <vector>
+
+template<typename ITR>
+int accum(ITR begin, ITR end){
+    int len = end - begin;
+    if (len < 5)
+        return std::accumulate(begin, end, 0);
+    ITR mid = begin + len/2;
+    std::future <int> fu = std::async(std::launch::async, accum<ITR>, begin, mid); // don't forget the template parameter
+    return accum(mid, end) + fu.get();
+}
+
+
+int main(){
+    std::vector<int> vec(100, 1);
+
+    std::cout << accum<std::vector<int>::iterator> (vec.begin(), vec.end()) << std::endl;
+}
+
+
+/*
 //======= 263 =======
 //This is to practice std::async
 #include <iostream>
@@ -14,7 +40,6 @@ int main(){
     std::cout << "done sleeping\n";
 }
 
-/*
 //====== 262 =======
 //This is to practice this pointer
 #include <iostream>
