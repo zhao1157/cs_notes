@@ -1,3 +1,55 @@
+//===== 268 =====
+//This is to practice lambda function
+#include <iostream>
+#include <functional>
+
+class P{
+    private:
+        int id;
+        std::function<void()> f = [this](){std::cout << "P class: " << id << std::endl;};
+    public:
+        P(int _id): id(_id){}
+        void operator ()(){
+            f();
+            id ++;
+            f();
+        }
+};
+
+int main(){
+    auto empty = [](){};
+    empty();
+
+    std::function<void(int, int)> f1 = [](int a, int b){std::cout << a << " " << b << std::endl;};
+    f1(2, 3);
+
+    int a = 2;
+    //[&] other than the parameters, all other variables are passed by reference
+    std::function<void(int)> f2 = [&](int i){std::cout << i << " " << a << std::endl; a = 99;};
+    std::cout << "before " << a << std::endl;
+    f2(3); // a gets modified
+    std::cout << "after " << a << std::endl;
+
+    f2 = [=] (int i) mutable {std::cout << i << " " << a << std::endl; a = 39999; std::cout << "\t\t" << a << std::endl;}; 
+    std::cout << "before " << a << std::endl;
+    f2(3);
+    std::cout << "after mutable " << a << std::endl;
+
+
+    int b = 9, c = 99;
+    f2 = [&, c](int i) mutable {a = -1; b = -1; c = 999;};
+    f2(2);
+    std::cout << a << " " << b << " " << c << std::endl;
+
+    f2 = [=, &a](int i) mutable{a = 30; b = 0; c = 0;};
+    f2(2);
+    std::cout << a << " " << b << " " << c << std::endl;
+
+    P p (2);
+    p();
+}
+
+/*
 //======= 267 ======
 //This is to practice async
 #include <iostream>
@@ -38,7 +90,6 @@ int main(){
     std::async(std::launch::async, me, 4);
 }
 
-/*
 //===== 265 =====
 //This is to test the memory allocation for string
 #include <iostream>
