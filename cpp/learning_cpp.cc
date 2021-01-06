@@ -1,3 +1,17 @@
+//======= 269 ========
+//This is to practice lambda expression
+#include <iostream>
+#include <functional>
+
+int main(){
+    int i = 2, j = i;
+    std::function<int(int)> f = [&, j](int a){return i+j+a;};
+
+    int res = f(3);
+    std::cout << res << std::endl;
+}
+
+/*
 //===== 268 =====
 //This is to practice lambda function
 #include <iostream>
@@ -49,7 +63,6 @@ int main(){
     p();
 }
 
-/*
 //======= 267 ======
 //This is to practice async
 #include <iostream>

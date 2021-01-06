@@ -1,3 +1,4 @@
+250. #include <functional>; std::function<int(int)> f = [](int i){return i+2;}; int a = f(2);
 249. lambda expression in a class, if external varialbes needed, the capture list should include this pointer
 248. lambda expression, [=/&/empty](arguments){body}; & means the external variables are referenced, = means the external varialbes are passed by value; if empty, should have no external variables; in = case, we can modify the value of the copies of the external variables, otherwise comiling error; [&, b] means all external variables except b are referenced and b is passed by value; [=, &a] means all external except a are valued passed, a is referenced; NOT VALID: [&a, =] or [a, &], has to be the other way around.
 247. std::future<> is non-copyable, no if used in std::async or other cases, make sure use refrence, [&fu]{fu.get();}; std::shared_future<> sfu = fu.share(); fu is no longer holding the state which is transferred to sfu, and sfu2 = sfu is valid;
