@@ -1,3 +1,48 @@
+//====== 275 ======
+//This is to practice shared_future::wait_for()
+#include <iostream>
+#include <future>
+#include <chrono>
+
+typedef std::chrono::seconds sec;
+
+int main(){
+    std::packaged_task<void(int)> task([](int dur){std::this_thread::sleep_for(sec(dur)); std::cout << "Done sleeping\n";});
+    std::shared_future<void> sfu1 = task.get_future(), sfu2 = sfu1;
+    
+    int dur = 5;
+
+    std::thread thd (std::move(task), dur);
+    std::future_status status;
+    
+    int count = 0;
+    bool ready = false;
+
+    do{
+        count ++;
+        if (count % 2 == 0){
+            std::cout << "\t0\n";
+            status = sfu1.wait_for(sec(1));
+        } else{
+            std::cout << "\t1\n";
+            status = sfu2.wait_for(sec(1));
+        }
+
+        if (status == std::future_status::ready){
+            std::cout << "ready\n";
+            ready = true;
+        } else if (status == std::future_status::timeout) {
+            std::cout << "timeout\n";
+        } else if (status == std::future_status::deferred) {
+            std::cout << "deferred\n";
+        }
+    }while(!ready);
+
+    thd.join();
+}
+
+
+/*
 //======= 274 =======
 //This is to practice how to print true or false in stream
 #include <iostream>
@@ -12,7 +57,6 @@ int main(){
     std::cout << std::boolalpha << false << std::noboolalpha << false << std::endl;
 }
 
-/*
 //====== 273 ======
 //This is to practice std::future::wait_for()
 #include <iostream>
