@@ -1,3 +1,29 @@
+//====== 272 =======
+//This is to practice for_each(interator_begin, iterator_end, f(*ele))
+#include <iostream>
+#include <algorithm>
+#include <deque>
+
+class obj{
+    public:
+        void operator ()(int ele){
+            std::cout << ele << " ";
+        }
+};
+
+int main(){
+    std::deque<int> deq={2,3};
+    deq.push_back(4);
+    deq.emplace_back(5);
+
+    std::for_each(deq.begin(), deq.end(), [](int ele){std::cout << ele << " ";});
+    std::cout << std::endl;
+
+    std::for_each(deq.rbegin(), deq.rend(), obj());
+    std::cout << "\n";
+}
+
+/*
 //====== 271 ======
 //This is to practice implementing std::async function
 #include <iostream>
@@ -21,7 +47,6 @@ int main(){
     std::future<void> fu = async(std::ref(f), 30);
 }
 
-/*
 //====== 270 ======
 //This is to practice packaged_task, which always execute asynchronously???
 #include <iostream>
