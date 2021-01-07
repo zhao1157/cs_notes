@@ -1,3 +1,27 @@
+//====== 271 ======
+//This is to practice implementing std::async function
+#include <iostream>
+#include <future>
+#include <functional>
+#include <thread>
+
+template <typename T>
+std::future<T> async(std::function<void(int)> &f, int id){
+    std::packaged_task<void(int)> task(f);
+    std::future<T> fu = task.get_future();
+    std::thread td(std::move(task), id);
+
+    td.join();
+
+    return fu; //.share();
+}
+
+int main(){
+    std::function<void(int)> f = [](int id){std::cout << id << std::endl;};
+    std::future<void> fu = async(std::ref(f), 30);
+}
+
+/*
 //====== 270 ======
 //This is to practice packaged_task, which always execute asynchronously???
 #include <iostream>
@@ -21,7 +45,6 @@ int main(){
     std::cout << "_____ end ______\n";
 }
 
-/*
 //======= 269 ========
 //This is to practice lambda expression
 #include <iostream>

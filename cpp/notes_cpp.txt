@@ -1,3 +1,5 @@
+253. std::async() can be implemented by std::packaged_task<> task; and std::thread(std::move(task)); and return task.get_future() to the outside
+252. std::packaged_task<void(int)> task(f); std::thread th(std::move(task), 2); -> here use std::move(task) as std::packaged_task is move-only
 251. std::packaged_task<int(double)> t (f); f(3.2); -> t can be used in different contexts, and it is not automatically executed in a different thread; it's useful as it can pass its return value by std::future
 250. #include <functional>; std::function<int(int)> f = [](int i){return i+2;}; int a = f(2);
 249. lambda expression in a class, if external varialbes needed, the capture list should include this pointer
