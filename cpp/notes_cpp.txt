@@ -1,3 +1,5 @@
+256. std::future <void> fu; fu.wait_for(chrono); -> return values are std::future_status::ready; std::future_status::timeout; std::future_status::deferred (not sure when it shows up)
+255. std::packaged_task -> std::future; std::async(std::move(packaged_task)) -> std::future; only one of them can call std::future::get(), otherwise runtime error
 254. #include<algorithm>; std::for_each(vec.begin(), vec.end(), [](int ele){std::cout << ele << " ";}); std::for_each(vec.rbegin(), vec.rend(), func);
 253. std::async() can be implemented by std::packaged_task<> task; and std::thread(std::move(task)); and return task.get_future() to the outside
 252. std::packaged_task<void(int)> task(f); std::thread th(std::move(task), 2); -> here use std::move(task) as std::packaged_task is move-only

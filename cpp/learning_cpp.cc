@@ -1,3 +1,40 @@
+//====== 273 ======
+//This is to practice std::future::wait_for()
+#include <iostream>
+#include <future>
+#include <chrono>
+
+typedef std::chrono::seconds sec;
+
+int main(){
+    std::packaged_task<void(int)> task ([](int dur){std::this_thread::sleep_for(sec(dur)); std::cout << "done sleeping\n";});
+    std::future<void> fu = task.get_future();
+    int dur = 3;
+    //std::thread thd (std::move(task), dur);
+    std::future<void> fu2 = std::async(std::launch::deferred, std::move(task), dur);
+
+    fu2.get();
+    //fu.get(); // not okay, as the status can only be got once
+    std::future_status status;
+    bool ready = false; 
+    do{
+        status = fu.wait_for(sec(1));
+        if (status == std::future_status::ready){
+            std::cout << "ready\n";
+            ready = true;
+        } else if (status == std::future_status::timeout){
+            std::cout << "timeout\n";
+        } else if (status == std::future_status::deferred){
+            std::cout << "not started yet\n";
+        }
+    } while(! ready);
+
+
+    //thd.join();
+}
+
+
+/*
 //====== 272 =======
 //This is to practice for_each(interator_begin, iterator_end, f(*ele))
 #include <iostream>
@@ -23,7 +60,6 @@ int main(){
     std::cout << "\n";
 }
 
-/*
 //====== 271 ======
 //This is to practice implementing std::async function
 #include <iostream>
