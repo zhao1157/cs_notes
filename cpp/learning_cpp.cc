@@ -1,3 +1,18 @@
+//======= 274 =======
+//This is to practice how to print true or false in stream
+#include <iostream>
+
+int main(){
+    std::cout << true << std::endl;
+    std::cout << std::boolalpha << true << std::endl;
+    std::cout << false << std::endl;
+    std::cout << false << std::noboolalpha << false << std::endl;
+    std::cout << false << std::endl;
+    
+    std::cout << std::boolalpha << false << std::noboolalpha << false << std::endl;
+}
+
+/*
 //====== 273 ======
 //This is to practice std::future::wait_for()
 #include <iostream>
@@ -34,7 +49,6 @@ int main(){
 }
 
 
-/*
 //====== 272 =======
 //This is to practice for_each(interator_begin, iterator_end, f(*ele))
 #include <iostream>
