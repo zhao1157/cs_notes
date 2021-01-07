@@ -1,3 +1,27 @@
+//====== 270 ======
+//This is to practice packaged_task, which always execute asynchronously???
+#include <iostream>
+#include <future>
+#include <chrono>
+#include <functional>
+
+typedef std::chrono::seconds sec;
+
+int main(){
+    std::function<void(int)> sleep = [](int dur){std::this_thread::sleep_for(sec(dur));};
+
+    std::packaged_task<void(int)> t1(sleep), t2(sleep), t3(sleep);
+
+    std::cout << "_____ 1 _______\n";
+    t1(2);
+    std::cout << "_____ 2 _______\n";
+    t2(2);
+    std::cout << "_____ 3 _______\n";
+    t3(2);
+    std::cout << "_____ end ______\n";
+}
+
+/*
 //======= 269 ========
 //This is to practice lambda expression
 #include <iostream>
@@ -11,7 +35,6 @@ int main(){
     std::cout << res << std::endl;
 }
 
-/*
 //===== 268 =====
 //This is to practice lambda function
 #include <iostream>
