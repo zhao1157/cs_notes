@@ -1,3 +1,4 @@
+259. std::future<void>fu; std::shared_future<void> sfu; std::packaged_task<void()> task; fu.valid(); sfu.valid(); task.valid() shows whether there is a shared state, or a valid function
 258. std::shared_future<void> sfu; std::future_status status; status = sfu.wait_for(sec(2)); -> std::future_status::timeout/ready/deferred
 257. std::cout << std::boolalpha << false << std::noboolalpha << false << std::endl; -> control if true is printed out in string or int value
 256. std::future <void> fu; fu.wait_for(chrono); -> return values are std::future_status::ready; std::future_status::timeout; std::future_status::deferred (not sure when it shows up)

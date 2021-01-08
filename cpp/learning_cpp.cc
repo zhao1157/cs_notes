@@ -1,3 +1,38 @@
+//======= 276 ======
+//This is to practice valid in std::future and std::shared_future and std::packaged_task
+#include <future>
+#include <iostream>
+
+int main(){
+    std::future<void> fu;
+    std::cout << std::boolalpha;
+    std::cout << fu.valid() << std::endl;
+    
+    std::function<void()> func = [](){std::cout << "\n";};
+    std::packaged_task<void()> task;
+    std::cout << task.valid() << std::endl;
+    
+    task = std::packaged_task<void()> (func);
+    fu = task.get_future();
+    std::cout << task.valid() << " " << fu.valid() << std::endl;
+
+    task();
+    std::cout << task.valid() << " " << fu.valid() << std::endl;
+    fu.get();
+    std::cout << task.valid() << " " << fu.valid() << std::endl;
+
+    task = std::packaged_task<void()> (func);
+    std::shared_future <void> sfu; 
+    std::cout << sfu.valid() << std::endl;
+    sfu = task.get_future();
+    std::cout << sfu.valid() << std::endl;
+    task();
+    sfu.get();
+    std::cout << sfu.valid() << std::endl;
+}
+
+
+/*
 //====== 275 ======
 //This is to practice shared_future::wait_for()
 #include <iostream>
@@ -42,7 +77,6 @@ int main(){
 }
 
 
-/*
 //======= 274 =======
 //This is to practice how to print true or false in stream
 #include <iostream>
