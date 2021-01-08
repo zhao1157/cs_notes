@@ -1,3 +1,52 @@
+//===== 277 ======
+//This is to practice std::packaged_task::make_ready_at_thread_exit()
+#include <iostream>
+#include <future>
+#include <chrono>
+
+typedef std::chrono::seconds sec;
+
+void task(std::future<void> & fu){
+    std::packaged_task<void()> tk([](){std::cout << "done\n";});
+    fu = tk.get_future();
+
+    tk.make_ready_at_thread_exit();
+    std::future_status status = fu.wait_for(sec(1));
+    if (status == std::future_status::ready){
+        std::cout << "inside ready\n";
+    } else if (status == std::future_status::timeout){
+        std::cout << "inside timeout\n";
+    }
+
+    std::cout << "end\n";
+}
+
+int main(){
+    std::future<void> fu;
+    //fu.wait_for(sec(1)); //ivalid and undefined behavior since no shared state
+    std::thread th(task, std::ref(fu));
+    //std::this_thread::sleep_for(sec(2));
+    
+    while (! fu.valid()){
+        std::cout << "no shared state yet\n";
+    }
+
+    std::future_status status;
+    while (fu.valid()) {
+        status = fu.wait_for(sec(1));
+        if (status == std::future_status::ready){
+            std::cout << "outside ready\n";
+            break;
+        } else if (status == std::future_status::timeout){
+            std::cout << "timeout\n";
+        }
+    }
+    th.join();
+
+}
+
+
+/*
 //======= 276 ======
 //This is to practice valid in std::future and std::shared_future and std::packaged_task
 #include <future>
@@ -32,7 +81,6 @@ int main(){
 }
 
 
-/*
 //====== 275 ======
 //This is to practice shared_future::wait_for()
 #include <iostream>

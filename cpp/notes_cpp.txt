@@ -1,3 +1,5 @@
+261. std::packaged_task<void(int)> task(f); fu=task.get_future(); task.make_ready_at_thread_exit(22); -> the shared state is not ready until the thread exits;
+260. while (!fu.valid()){}; -> check whether fu is valid, setting a valid barrier, just like fu.wait() which blocks until shared state is ready
 259. std::future<void>fu; std::shared_future<void> sfu; std::packaged_task<void()> task; fu.valid(); sfu.valid(); task.valid() shows whether there is a shared state, or a valid function
 258. std::shared_future<void> sfu; std::future_status status; status = sfu.wait_for(sec(2)); -> std::future_status::timeout/ready/deferred
 257. std::cout << std::boolalpha << false << std::noboolalpha << false << std::endl; -> control if true is printed out in string or int value
