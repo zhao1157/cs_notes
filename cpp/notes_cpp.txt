@@ -1,3 +1,5 @@
+263. std::future<int> fu; std::shared_future<int> sfu = fu.share(); -> fu lost the shared state, so can not call fu.get() and fu.valid() is false
+262. std::promise<int> prom; prom.get_future() can only be called once, and it can be assigned to std::future or std::shared_future
 261. std::packaged_task<void(int)> task(f); fu=task.get_future(); task.make_ready_at_thread_exit(22); -> the shared state is not ready until the thread exits;
 260. while (!fu.valid()){}; -> check whether fu is valid, setting a valid barrier, just like fu.wait() which blocks until shared state is ready
 259. std::future<void>fu; std::shared_future<void> sfu; std::packaged_task<void()> task; fu.valid(); sfu.valid(); task.valid() shows whether there is a shared state, or a valid function

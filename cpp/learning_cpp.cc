@@ -1,3 +1,79 @@
+/*
+//====== 279 ======
+//This is to practice shared_future supporting multiple gets
+#include <iostream>
+#include <future>
+
+int main(){
+    std::promise<int> prom;
+    std::future<int> fu;
+    std::shared_future<int> fu_1, fu_2;
+    fu_1 = prom.get_future();
+    fu_2 = fu_1;
+
+    prom.set_value(3);
+    std::cout << fu_1.get() << fu_1.get() << std::endl;
+    std::cout << fu_2.get() << std::endl;
+
+    std::promise<int> prom_2; 
+    std::cout << std::boolalpha << fu.valid() << std::endl;
+    fu = prom_2.get_future();
+    std::cout << fu.valid() << std::endl;
+    fu_1 = fu.share();
+    std::cout << fu.valid() << std::endl;
+    prom_2.set_value(9);
+    std::cout << fu_1.get() << fu_1.get() << std::endl;
+}
+
+
+//====== 278 =====
+//This is to practice std::promise<void> to synchronize threads
+#include <iostream>
+#include <future>
+#include <chrono>
+#include <mutex>
+
+typedef std::chrono::seconds sec;
+std::mutex mu;
+
+void task(std::shared_future<void> &sfu_1, std::shared_future<void> sfu_2, int id){
+    {
+        std::lock_guard<std::mutex> lock(mu);
+        std::cout << id << " waiting...\n";
+    }
+
+    sfu_1.get();
+
+    {
+        std::lock_guard<std::mutex> lock(mu);
+        std::cout << id << " done waiting\n";
+    }
+
+    sfu_2.get();
+    std::cout << "starting doing work\n";
+}
+
+int main(){
+    std::promise<void> prom_1, prom_2;
+    std::shared_future<void> sfu_1 = prom_1.get_future();
+    std::shared_future<void> sfu_2 = prom_2.get_future();
+    
+    std::thread th_1(task, std::ref(sfu_1), sfu_2, 1);
+    std::thread th_2(task, std::ref(sfu_1), sfu_2, 2);
+
+    std::cout << "_____ 1 ______\n";
+    std::this_thread::sleep_for(sec(1));
+    prom_1.set_value();
+
+    std::cout << "____ 2 _____\n";
+    std::this_thread::sleep_for(sec(1));
+    prom_2.set_value();
+
+    th_1.join();
+    th_2.join();
+}
+
+
 //===== 277 ======
 //This is to practice std::packaged_task::make_ready_at_thread_exit()
 #include <iostream>
@@ -46,7 +122,6 @@ int main(){
 }
 
 
-/*
 //======= 276 ======
 //This is to practice valid in std::future and std::shared_future and std::packaged_task
 #include <future>
