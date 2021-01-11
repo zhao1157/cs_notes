@@ -1,3 +1,59 @@
+//====== 280 =====
+//This is to practice multiple-thread synchronization
+#include <iostream>
+#include <future>
+#include <vector>
+#include <chrono>
+#include <mutex>
+
+typedef std::chrono::seconds sec;
+
+int main(){
+    std::vector<std::promise<void>> thread_ready_prom;
+    std::vector<std::future<void>> thread_ready_fu;
+    std::vector<std::thread> all_threads;
+
+    std::promise<void> set;
+    std::shared_future<void> sfu = set.get_future();
+
+    int num_threads = std::thread::hardware_concurrency() - 1;
+
+    for (int i = 0; i < num_threads; i++){
+        thread_ready_prom.emplace_back(std::promise<void>());
+        thread_ready_fu.emplace_back(thread_ready_prom.back().get_future());
+    }
+        
+
+    std::mutex mu;
+    auto fn = [&](std::promise<void> & prom){
+        {
+            std::lock_guard<std::mutex> lock(mu);
+            std::cout << std::this_thread::get_id(); 
+            std::this_thread::sleep_for(sec(1));
+            prom.set_value();
+            std::cout << " end\n";
+        }
+        sfu.wait();
+    };
+
+    for (int i = 0; i < num_threads; i++){
+        all_threads.push_back(std::thread(fn, std::ref(thread_ready_prom[i])));
+    }
+
+    for (auto & fu : thread_ready_fu){
+        fu.get();
+    }
+    std::cout << "Done waiting \n";
+
+    set.set_value();
+
+    for (auto & thread : all_threads){
+        if (thread.joinable())
+            thread.join();
+    }
+}
+
+
 /*
 //====== 279 ======
 //This is to practice shared_future supporting multiple gets
