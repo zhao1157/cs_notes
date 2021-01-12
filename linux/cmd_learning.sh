@@ -1,3 +1,19 @@
+#===== 61 =====
+# only get the top commit in git history
+git clone --depth=1 ****.git
+#===== 60 =====
+# Dockerfile
+FROM nvcr.io/nvidia/tensorflow:20.11-tf1-py3
+RUN rm -rf /workspace/* # remove the contents in /workspace in the original image
+RUN echo "love" > /workspace/README.md
+COPY specml /workspace/specml # specml has to be in the Dockerfile directory
+WORKDIR /workspace/specml/runner # the directory where you will be upon the container is launched
+
+#====== 59 =======
+# build a docker image using Dockfile
+# create a directory where to Dockerfile and other source files needed to be copied to the image
+# outside of the directory
+docker build -t specml_demo:latest the_directory_name
 #========= 58 =========
 #change the name of a network interface in linux
 ifconfig peth0 down
