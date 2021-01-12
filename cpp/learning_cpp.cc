@@ -1,3 +1,24 @@
+//====== 283 =====
+//This is to practice lambda function with a return type
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+int main(){
+    auto fn = []() -> int {return 3.14;};
+    std::cout << fn() << std::endl;
+    
+    auto start = std::chrono::high_resolution_clock::now();
+    auto fnn = [&](){std::chrono::duration<double> dur; dur = std::chrono::high_resolution_clock::now() - start; start = std::chrono::high_resolution_clock::now(); return dur;};
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "time: " << std::chrono::duration_cast<std::chrono::seconds>(fnn()).count() << std::endl;
+
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::chrono::duration<double, std::milli> dur_milli = fnn();
+    std::cout << dur_milli.count() << std::endl;
+}
+
+/*
 //====== 282 =====
 //This is to practice pointer and const in class initialization table
 #include <iostream>
@@ -18,7 +39,6 @@ int main(){
 }
 
 
-/*
 //===== 281 =====
 //This is to practice virtual destructor
 #include <iostream>

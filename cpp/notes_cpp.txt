@@ -1,3 +1,4 @@
+266. auto a = std::chrono::high_resolution_clock::now(); b = ...; std::chrono::duration<double, std::milli/nano/micro/...> dur = a - b; dur.count() gives the number of ticks of std::milli/nano/...
 265. in class the constant data has to be initialized in the initlization table in the constructor, not assigned later
 264. virtual destructor is recommended if a class is going to serve as a base class
 263. std::future<int> fu; std::shared_future<int> sfu = fu.share(); -> fu lost the shared state, so can not call fu.get() and fu.valid() is false
