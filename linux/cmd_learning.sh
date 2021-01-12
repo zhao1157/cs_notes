@@ -8,6 +8,7 @@ RUN rm -rf /workspace/* # remove the contents in /workspace in the original imag
 RUN echo "love" > /workspace/README.md
 COPY specml /workspace/specml # specml has to be in the Dockerfile directory
 WORKDIR /workspace/specml/runner # the directory where you will be upon the container is launched
+CMD ./run_resnet50.sh # once launched a container, it will automatically run this script
 
 #====== 59 =======
 # build a docker image using Dockfile
