@@ -1,3 +1,50 @@
+/*
+//===== 281 =====
+//This is to practice virtual destructor
+#include <iostream>
+
+class B{
+    private:
+        int b;
+    public:
+        B (int _b = -1): b(_b){}
+        virtual ~B(){
+            std::cout << "B is destructed\n";
+        }
+        void get_b(){
+            std::cout << b << std::endl;
+        }
+};
+
+class D: public B{
+    public:
+        D(int _b = -1): B(_b){}
+        int id = 2;
+        ~D(){
+            std::cout << "D is destructed\n";
+        }
+};
+
+int main(){
+    {
+        B b;
+    }
+    std::cout << "__________\n";
+    {
+        D d;
+    }
+    std::cout << "_______\n";
+
+    {
+        B * p = new D; // without virtual destructor, p only deletes the B part in D, not the whole
+        //std::cout << p -> id << std::endl; // p can not access the D-unique part, only the B part
+        p -> get_b();
+        delete p;
+    }
+    std::cout << "______\n";
+}
+
+
 //====== 280 =====
 //This is to practice multiple-thread synchronization
 #include <iostream>
@@ -54,7 +101,6 @@ int main(){
 }
 
 
-/*
 //====== 279 ======
 //This is to practice shared_future supporting multiple gets
 #include <iostream>
