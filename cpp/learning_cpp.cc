@@ -1,3 +1,23 @@
+//====== 282 =====
+//This is to practice pointer and const in class initialization table
+#include <iostream>
+
+class B{
+    private:
+        const int id;
+        double * p;
+    public:
+        B(int _id): id(_id){ // have to initialize here
+            //id = _id; // can not assign here
+            p = new double(2.2);
+        }
+};
+
+int main(){
+
+}
+
+
 /*
 //===== 281 =====
 //This is to practice virtual destructor

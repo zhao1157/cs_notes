@@ -1,3 +1,4 @@
+265. in class the constant data has to be initialized in the initlization table in the constructor, not assigned later
 264. virtual destructor is recommended if a class is going to serve as a base class
 263. std::future<int> fu; std::shared_future<int> sfu = fu.share(); -> fu lost the shared state, so can not call fu.get() and fu.valid() is false
 262. std::promise<int> prom; prom.get_future() can only be called once, and it can be assigned to std::future or std::shared_future
