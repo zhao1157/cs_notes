@@ -11,7 +11,8 @@ RUN rm -rf /workspace/* # remove the contents in /workspace in the original imag
 RUN echo "love" > /workspace/README.md
 COPY specml /workspace/specml # specml has to be in the Dockerfile directory
 WORKDIR /workspace/specml/runner # the directory where you will be upon the container is launched
-ENV VERSION=1.0 # in the docker container, ${VERSION} will just show 1.0
+#ENV VERSION=1.0 # in the docker container, ${VERSION} will just show 1.0, it will create a new layer, so even we unset it later, it still contains it
+RUN export VERSION=1.0 && echo install VERSION-dependent packages && unset VERSION && echo VERSION is no longer in the environment
 CMD ./run_resnet50.sh # once launched a container, it will automatically run this script
 
 #====== 59 =======
