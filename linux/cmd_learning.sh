@@ -1,3 +1,6 @@
+#====== 62 ======
+# see the output of an active container
+docker logs <container_id/container_name>
 #===== 61 =====
 # only get the top commit in git history
 git clone --depth=1 ****.git
