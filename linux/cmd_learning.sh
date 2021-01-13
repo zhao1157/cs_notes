@@ -13,7 +13,8 @@ COPY specml /workspace/specml # specml has to be in the Dockerfile directory
 WORKDIR /workspace/specml/runner # the directory where you will be upon the container is launched
 #ENV VERSION=1.0 # in the docker container, ${VERSION} will just show 1.0, it will create a new layer, so even we unset it later, it still contains it
 RUN export VERSION=1.0 && echo install VERSION-dependent packages && unset VERSION && echo VERSION is no longer in the environment
-CMD ./run_resnet50.sh # once launched a container, it will automatically run this script
+#CMD ./run_resnet50.sh # once launched a container, it will automatically run this script
+CMD ["sh", "-c", "echo; echo; echo; echo TRAINING DEMO; echo; echo; echo; sh"] # print out some lines and a text followed by some lines again, and a shell prompt in the interactive mode
 
 #====== 59 =======
 # build a docker image using Dockfile
