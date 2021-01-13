@@ -1,3 +1,72 @@
+//====== 284 ======
+//This is to practice virtual constructor
+#include <iostream>
+
+class B{
+    private:
+        int b;
+    public:
+        B (int _b = 1):b(_b){}
+        virtual B * clone() = 0;
+        void get_b(){
+            std::cout << "base " << b << std::endl;
+        }
+        virtual void get_d(){
+            try{
+                throw(2);
+            } catch (int){
+                std::cout << "calling base get_d()\n";
+            }
+        }
+        void xx(){
+            std::cout << "b\n";
+        }
+        virtual ~B(){}
+};
+
+class D: public B{
+    private:
+        int d;
+        int b = 3;
+    public:
+        void get_d(){
+            std::cout << "D: " << d << std::endl;
+        }
+        int *p;
+        D(int _b = 2, int _d = 3): B(_b), d(_d), p(new int(4)){std::cout << "D this " << this << std::endl; std::cout << p << std::endl;}
+        D * clone(){
+            std::cout << "this " << this << std::endl;
+            std::cout << "d clone\n";
+            D* dp = new D(*this); // simply copy the pointer, so two objects are pointing to the same memory address
+            std::cout << dp -> p << std::endl;
+            return dp;
+        }
+        void get_b(){
+            std::cout << "derive " << d << std::endl;
+        }
+        void xx(){
+            std::cout << "d\n";
+        }
+        ~D(){
+            std::cout << "deleting " << p << std::endl;
+            delete p;
+        }
+};
+
+void f(B & b){
+    B * clone = b.clone(); // though b is Base type, this still points to the original object, so
+    clone -> get_b();
+    clone -> xx();
+    clone -> get_d();
+}
+
+int main(){
+    D d(100, 101);
+    f(d);
+}
+
+
+/*
 //====== 283 =====
 //This is to practice lambda function with a return type
 #include <iostream>
@@ -18,7 +87,6 @@ int main(){
     std::cout << dur_milli.count() << std::endl;
 }
 
-/*
 //====== 282 =====
 //This is to practice pointer and const in class initialization table
 #include <iostream>
