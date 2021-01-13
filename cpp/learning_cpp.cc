@@ -1,3 +1,52 @@
+//======= 285 ======
+//This is to confirm this pointer is the same after casting derived class to base
+#include <iostream>
+
+class B{
+    public:
+        void Get_this(){
+            std::cout << "B " << this << std::endl;
+        }
+        virtual void Get_this_v(){
+            std::cout << "BV " << this << std::endl;
+        }
+};
+
+class D: public B{
+    public:
+        void Get_this(){
+            std::cout << "D " << this << std::endl;
+        }
+        void Get_this_v(){
+            std::cout << "DV " << this << std::endl;
+        }
+};
+
+//void f(B b){ // not refers to the original object any more
+void f(B &b){ // still refers to the original object
+    b.Get_this_v();
+}
+
+int main(){
+    D d;
+    B b = static_cast<B&> (d);
+    //B b = static_cast<B> (d);
+    d.Get_this();
+    b.Get_this();
+    b.Get_this_v();
+
+    std::cout << "_____\n";
+    B & bb = dynamic_cast<B&> (d);
+    bb.Get_this_v();
+    ((B&)d).Get_this_v();
+    ((B)d).Get_this_v();
+    
+    std::cout << "______\n";
+    f(d);
+}
+
+
+/*
 //====== 284 ======
 //This is to practice virtual constructor
 #include <iostream>
@@ -66,7 +115,6 @@ int main(){
 }
 
 
-/*
 //====== 283 =====
 //This is to practice lambda function with a return type
 #include <iostream>
