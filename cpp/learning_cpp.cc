@@ -1,3 +1,42 @@
+//======= 287 ======
+//This is to practice const overloading in a class
+#include <iostream>
+
+class B{
+    public:
+        void f(const int &a){
+            std::cout << "const int " << a << std::endl;
+        }
+        void f(int &a){
+            std::cout << "int " << a << std::endl;
+        }
+        
+        //if marked const, this will be converted to const this
+        //void g()const{ // if overloaded only the const object can call it
+        //    std::cout << "const member function\n";
+        //}
+
+        void g(){ // if the object is const this, then we can not be sure that const this will not be modified, so compiling error
+            std::cout << "non-const member function\n";
+        }
+};
+
+int main(){
+    int a = 2;
+    const int b = 3;
+
+    B b_obj;
+
+    //same as the non-member functions, the member functions can be overloaded by the const reference
+    b_obj.f(a);
+    b_obj.f(b);
+    b_obj.g();
+
+    const B const_b_obj;
+    const_b_obj.g();
+}
+
+/*
 //====== 286 ======
 //This is to practice const overloading
 #include <iostream>
@@ -18,7 +57,6 @@ int main(){
 }
 
 
-/*
 //====== 286 ======
 //This is to practice acquiring starting time of threads
 #include <iostream>
