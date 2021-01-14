@@ -1,4 +1,25 @@
 //====== 286 ======
+//This is to practice const overloading
+#include <iostream>
+
+void f(const int & i){
+    std::cout << "const &\n";
+}
+
+void f(int & i){
+    std::cout << "&\n";
+}
+
+int main(){
+    int a = 2;
+    const int b = 3;
+    f(a);
+    f(b);
+}
+
+
+/*
+//====== 286 ======
 //This is to practice acquiring starting time of threads
 #include <iostream>
 #include <chrono>
@@ -32,7 +53,6 @@ int main(){
 }
 
 
-/*
 //======= 285 ======
 //This is to confirm this pointer is the same after casting derived class to base
 #include <iostream>
