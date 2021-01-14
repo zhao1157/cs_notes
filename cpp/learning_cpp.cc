@@ -1,3 +1,38 @@
+//====== 286 ======
+//This is to practice acquiring starting time of threads
+#include <iostream>
+#include <chrono>
+#include <future>
+
+typedef std::chrono::seconds sec;
+
+int main(){
+    std::promise<void> set_threads, prom_1, prom_2;
+    std::shared_future<void> sfu = set_threads.get_future();
+    std::future<void> prom_1_fu = prom_1.get_future(),
+        prom_2_fu = prom_2.get_future();
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    auto fn = [&](std::promise<void> & prom)-> std::chrono::duration<double, std::milli>{
+        prom.set_value();
+        sfu.wait(); 
+        return std::chrono::high_resolution_clock::now() - start;
+    };
+
+    auto fu_1 = std::async(std::launch::async, fn, std::ref(prom_1));
+    auto fu_2 = std::async(std::launch::async, fn, std::ref(prom_2));
+    
+    prom_1_fu.wait();
+    prom_2_fu.wait();
+    //std::this_thread::sleep_for(sec(1));
+    set_threads.set_value();
+    
+    std::cout << fu_1.get().count() << " " << fu_2.get().count() << std::endl;
+}
+
+
+/*
 //======= 285 ======
 //This is to confirm this pointer is the same after casting derived class to base
 #include <iostream>
@@ -46,7 +81,6 @@ int main(){
 }
 
 
-/*
 //====== 284 ======
 //This is to practice virtual constructor
 #include <iostream>
