@@ -1,3 +1,6 @@
+#======= 63 ======
+#To override the ENTRYPOINT in docker image
+docker run --entrypoint /bin/bash docker_image_id
 #====== 62 ======
 # see the output of an active container
 docker logs <container_id/container_name>
