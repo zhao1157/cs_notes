@@ -1,3 +1,4 @@
+273. std::shared_ptr<B> and std::shared_ptr<D> can be converted to each other, and use_count() increases by one; explicitly we can use static_pointer_cast and dynamic_pointer_cast to do the conversion
 272. std::shared_ptr<D> p = std::make_shared<D>(2); std::shared_ptr<B> = p; use_count() will increase by one;
 271. B * p = new D; p -> ~B(); -> calls ~D() and ~B() if the destructor is virtual
 270. In class, member functions marked with const can be overloaded by const or non-const class object, i.e. const object calls the function with const marked, while the non-const object calls the non-const one; the const object can only call the const member function, as the const object has const this pointer, which should not be modified, and only const function can guarantee that.

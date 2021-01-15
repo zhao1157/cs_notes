@@ -1,3 +1,45 @@
+//====== 290 ======
+//PRACTICE std::shared_ptr<D> and std::shared_ptr<B> conversion
+#include <iostream>
+#include <memory>
+
+class B{
+    public:
+        int ba = 2;
+
+};
+
+class D: public B{
+    public:
+        int da = 3;
+};
+int main(){
+    {
+        std::shared_ptr<B> spb = std::make_shared<B>();
+        std::cout << spb.use_count() << "\n";
+        std::shared_ptr<D> spd = static_pointer_cast<D>(spb); // da is incomplete, so random number
+        std::cout << spb.use_count() << " " << spd.use_count () << "\n";
+        std::cout << spb -> ba << " " << spd -> ba << " " << spd -> da << "\n";
+
+        //std::shared_ptr<D> spdd = dynamic_pointer_cast<D> (spb);
+        //std::cout << spb.use_count() << " " << spd.use_count() << " " << spdd.use_count() << "\n";
+    }
+
+    {
+        std::shared_ptr<D> spd = std::make_shared<D>();
+        std::cout << spd.use_count() << "\n";
+        std::shared_ptr<B> spb = static_pointer_cast<B>(spd);
+        std::cout << spd.use_count() << " " << spb.use_count () << "\n";
+        std::cout << spd -> da << " " << spd -> ba << " " << spb -> ba << "\n";
+
+        std::shared_ptr<B> spbb = dynamic_pointer_cast<B>(spd);
+        std::cout << spd.use_count() << " " << spb.use_count() << " " << spbb.use_count() << "\n";
+        std::cout << spbb -> ba << " " << "\n";
+    }
+}
+
+
+/*
 //====== 289 ======
 //This is to practice casting shared_ptr
 #include <iostream>
@@ -51,7 +93,6 @@ int main(){
     std::cout << pd -> a.Aa << std::endl;
     //std::cout << pd -> Ba << std::endl;
     std::cout << pd -> Da << std::endl;
-    /*
     {
         std::cout << "shared_ptr\n";
         std::shared_ptr<D> spd = std::make_shared<D>();
@@ -82,11 +123,9 @@ int main(){
     B bb = static_cast<B&> (d); // different object
     std::cout << &d << " " << &b << "\n";
     std::cout << &bb << " " << &d << "\n";
-    */
 }
 
 
-/*
 //======= 287 ======
 //This is to practice const overloading in a class
 #include <iostream>
