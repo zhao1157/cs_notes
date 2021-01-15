@@ -1,3 +1,23 @@
+//====== 291 ======
+//This is to practice static/dyanmic_cast from base to derived class, downcasting
+#include <iostream>
+
+class B{
+
+};
+
+class D: public B{
+
+};
+
+int main(){
+    B *b = new B;
+    D *d = static_cast<D*> (b);
+    //B has to be polymorphic when downcasting dynamically
+    //D *dd = dynamic_cast<D*> (b);
+}
+
+/*
 //====== 290 ======
 //PRACTICE std::shared_ptr<D> and std::shared_ptr<B> conversion
 #include <iostream>
@@ -39,7 +59,6 @@ int main(){
 }
 
 
-/*
 //====== 289 ======
 //This is to practice casting shared_ptr
 #include <iostream>
