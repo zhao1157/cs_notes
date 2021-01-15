@@ -1,3 +1,6 @@
+#====== 64 ======
+# mount the source dir to the dir in the container
+docker run -v local_dir:dir_in_container
 #======= 63 ======
 #To override the ENTRYPOINT in docker image
 docker run --entrypoint /bin/bash docker_image_id
