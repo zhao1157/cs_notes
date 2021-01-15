@@ -1,3 +1,92 @@
+//====== 289 ======
+//This is to practice casting shared_ptr
+#include <iostream>
+#include <memory>
+
+class A{
+    public:
+        ~A(){
+            std::cout << "A destroyed\n";
+        }
+        int Aa = 9;
+        void Get(){
+            std::cout << "A Get()\n";
+        }
+};
+
+class B{
+    public: 
+        int Ba = 2;
+        virtual ~B(){
+            std::cout << "B is destroyed\n";
+        }
+        virtual void Get_d(){
+            std::cout << "B: get_d\n";
+        }
+};
+
+class D: public B{
+    public:
+        A a;
+        int Da = 3;
+        ~D(){
+            std::cout << "D is destroyed\n";
+        }
+        void Get_d(){
+            std::cout << "D: get_d\n";
+        }
+};
+
+int main(){
+    B * p = new D;
+    std::cout << "_____\n";
+    p -> ~B(); // the appropriate destructor will be called
+    std::cout << "_____\n";
+    D * pd = static_cast<D*> (p);
+    std::cout << pd << " " << p << "\n";
+    pd -> a.Get();
+    std::cout << pd -> Ba << std::endl;
+    delete p;
+    //pd -> a.Get();
+    std::cout << pd -> a.Aa << std::endl;
+    //std::cout << pd -> Ba << std::endl;
+    std::cout << pd -> Da << std::endl;
+    /*
+    {
+        std::cout << "shared_ptr\n";
+        std::shared_ptr<D> spd = std::make_shared<D>();
+        std::cout << "use_count " << spd.use_count() << "\n";
+        {
+            std::shared_ptr<B> sp = spd;
+            std::cout << "use_count " << spd.use_count() << "\n";
+            sp -> Get_d();
+        }
+        std::cout << "use_count " << spd.use_count() << "\n";
+    }
+    std::cout << "___________\n";
+    {
+        std::cout << "raw_ptr\n";
+        B *p = new D;
+        delete p;
+    }
+
+    //when casting among class hierarchy, for pointers, it does not change the pointer value, i.e. the object it points to
+    //only changes the type, i.e. only have access to the parts of that type
+    D *p = new D;
+    B *pb = static_cast<B*> (p);
+    std::cout << p << "\n" << pb << "\n";
+    std::cout << &(*p) << "\n" << &(*pb) << "\n";
+
+    D d;
+    B &b = static_cast<B&> (d); // same object
+    B bb = static_cast<B&> (d); // different object
+    std::cout << &d << " " << &b << "\n";
+    std::cout << &bb << " " << &d << "\n";
+    */
+}
+
+
+/*
 //======= 287 ======
 //This is to practice const overloading in a class
 #include <iostream>
@@ -36,7 +125,6 @@ int main(){
     const_b_obj.g();
 }
 
-/*
 //====== 286 ======
 //This is to practice const overloading
 #include <iostream>
