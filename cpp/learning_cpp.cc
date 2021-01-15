@@ -1,3 +1,40 @@
+//====== 292 ======
+//This is to practice
+#include <iostream>
+
+class B{
+    public:
+        virtual ~B(){
+            std::cout << "B destroyed\n";
+        }
+};
+
+class D: public B{
+    public:
+        virtual ~D(){
+            std::cout << "D destroyed\n";
+        }
+};
+
+int main(){
+    {
+        B *p = new B;
+        D *pd = dynamic_cast<D*> (p);
+
+        std::cout << p << "\n" << pd << "\n";
+
+        delete p;
+    }
+    {
+        D *p = new D;
+        B *pp = dynamic_cast<B*> (p);
+        std::cout << p << " " << pp << "\n";
+        delete pp;
+    }
+}
+
+
+/*
 //====== 291 ======
 //This is to practice static/dyanmic_cast from base to derived class, downcasting
 #include <iostream>
@@ -17,7 +54,6 @@ int main(){
     //D *dd = dynamic_cast<D*> (b);
 }
 
-/*
 //====== 290 ======
 //PRACTICE std::shared_ptr<D> and std::shared_ptr<B> conversion
 #include <iostream>

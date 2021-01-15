@@ -1,3 +1,4 @@
+274. when downcasting to a derived class from a base class, the dynamic_cast return nullptr as the derived class object is not created, only base part is present while the uniquely derived part is missing, os nullptr for dynamic_cast; 
 273. std::shared_ptr<B> and std::shared_ptr<D> can be converted to each other, and use_count() increases by one; explicitly we can use static_pointer_cast and dynamic_pointer_cast to do the conversion
 272. std::shared_ptr<D> p = std::make_shared<D>(2); std::shared_ptr<B> = p; use_count() will increase by one;
 271. B * p = new D; p -> ~B(); -> calls ~D() and ~B() if the destructor is virtual
