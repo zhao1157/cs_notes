@@ -10,12 +10,19 @@ FROM nvcr.io/nvidia/tensorflow:20.11-tf1-py3
 RUN rm -rf /workspace/* # remove the contents in /workspace in the original image
 RUN echo "love" > /workspace/README.md
 COPY specml /workspace/specml # specml has to be in the Dockerfile directory
+#WORKDIR is a Dockerfile command, not an environment variable
 WORKDIR /workspace/specml/runner # the directory where you will be upon the container is launched
+# $WORKDIR is not an environment variable in the container, we have to set it
+ENV WORKDIR="/workspace/specml/runner"
 #ENV VERSION=1.0 # in the docker container, ${VERSION} will just show 1.0, it will create a new layer, so even we unset it later, it still contains it
 RUN export VERSION=1.0 && echo install VERSION-dependent packages && unset VERSION && echo VERSION is no longer in the environment
 ADD xx.tar xxx.tar /workspace/yy/ # xx.tar will be extracted as /workspace/yy/xx, and xxx.tar as /workspace/yy/xxx
 #CMD ./run_resnet50.sh # once launched a container, it will automatically run this script
-CMD ["sh", "-c", "echo; echo; echo; echo TRAINING DEMO; echo; echo; echo; sh"] # print out some lines and a text followed by some lines again, and a shell prompt in the interactive mode
+#CMD ["sh", "-c", "echo; echo; echo; echo TRAINING DEMO; echo; echo; echo; sh"] # print out some lines and a text followed by some lines again, and a shell prompt in the interactive mode
+#CMD ["SOME_ECHO_STRINGS"] # this is the defualt value that's gonna be echoed
+#ENTRYPOINT ["echo"] # every container will start with this command
+ENTRYPOINT ["sh", "-c"]
+CMD ["echo this line && echo $PWD"]
 
 #====== 59 =======
 # build a docker image using Dockfile
