@@ -1,3 +1,76 @@
+//======= 293 ======
+//This is to practice type casting
+#include <iostream>
+
+class B{
+    public:
+        virtual ~B(){
+            std::cout << "B destroyed\n";
+        }
+};
+
+class D: public B{
+    public:
+        int da = 99;
+        ~D(){
+            std::cout << "D destroyed\n";
+        }
+};
+
+class E: public B{
+    public:
+        int dd = 999;
+};
+
+int main(){
+    {
+        D d;
+        B & b = d;
+        D & dd = static_cast<D&> (b);
+        D & ddd = dynamic_cast<D&> (b);
+
+        std::cout << dd.da << " " << ddd.da << "\n";
+        std::cout << &d << " " << &dd << " " << &ddd << "\n";
+    }
+
+    {
+        D d;
+        B *p = &d;
+        D *pp = static_cast<D*> (p);
+        D *ppp = dynamic_cast<D*> (p);
+        std::cout << pp -> da << "\n";
+        std::cout << ppp -> da << "\n";
+        if (ppp == nullptr){
+            std::cout << "failed conversion\n";
+        } else{
+            std::cout << "successful conversion\n";
+        }
+
+        E *pppp = dynamic_cast<E*> (p);
+        if (pppp == nullptr){
+            std::cout << "failed from D to E\n";
+        }
+
+        E *ppppp = static_cast<E*> (p);
+        std::cout << "E " << ppppp -> dd << "\n";
+    }
+
+    {
+        B b;
+        D *p = static_cast<D*> (&b);
+        std::cout << p << "\n";
+        //D-unique part is not created, so undefined
+        //std::cout << p -> da << "\n";
+        D *pp = dynamic_cast<D*> (&b);
+        if (pp == nullptr){
+            std::cout << pp << "\n";
+            std::cout << "failed conversion\n";
+        }
+    }
+}
+
+
+/*
 //====== 292 ======
 //This is to practice
 #include <iostream>
@@ -34,7 +107,6 @@ int main(){
 }
 
 
-/*
 //====== 291 ======
 //This is to practice static/dyanmic_cast from base to derived class, downcasting
 #include <iostream>
