@@ -1,3 +1,58 @@
+//======= 295 =====
+//This is to practice shared_ptr<D> and shared_ptr<B> conversion
+#include <iostream>
+#include <memory>
+
+class B{
+    public:
+        virtual ~B(){}
+        void Get(){
+            std::cout << "B\n";
+        }
+};
+
+class D: public B{
+    public:
+        int d = 3;
+        void Get(){
+            std::cout << d << ": D\n";
+        }
+};
+
+class E: public B{
+    public:
+        void Get(){
+            std::cout << "E\n";
+            //std::cout << e << "\n";
+        }
+        int e = 9;
+};
+
+int main(){
+    std::shared_ptr<D> sp = std::make_shared<D> ();
+    std::shared_ptr<void> spv = sp;
+
+    std::shared_ptr<B> spb = sp;
+
+    sp = std::static_pointer_cast<D>(spv);
+    sp -> Get();
+    std::cout << sp.use_count() << "\n";
+    spb = std::static_pointer_cast<B> (spv);
+    spb -> Get();
+    sp = std::static_pointer_cast<D>(spb);
+    sp -> Get();
+
+    D d;
+    E * e = dynamic_cast<E*>(&d);
+    std::cout << e << "\n";
+    e -> Get(); // only work if no data members are involved
+    
+    std::shared_ptr<E> spe = std::dynamic_pointer_cast<E>(sp);
+    std::cout << spe << "\n";
+}
+
+
+/*
 //====== 294 ======
 //This is to practice converting typed pointer to void type pointer
 #include <iostream>
@@ -29,7 +84,6 @@ int main(){
 }
 
 
-/*
 //======= 293 ======
 //This is to practice type casting
 #include <iostream>

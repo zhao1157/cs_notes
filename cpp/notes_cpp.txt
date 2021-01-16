@@ -1,3 +1,5 @@
+279. dynamic_cast<> or dynamic_pointer_cast<> has to be polymorphic type if the types are unrelated, or downcasting
+278. static_cast<> or static_pointer_cast does not work for types that are in the type hierarchy;
 277. std::vector<void *> vec; -> store all pointers no matter what the types are; -> convert back to the right type explicitly
 276. typed pointer can be converted to void-type pointer implicitly, however the reverse needs to be explicit
 275. D d; B *p = &d; D *pd = dynamic_cast<D*>(p); -> convert from B pointer back to D pointer
