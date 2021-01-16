@@ -1,3 +1,35 @@
+//====== 294 ======
+//This is to practice converting typed pointer to void type pointer
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main(){
+    void *p;
+    p = new int (2);
+    int *pi = static_cast<int *> (p);
+    std::cout << *pi << "\n";
+
+    std::vector<void *> collect;
+    collect.push_back(new int (3));
+    collect.push_back(new double (4.14));
+    
+    int ind = -1;
+    auto fn = [&] (void * p){
+        ind ++;
+        std::cout << "element " << ind << ": ";
+        if (ind == 0){
+            std::cout << *static_cast<int *>(p) << "\n";
+        } else if (ind == 1) {
+            std::cout << *static_cast<double *> (p) << "\n";
+        }
+    };
+
+    std::for_each(collect.begin(), collect.end(), fn);
+}
+
+
+/*
 //======= 293 ======
 //This is to practice type casting
 #include <iostream>
@@ -70,7 +102,6 @@ int main(){
 }
 
 
-/*
 //====== 292 ======
 //This is to practice
 #include <iostream>

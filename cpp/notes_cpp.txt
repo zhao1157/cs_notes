@@ -1,3 +1,5 @@
+277. std::vector<void *> vec; -> store all pointers no matter what the types are; -> convert back to the right type explicitly
+276. typed pointer can be converted to void-type pointer implicitly, however the reverse needs to be explicit
 275. D d; B *p = &d; D *pd = dynamic_cast<D*>(p); -> convert from B pointer back to D pointer
 274. when downcasting to a derived class from a base class, the dynamic_cast return nullptr as the derived class object is not created, only base part is present while the uniquely derived part is missing, os nullptr for dynamic_cast; 
 273. std::shared_ptr<B> and std::shared_ptr<D> can be converted to each other, and use_count() increases by one; explicitly we can use static_pointer_cast and dynamic_pointer_cast to do the conversion
