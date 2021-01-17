@@ -1,3 +1,28 @@
+//====== 296 ======
+//This is to practice new overloading
+#include <iostream>
+
+void * operator new (size_t size){
+    std::cout << size  << ": new\n";
+    return malloc(size);
+}
+
+void operator delete (void *p) noexcept{
+    std::cout << "delete\n";
+    free (p);
+}
+
+int main(){
+    int * p = new int (2);
+    delete p;
+
+    void * pp = new double(2.3);
+    //delete pp;
+    free (pp);
+    //std::cout << *static_cast<double *> (pp)<< "\n";
+}
+
+/*
 //======= 295 =====
 //This is to practice shared_ptr<D> and shared_ptr<B> conversion
 #include <iostream>
@@ -52,7 +77,6 @@ int main(){
 }
 
 
-/*
 //====== 294 ======
 //This is to practice converting typed pointer to void type pointer
 #include <iostream>
