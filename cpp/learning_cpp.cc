@@ -1,3 +1,38 @@
+//======= 297 ======
+//This is to practice simulated polymorphism
+#include <iostream>
+
+template<typename T>
+class B{
+    public:
+        void Get_name() {
+            std::cout << "B\n";
+            static_cast<T *>(this) -> Get_name();
+        }
+        void Print(){
+            Get_name(); // this calls the function in the base class
+        }
+};
+
+class D: public B <D>{
+    public:
+        int a = 9;
+        void Get_name(){
+            std::cout << a << ": zls\n";
+        }
+};
+
+int main(){
+    D d;
+    d.Print(); // call the old function in base class
+
+    //B<D> b = d; // overflow as D-unique part is not created yet
+    B<D> & b = d; // D-unique part is there
+    b.Print();
+}
+
+
+/*
 //====== 296 ======
 //This is to practice new overloading
 #include <iostream>
@@ -22,7 +57,6 @@ int main(){
     //std::cout << *static_cast<double *> (pp)<< "\n";
 }
 
-/*
 //======= 295 =====
 //This is to practice shared_ptr<D> and shared_ptr<B> conversion
 #include <iostream>

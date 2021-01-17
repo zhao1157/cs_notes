@@ -1,3 +1,5 @@
+282. D d; B b = d; B & bb = d; -> b refers to a different object which is a copy of the B part in d, and bb refers to the same B part in d;
+281. simulated polymorphism: make the base class as virtual and template, The derived class inherits from the derive-template base class; 
 280. void * operator new (size_t size){return malloc(size);}; void operator delete(void * p){free (p);}; we can just use free(pointer) instead of delete pointer;
 279. dynamic_cast<> or dynamic_pointer_cast<> has to be polymorphic type if the types are unrelated, or downcasting
 278. static_cast<> or static_pointer_cast does not work for types that are in the type hierarchy;
