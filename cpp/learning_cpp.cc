@@ -1,3 +1,83 @@
+//===== 298 =====
+//This is to practice thread pool
+#include <iostream>
+#include <future>
+#include <queue>
+#include <vector>
+#include <functional>
+#include <mutex>
+#include <chrono>
+
+int NUM_THREADS = std::thread::hardware_concurrency() - 1;
+
+class ThreadPool{
+    private:
+        int num_threads;
+        std::vector<std::thread> vec_threads;
+        std::queue<std::function<void()>> all_tasks;
+        bool stop = false;
+        std::mutex mu;
+
+        ThreadPool(int _num_td = NUM_THREADS): num_threads(_num_td){
+            for (int i = 0; i < num_threads; i++)
+                vec_threads.emplace_back(std::thread(&ThreadPool::task, this));
+        }
+    public:
+        ~ThreadPool(){
+            stop = true;
+            for (auto & thread : vec_threads){
+                thread.join();
+            }
+        }
+
+        static ThreadPool & Get_Create_threadpool(int _num_td = NUM_THREADS){
+            static ThreadPool tp(_num_td);
+            return tp;
+        }
+
+        void task (){
+            std::function<void()> fn; 
+            bool execute = false;
+            while(! stop){
+                //execute task
+                {
+                    std::lock_guard<std::mutex> lock(mu);
+                    while (! all_tasks.empty() && !stop){
+                        fn = all_tasks.front();
+                        execute = true;
+                        all_tasks.pop();
+                        break;
+                    }
+                }
+                if (!stop && execute)
+                    fn();
+                execute = false;
+            }
+        }
+
+        void add_task(std::function<void()> fn){
+            all_tasks.emplace(fn);
+        }
+
+};
+
+int main(){
+    ThreadPool & tp = ThreadPool::Get_Create_threadpool();
+    std::function<void(std::string)> fn = [](std::string str){std::cout << std::this_thread::get_id() << " " << str << "\n";};
+    tp.add_task(std::bind(fn, "xx"));
+    tp.add_task(std::bind(fn, "yy"));
+    tp.add_task(std::bind(fn, "zz"));
+    tp.add_task(std::bind(fn, "oo"));
+    
+    std::packaged_task<int(double)> tk ([](double d) -> int {return (int)d;});
+    std::future<int> fu = tk.get_future();
+    tp.add_task([&](){tk(3.14);});
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << fu.get() << "\n";
+}
+
+
+/*
 //======= 297 ======
 //This is to practice simulated polymorphism
 #include <iostream>
@@ -32,7 +112,6 @@ int main(){
 }
 
 
-/*
 //====== 296 ======
 //This is to practice new overloading
 #include <iostream>
