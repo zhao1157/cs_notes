@@ -1,3 +1,34 @@
+//====== 299 =====
+//This is to practice using in class hierarchy
+#include <iostream>
+
+class B{
+    public:
+        void f(int i){
+            std::cout << "B " << i << "\n";
+        }
+        void f(double d){
+            std::cout << "B " << d << "\n";
+        }
+};
+
+class D: public B{
+    public:
+        using B::f; //declaration in this scope
+        void f(std::string i){
+            std::cout << "D " << i << "\n";
+        }
+};
+
+int main(){
+    D d;
+    d.f(2);
+    d.f(2.2);
+    d.f("str");
+}
+
+
+/*
 //===== 298 =====
 //This is to practice thread pool
 #include <iostream>
@@ -77,7 +108,6 @@ int main(){
 }
 
 
-/*
 //======= 297 ======
 //This is to practice simulated polymorphism
 #include <iostream>
