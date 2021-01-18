@@ -12,6 +12,7 @@ docker logs <container_id/container_name>
 git clone --depth=1 ****.git
 #===== 60 =====
 # Dockerfile
+ARG x=X # here x is not accessible beyond FROM
 FROM nvcr.io/nvidia/tensorflow:20.11-tf1-py3
 RUN rm -rf /workspace/* # remove the contents in /workspace in the original image
 RUN echo "love" > /workspace/README.md
@@ -29,6 +30,8 @@ ADD xx.tar xxx.tar /workspace/yy/ # xx.tar will be extracted as /workspace/yy/xx
 #ENTRYPOINT ["echo"] # every container will start with this command
 ENTRYPOINT ["sh", "-c"]
 CMD ["echo this line && echo $PWD"]
+ARG a=A # a is accessible when building the image, but not inside the container; ENV works in both the image and the container
+RUN echo $a
 
 #====== 59 =======
 # build a docker image using Dockfile
