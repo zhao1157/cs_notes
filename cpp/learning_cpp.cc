@@ -1,3 +1,56 @@
+//===== 300 ======
+//This is to practice condition_variable.wait_for()
+#include <iostream>
+#include <condition_variable>
+#include <chrono>
+#include <thread>
+#include <mutex>
+
+typedef std::chrono::microseconds microsec;
+
+int main(){
+    std::condition_variable cv;
+    std::mutex mu;
+    
+    {
+        std::unique_lock<std::mutex> lock(mu);
+        std::thread th([&](){cv.notify_all();});
+        std::cv_status stat= cv.wait_for(lock, microsec(100));
+        if (stat == std::cv_status::timeout){
+            std::cout << "timeout\n";
+        } else{
+            std::cout << "no-timeout\n";
+        }
+        th.join();
+    }
+
+    {
+        bool ready = false;
+        std::thread thd([&](){std::this_thread::sleep_for(microsec(10)); ready=true;});
+        std::unique_lock<std::mutex> lock(mu);
+        bool stat = cv.wait_for(lock, microsec(200), [&](){return ready;});
+        std::cout << std::boolalpha;
+        std::cout << stat << "\n";
+        thd.join();
+    }
+
+    {
+        // combining wait_for() and while loop to ensure the signal is passed successfully
+        bool ready = false;
+        std::condition_variable cv;
+
+        std::thread th([&](){std::this_thread::sleep_for(microsec(500)); ready = true; cv.notify_one();});
+        std::unique_lock<std::mutex> lock(mu);
+        while (! cv.wait_for(lock, microsec(100), [&](){return ready;})){
+            std::cout << "__\n";
+        }
+
+        th.join();
+    }
+}
+
+
+/*
 //====== 299 =====
 //This is to practice using in class hierarchy
 #include <iostream>
@@ -27,8 +80,6 @@ int main(){
     d.f("str");
 }
 
-
-/*
 //===== 298 =====
 //This is to practice thread pool
 #include <iostream>
@@ -97,8 +148,15 @@ int main(){
     std::function<void(std::string)> fn = [](std::string str){std::cout << std::this_thread::get_id() << " " << str << "\n";};
     tp.add_task(std::bind(fn, "xx"));
     tp.add_task(std::bind(fn, "yy"));
+    std::cout << "sleep 1s\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "done sleeping\n";
     tp.add_task(std::bind(fn, "zz"));
     tp.add_task(std::bind(fn, "oo"));
+
+    std::cout << "sleep 1s\n";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "done sleeping\n";
     
     std::packaged_task<int(double)> tk ([](double d) -> int {return (int)d;});
     std::future<int> fu = tk.get_future();
