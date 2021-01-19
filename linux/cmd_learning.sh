@@ -10,6 +10,8 @@
 # exclude Dockerfile and .dockerignore
 Dockerfile
 *.dockerignore
+# we might not want to include .git files
+**/.git
 
 #====== 64 ======
 # mount the source dir to the dir in the container
