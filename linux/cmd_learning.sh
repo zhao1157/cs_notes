@@ -1,3 +1,6 @@
+#========== 67 =========
+# monitor /gpu:2 
+nvidia-smi dmon -s pucvmet -i 2 
 #====== 66 ==========
 # show only a few process in top
 top -p 1234,2344,9999
