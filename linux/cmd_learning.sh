@@ -4,6 +4,13 @@
 **/__pychche__
 # in all directories and anyfile with suffix .pyc
 **/*.pyc
+# including README*.md files in the docker root context directory
+*.md
+!README*.md 
+# exclude Dockerfile and .dockerignore
+Dockerfile
+*.dockerignore
+
 #====== 64 ======
 # mount the source dir to the dir in the container
 docker run -v local_dir:dir_in_container
