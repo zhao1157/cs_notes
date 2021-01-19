@@ -1,3 +1,6 @@
+#====== 66 ==========
+# show only a few process in top
+top -p 1234,2344,9999
 #========= 65 =========
 # .dockerignore
 # in all directories
