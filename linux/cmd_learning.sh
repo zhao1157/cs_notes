@@ -1,3 +1,9 @@
+#========= 65 =========
+# .dockerignore
+# in all directories
+**/__pychche__
+# in all directories and anyfile with suffix .pyc
+**/*.pyc
 #====== 64 ======
 # mount the source dir to the dir in the container
 docker run -v local_dir:dir_in_container
