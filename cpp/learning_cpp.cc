@@ -1,3 +1,33 @@
+//====== 302 ======
+//This is to practice while(cv.wait_for()) which does not wait for the specific time interval
+#include <iostream>
+#include <condition_variable>
+#include <mutex>
+#include <chrono>
+#include <thread>
+
+int main(){
+    std::condition_variable cv;
+    std::mutex mu;
+    typedef std::chrono::seconds sec;
+    bool ready = false;
+
+    std::thread th([&](){std::this_thread::sleep_for(sec(5)); ready = true;});
+
+    std::unique_lock<std::mutex> lock(mu);
+    int i = 0;
+    std::cout << "before\n";
+    while (true){
+        std::cout << i++ << "\n";
+        if (cv.wait_for(lock, sec(1), [&]{return ready;})){
+            break;
+        }
+    }
+    std::cout << "after\n";
+    th.join();
+
+}
+
 /*
 //===== 301 =====
 //This is to practice thread pool

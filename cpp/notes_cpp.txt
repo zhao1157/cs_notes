@@ -1,3 +1,4 @@
+286. while(cv.wait_for(lock, time, []{return ture;})) -> this is a infinite loop, and no waiting is done; instead use while(true) cv.wait_for(lock, time, []{return false}); -> do waiting
 285. In thread pool, since adding tasks and consuming them share the task queue, thus we need to synchronize the process
 284. As condition_variable.notify_all() and cv.wati(lock, time, pred) does not guarantee the finite blocking, we can frequently check cv.wait(lock, time, pred) till unblocked, i.e. pred is true;
 283. In base class, the same-name function in the derived class will shadow the ones in the base class; to have access to those functions, we can use "using B::f;" in the derived class, if it appears in the non-public area, we can not call it outside 
