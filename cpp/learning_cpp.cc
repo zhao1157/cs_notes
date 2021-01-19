@@ -1,3 +1,97 @@
+/*
+//===== 301 =====
+//This is to practice thread pool
+#include <iostream>
+#include <vector>
+#include <thread>
+#include <queue>
+#include <functional>
+#include <mutex>
+#include <chrono>
+
+int NUM_THREADS = 1; //std::thread::hardware_concurrency() - 1;
+typedef std::chrono::seconds sec;
+
+class ThreadPool{
+    private:
+        int num_threads;
+        std::vector<std::thread> vec_threads;
+        bool stop = false;
+        std::queue<std::function<void()>> all_tasks;
+        std::mutex mu_task;
+        std::condition_variable cv_task;
+
+        ThreadPool(int _num_threads = NUM_THREADS): num_threads(_num_threads){
+            for (int i = 0; i < num_threads; i++){
+                vec_threads.emplace_back(std::thread(&ThreadPool::runtask, this));
+            }
+        }
+    public:
+        ~ThreadPool(){
+            stop = true;
+            for (auto & thread : vec_threads){
+                if (thread.joinable())
+                    thread.join();
+            }
+
+        }
+        static ThreadPool & GetThreadPool(){
+            static ThreadPool tp;
+            return tp;
+        }
+
+        void addtask(std::function<void()> fn){
+            std::cout << "adding\n";
+            std::lock_guard<std::mutex> lock(mu_task);
+            all_tasks.push(fn);
+            cv_task.notify_one();
+        }
+
+        void runtask(){
+            std::function<void()> fn;
+            while (! stop){
+                //get fn
+                {
+                    std::unique_lock<std::mutex> lock(mu_task);
+
+
+                    std::cout << std::this_thread::get_id() << " before wait\n";
+
+                    // it does not wait for 3 sec?????
+                    //while(cv_task.wait_for(lock, sec(3), [this](){return all_tasks.empty();})){
+                    //    std::cout << std::this_thread::get_id() << "\n";
+                    //}
+                    //
+                    while (true){
+                        std::cout << "\twait ...\n";
+                        if (cv_task.wait_for(lock, sec(1), [this](){return stop || !all_tasks.empty();}))
+                            break;
+                    }
+
+                    std::cout << std::this_thread::get_id() << " after wait\n";
+
+                    if (!stop) {
+                        fn = std::move(all_tasks.front());
+                        all_tasks.pop();
+                    }
+                }
+                // execute
+                if (!stop)
+                    fn();
+            }
+        }
+};
+
+int main(){
+    ThreadPool &tp = ThreadPool::GetThreadPool();
+    auto fn = [](){std::cout << "yyyyy\n";};
+    tp.addtask(fn);
+    auto fnn = [](){std::cout << "zzzz\n";};
+    tp.addtask(fnn);
+    std::this_thread::sleep_for(sec(6));
+}
+
+
 //===== 300 ======
 //This is to practice condition_variable.wait_for()
 #include <iostream>
@@ -50,7 +144,6 @@ int main(){
 }
 
 
-/*
 //====== 299 =====
 //This is to practice using in class hierarchy
 #include <iostream>
