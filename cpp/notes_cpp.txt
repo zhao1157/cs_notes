@@ -1,3 +1,4 @@
+290. Taking advantage of static global variables getting destroyed, we can delete the Singleton pointer inside it
 289. In singleton class, we can use shared_ptr<Singleton> to manage the static pointer: static std::shared_ptr<Singleton> GetInstance(){...}
 288. In class, we can defined type conversion by type overloading, i.e. operator int(){return id;} or operator std::string(){return name;} -> there is no return type in the type conversion function. only the generic type?
 287. In the thread pool, we might want to make sure the available taks not exceeding a certain number, so we can use the cv.wait_for() to synchronize that

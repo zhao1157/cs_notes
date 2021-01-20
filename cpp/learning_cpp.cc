@@ -1,4 +1,3 @@
-/*
 //====== 306 =====
 //This is to practice Singleton
 #include <iostream>
@@ -16,22 +15,35 @@ class Singleton{
         ~Singleton(){
             std::cout << "Singleton destroyed\n";
         }
-        static std::shared_ptr<Singleton> GetInstance(int id = -1){
-            if (p == nullptr){
-                p = new Singleton(id);
-            }
-            return std::shared_ptr<Singleton>(p);
-        }
-        //static Singleton * GetInstance(int id = -1){
-        //    {
-        //        // in multi-threading case, making sure p is accessed synchronously
-        //        std::lock_guard<std::mutex> lock(mu);
-        //        if (p == nullptr)
-        //            p = new Singleton(id);
+        class Destroyer{
+            public:
+                ~Destroyer(){
+                    std::cout << "Destroyer\n";
+                    delete p;
+                }
+        };
+
+        static Destroyer d;
+
+        //static std::shared_ptr<Singleton> GetInstance(int id = -1){
+        //    if (p == nullptr){
+        //        p = new Singleton(id);
         //    }
-        //    return p;
+        //    return std::shared_ptr<Singleton>(p);
         //}
+
+        static Singleton * GetInstance(int id = -1){
+            {
+                // in multi-threading case, making sure p is accessed synchronously
+                std::lock_guard<std::mutex> lock(mu);
+                if (p == nullptr)
+                    p = new Singleton(id);
+            }
+            return p;
+        }
 };
+
+Singleton::Destroyer Singleton::d; // gets destroyed by the system manager
 
 Singleton * Singleton::p = nullptr;
 
@@ -39,13 +51,16 @@ int main(){
     {
         //Singleton * p = Singleton::GetInstance();
         //delete p;
-        std::shared_ptr<Singleton> sp = Singleton::GetInstance(2);
+
+        //std::shared_ptr<Singleton> sp = Singleton::GetInstance(2);
+
+        Singleton * p = Singleton::GetInstance();
     }
     std::cout << "end\n";
 }
 
 
-
+/*
 //===== 305 =====
 //This is to practice Singleton
 #include <iostream>
