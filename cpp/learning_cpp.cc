@@ -1,3 +1,35 @@
+//====== 304 =====
+//This is to practice user-defined class type conversion
+#include <iostream>
+
+class C{
+
+};
+
+class B{
+    private:
+        std::string name;
+        int id;
+    public:
+        B(std::string _name="default", int _id=23): name(_name), id(_id){};
+
+        operator int(){
+            return id;
+        }
+
+        operator std::string (){
+            return name;
+        }
+};
+
+int main(){
+    B b("xyz");
+    std::cout << int(b) << "\n";
+    std::cout << std::string(b) << "\n";
+    std::cout << C(b) << "\n";
+}
+
+/*
 //======= 303 =====
 //This is to further enhance my understanding of thread pool
 #include <iostream>
@@ -92,7 +124,6 @@ int main(){
 }
 
 
-/*
 //====== 302 ======
 //This is to practice while(cv.wait_for()) which does not wait for the specific time interval
 #include <iostream>
