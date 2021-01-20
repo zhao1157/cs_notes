@@ -1,3 +1,98 @@
+//======= 303 =====
+//This is to further enhance my understanding of thread pool
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <queue>
+#include <functional>
+#include <mutex>
+#include <condition_variable>
+#include <chrono>
+#include <future>
+
+int NUM_THREADS = std::thread::hardware_concurrency() - 1;
+int MAX_TASKS = 3;
+typedef std::chrono::nanoseconds nanosec;
+
+class ThreadPool{
+    private:
+        int num_threads;
+        std::vector<std::thread> all_threads;
+        std::queue<std::function<void()>> all_tasks;
+        std::mutex mu;
+        std::condition_variable cv;
+        
+        ThreadPool(int _num_threads): num_threads(_num_threads), stop(false){
+            num_threads = num_threads > NUM_THREADS? NUM_THREADS:num_threads;
+            for (int i = 0; i < num_threads; i ++)
+                all_threads.emplace_back(std::thread(&ThreadPool::runtask, this));
+        }
+        bool stop;
+    public:
+        ~ThreadPool(){
+            stop = true;
+            for (auto & thread : all_threads){
+                if (thread.joinable())
+                    thread.join();
+            }
+        }
+        static ThreadPool & GetThreadPool(int num_threads = NUM_THREADS){
+            static ThreadPool tp(num_threads);
+            return tp;
+        }
+
+        void add_task(std::function<void()> fn){
+            std::unique_lock<std::mutex> lock(mu);
+            //make sure the available tasks no more than MAX_TASKS
+            while(true){
+                if (cv.wait_for(lock, nanosec(1000), [&]{return all_tasks.size() < MAX_TASKS;}))
+                    break;
+            }
+            all_tasks.push(fn);
+        }
+
+        void runtask(){
+            std::function<void()> fn;
+            while(!stop){
+                //fetch a task from the queue
+                {
+                    std::unique_lock<std::mutex> lock(mu);
+                    while(true && !stop){
+                        if (cv.wait_for(lock, nanosec(1000), [this]{return !all_tasks.empty();}))
+                            break;
+                    }
+                    if (!stop){
+                        fn = std::move(all_tasks.front());
+                        all_tasks.pop();
+                    }
+                }
+                if (!stop)
+                    fn();
+            }
+        }
+};
+
+int main(){
+    ThreadPool & tp = ThreadPool::GetThreadPool();
+    auto fn = []{std::cout << std::this_thread::get_id() << "\n";};
+    for (int i = 0; i < 10; i++)
+        tp.add_task(fn);
+    tp.add_task(fn);
+    std::this_thread::sleep_for(nanosec(10000000000));
+
+    std::promise<int> prom;
+    std::future<int> fu = prom.get_future();
+    tp.add_task([&]{prom.set_value(99);});
+    std::cout << "fu " << fu.get() << "\n";
+
+    std::packaged_task<int()> task([](){return 22;});
+    fu = task.get_future();
+    tp.add_task([&](){task();});
+    std::cout << fu.get() << "\n";
+}
+
+
+/*
 //====== 302 ======
 //This is to practice while(cv.wait_for()) which does not wait for the specific time interval
 #include <iostream>
@@ -28,7 +123,6 @@ int main(){
 
 }
 
-/*
 //===== 301 =====
 //This is to practice thread pool
 #include <iostream>
