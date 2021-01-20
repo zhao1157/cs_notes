@@ -1,3 +1,61 @@
+//===== 305 =====
+//This is to practice Singleton
+#include <iostream>
+#include <memory>
+
+class Singleton{
+    private:
+        static int ind_instance;
+        //static Singleton *instance; // when and where to delete the object??
+        static std::shared_ptr<Singleton> instance;
+    public:
+        Singleton(int _id = -1): id(_id){std::cout << id << "\n";}
+        ~Singleton(){
+            std::cout << "ind_instance: " << ind_instance << "\n";
+            if (--ind_instance == 0){
+                std::cout << "deleted\n";
+                //delete instance;
+            }
+        }
+        int id;
+        static std::shared_ptr<Singleton> GetInstance(int id){
+            if (++ind_instance == 1){
+                //instance = new Singleton(id); // the object persists, managed by the programmer
+                //*instance = Singleton(id); // the object is managed by the system, it's on stack, not heap
+                instance = std::make_shared<Singleton>(id);
+            }
+            //return *instance;
+            return instance;
+        }
+
+        operator int(){
+            return ind_instance;
+        }
+
+};
+
+int Singleton::ind_instance = 0;
+//Singleton *Singleton::instance = nullptr;
+std::shared_ptr<Singleton> Singleton::instance;
+
+int main(){
+    Singleton * p;
+    {
+        //Singleton &inst = Singleton::GetInstance(1);
+        //p = &inst;
+        //std::cout << inst.id << "\n";
+        //std::cout << & inst << ": " << inst.id << "\n";
+        //Singleton &inst_2 = Singleton::GetInstance(2);
+        //std::cout << & inst_2 << ": " << inst_2.id << "\n";
+
+        //std::cout << "called " << int(inst) << " " << int(inst_2) << " times\n"; 
+        std::shared_ptr<Singleton> p = Singleton::GetInstance(3), pp = p, ppp = p;
+    }
+    std::cout << p -> id << "\n"; // even though the object is created inside the scope, it's not destroyed outside.
+}
+
+
+/*
 //====== 304 =====
 //This is to practice user-defined class type conversion
 #include <iostream>
@@ -29,7 +87,6 @@ int main(){
     std::cout << C(b) << "\n";
 }
 
-/*
 //======= 303 =====
 //This is to further enhance my understanding of thread pool
 #include <iostream>
