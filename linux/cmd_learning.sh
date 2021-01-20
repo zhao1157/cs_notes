@@ -1,3 +1,7 @@
+#===== 68 =====
+# download a single file from github
+# get the url of the raw file in github, that, the url after clicking on the raw button on that page
+wget <raw_file_url>
 #========== 67 =========
 # monitor /gpu:2 
 nvidia-smi dmon -s pucvmet -i 2 
