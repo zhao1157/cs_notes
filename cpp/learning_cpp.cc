@@ -1,3 +1,51 @@
+/*
+//====== 306 =====
+//This is to practice Singleton
+#include <iostream>
+#include <mutex>
+#include <memory>
+
+std::mutex mu;
+
+class Singleton{
+    private:
+        int id;
+        Singleton(int _id = -1): id(_id){}
+        static Singleton * p;
+    public:
+        ~Singleton(){
+            std::cout << "Singleton destroyed\n";
+        }
+        static std::shared_ptr<Singleton> GetInstance(int id = -1){
+            if (p == nullptr){
+                p = new Singleton(id);
+            }
+            return std::shared_ptr<Singleton>(p);
+        }
+        //static Singleton * GetInstance(int id = -1){
+        //    {
+        //        // in multi-threading case, making sure p is accessed synchronously
+        //        std::lock_guard<std::mutex> lock(mu);
+        //        if (p == nullptr)
+        //            p = new Singleton(id);
+        //    }
+        //    return p;
+        //}
+};
+
+Singleton * Singleton::p = nullptr;
+
+int main(){
+    {
+        //Singleton * p = Singleton::GetInstance();
+        //delete p;
+        std::shared_ptr<Singleton> sp = Singleton::GetInstance(2);
+    }
+    std::cout << "end\n";
+}
+
+
+
 //===== 305 =====
 //This is to practice Singleton
 #include <iostream>
@@ -21,7 +69,7 @@ class Singleton{
         static std::shared_ptr<Singleton> GetInstance(int id){
             if (++ind_instance == 1){
                 //instance = new Singleton(id); // the object persists, managed by the programmer
-                //*instance = Singleton(id); // the object is managed by the system, it's on stack, not heap
+                // *instance = Singleton(id); // the object is managed by the system, it's on stack, not heap
                 instance = std::make_shared<Singleton>(id);
             }
             //return *instance;
@@ -55,7 +103,6 @@ int main(){
 }
 
 
-/*
 //====== 304 =====
 //This is to practice user-defined class type conversion
 #include <iostream>
