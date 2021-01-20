@@ -1,3 +1,51 @@
+//====== 307 ======
+//This is to practice Sinlgeton which returns a reference
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+typedef std::chrono::seconds sec;
+
+class Singleton{
+    private:
+        int id;
+        Singleton(int _id=-1): id(_id){}
+        static Singleton instance;
+        Singleton(const Singleton &);
+        Singleton operator = (const Singleton &) = delete;
+    public:
+        //since it returns a reference, we need to make sure copy constructor and assignment operator is not available
+        static Singleton & GetInstance(int id){
+            instance.id = id;
+            return instance;
+        }
+
+        operator int (){
+            return id;
+        }
+
+        ~Singleton(){
+            std::cout << "Destroyed\n";
+        }
+};
+
+Singleton Singleton::instance; // got destroyed after main function finishes,
+                               // so this is more like a global variable, it 
+                               // does not release memory at appropriate time
+
+int main(){
+    {
+        Singleton &s = Singleton::GetInstance(9);
+        std::cout << int(s) << "\n";
+        Singleton &ss = s;
+        //ss = s; // deleted assignment operator
+    }
+    std::this_thread::sleep_for(sec(2));
+    std::cout << "end\n";
+}
+
+
+/*
 //====== 306 =====
 //This is to practice Singleton
 #include <iostream>
@@ -60,7 +108,6 @@ int main(){
 }
 
 
-/*
 //===== 305 =====
 //This is to practice Singleton
 #include <iostream>
