@@ -1,3 +1,76 @@
+//===== 308 ====
+//This is to test when the static varible in a static function get destroyed
+#include <iostream>
+
+class B{
+    public:
+        ~B(){
+            std::cout << "------ B destroyed at the end of the program\n";
+        }
+
+        operator std::string (){
+            return "xx";
+        }
+};
+
+class G{
+    public:
+        ~G(){
+            std::cout << "G destroyed\n";
+        }
+        void Get(){
+            static B b;
+        }
+};
+
+class Singleton{
+    private:
+        int id;
+        Singleton(int _id = -1): id(_id){}
+        static Singleton * p;
+    public:
+        ~Singleton(){
+            std::cout << "Destroyed\n";
+        }
+        //static Singleton & GetInstance(int id = -1){
+        //    static Singleton ins(id); // this gets destroyed at the end of the program
+        //    return ins;
+        //}
+        static Singleton * GetInstance(){
+            if (p == nullptr)
+                p = new Singleton;
+            return p;
+        }
+
+        void Test(){
+            static B b; // the lifetime of b is also lasting through the end of the program
+        }
+};
+
+Singleton * Singleton::p = nullptr;
+
+int main(){
+    {
+        {
+            //Singleton & ins = Singleton::GetInstance();
+            //ins.Test();
+            //
+            //Singleton * p =Singleton::GetInstance();
+            //p -> Test();
+            //delete p;
+
+            G g;
+            g.Get();
+        }
+        std::cout << "end_1\n";
+        G g;
+        g.Get();
+    }
+    std::cout << "end_2\n";
+}
+
+
+/*
 //====== 307 ======
 //This is to practice Sinlgeton which returns a reference
 #include <iostream>
@@ -45,7 +118,6 @@ int main(){
 }
 
 
-/*
 //====== 306 =====
 //This is to practice Singleton
 #include <iostream>
@@ -91,7 +163,7 @@ class Singleton{
         }
 };
 
-Singleton::Destroyer Singleton::d; // gets destroyed by the system manager
+Singleton::Destroyer Singleton::d; // gets destroyed by the system manager, the end of the main() 
 
 Singleton * Singleton::p = nullptr;
 
