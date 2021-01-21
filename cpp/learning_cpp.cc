@@ -1,3 +1,20 @@
+//===== 309 ====
+//This is to test public static data members are accessible
+#include <iostream>
+
+class B{
+        static int i;
+    public:
+};
+
+int B::i = 9;
+
+int main(){
+    std::cout << B::i << "\n";
+}
+
+
+/*
 //===== 308 ====
 //This is to test when the static varible in a static function get destroyed
 #include <iostream>
@@ -70,7 +87,6 @@ int main(){
 }
 
 
-/*
 //====== 307 ======
 //This is to practice Sinlgeton which returns a reference
 #include <iostream>
