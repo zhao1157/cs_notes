@@ -1,3 +1,5 @@
+296. f(2) can invoke f(int), f(int &&); f(i) can invoke f(int), f(int &); f(std::move(i)) can invoke f(int), f(int&&)
+295. f(int&) takes in lvalue, f(int&&) takes in rvalue or rvalue reference, f(int) takes in all of them 
 294. pubic static data members are accessible outside of class
 293. static variables last till the end of the program, even in a class non-static member function, it still exists even when the object is destroyed, and it belongs to the class itself, so even though there are multiple objects, the static object inside a non-static member function is only one copy
 292. For Singleton class, if the GetInstance() returns a Singleton reference, we need to make sure copy constructor and assignment operator is appropriately handled, i.e. in the private scope and deleted or not implemented; it may not release the memory in time or just after main() finishes, so we might prefer std::shared_ptr<Singleton> approach.
