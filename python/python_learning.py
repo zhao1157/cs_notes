@@ -1,3 +1,84 @@
+#========== 214 ==========
+# This is to practice customizing Thread class
+import threading
+import multiprocessing
+import time
+
+class MyThread(multiprocessing.Process): #(threading.Thread):
+
+    def __init__(self, target=None, return_dict = False): #{"stop": False}, args=(), kwargs = {}):
+        print ("init")
+        self._fn = target
+        self._return_dict = return_dict
+        #threading.Thread.__init__(self) #, target = target, args=args, kwargs = kwargs)
+        multiprocessing.Process.__init__(self)
+        self._terminate = False
+    def run(self):
+        print ("executing", self._return_dict.value)
+        while not self._return_dict.value: #["stop"]:
+            print ("__", self._return_dict.value, end = " ")
+            self._fn()
+        print (self._return_dict.value)
+    def stop(self): 
+        self._return_dict=True #["stop"] = True
+
+def f():
+    time.sleep(1)
+    print ("Done sleeping")
+
+manager = multiprocessing.Manager()
+return_dict = manager.Value(bool, False, lock = True) #.dict()
+return_dict.value = False
+#return_dict = False #["stop"] = False
+
+t1 = MyThread(f, return_dict = return_dict)
+#t2 = MyThread(f)
+t1.start()
+#t2.start()
+
+
+time.sleep(6)
+#t1.stop()
+#t2.stop()
+return_dict.value = True #["stop"] = True
+print ("resetting")
+
+
+t1.join()
+#t2.join()
+
+
+
+"""
+#======== 213 =======
+# threading model is not parallel due to GIL restriction, i.e
+# only one thread can execute python code, so I/O-bound tasks is 
+# appropriate for threading model. To enalbe fully parallel execution
+# use multiprocessing module instead
+# This is to practice terminating a thread
+import threading
+import time
+
+stop = False
+
+def f():
+    while True:
+        if stop:
+            print ("exit")
+            break
+        print ("sleep 1s")
+        time.sleep(2)
+
+t = threading.Thread(target = f)
+t.start()
+stop = True
+print ("active? {}".format(t.is_alive()))
+t.join(0.5)
+print ("active? {}".format(t.is_alive()))
+t.join()
+print ("active? {}".format(t.is_alive()))
+
+
 #======== 212 =======
 #This is to practice multithreading
 import threading
@@ -30,7 +111,6 @@ for i in range(1, 10):
     
 
 
-"""
 
 #======== 211 =======
 # checkout the tensors saved in the checkpoint
