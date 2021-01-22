@@ -1,20 +1,48 @@
+//====== 310 ======
+//This is to practice rvalue reference function overloading 
+#include <iostream>
+
+void f(int && i){ // takes in rvalue or rvalue reference
+    std::cout << "rvalue reference\n";
+}
+
+// takes in only lvalue
+//void f(int &i){
+//    std::cout << "lvalue reference\n";
+//}
+
+// takes in lvalue, rvalue or rvalue reference
+// a combination of f(int&&) and f(int&)
+void f(int i){
+    std::cout << "?\n";
+}
+
+int main(){
+    //f(2); // can be f(int) or f(int &&)
+    int i = 3;
+    f(i); // can be f(int) or f(int &)
+    //f(std::move(i)); // f(int) or f(int &&)
+}
+
+
+/*
 //===== 309 ====
 //This is to test public static data members are accessible
 #include <iostream>
 
 class B{
-        static int i;
+        static int i; // exists till the end of the execution, but can not be accessed outside of the class
     public:
 };
 
 int B::i = 9;
 
 int main(){
+    B::i = 99;
     std::cout << B::i << "\n";
 }
 
 
-/*
 //===== 308 ====
 //This is to test when the static varible in a static function get destroyed
 #include <iostream>
