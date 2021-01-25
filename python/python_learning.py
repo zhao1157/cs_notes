@@ -1,3 +1,117 @@
+#========== 214 ==========
+# This is to practice customizing Thread class
+import threading
+import multiprocessing
+import time
+
+class MyThread(multiprocessing.Process): #(threading.Thread):
+
+    def __init__(self, target=None, return_dict = False): #{"stop": False}, args=(), kwargs = {}):
+        print ("init")
+        self._fn = target
+        self._return_dict = return_dict
+        #threading.Thread.__init__(self) #, target = target, args=args, kwargs = kwargs)
+        multiprocessing.Process.__init__(self)
+        self._terminate = False
+    def run(self):
+        print ("executing", self._return_dict.value)
+        while not self._return_dict.value: #["stop"]:
+            print ("__", self._return_dict.value, end = " ")
+            self._fn()
+        print (self._return_dict.value)
+    def stop(self): 
+        self._return_dict=True #["stop"] = True
+
+def f():
+    time.sleep(1)
+    print ("Done sleeping")
+
+manager = multiprocessing.Manager()
+return_dict = manager.Value(bool, False, lock = True) #.dict()
+return_dict.value = False
+#return_dict = False #["stop"] = False
+
+t1 = MyThread(f, return_dict = return_dict)
+#t2 = MyThread(f)
+t1.start()
+#t2.start()
+
+
+time.sleep(6)
+#t1.stop()
+#t2.stop()
+return_dict.value = True #["stop"] = True
+print ("resetting")
+
+
+t1.join()
+#t2.join()
+
+
+
+"""
+#======== 213 =======
+# threading model is not parallel due to GIL restriction, i.e
+# only one thread can execute python code, so I/O-bound tasks is 
+# appropriate for threading model. To enalbe fully parallel execution
+# use multiprocessing module instead
+# This is to practice terminating a thread
+import threading
+import time
+
+stop = False
+
+def f():
+    while True:
+        if stop:
+            print ("exit")
+            break
+        print ("sleep 1s")
+        time.sleep(2)
+
+t = threading.Thread(target = f)
+t.start()
+stop = True
+print ("active? {}".format(t.is_alive()))
+t.join(0.5)
+print ("active? {}".format(t.is_alive()))
+t.join()
+print ("active? {}".format(t.is_alive()))
+
+
+#======== 212 =======
+#This is to practice multithreading
+import threading
+import time
+
+def f(interval):
+    time.sleep(interval)
+    print ("collecting gpu metric data ...")
+    print ("Done sleeping {}s {}".format(interval, threading.currentThread().getName())) #threading.current_thread().getName()))
+
+all_threads = []
+for i in range(3, 0, -1):
+    t = threading.Thread(target = f, args = (2**i,)) #, name = "Thread_"+str(i))
+    all_threads.append(t)
+    t.setName("Thread_"+str(i))
+    t.start()
+    print ("**")
+    #t.join() # wait for the the thread to terminate, so execute serially, not parallelly
+    print ("***")
+
+print ("active threads: {}".format(threading.activeCount()))
+print ("??: {}".format(threading.currentThread()))
+print ("all active threads: {}".format(threading.enumerate()))
+
+print ("the main thread name: {}".format(threading.currentThread().getName()))
+
+for i in range(1, 10):
+    time.sleep(1)
+    print ([thread.isAlive() for thread in all_threads])
+    
+
+
+
 #======== 211 =======
 # checkout the tensors saved in the checkpoint
 from tensorflow.python.tools.inspect_checkpoint import print_tensors_in_checkpoint_file
@@ -6,7 +120,7 @@ latest_ckpt = tf.train.latest_checkpoint("./tmp_old/")
 print_tensors_in_checkpoint_file (latest_ckpt, all_tensors=True, tensor_name="")
 
 #========= 210 =======
-pip install gin-config==0.1.1
+#pip install gin-config==0.1.1
 
 #========= 209 =======
 # find out the number of records in tfrecord file
@@ -52,7 +166,6 @@ def b():
 
 time_0 = time.time()
 
-#"""
 #multi-threading processing
 t1=threading.Thread(target=a)
 t2=threading.Thread(target=b)
@@ -63,12 +176,10 @@ t2.start()
 t1.join()
 t2.join()
 
-"""
 
 a()
 b()
 
-"""
 # sequential execution takes 2s, while parallel processing only takes 1s
 print (time.time()-time_0)
 
@@ -454,10 +565,6 @@ def f_write(filename, mode, text):
     f.write(text)
     return f
 
-text = """This is line one
-
-This is line three
-"""
 f_write('love.txt', 'w', text)
 
 @close_it
@@ -546,7 +653,7 @@ print ('***')
 print (sl, sl.__name__)
 print ('***')
 sl(2, 3, 4)
-`
+
 #========= 197 ========
 from functools import wraps
 def dec(func):
@@ -751,7 +858,7 @@ awhile()
 # make sure the previous process is finished before going to the next one
 import subprocess
 
-content = """import argparse
+content = '''import argparse
 import time
 parser = argparse.ArgumentParser(description = "sleep in each subprocess")
 parser.add_argument("duration", type = int)
@@ -761,8 +868,7 @@ for i in range(args.duration):
         time.sleep(1)
         print ('\t', i+1, 's')
 print ('done sleeping for', args.duration, 's')
-"""
-
+'''
 with open('sub.py', 'w') as f:
     f.write(content)
 
@@ -847,7 +953,7 @@ print (me.__dict__) # class variable is not included here
 import datetime
 datetime.date.today().year
 datetime.date.today().month
-datetime.date.today()day
+datetime.date.today().day
 
 #========== 182 ===========
 class my_class(object):
@@ -1040,7 +1146,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('sleep_time', nargs='?', type = int, default = 0)
 args = parser.parse_args([])
 
-code = """import time
+code = '''import time
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('sleep_time', type = int)
@@ -1048,7 +1154,7 @@ args = parser.parse_args()
 print("sleeping for", args.sleep_time, 'seconds')
 time.sleep(args.sleep_time)
 print ('\tDone sleeping for', args.sleep_time, 'seconds')
-"""
+'''
 
 with open('code.py', 'w') as f:
         f.write(code)
@@ -1881,7 +1987,7 @@ def f(element, to=[]): # to is muatble, which can create some confusion
 print (f(2), to)
 print (f(3), to)
 print (f(4), to)
-print (f(5, [0], to)
+print (f(5, [0]), to)
 
 #In the global scope, globals() and locals() are the same
 print ('locals outside:', locals())
@@ -1918,12 +2024,12 @@ print (globals())
 print ('s:', s, 't:', t)
 
 #===== 93 =====
-inpt ="""
+inpt ='''
 def f():
   name = input("Please enter your name:")
   return name
 name=f()
-"""
+'''
 
 code = compile(inpt, '', 'exec')
 exec(code)
@@ -1931,11 +2037,11 @@ print ("name:", name)
 
 #====== 92 ======
 # not sure of the purpose of compile, why not just use exec or eval
-a ="""
+a ='''
 
 for i in range(3):
   print (i)
-"""
+'''
 
 # for filename, we can just leave it as '', not sure of its purpose
 exec_code = compile(a, '<string>', 'exec')
@@ -1948,12 +2054,11 @@ exec(exec_code)
 # clear the interactive python screen
 ctrl+l
 #===== 90 ======
-#use """to create a string without using \ to connect different parts
-a = """sdf
+#use '''to create a string without using \ to connect different parts
+a = '''sdf
 sdf 
-  sdf sf
-"""
 print (a)
+'''
 #===== 89 =====
 # get input from control, and it returns a string
 a = input("Please input you age:")
@@ -2873,3 +2978,4 @@ num_params = sum([np.prod(v.shape) for v in tf.trainable_variables()])
 int(sum([np.prod(v.shape)*v.dtype.size for v in tf.trainable_variables()]))
 # Find the total size of the trainable and untrainable (like optimizer states) variables
 int(sum([np.prod(v.shape)*v.dtype.size for v in tf.global_variables()]))
+"""

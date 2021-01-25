@@ -3,3 +3,4 @@ Session.Vim
 *.dsy*
 *.DS_Store
 exec
+__pycache__
