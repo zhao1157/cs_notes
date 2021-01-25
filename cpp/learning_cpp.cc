@@ -1,3 +1,21 @@
+//====== 312 =====
+//This is to type conversion of self-defined class
+#include <iostream>
+
+class B{
+    private:
+        int id;
+    public:
+        B (int _id): id(_id){std::cout << "B\n";}
+        //explicit B (int _id): id(_id){} // can not convert int to B type
+};
+
+int main(){
+    B b = 2; // convert int to B type
+    //B b(2);
+}
+
+/*
 //====== 311 ======
 //This is to practice pass-by-value in movable objects
 #include <iostream>
@@ -44,11 +62,9 @@ int main(){
                      // f(B) does call move constructor
     std::cout << "____\n";
     //std::cout << b.name << "\n";
-
 }
 
 
-/*
 //====== 310 ======
 //This is to practice rvalue reference function overloading 
 #include <iostream>
