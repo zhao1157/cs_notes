@@ -1,3 +1,54 @@
+//====== 311 ======
+//This is to practice pass-by-value in movable objects
+#include <iostream>
+
+class B{
+    public:
+        ~B(){
+            std::cout << "Destroyed\n";
+        }
+        std::string name;
+        B(std::string _name="xx"): name(_name){}
+        B(const B & rhs){
+            std::cout << "copy constructor\n";
+        }
+        B(const B && rhs){
+            std::cout << "move constructor\n";
+            name = std::move(rhs.name);
+        }
+};
+
+void f(B && b){
+    std::cout << &b << " " << b.name << "\n"; // the same location as the original object
+    std::cout << "\tmove\n";
+}
+
+void f(B &b){
+    std::cout << "\treference\n";
+}
+
+//void f(B b){
+//    std::cout << &b << " " << b.name << "\n";
+//    std::cout << "move and reference\n";
+//}
+
+
+int main(){
+    //f(B()); // f(B&&) and f(B) where copy constructor is not called
+    //std::cout << "__\n";
+    B b("zls");
+    //f(b); //f(B &) or f(B) where copy constructor is called
+
+    std::cout << &b << "\n";
+    f(std::move(b)); // f(B&&) does not call move constructor, as it only transfers the ownership of b object
+                     // f(B) does call move constructor
+    std::cout << "____\n";
+    //std::cout << b.name << "\n";
+
+}
+
+
+/*
 //====== 310 ======
 //This is to practice rvalue reference function overloading 
 #include <iostream>
@@ -25,7 +76,6 @@ int main(){
 }
 
 
-/*
 //===== 309 ====
 //This is to test public static data members are accessible
 #include <iostream>

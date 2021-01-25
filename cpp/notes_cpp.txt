@@ -1,3 +1,4 @@
+297. B b; f(b) invokes f(B), f(B &b); f(B()) invokes f(B), f(B&&); f(std::move(b)) invokes f(B), f(B&&)
 296. f(2) can invoke f(int), f(int &&); f(i) can invoke f(int), f(int &); f(std::move(i)) can invoke f(int), f(int&&)
 295. f(int&) takes in lvalue, f(int&&) takes in rvalue or rvalue reference, f(int) takes in all of them 
 294. pubic static data members are accessible outside of class
