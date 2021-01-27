@@ -1,3 +1,70 @@
+#========== 215 ==========
+#This is to practice shalow and deep copy
+# anything on the left side of = is a reference, so l[1] is a reference, d["xx"] is also a reference
+# thus in a shallow copy [2, 3, [4, 5]], a[0], a[1] refer to the same immutable objects, mutations in a[2] are visible
+# before after shallow copy
+# both copy.copy() and copy.deepcopy() create distinct objects, so removing or appending new elements will not affect the other
+# but for the mutables elements, the behavior for copy and deepcopy is distinctively different
+# copy.copy(), i.e. shallow copy, does reflect the changes in both objects
+# copy.deepcopy(), i.e. deepcopy, never reflect the chagnes in other another
+# assignment = is a completely different story, refer to the same object, while copy module make two different objects
+import copy
+
+# immutables (share the same object)
+a = 2
+b = a
+print (id(a) == id(b)) # id: returns the object's memory address
+b = 2
+print (id(a) == id(b))
+
+a = [2]
+b = a
+print (id(a) == id(b))
+# mutables (not share)
+b = [2]
+print (id(a) == id(b))
+
+# a and b refer to the same object or memory address
+# any change in a or b will be reflected in the other
+a = [2, 3]
+b = a
+print (a == b, id(a) == id(b))
+a[0] = 9
+print (a, b)
+a.append(23)
+print (a, b)
+b[0] = 99
+print (a, b)
+b.append(2323)
+print (a, b)
+
+# shallow copy
+a = [2, 3, [4, 5]]
+b = copy.copy(a) # shallow copy creates a different object, the memory address is different
+                 # for the immutable elements, they do not reflect into the other copy
+                 # for the mutable elements, they do reflect into the other copy
+print (id(a[2]) == id(b[2]), id(a[0]) == id(b[0])) # mutable elelments always refer to the same object
+print (a, b)
+a[0] = 200
+a[2][0] = 99
+print (id(a[2]) == id(b[2]), id(a[0]) == id(b[0])) # mutable objects refer to the same object, changes are reflected into one another
+print (a, b)
+a[2] = [23] # now the element is changed to a different object
+print (id(a[2]) == id(b[2]), id(a[0]) == id(b[0]))
+
+# deep copy
+a = [2, 3, [4, 5]]
+b = copy.deepcopy(a) # also a different object
+
+print (id(a) == id(b))
+print (id(a[0]) == id(b[0]), id(a[2]) == id(b[2])) # immutable objects still refer to the same object
+                                                   # mutable objects refer to a different copy
+a[2][1] = 99
+print (a, b)
+
+
+
+"""
 #========== 214 ==========
 # This is to practice customizing Thread class
 import threading
@@ -49,7 +116,6 @@ t1.join()
 
 
 
-"""
 #======== 213 =======
 # threading model is not parallel due to GIL restriction, i.e
 # only one thread can execute python code, so I/O-bound tasks is 
@@ -101,11 +167,6 @@ for i in range(3, 0, -1):
 
 print ("active threads: {}".format(threading.activeCount()))
 print ("??: {}".format(threading.currentThread()))
-print ("all active threads: {}".format(threading.enumerate()))
-
-print ("the main thread name: {}".format(threading.currentThread().getName()))
-
-for i in range(1, 10):
     time.sleep(1)
     print ([thread.isAlive() for thread in all_threads])
     
@@ -2978,4 +3039,10 @@ num_params = sum([np.prod(v.shape) for v in tf.trainable_variables()])
 int(sum([np.prod(v.shape)*v.dtype.size for v in tf.trainable_variables()]))
 # Find the total size of the trainable and untrainable (like optimizer states) variables
 int(sum([np.prod(v.shape)*v.dtype.size for v in tf.global_variables()]))
+#========== 215 ==========
+#This is to practice shalow and deep copy
+import copy
+
+# immutables (share the same object)
+a = 2
 """
