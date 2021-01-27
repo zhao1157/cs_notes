@@ -1,3 +1,27 @@
+#===== 217 =====
+# This is to test list*2
+a = [2, 3]
+b = a * 2
+print (b)
+a[0] = 9
+print (b)
+
+a = [[1, 2], [3, 4]] # a[0] and a[1] refer to two lists
+b = a * 2 # b[0], b[1], b[2] and b[3] refer to the same two objects twice
+print (b)
+print (id(a[0]) == id(b[0]), id(a[1]) == id(b[3]), id(b[0]) == id(b[2]), id(b[1]) == id(b[3]))
+a[0][0] = 99 # the first object element is mutated, so the changes are reflected through all reference
+print (b)
+
+a = [2, 2]
+print (id(a[0]) == id(a[1]))
+
+a = [[], []]
+b = a * 2
+a[0].append(2)
+print (a, b)
+
+"""
 #========== 216 ==========
 #This is to practice some python myth
 a = [2, 3]
@@ -12,7 +36,6 @@ print (1001 is 1001)
 print (id(1000+1), id(1001))
 print (2+2 is 4, 3+3 is 6, 3+4 is 7)
 
-"""
 #========== 215 ==========
 #This is to practice shalow and deep copy
 # anything on the left side of = is a reference, so l[1] is a reference, d["xx"] is also a reference
