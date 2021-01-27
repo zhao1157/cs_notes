@@ -1,8 +1,26 @@
+#====== 220 ========
+# This is to practice shared memory between processes to communicate
+import multiprocessing
+
+def f(num, arr):
+    num.value = True
+    for i in range(9, 9+10):
+        arr[i-9] = i
+
+
+if __name__ == "__main__":
+    num = multiprocessing.Value('b', False)
+    arr = multiprocessing.Array('i', 10)
+    procs = multiprocessing.Process(target = f, args = (num, arr))
+    procs.start()
+    procs.join()
+    print (num.value, arr[:])
+
+"""
 #========== 219 ==========
 # set_aspect(): controls the ratio of y- and x-axes
 #===== 218 ======
 # matplotlib.pyplot: zorder controls the order of drawing, which is on top of which
-"""
 #===== 217 =====
 # This is to test list*2
 a = [2, 3]
