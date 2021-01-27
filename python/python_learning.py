@@ -1,3 +1,18 @@
+#========== 216 ==========
+#This is to practice some python myth
+a = [2, 3]
+print (id(a))
+a += [4] # it mutates the original object, not creat a new one. WEIRD!
+print (id(a))
+a = a+[5] # it creates a new object
+print (id(a))
+
+print (1000+1 is 1001, 1000+1 == 1001) # different object, but with the same value
+print (1001 is 1001)
+print (id(1000+1), id(1001))
+print (2+2 is 4, 3+3 is 6, 3+4 is 7)
+
+"""
 #========== 215 ==========
 #This is to practice shalow and deep copy
 # anything on the left side of = is a reference, so l[1] is a reference, d["xx"] is also a reference
@@ -64,7 +79,6 @@ print (a, b)
 
 
 
-"""
 #========== 214 ==========
 # This is to practice customizing Thread class
 import threading
