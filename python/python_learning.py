@@ -1,3 +1,6 @@
+#===== 218 ======
+# matplotlib.pyplot: zorder controls the order of drawing, which is on top of which
+"""
 #===== 217 =====
 # This is to test list*2
 a = [2, 3]
@@ -21,7 +24,6 @@ b = a * 2
 a[0].append(2)
 print (a, b)
 
-"""
 #========== 216 ==========
 #This is to practice some python myth
 a = [2, 3]
