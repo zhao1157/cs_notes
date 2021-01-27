@@ -1,18 +1,26 @@
+#========= 221 ======
+# Also multiprocessing.Manager() creates an object to hold python objects, like list, dict, etc. to communicate among processes
 #====== 220 ========
 # This is to practice shared memory between processes to communicate
 import multiprocessing
+import time
 
 def f(num, arr):
+    time.sleep(5)
     num.value = True
     for i in range(9, 9+10):
         arr[i-9] = i
 
 
 if __name__ == "__main__":
-    num = multiprocessing.Value('b', False)
-    arr = multiprocessing.Array('i', 10)
+    num = multiprocessing.Value('b', False, lock = True)
+    arr = multiprocessing.Array('i', 10, lock = True)
     procs = multiprocessing.Process(target = f, args = (num, arr))
     procs.start()
+    # observe the waiting process
+    while not num.value:
+        print ("waiting ...")
+        time.sleep(1)
     procs.join()
     print (num.value, arr[:])
 
