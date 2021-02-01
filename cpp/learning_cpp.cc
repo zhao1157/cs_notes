@@ -1,3 +1,26 @@
+//====== 314 =====
+//This is to practice universal reference in a template class
+#include <iostream>
+
+template <typename T>
+class B{
+    public:
+        // only template function works for universal reference
+        template<typename U>
+        void f(U && i){
+            std::cout << "universal reference\n";
+        }
+};
+
+int main(){
+    B<int> b;
+    b.f(2);
+    int i = 3;
+    b.f(i);
+}
+
+
+/*
 //===== 313 ====
 //This is to practice universal reference
 #include <iostream>
@@ -27,7 +50,6 @@ int main(){
     g(a);
 }
 
-/*
 //====== 312 =====
 //This is to type conversion of self-defined class
 #include <iostream>
