@@ -1,6 +1,11 @@
 #==== 70 ====
 # find the number of sub-directories in a directory
 ls -l dir | grep -c ^d # number of directories
+=======
+#====== 70 ======
+a=xx.tar
+b=${a%.*} # remove anything from .
+echo $b # xx
 #===== 69 =====
 # comment in github readme.md
 <!--comment goes here; can cross multiple lines-->

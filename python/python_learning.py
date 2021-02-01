@@ -1,3 +1,93 @@
+#============ 222 ============
+# This is to practice super()
+# in python 2, we need to use super(Class_name, self) syntax
+# in python 3. if we just call the immediate parent functions, we can just use super(), ignoring the two arguments
+# when refer to the functions above the immediate parent class, use super(Desired_class, self)._f_(...)
+# super() is like a type conversion (up) in c++
+class A(object):
+    a = 9
+    def __init__(self):
+        print ("A __init__")
+
+    def get(self):
+        print  ("Get A")
+
+
+class B(A):
+    a = 11
+    def __init__(self, i):
+        print ("____ 1 ____")
+        #super(B, self).__init__();
+        A.__init__(self) # if an instance, need to put self here, just a.__init__()
+        print ("____ 2 ____")
+
+    def get(self):
+        super(B, self).get()
+        print ("Get B", super(B, self).a, self.a)
+
+class C(B):
+    a = 13
+    def getB(self):
+        super(C, self).get()
+
+    def getA(self):
+        super(B, self).get()
+    def get(self):
+        print (super(B, self).a, super(C, self).a, self.a)
+
+class D(C):
+    a = 15
+    def get(self):
+        print (super(B, self).a)
+        super(B, self).get()
+
+if __name__ == "__main__":
+    b = B(3)
+    b.get()
+
+    c = C(2)
+    c.getB()
+    c.getA()
+    print (b.a)
+    c.get()
+
+    d = D(3)
+    print ("xxxx")
+    d.get()
+
+    b.__init__(9)
+
+"""
+#========= 221 ======
+# Also multiprocessing.Manager() creates an object to hold python objects, like list, dict, etc. to communicate among processes
+#====== 220 ========
+# This is to practice shared memory between processes to communicate
+import multiprocessing
+import time
+
+def f(num, arr):
+    time.sleep(5)
+    num.value = True
+    for i in range(9, 9+10):
+        arr[i-9] = i
+
+
+if __name__ == "__main__":
+    num = multiprocessing.Value('b', False, lock = True)
+    arr = multiprocessing.Array('i', 10, lock = True)
+    procs = multiprocessing.Process(target = f, args = (num, arr))
+    procs.start()
+    # observe the waiting process
+    while not num.value:
+        print ("waiting ...")
+        time.sleep(1)
+    procs.join()
+    print (num.value, arr[:])
+
+#========== 219 ==========
+# set_aspect(): controls the ratio of y- and x-axes
+#===== 218 ======
+# matplotlib.pyplot: zorder controls the order of drawing, which is on top of which
 #===== 217 =====
 # This is to test list*2
 a = [2, 3]
@@ -21,7 +111,6 @@ b = a * 2
 a[0].append(2)
 print (a, b)
 
-"""
 #========== 216 ==========
 #This is to practice some python myth
 a = [2, 3]
