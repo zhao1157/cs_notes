@@ -1,3 +1,6 @@
+#===== 71 =====
+# install from a requirement file
+pip install -r requirement.txt # cat requirement -> pynvml
 #==== 70 ====
 # find the number of sub-directories in a directory
 ls -l dir | grep -c ^d # number of directories
