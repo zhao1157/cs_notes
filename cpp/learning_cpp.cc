@@ -1,3 +1,33 @@
+//===== 313 ====
+//This is to practice universal reference
+#include <iostream>
+
+//&& in template function means the universal reference
+//in compile time
+template <typename T>
+void f(T && i){
+    std::cout << i << "\n";
+}
+
+void g(int & i){
+    std::cout << "lf\n";
+}
+
+void g(int &&i){
+    std::cout << "rf\n";
+}
+
+int main(){
+    int a = 2;
+    f(a);
+    f(3);
+    f(std::move(a));
+
+    g(2);
+    g(a);
+}
+
+/*
 //====== 312 =====
 //This is to type conversion of self-defined class
 #include <iostream>
@@ -15,7 +45,6 @@ int main(){
     //B b(2);
 }
 
-/*
 //====== 311 ======
 //This is to practice pass-by-value in movable objects
 #include <iostream>
