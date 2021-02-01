@@ -1,3 +1,71 @@
+//======= 316 =======
+//This is to practice
+#include <iostream>
+#include <memory>
+
+class B{
+    private:
+        int id;
+    public:
+        B(int &i): id(i){std::cout << "lf\n";}
+        B(int &&i): id(i){std::cout << "rf\n";}
+};
+
+template<typename T, typename U>
+std::unique_ptr<T> make_unique(U && u){
+    return std::unique_ptr<T>(new T(std::forward<U>(u)));
+}
+
+int main(){
+    int i = 9;
+    make_unique<B>(i);
+    make_unique<B>(99);
+}
+
+
+/*
+//====== 315 ======
+//This is to practice perfect forwarding
+#include <iostream>
+
+void f(int &i){
+    std::cout << "lvalue reference\n";
+}
+
+void f(int &&i){
+    std::cout << "rvalue reference\n";
+}
+
+void g(int &i){
+    std::cout << "lf\n";
+    f(i);
+}
+
+void g(int &&i){
+    std::cout << "rf\n";
+    f(i);
+}
+
+template<typename T>
+void h(T && i){ // here && is the universal reference
+    f(std::forward<T>(i));
+}
+
+int main(){
+    int i = 0;
+    f(0);
+    f(i);
+    
+    //rvalue reference is changed to lvalue reference in the second function
+    g(2);
+    g(i);
+
+    //perfect forwarding solves the reference-changing
+    std::cout << "\nperfect forwarding\n";
+    h(2);
+    h(i);
+}
+
 //====== 314 =====
 //This is to practice universal reference in a template class
 #include <iostream>
@@ -20,7 +88,6 @@ int main(){
 }
 
 
-/*
 //===== 313 ====
 //This is to practice universal reference
 #include <iostream>
