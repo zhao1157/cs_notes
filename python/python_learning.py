@@ -1,3 +1,11 @@
+#====== 224 ======
+#This is to practice glob
+import glob
+
+glob = glob.glob("*.py")
+print (glob)
+
+"""
 #========= 223 =========
 #This is to practice sys.stdout.flush()
 import sys
@@ -9,7 +17,6 @@ for i in range(5):
     time.sleep(1)
 
 
-"""
 #============ 222 ============
 # This is to practice super()
 # in python 2, we need to use super(Class_name, self) syntax
