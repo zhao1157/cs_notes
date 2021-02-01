@@ -1,3 +1,15 @@
+#========= 223 =========
+#This is to practice sys.stdout.flush()
+import sys
+import time
+
+for i in range(5):
+    print (i)
+    sys.stdout.flush() # does not see the difference w/o this line
+    time.sleep(1)
+
+
+"""
 #============ 222 ============
 # This is to practice super()
 # in python 2, we need to use super(Class_name, self) syntax
@@ -57,7 +69,6 @@ if __name__ == "__main__":
 
     b.__init__(9)
 
-"""
 #========= 221 ======
 # Also multiprocessing.Manager() creates an object to hold python objects, like list, dict, etc. to communicate among processes
 #====== 220 ========
