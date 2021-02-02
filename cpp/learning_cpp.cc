@@ -1,3 +1,24 @@
+//====== 317 =====
+//This is to practice std::is_rvalue_reference<>::value
+#include <iostream>
+
+template<typename T>
+void f(T && i){
+    std::cout << std::boolalpha;
+    std::cout << std::is_reference<T>::value << " "
+        << std::is_lvalue_reference<T&>::value << " "
+        << std::is_rvalue_reference<T&&>::value << "\n";
+}
+
+int main(){
+    f(2);
+    int i = 3;
+    f(i);
+    f(std::move(i));
+}
+
+
+/*
 //======= 316 =======
 //This is to practice
 #include <iostream>
@@ -23,7 +44,6 @@ int main(){
 }
 
 
-/*
 //====== 315 ======
 //This is to practice perfect forwarding
 #include <iostream>

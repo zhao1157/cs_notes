@@ -1,3 +1,4 @@
+301. std::is_reference<A>::value; std::is_rvalue_reference<A&&>::value; std::is_lvalue_reference<A&>::value;
 300. universal reference and std::forward<> ensure the perfect fowarding
 299. template<typename T> void f(T && i){...;} -> here T is a universal reference, works for both rvaluea and lvalue reference. In compile time, T is inferred
 298. In a class definition, constructor B(int _id): id(_id){} can convert int to B type; -> B b = 2; to disable this feature, we have to "explicit B(int _id): id(_id){}", to declare and define a B object, B b(2); not B b = 2;
