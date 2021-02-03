@@ -11,6 +11,10 @@ class B{
             delete p;
         }
         B(): p(new int){}
+        B(const B & b){
+            std::cout << "copy constructor\n";
+            this -> p = new int(* b.p);
+        }
         B(B && b){
             std::cout << "move constructor\n";
             this -> p = b.p;
@@ -21,15 +25,50 @@ class B{
         }
 };
 
-void f(B b){
+void f(B &&b){
+    // b refers to an outside object, it does not destroy the object when out of scope
+    // does not call the move or any other constructor, as b is just an alias/name of the argument object
+}
+
+void g(B b){
 
 }
 
 int main(){
-    B b;
-    b.getp();
-    f(std::move(b)); // even though it's moved, the internal resources may be moved, leaving the current object not responsible for
-                     // managing these resources; b object still has to be destructed again
+    {
+        B b;
+        b.getp();
+        f(std::move(b)); // can only convert lvalue to rvalue reference
+                         // even though it's moved, the internal resources may be moved, leaving the current object not responsible for
+                         // managing these resources; b object still has to be destructed again
+        f(std::forward<B&&>(b)); // can covert between rvalue reference and lvalue reference
+        f(static_cast<B&&>(b)); // static cast
+    }
+
+    std::cout << "________\n";
+
+    {
+        B b;
+        b.getp();
+        g(b); //deep copy b
+
+        g(static_cast<B&> (b));
+        std::cout << "  scope end\n";
+    }
+    std::cout << "_________\n";
+    {
+        B b;
+        b.getp();
+        // no longer need b, so transfer the ownership of the pointer inside B, hoping b will be deleted inside the function 
+        g(std::move(b)); // p pointer is deleted in this function call, releasing its memory
+        b.getp();
+        g(std::forward<B&&>(b));
+
+        b.getp();
+        g(static_cast<B&&>(b));
+        std::cout << "  scope end\n";
+    }
+
     std::cout << "main end\n";
 }
 
