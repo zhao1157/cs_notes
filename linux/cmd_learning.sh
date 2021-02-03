@@ -1,3 +1,6 @@
+#======== 72 =======
+# list all processes for all users
+ps axu
 #===== 71 =====
 # install from a requirement file
 pip install -r requirement.txt # cat requirement -> pynvml
