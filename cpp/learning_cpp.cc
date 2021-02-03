@@ -1,3 +1,40 @@
+//====== 318 =====
+//This is to test the lifetime of a moved object
+#include <iostream>
+
+class B{
+    private:
+        int * p;
+    public:
+        ~B(){
+            std::cout << p << " destroyed\n";
+            delete p;
+        }
+        B(): p(new int){}
+        B(B && b){
+            std::cout << "move constructor\n";
+            this -> p = b.p;
+            b.p = nullptr;
+        }
+        void getp(){
+            std::cout << p << "\n";
+        }
+};
+
+void f(B b){
+
+}
+
+int main(){
+    B b;
+    b.getp();
+    f(std::move(b)); // even though it's moved, the internal resources may be moved, leaving the current object not responsible for
+                     // managing these resources; b object still has to be destructed again
+    std::cout << "main end\n";
+}
+
+
+/*
 //====== 317 =====
 //This is to practice std::is_rvalue_reference<>::value
 #include <iostream>
@@ -18,7 +55,6 @@ int main(){
 }
 
 
-/*
 //======= 316 =======
 //This is to practice
 #include <iostream>

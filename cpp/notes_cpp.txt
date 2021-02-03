@@ -1,3 +1,4 @@
+302. std::move() does not transfer the ownership of the original object, just the resources inside the original object, like the newed memory; when goint out of the scope of the original object, it's destructed, and the pointer if any pointing to null will be deleted
 301. std::is_reference<A>::value; std::is_rvalue_reference<A&&>::value; std::is_lvalue_reference<A&>::value;
 300. universal reference and std::forward<> ensure the perfect fowarding
 299. template<typename T> void f(T && i){...;} -> here T is a universal reference, works for both rvaluea and lvalue reference. In compile time, T is inferred
