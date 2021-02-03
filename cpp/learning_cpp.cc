@@ -1,3 +1,37 @@
+//======== 321 =======
+//This is to practice rvalue reference
+#include <iostream>
+
+class B{
+    private:
+        int id;
+    public:
+        B(int _id=9): id(_id){}
+        ~B(){
+            std::cout << "B destroyed\n";
+        }
+        void get(){
+            std::cout << id << "\n";
+        }
+        B(B && b){
+            id = b.id;
+            std::cout << "move constructor\n";
+        }
+};
+
+B f(){
+    return B(99);
+}
+
+int main(){
+    B &&b = f(); // extend the lifetime of the returned rvalue
+    b.get();
+    std::cout << "---\n";
+    std::cout << "main end\n";
+}
+
+
+/*
 //======== 320 ==========
 //This is to lvalue
 #include <iostream>
@@ -19,7 +53,6 @@ int main(){
 }
 
 
-/*
 //======== 319 ========
 //This is to practice static_cast<T&&>()
 #include <iostream>
