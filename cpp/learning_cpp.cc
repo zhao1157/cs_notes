@@ -14,6 +14,7 @@ int main(){
     f() = 9;
     //f()++ = 99; //f()++ is rvalue, not lvalue
     ++f() = 99; // ++f() is lvalue
+    f()++ = 99;;
     f();
 }
 
