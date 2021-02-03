@@ -1,3 +1,25 @@
+//======== 319 ========
+//This is to practice static_cast<T&&>()
+#include <iostream>
+
+int main(){
+    int i = 9;
+    //int & j = static_cast<int>(i); // the right side is rvalue, while the left side is lvalue reference
+    const int & j = static_cast<int>(i); //the right side is rvalue which is immutable, the left side has to meet the property of
+                                         //being immutable, i.e. const
+    int && k = static_cast<int &&> (i); // k is used as an lvalue
+    int && kk = static_cast<int>(i);
+    std::cout << i << "\n";
+    k = 99;
+    std::cout << k << " " << i << "\n";
+
+    int && m = std::forward<int &&>(i);
+    m = 999;
+    std::cout << i << "\n";
+}
+
+
+/*
 //====== 318 =====
 //This is to test the lifetime of a moved object
 #include <iostream>
@@ -73,7 +95,6 @@ int main(){
 }
 
 
-/*
 //====== 317 =====
 //This is to practice std::is_rvalue_reference<>::value
 #include <iostream>
