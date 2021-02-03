@@ -1,3 +1,24 @@
+//======== 320 ==========
+//This is to lvalue
+#include <iostream>
+
+int & f(){
+    static int id = 2;
+    std::cout << id << "\n";
+    return id;
+}
+
+int main(){
+    f();
+    f() ++;
+    f() = 9;
+    //f()++ = 99; //f()++ is rvalue, not lvalue
+    ++f() = 99; // ++f() is lvalue
+    f();
+}
+
+
+/*
 //======== 319 ========
 //This is to practice static_cast<T&&>()
 #include <iostream>
@@ -19,7 +40,6 @@ int main(){
 }
 
 
-/*
 //====== 318 =====
 //This is to test the lifetime of a moved object
 #include <iostream>
