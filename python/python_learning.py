@@ -1,3 +1,8 @@
+#======== 225 =======
+# Find out the number of cores
+import multiprocessing
+print (multiprocessing.cpu_count())
+"""
 #====== 224 ======
 #This is to practice glob
 import glob
@@ -5,7 +10,6 @@ import glob
 glob = glob.glob("*.py")
 print (glob)
 
-"""
 #========= 223 =========
 #This is to practice sys.stdout.flush()
 import sys
