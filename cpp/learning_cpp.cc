@@ -1,3 +1,123 @@
+//====== 324 ====
+//This is to practice retrun by lvalue reference or rvalue reference
+#include <iostream>
+
+class B{
+    private:
+        int *id;
+    public:
+        B(int _id = -1): id(new int (_id)){}
+        ~B(){
+            std::cout << *id <<  " B destroyed\n";
+            delete id;
+        }
+        void get(){
+            std::cout << *id << "\n";
+        }
+        B(B & b){
+            std::cout << "copy constructor\n";
+        }
+};
+
+B & f(){ //the return will be a dangling reference
+    B b(99);
+    return b;
+}
+
+B && g(){
+    B b;
+    return std::move(b);
+}
+
+
+int main(){
+    {
+        B & bb = f();
+        //bb.get(); // since b is destructed, pointer id is deleted, thus bb.get() will not be able to dereference it
+        std::cout << "end\n";
+    }
+    std::cout << "_______\n";
+    {
+        B && bb = g();
+        bb.get();
+        std::cout << "end\n";
+    }
+    std::cout << "main end\n";
+}
+
+
+/*
+//====== 323 =====
+//This is to practice rvalue reference
+#include <iostream>
+
+class B{
+    private:
+        int *p;
+    public:
+        ~B(){
+            std::cout << "B destroyed\n";
+        }
+        B(int _id = -1):p(new int(_id)){
+            std::cout << "default constructed\n";
+        }
+        B (const B &b){ // only copy, never modify b, so use const
+            p = new int;
+            *p = *b.p;
+            std::cout << "copy constructed\n";
+        }
+        B(B && b){ // since move, very likely modify b, so never const B &&
+            p = b.p;
+            b.p = nullptr;
+            std::cout << "move constructed\n";
+        }
+        void get(){
+            std::cout << *p << "\n";
+            ++*p;
+        }
+};
+
+//void f(B& b){ // use an existing object, which is referred by b, will not be destructed at the end of f
+void f(B b){ // create a new object b by some constructor, and it will be destructed after the function call
+    std::cout << "\tInside f(B b)\n";
+    std::cout << "\t";
+}
+
+void g(B &b){
+    b.get();
+    std::cout << "\tInside g(B&b)\n";
+}
+
+void h(B &&b){ // just like B&b, B&&b is also a reference, nothing special
+    b.get();
+    std::cout << "\tInside h(b&&b)\n";
+}
+
+int main(){
+    B b, bb(9);
+    std::cout << "_______ 1\n";
+    std::cout << "\t";
+    {
+        //f(std::move(b));
+        //f(static_cast<B&&>(b));
+        f(std::forward<B&&>(b));
+        std::cout << "\tafter f\n";
+    }
+    std::cout << "_______ 2\n";
+    {
+        g(bb);
+    }
+    std::cout << "_______ 3\n";
+    {
+        h(std::move(bb));
+        //h(B());
+        std::cout << "\tafter h\n";
+    }
+    std::cout << "_______ 4\n";
+    bb.get();
+}
+
+
 //====== 322 ======
 //This is to practice lvalue
 #include <iostream>
@@ -9,7 +129,6 @@ int main(){
 }
 
 
-/*
 //======== 321 =======
 //This is to practice rvalue reference
 #include <iostream>

@@ -1,4 +1,4 @@
-306. A&& f(){return std::move(A());} -> dangling reference
+306. A&& f(){return std::move(A());} -> dangling reference, just like lvalue reference
 305. int & f(); f() returns a lvalue; f()++ is rvalue; ++f() is a lvalue
 304. std::forward<A&&>() and static_cast<A&&>() both convert to a rvalue reference, and the rvalue reference is used as a lvalue later on, and the modification made by the rvalue reference is reflected on the original variable (lvalue)
 303. std::forward<>() and static_cast<>() can convert between rvalue reference and lvalue reference
