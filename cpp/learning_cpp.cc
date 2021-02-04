@@ -1,3 +1,15 @@
+//====== 322 ======
+//This is to practice lvalue
+#include <iostream>
+
+int main(){
+    int i = 2, j = 4;
+    (i > j? i:j) = 9;
+    std::cout << i << " " << j << "\n";
+}
+
+
+/*
 //======== 321 =======
 //This is to practice rvalue reference
 #include <iostream>
@@ -31,7 +43,6 @@ int main(){
 }
 
 
-/*
 //======== 320 ==========
 //This is to lvalue
 #include <iostream>
