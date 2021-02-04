@@ -1,3 +1,8 @@
+#====== 74 =======
+# to exclude some files/directories from .gitignore, just like .dockerignore
+*.sh # all .sh files
+!create_datasets_from_start.sh # now this script will be tracked by git
+
 #======== 73 =======
 # split strings into substrings
 a="xx_yy_zz"
