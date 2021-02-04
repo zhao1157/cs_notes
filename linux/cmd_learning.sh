@@ -1,3 +1,13 @@
+#======== 73 =======
+# split strings into substrings
+a="xx_yy_zz"
+IFS="_" # an internal variable that how bash recognizes word boundaries
+read -a arr <<< "$a" # split and read the substrings into an array arr
+echo ${arr[0]} ${arr[1]} ${arr[2]} # access the substrings
+
+IFS=" " # reset the delimiter back to avoid unnecessary complexity
+
+
 #======== 72 =======
 # list all processes for all users
 ps axu
