@@ -8,7 +8,7 @@ class B{
             std::cout << "B destroyed\n";
         }
         B(){}
-        B(const B &b){
+        B(const B &b){ // copy constructor must have its first argument passed by reference
             std::cout << "copy constructor\n";
         }
         B(B&&b){
@@ -20,7 +20,7 @@ class B{
 int main(){
     B b = B(); // does not involve copy/move constructor
     B bb = b; // copy constructor
-    B bbb = std::move(b); // move constructor
+    B bbb = std::move(b); // move constructor, maybe b is no longer needed, the internal resoures may be moved to other object
     std::cout << "end\n";
 }
 
