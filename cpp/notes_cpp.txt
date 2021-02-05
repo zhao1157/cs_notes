@@ -1,3 +1,4 @@
+308. universal/lvalue/rvalue reference is just a reference, so no new object is constructed, it just refers to the existing one; f(B b) always calls a constructor, copy/move constructor
 307. B f(){B b; return b;} -> RVO may not destruct b, and continue use it outside
 306. A&& f(){return std::move(A());} -> dangling reference, just like lvalue reference
 305. int & f(); f() returns a lvalue; f()++ is rvalue; ++f() is a lvalue

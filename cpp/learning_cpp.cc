@@ -1,3 +1,61 @@
+//===== 327 =======
+//This is to practice feeding into functions
+#include <iostream>
+
+class B{
+    public:
+        ~B(){
+            std::cout << "destroyed\n";
+        }
+        B(){
+            std::cout << "default\n";
+        }
+        B(const B &b){
+            std::cout << "copy constructor\n";
+        }
+        B(B && b){
+            std::cout << "move constructor\n";
+        }
+};
+
+//void f(B &b){
+//    std::cout << "\tlvalue reference\n";
+//}
+//void f(B &&b){
+//    std::cout << "\trvalue reference\n";
+//}
+//
+
+// universal reference, so b is always a reference, i.e. rvalue reference or lvalue reference
+template<typename T>
+void f(T && b){
+    std::cout << "no constructored needed";
+    std::cout << "\t " << &b << "\n";
+}
+
+void g(B b){
+    std::cout << "constructor needed\n";
+}
+
+int main(){
+    B b;
+    std::cout << &b << "\n";
+    std::cout << "_____1\n";
+    f(b); // b is still needed, so use lvalue reference
+    std::cout << "_____2\n";
+    //f(std::move(b)); // b is NOT moved, it simply converts to rvalue reference so that f gets called (reference)
+    f(B());
+    std::cout << "_____3\n";
+
+    g(b); // copy constructor called, b is still needed for later
+    std::cout << "++++++4\n";
+    g(std::move(b)); // move constructor called, b is no longer needed, so move its potential resources to variable in
+                     // the function
+    std::cout << "+++++++5\n";
+}
+
+
+/*
 //==== 326 =====
 #include <iostream>
 
@@ -28,7 +86,6 @@ int main(){
     std::cout << "______ 1\n";
 }
 
-/*
 //======== 325 =======
 //This is to practice copy/move constructor
 #include <iostream>
