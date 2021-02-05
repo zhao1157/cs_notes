@@ -1,3 +1,31 @@
+//======== 325 =======
+//This is to practice copy/move constructor
+#include <iostream>
+
+class B{
+    public:
+        ~B(){
+            std::cout << "B destroyed\n";
+        }
+        B(){}
+        B(const B &b){
+            std::cout << "copy constructor\n";
+        }
+        B(B&&b){
+            std::cout << "move constructor\n";
+        }
+};
+
+
+int main(){
+    B b = B(); // does not involve copy/move constructor
+    B bb = b; // copy constructor
+    B bbb = std::move(b); // move constructor
+    std::cout << "end\n";
+}
+
+
+/*
 //====== 324 ====
 //This is to practice retrun by lvalue reference or rvalue reference
 #include <iostream>
@@ -46,7 +74,6 @@ int main(){
 }
 
 
-/*
 //====== 323 =====
 //This is to practice rvalue reference
 #include <iostream>
