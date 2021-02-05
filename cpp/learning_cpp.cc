@@ -1,3 +1,34 @@
+//==== 326 =====
+#include <iostream>
+
+class B{
+    public:
+        B(){
+            std::cout << "default\n"; 
+        }
+        ~B(){
+            std::cout << "destroyed\n";
+        }
+        B(B && b){
+            std::cout << "move constructor\n";
+        }
+        B(const B &b){
+            std::cout << "copy constructor\n";
+        }
+};
+
+B f(){
+    B b;
+    //return std::move(b); // it triggers move constructor and another object is contructed, less performant
+    return b; // return by value, RVO optimizes the process by not destructing the object, more performant
+}
+
+int main(){
+    B b = f();
+    std::cout << "______ 1\n";
+}
+
+/*
 //======== 325 =======
 //This is to practice copy/move constructor
 #include <iostream>
@@ -25,7 +56,6 @@ int main(){
 }
 
 
-/*
 //====== 324 ====
 //This is to practice retrun by lvalue reference or rvalue reference
 #include <iostream>
