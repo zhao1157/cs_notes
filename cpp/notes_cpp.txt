@@ -1,3 +1,4 @@
+311. at initialization, B b = B(); B b = f(); B && b = f()/B(); const B & b = f()/B() -> the rvalue's lifetime is extended, i.e. b and the temporary object are the same; at assignment, b = B(); b = f(); -> the temporary object is destructed after move/copy assignment
 310. B && b = B(); -> extends the lifetime of B(); b = B(); -> B() is a rvalue, thus gets destroyed after copy/move assignment; if move assignment is not available, copy assignment will be used;
 309. B * f(){return this;} -> std::cout << "The address is " << f() << "\n";
 308. universal/lvalue/rvalue reference is just a reference, so no new object is constructed, it just refers to the existing one; f(B b) always calls a constructor, copy/move constructor

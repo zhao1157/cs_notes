@@ -4,45 +4,98 @@
 
 class B{
     public:
+        int * p;
         ~B(){
+            delete p;
             std::cout << "B destroyed\n";
         }
-        B &operator =(const B & b){
-            std::cout << "copy constructor\n";
+        B(int _id = -999): p(new int (_id)){
+            std::cout << "default constructed\n";
+        }
+        B(const B & b){ // can take rvalue
+            p = new int (*b.p);
+            std::cout << "copy constructed\n";
+        }
+        //without move assignment, copy assignment will be called
+        B &operator =(const B & b){ // can take rvalue
+            std::cout << "copy assignment\n";
             if (this == & b)
                 return *this;
+            delete p;
+            p = new int (*b.p);
             return *this;
         }
-        /*
-        B & operator =(const B && b){
-            std::cout << "move constructor\n";
+        B & operator =(B && b){
+            std::cout << "move assignment\n";
             if (this == &b)
                 return *this;
+            delete p;
+            p = new int (*b.p);
+            b.p = nullptr;
             return *this;
         }
-        */
         B* get(){
             //std::cout << this << "\n";
             return this;
         }
 };
 
-int main(){
-    B b, bb;
-    //this pointer inside class is the same as &b
-    std::cout << &b << " " << b.get() << "\n";
-    std::cout << "_____1\n";
-    bb = b; 
-    std::cout << "_____2\n";
-    // B() is a rvalue, so will be destroyed after the expression
-    bb = B(); // if without move constructor, copy constructor is called; otherwise, move constructor
-    std::cout << "_____3\n";
-    bb = std::move(b);
-    std::cout << "_____4\n";
-    // B() is a rvalue, and rvalue reference directly extend its lifetime
-    B && bbb = B();
-    std::cout << "____5\n";
+B f(){
+    return B();
+}
 
+B g(){
+    B b;
+    std::cout << & b << " " << b.p << "\n";
+    return b;
+}
+
+int main(){
+    {
+        std::cout << "_____1\n";
+        B b = g(); // weird b in g() is not destroyed, and extended its lifetime to b outside
+        std::cout << & b << " " << b.p << "\n"; // turns out b inside and outside are the same
+        std::cout << "_____2\n";
+        b = g(); // move assignment
+        std::cout << & b << " " << b.p << "\n";
+        std::cout << "_____3\n";
+        const B & bb = g(); // rvalue returned, reference refers to that object, scope extended
+        std::cout << & bb << " " << bb.p << "\n";
+        std::cout << "_____4\n";
+        B && bbb = g();
+        std::cout << & bbb << " " << bbb.p << "\n";
+        std::cout << "_____5\n";
+    }
+    std::cout << "\n\n<<<<<<<>>>>>>>>\n";
+    {
+        B b, bb;
+        //this pointer inside class is the same as &b
+        std::cout << &b << " " << b.get() << "\n";
+        std::cout << "_____1\n";
+        bb = b; 
+        std::cout << "_____2\n";
+        // B() is a rvalue, so will be destroyed after the expression
+        bb = B(); // if without move assignment, copy assignment is called; otherwise, move assignment
+        std::cout << "_____3\n";
+        bb = std::move(b);
+        std::cout << "_____4\n";
+        // B() is a rvalue, and rvalue reference directly extend its lifetime
+        B && bbb = B();
+        std::cout << "____5\n";
+
+        b = f(); // the temporary object is destroyed after it's move assigned into b;
+        std::cout << "______6\n";
+       
+        // at initialization, the rvalue lifetime is extended
+        B && bbbb = f(); // the temporary object's lifetime is extended because of rvalue reference implication
+        std::cout << "______7\n";
+        B b5 = f(); // RVO
+        std::cout << "______8\n";
+        B b1 = B();
+        std::cout << "______9\n";
+        const B & b6 = f();
+        std::cout << "______10\n";
+    }
 }
 
 
