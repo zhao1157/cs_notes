@@ -1,3 +1,52 @@
+//====== 328 =====
+//This is to practice copy/move assignment
+#include <iostream>
+
+class B{
+    public:
+        ~B(){
+            std::cout << "B destroyed\n";
+        }
+        B &operator =(const B & b){
+            std::cout << "copy constructor\n";
+            if (this == & b)
+                return *this;
+            return *this;
+        }
+        /*
+        B & operator =(const B && b){
+            std::cout << "move constructor\n";
+            if (this == &b)
+                return *this;
+            return *this;
+        }
+        */
+        B* get(){
+            //std::cout << this << "\n";
+            return this;
+        }
+};
+
+int main(){
+    B b, bb;
+    //this pointer inside class is the same as &b
+    std::cout << &b << " " << b.get() << "\n";
+    std::cout << "_____1\n";
+    bb = b; 
+    std::cout << "_____2\n";
+    // B() is a rvalue, so will be destroyed after the expression
+    bb = B(); // if without move constructor, copy constructor is called; otherwise, move constructor
+    std::cout << "_____3\n";
+    bb = std::move(b);
+    std::cout << "_____4\n";
+    // B() is a rvalue, and rvalue reference directly extend its lifetime
+    B && bbb = B();
+    std::cout << "____5\n";
+
+}
+
+
+/*
 //===== 327 =======
 //This is to practice feeding into functions
 #include <iostream>
@@ -55,7 +104,6 @@ int main(){
 }
 
 
-/*
 //==== 326 =====
 #include <iostream>
 
