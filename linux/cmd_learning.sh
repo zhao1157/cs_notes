@@ -1,3 +1,5 @@
+#======= 75 =======
+a=2 ./b.sh # in b.sh a will be 2 # no ; 
 #====== 74 =======
 # to exclude some files/directories from .gitignore, just like .dockerignore
 *.sh # all .sh files
