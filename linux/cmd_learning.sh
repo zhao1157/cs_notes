@@ -1,3 +1,7 @@
+#======== 76 ======
+# set the PID namespace
+docker run -it --rm --pid=host nvcr.io/nvidia/tensorflow:20.12-tf1-py3 # can see processes on the host
+docker run -it --rm --pid=container:train_bert_2 nvcr.io/nvidia/tensorflow:20.12-tf1-py3 # can see the processes in container train_bert_2
 #======= 75 =======
 a=2 ./b.sh # in b.sh a will be 2 # no ; 
 #====== 74 =======
