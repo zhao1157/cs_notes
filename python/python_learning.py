@@ -1,8 +1,17 @@
+#========= 226 =======
+def f():
+    # a is not defined inside the function, but as long 
+    # as it's defined before f() is called, it is okay
+    print (a)
+
+a = 2
+f()
+
+"""
 #======== 225 =======
 # Find out the number of cores
 import multiprocessing
 print (multiprocessing.cpu_count())
-"""
 #====== 224 ======
 #This is to practice glob
 import glob
