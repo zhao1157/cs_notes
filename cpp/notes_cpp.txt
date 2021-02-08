@@ -1,3 +1,6 @@
+314. copy constructor/assignment should have const type; while move constructor/assignment should not have const as the rvalue might be changed
+313. B && f(){return B();}; b = f(); -> the temporary object is destructed before move/copy assignment;
+312. B f(){return B();}; b = f(); -> the temporary object is destructed after move/copy assignment; 
 311. at initialization, B b = B(); B b = f(); B && b = f()/B(); const B & b = f()/B() -> the rvalue's lifetime is extended, i.e. b and the temporary object are the same; at assignment, b = B(); b = f(); -> the temporary object is destructed after move/copy assignment
 310. B && b = B(); -> extends the lifetime of B(); b = B(); -> B() is a rvalue, thus gets destroyed after copy/move assignment; if move assignment is not available, copy assignment will be used;
 309. B * f(){return this;} -> std::cout << "The address is " << f() << "\n";

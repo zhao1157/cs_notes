@@ -1,3 +1,52 @@
+//======== 329 ========
+#include <iostream>
+
+class B{
+    public:
+        int id;
+        ~B(){
+            std::cout << "B destroyed\n"; 
+        }
+        B(int _id = -99): id(_id){
+            std::cout << "default\n";
+        }
+        B(const B & b){
+            std::cout << "copy constructor\n";
+        }
+        B (B && b){
+            std::cout << "move constructor\n";
+        }
+        B & operator = (const B & b){
+            std::cout << "copy assignment\n";
+            return *this;
+        }
+        B & operator =(B && b){
+            std::cout << "move assignment\n";
+        }
+
+};
+
+B f(){
+    //B b;
+    return B();
+}
+
+B && g(){
+    return B();
+}
+
+int main(){
+    B b;
+    std::cout << "_______1\n";
+    b = f(); // the temporary object is destructed after move assignment
+    std::cout << "_______2\n";
+    b = g(); // the temporary object is destructed before move assignemnt
+    std::cout << "_______3\n";
+}
+
+
+
+/*
 //====== 328 =====
 //This is to practice copy/move assignment
 #include <iostream>
@@ -99,7 +148,6 @@ int main(){
 }
 
 
-/*
 //===== 327 =======
 //This is to practice feeding into functions
 #include <iostream>
