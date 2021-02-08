@@ -1,3 +1,16 @@
+#========= 227 =======
+# this is to practice mutables in an default argument
+def f(a = [2,3]):
+    print (a)
+    a.append(3)
+
+f([99])
+f([99])
+f()
+f()
+f()
+
+"""
 #========= 226 =======
 def f():
     # a is not defined inside the function, but as long 
@@ -7,7 +20,6 @@ def f():
 a = 2
 f()
 
-"""
 #======== 225 =======
 # Find out the number of cores
 import multiprocessing
