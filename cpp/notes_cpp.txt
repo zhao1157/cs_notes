@@ -1,3 +1,5 @@
+316. void f(B b); -> creates a copy which will be destructed when exiting f; void f(B &b) or void f(B &&b); -> does not create a copy, just referring to an existing object
+315. In templace function, std::forward<T>() and static_cast<T&&>() are equivalent, not static_cast<T>()
 314. copy constructor/assignment should have const type; while move constructor/assignment should not have const as the rvalue might be changed
 313. B && f(){return B();}; b = f(); -> the temporary object is destructed before move/copy assignment;
 312. B f(){return B();}; b = f(); -> the temporary object is destructed after move/copy assignment; 

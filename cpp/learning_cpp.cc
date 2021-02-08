@@ -1,3 +1,57 @@
+//====== 330 =====
+//This is to practice std::forward<>()
+#include <iostream>
+
+class B{
+    public:
+        int *p;
+        ~B(){
+            std::cout << "destructed\n";
+        }
+        B(int id = 99): p(new int (id)){}
+        B(const B &){
+            std::cout << "copy constructor\n";
+        }
+        B(B &&){
+            std::cout << "move constructor\n";
+        }
+};
+
+/*
+void g(B &b){
+    std::cout << "lvalue reference\n";
+    std::cout << *b.p << "\n";
+}
+
+void g(B && b){
+    std::cout << "rvalue reference\n";
+    std::cout << *b.p << "\n";
+}
+*/
+void g(B b){ // constructor is called to create new object and later gets destructed when exiting
+    std::cout << "constructed\n";
+}
+
+template<typename T>
+void f(T && a){ // type of a is captured by compiler into T, always a reference referring to the original object
+    std::cout << ">\n";
+    //g(std::forward<T>(a)); // a is converted back to the original reference type, lvalue reference or rvalue reference
+    g(static_cast<T&&> (a));
+    //g(a);
+    std::cout << "<\n";
+}
+
+int main(){
+    B b;
+    std::cout << "______1\n";
+    f(b);
+    std::cout << "______2\n";
+    f(B(9));
+    std::cout << "______3\n";
+}
+
+
+/*
 //======== 329 ========
 #include <iostream>
 
@@ -45,8 +99,6 @@ int main(){
 }
 
 
-
-/*
 //====== 328 =====
 //This is to practice copy/move assignment
 #include <iostream>
