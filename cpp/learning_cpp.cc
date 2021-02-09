@@ -1,3 +1,30 @@
+//===== 331 ======
+//This is to practice tuple
+#include <iostream>
+#include <tuple>
+
+int main(){
+    std::tuple<int, std::string, char> t (32, "zls", '\n');
+    std::cout << std::get<0>(t) << " " << std::get<1>(t) << std::get<2>(t);
+
+    int i;
+    std::string name;
+    char c;
+    std::tie(i, name, c) = t;
+    std::cout << i << " " << name << " " << c;
+
+    std::tuple<int&, std::string&> tt (std::ref(i), std::ref(name));
+    std::cout << std::get<0>(tt) << " " << std::get<1>(tt) << "\n";
+    i = 999;
+    name = "dsy";
+    std::cout << std::get<0>(tt) << " " << std::get<1>(tt) << "\n";
+    
+    std::get<0>(tt) = -9;
+    std::cout << i << "\n";
+}
+
+
+/*
 //====== 330 =====
 //This is to practice std::forward<>()
 #include <iostream>
@@ -17,7 +44,6 @@ class B{
         }
 };
 
-/*
 void g(B &b){
     std::cout << "lvalue reference\n";
     std::cout << *b.p << "\n";
@@ -27,7 +53,6 @@ void g(B && b){
     std::cout << "rvalue reference\n";
     std::cout << *b.p << "\n";
 }
-*/
 void g(B b){ // constructor is called to create new object and later gets destructed when exiting
     std::cout << "constructed\n";
 }
@@ -51,7 +76,6 @@ int main(){
 }
 
 
-/*
 //======== 329 ========
 #include <iostream>
 
