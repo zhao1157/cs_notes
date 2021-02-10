@@ -1,3 +1,44 @@
+//======= 332 ==========
+//This is to practice return tuple
+#include <iostream>
+#include <tuple>
+#include <functional>
+
+std::tuple<int, std::string> f(){
+    int i = 32;
+    std::string name = "zls";
+    std::tuple<int&, std::string&> s(std::ref(i), std::ref(name));
+    i--;
+    return s;
+}
+
+class B{
+    public:
+        int id;
+        B(int _id=9): id(_id){
+        }
+        ~B(){
+            std::cout << "B destroyed\n";
+        }
+};
+
+std::tuple<B, int> g(){
+    B b(99);
+    std::tuple<B, int> t(b, 2);
+    return t;
+}
+
+int main(){
+    std::tuple<int, std::string> t = f();
+    std::cout << std::get<0>(t) << " " << std::get<1>(t) << "\n";
+
+    B b;
+    std::tie(b, std::ignore) = g();
+    std::cout << b.id << "\n";
+    std::cout << "end\n";
+}
+
+/*
 //===== 331 ======
 //This is to practice tuple
 #include <iostream>
@@ -24,7 +65,6 @@ int main(){
 }
 
 
-/*
 //====== 330 =====
 //This is to practice std::forward<>()
 #include <iostream>

@@ -1,3 +1,5 @@
+319. std::tie(b, std::ignore) = std::tuple<B, int> (B(), 2); -> ignore the element in that place
+318. std::ref() is defined in <functional>; if not defined in std, make sure #include <functional>
 317. std::tuple<int, std::string &> t(i, name); std::get<1>(t) = "zls"; -> name becomes "zls"; std::tie(a, b) = t; -> unpacks t into a and b;
 316. void f(B b); -> creates a copy which will be destructed when exiting f; void f(B &b) or void f(B &&b); -> does not create a copy, just referring to an existing object
 315. In templace function, std::forward<T>() and static_cast<T&&>() are equivalent, not static_cast<T>()
