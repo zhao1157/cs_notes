@@ -1,3 +1,4 @@
+320. B b(); -> it's interpreted as funciton declaration, not variable declaration
 319. std::tie(b, std::ignore) = std::tuple<B, int> (B(), 2); -> ignore the element in that place
 318. std::ref() is defined in <functional>; if not defined in std, make sure #include <functional>
 317. std::tuple<int, std::string &> t(i, name); std::get<1>(t) = "zls"; -> name becomes "zls"; std::tie(a, b) = t; -> unpacks t into a and b;

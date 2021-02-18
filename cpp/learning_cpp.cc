@@ -1,3 +1,26 @@
+//====== 333 ======
+//This is to practice 
+#include <iostream>
+
+class B{
+    public:
+        B(){
+            std::cout << "constructor\n";
+        }
+};
+
+int main(){
+    {
+        B b(); // it's interpreted as function declaration
+    }
+
+    {
+        B b;
+    }
+}
+
+
+/*
 //======= 332 ==========
 //This is to practice return tuple
 #include <iostream>
@@ -38,7 +61,6 @@ int main(){
     std::cout << "end\n";
 }
 
-/*
 //===== 331 ======
 //This is to practice tuple
 #include <iostream>
