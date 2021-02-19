@@ -1,3 +1,7 @@
+#======= 77 ======
+docker start -ai container_name # it takes you straight to where you left last time, exiting this session will closing all other sessions
+docker exec -it container_name /bin/bash # it's just like opening another session of this container, closing the session does not affect other sessions
+
 #======== 76 ======
 # set the PID namespace
 docker run -it --rm --pid=host nvcr.io/nvidia/tensorflow:20.12-tf1-py3 # can see processes on the host
