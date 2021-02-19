@@ -1,3 +1,7 @@
+#======= 228 ======
+a = [] or [2] # a is assigned to [2]
+
+"""
 #========= 227 =======
 # this is to practice mutables in an default argument
 def f(a = [2,3]):
@@ -10,7 +14,6 @@ f()
 f()
 f()
 
-"""
 #========= 226 =======
 def f():
     # a is not defined inside the function, but as long 
