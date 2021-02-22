@@ -1,3 +1,10 @@
+#======= 78 =======
+# go back the previous commit 
+# keep the changes
+git reset --soft HEAD~1
+# not keep the changes
+git reset --hard HEAD~1
+
 #======= 77 ======
 docker start -ai container_name # it takes you straight to where you left last time, exiting this session will closing all other sessions
 docker exec -it container_name /bin/bash # it's just like opening another session of this container, closing the session does not affect other sessions
