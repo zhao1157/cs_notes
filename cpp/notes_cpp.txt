@@ -1,3 +1,4 @@
+321. In class inheritance, the explicit B(b) and B(std::move(b)) need to be called in the initialization in copy and move constructor, otherwise the base default constructor will be called
 320. B b(); -> it's interpreted as funciton declaration, not variable declaration
 319. std::tie(b, std::ignore) = std::tuple<B, int> (B(), 2); -> ignore the element in that place
 318. std::ref() is defined in <functional>; if not defined in std, make sure #include <functional>

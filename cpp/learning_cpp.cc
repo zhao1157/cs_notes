@@ -1,3 +1,47 @@
+//===== 334 ======
+//This is to practice move semantics in class inheritance
+#include <iostream>
+
+class B{
+    private:
+        int id;
+    public:
+        B(int _id = 9): id(_id){
+            std::cout << "B default constructor\n";
+        }
+        B (const B & b){
+            id = b.id;
+            std::cout << "B copy constructor\n";
+        }
+        B (B && b){
+            std::cout << "B move constructor\n";
+        }
+        void Get_id(){
+            std::cout << id << "\n";
+        }
+};
+
+class D: public B{
+    public:
+        D(int _id = 9): B(_id){
+            std::cout << "D default constructor\n";
+        }
+        D(const D & d): B(d){ // without B(d) copy constructor, B() will be called, thus id=9, not 99
+            std::cout << "D copy contructor\n";
+        }
+        D(D && d): B(std::move(d)){ // without std::move(), B(d) will call copy constructor
+            std::cout << "D move constructor\n";
+        }
+};
+
+int main(){
+    D d(99), d1 = d;
+    d1.Get_id();
+
+    D d2(std::move(d));
+}
+
+/*
 //====== 333 ======
 //This is to practice 
 #include <iostream>
@@ -20,7 +64,6 @@ int main(){
 }
 
 
-/*
 //======= 332 ==========
 //This is to practice return tuple
 #include <iostream>
