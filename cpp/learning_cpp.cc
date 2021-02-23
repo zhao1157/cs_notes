@@ -1,3 +1,61 @@
+//===== 335 =====
+//This is to practice deleter in shared_ptr/unique_ptr
+#include <iostream>
+#include <memory>
+
+class Deleter{
+    public:
+        template<typename T>
+        void operator()(T *p){
+            delete p;
+            std::cout << "Deleted\n";
+        }
+};
+
+class Deleter_Arr{
+    public:
+        template<typename T>
+        void operator()(T *p){
+            delete [] p;
+            std::cout << "array deleted\n";
+        }
+};
+
+int main(){
+    int *p = new int(3);
+    {
+        std::shared_ptr<int> sp(p, std::default_delete<int>()); // call delete
+        std::cout << *sp << "\n";
+    }
+    //std::cout << *p << "\n"; // p deleted, so can not dereference it
+    {
+        std::shared_ptr<double> sp(new double(3.14), Deleter());
+        std::cout << *sp << "\n";
+    }
+
+    {
+        std::shared_ptr<int> up(new int (9), [](int * p){
+                    delete p;
+                    std::cout << "lambda deleter\n";
+                });
+    }
+
+    {
+        std::shared_ptr<int> sp(new int[]{2,3}, std::default_delete<int[]>()); // call delete[]
+        //std::cout << sp[0] << "\n"; // not supported yet
+        std::cout << sp.get()[0] << " " << sp.get()[1] << "\n";
+    }
+
+    {
+        std::unique_ptr<int[], Deleter_Arr> sp(new int[2]{4, 5}); // call delete []
+        std::cout << sp[0] << " " << sp[1] << "\n";
+        std::cout << sp.get()[1] << "\n";
+    }
+
+}
+
+
+/*
 //===== 334 ======
 //This is to practice move semantics in class inheritance
 #include <iostream>
@@ -41,7 +99,6 @@ int main(){
     D d2(std::move(d));
 }
 
-/*
 //====== 333 ======
 //This is to practice 
 #include <iostream>
