@@ -1,7 +1,19 @@
+#======== 229 ========
+# This is to practice default mutables in a function argument
+def f(a = []): # the object referenced by a is always there whenever no parameter is passed
+    a.append(2)
+    print (a)
+
+b = [3]
+f()
+f()
+f(b)
+f()
+
+"""
 #======= 228 ======
 a = [] or [2] # a is assigned to [2]
 
-"""
 #========= 227 =======
 # this is to practice mutables in an default argument
 def f(a = [2,3]):
