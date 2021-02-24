@@ -1,3 +1,7 @@
+#====== 79 =======
+# list all branches
+git branch -a
+
 #======= 78 =======
 # go back the previous commit 
 # keep the changes
