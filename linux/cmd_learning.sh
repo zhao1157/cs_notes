@@ -1,3 +1,8 @@
+#======== 80 =======
+#see the changes made in a commit
+git show 11a4ddaa97cd1cc072e5ff911b252bfc9402dabb # changes made in this commit
+git diff commit_id_old commit_id_new # changes need to made to go from commit_id_old to commit_id_new
+
 #====== 79 =======
 # list all branches
 git branch -a
