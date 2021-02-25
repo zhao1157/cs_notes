@@ -1,3 +1,21 @@
+//====== 336 =======
+//This is to practice const in a class
+#include <iostream>
+
+class B{
+    private:
+        const int a;
+    public:
+        B(int _a = 2): a(_a){ // here const variable has to be initialized in the initialization table
+            //a = _a; // can not assign a const variable
+        }
+};
+
+int main(){
+    B b;
+}
+
+/*
 //===== 335 =====
 //This is to practice deleter in shared_ptr/unique_ptr
 #include <iostream>
@@ -55,7 +73,6 @@ int main(){
 }
 
 
-/*
 //===== 334 ======
 //This is to practice move semantics in class inheritance
 #include <iostream>
