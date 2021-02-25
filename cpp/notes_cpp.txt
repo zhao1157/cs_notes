@@ -1,3 +1,4 @@
+327. dynamic_cast<B*>(D_ptr) works without requiring the class be virtual; dynamic_cast<D&/*>(B&/*) only works for virtual class
 326. dynamic polymorphism works for both base reference and pointer type, not base type
 325. const function can be overloaded; B b; b.f() -> prefer the non-const function, but also the const one; const B b; b.f() -> ONLY the const one
 324. In a class constructor, if an error is thrown, the destructor will not be called

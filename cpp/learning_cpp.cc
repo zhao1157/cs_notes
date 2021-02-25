@@ -1,3 +1,49 @@
+//====== 340 =======
+//This is to practice dynamics_cast and static_cast
+#include <iostream>
+
+class B{
+    public:
+        virtual void f(){
+            std::cout << "B\n";
+        }
+};
+
+class D: public B{
+    public:
+        virtual void f() override{
+            std::cout << "D\n";    
+        }
+};
+
+class BB{
+};
+
+class DD: public BB{
+};
+
+int main(){
+    {
+        D d;
+        B b = static_cast<B> (d);
+        b.f();
+        B &bb = static_cast<B&>(d);
+        bb.f();
+    }
+    {
+        BB * p = new DD;
+        //DD *bb = dynamic_cast<DD*>(p); // has to be polymorphic class when converting from base to derived type
+    }
+    {
+        DD *p = new DD;
+        BB *pp = dynamic_cast<BB*>(p);
+        if (pp)
+            std::cout << "successful\n";
+    }
+}
+
+
+/*
 //======== 339 =======
 //This is to practice reference can also work in polymorphism
 #include <iostream>
@@ -47,7 +93,6 @@ int main(){
     m(&d);
 }
 
-/*
 //========= 338 =======
 //This is to practice const function overloading
 #include <iostream>
