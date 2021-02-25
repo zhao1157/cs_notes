@@ -1,3 +1,26 @@
+//========= 338 =======
+//This is to practice const function overloading
+#include <iostream>
+
+class B{
+    public:
+        void f() const{
+            std::cout << "const\n";
+        }
+        void f(){
+            std::cout << "non-const\n";
+        }
+};
+
+int main(){
+    B b;
+    b.f();
+    const B bb;
+    bb.f();
+}
+
+
+/*
 //====== 337 ======
 //This is to practice throwing an error in the constructor and see if destructor is called
 #include <iostream>
@@ -23,7 +46,6 @@ int main(){
 }
 
 
-/*
 //====== 336 =======
 //This is to practice const in a class
 #include <iostream>
