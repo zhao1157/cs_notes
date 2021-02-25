@@ -1,3 +1,53 @@
+//======== 339 =======
+//This is to practice reference can also work in polymorphism
+#include <iostream>
+
+class B{
+    public:
+        int id = 9;
+        virtual void f(){
+            std::cout << "B\n";
+        }
+        B(){}
+        B(const B & b){
+            std::cout << "B copy constructor\n";
+        }
+};
+
+class D: public B{
+    public:
+        virtual void f() override{
+            std::cout << "D\n";
+        }
+        D():B(){std::cout << "Default\n";}
+        D(const D & d): B(d){
+            std::cout << "D copy constructor\n";
+        }
+};
+
+void g(B & b){
+    b.f();
+    std::cout << & b.id << "\n"; // the same memory address
+}
+
+void h(B b){
+    b.f();
+    std::cout << &b.id << "\n"; // different memory address
+}
+
+void m(B*b){
+    b->f();
+}
+
+int main(){
+    D d;
+    std::cout << &d.id << "\n";
+    g(d);
+    h(d); // d is converted to B type, then B copy constructor
+    m(&d);
+}
+
+/*
 //========= 338 =======
 //This is to practice const function overloading
 #include <iostream>
@@ -20,7 +70,6 @@ int main(){
 }
 
 
-/*
 //====== 337 ======
 //This is to practice throwing an error in the constructor and see if destructor is called
 #include <iostream>
