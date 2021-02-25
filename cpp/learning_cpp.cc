@@ -1,3 +1,29 @@
+//====== 337 ======
+//This is to practice throwing an error in the constructor and see if destructor is called
+#include <iostream>
+
+class B{
+    public:
+        B(){
+            try{
+                throw(1);
+            } catch(int){
+                std::cout << "int\n";
+            }
+        }
+
+        ~B(){
+            std::cout << "destructor\n"; // not called
+        }
+};
+
+int main(){
+    B b;
+    //throw(2); // also the destructor is not called
+}
+
+
+/*
 //====== 336 =======
 //This is to practice const in a class
 #include <iostream>
@@ -15,7 +41,6 @@ int main(){
     B b;
 }
 
-/*
 //===== 335 =====
 //This is to practice deleter in shared_ptr/unique_ptr
 #include <iostream>

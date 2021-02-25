@@ -1,3 +1,4 @@
+324. In a class constructor, if an error is thrown, the destructor will not be called
 323. const variable in a class has to be initialized in the constructor initializer list
 322. std::shared_ptr<T> -> std:shared_ptr<int> sp(new int(2), D()/lambda); std::unique_ptr<T, Deleter> -> std::unique_ptr<int[], D> up(new int[3]{2, 4, 5}, D()); we can use shared_ptr mananges dyanmically allocated arrays, but it does not support [] operator, however we can use sp.get()[] to access the elements; std::unique_ptr supports [] operator for array; for the deleter, we can use the default one, i.e. std::default_delete<int[]>()
 321. In class inheritance, the explicit B(b) and B(std::move(b)) need to be called in the initialization in copy and move constructor, otherwise the base default constructor will be called
