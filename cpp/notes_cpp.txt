@@ -1,3 +1,4 @@
+328. shared_ptr supports move semantics; i.e. std::shared_ptr<int>p2(std::move(p1)); -> p1.use_count() is reset to 0 and the raw pointer being managed is transferred, and p1 now manages nullptr;
 327. dynamic_cast<B*>(D_ptr) works without requiring the class be virtual; dynamic_cast<D&/*>(B&/*) only works for virtual class
 326. dynamic polymorphism works for both base reference and pointer type, not base type
 325. const function can be overloaded; B b; b.f() -> prefer the non-const function, but also the const one; const B b; b.f() -> ONLY the const one

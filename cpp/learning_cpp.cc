@@ -1,3 +1,18 @@
+//===== 341 =====
+//This is to practice shared_ptr and move
+#include <iostream>
+
+int main(){
+    std::shared_ptr<int> p1(new int(2));
+    std::shared_ptr<int> p11(p1);
+    std::cout << p1.use_count() << "\n";
+    std::shared_ptr<int> p2(std::move(p1));
+    std::cout << p1.use_count() << " " << p11.use_count() << " " << p2.use_count() << "\n";
+    std::cout << p1 << " " << p1.get() << "\n";
+}
+
+
+/*
 //====== 340 =======
 //This is to practice dynamics_cast and static_cast
 #include <iostream>
@@ -43,7 +58,6 @@ int main(){
 }
 
 
-/*
 //======== 339 =======
 //This is to practice reference can also work in polymorphism
 #include <iostream>
