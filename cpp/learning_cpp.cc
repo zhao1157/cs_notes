@@ -1,3 +1,90 @@
+//===== 342 ====
+//This is to practice implementing shared_ptr
+#include <iostream>
+
+template <typename T>
+class SHARED_PTR{
+    private:
+        T *p; 
+        int *count_ptr;
+    public:
+        //Deleter can be included as the second argument to delete arrays
+        SHARED_PTR(T * _p): p(_p), count_ptr(new int(1)){ 
+            std::cout << "brand new shared_ptr\n";
+        }
+        SHARED_PTR(const SHARED_PTR & rhs){
+            std::cout << "copy constructor\n";
+            p = rhs.p;
+            count_ptr = rhs.count_ptr;
+            ++(*count_ptr); // for better performance, use ++(), not ()++
+        }
+
+        SHARED_PTR & operator = (const SHARED_PTR & rhs){
+            if (this == & rhs){
+                return * this;
+            }
+            p = rhs.p;
+            count_ptr = rhs.count_ptr;
+            ++(*count_ptr);
+
+            return *this;
+        }
+
+        SHARED_PTR(SHARED_PTR && rhs){
+            std::cout << "move constructor\n";
+            p = rhs.p;
+            count_ptr = rhs.count_ptr;
+            // reset rhs to null
+            rhs.p = nullptr;
+            rhs.count_ptr = new int(0);
+        }
+
+        SHARED_PTR & operator= (SHARED_PTR && rhs){
+            if (this == & rhs){
+                return *this;
+            }
+            p = rhs.p;
+            count_ptr = rhs.count_ptr;
+            // reset rhs
+            rhs.p = nullptr;
+            rhs.count_ptr = new int(0);
+        }
+
+        T get(){
+            return *p;
+        }
+        int use_count(){
+            return *count_ptr;
+        }
+        ~SHARED_PTR(){
+            tidy_up();
+        }
+    protected:
+        void tidy_up(){
+            std::cout << this << ": tidying up\n";
+            if (*count_ptr == 1 || * count_ptr == 0){
+                --(*count_ptr);
+                delete p;
+                delete count_ptr;
+                std::cout << "\tdeleted\n";
+            } else{
+                --(*count_ptr);
+            }
+        }
+};
+
+int main(){
+    SHARED_PTR<int> sp(new int(2)), sp_2 = sp;
+    
+    SHARED_PTR<int> sp_3 = std::move(sp_2);
+
+    std::cout << sp.use_count() << " " << sp_2.use_count() << " " << sp_3.use_count ()<< "\n";
+    std::cout << "sp: " << &sp << "\n";
+    std::cout << "sp_2: " << &sp_2 << "\n";
+    std::cout << "sp_3: " << &sp_3 << "\n";
+}
+
+/*
 //===== 341 =====
 //This is to practice shared_ptr and move
 #include <iostream>
@@ -12,7 +99,6 @@ int main(){
 }
 
 
-/*
 //====== 340 =======
 //This is to practice dynamics_cast and static_cast
 #include <iostream>
