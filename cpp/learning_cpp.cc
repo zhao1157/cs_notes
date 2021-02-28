@@ -1,3 +1,53 @@
+//====== 343 ======
+//This is to test if using unique_ptr in a class would prevent memoery leak? after throw(2), observe no destructored being called?
+//unique_ptr does not support copy constructor, nor copy assignment
+#include <iostream>
+#include <memory>
+
+template<typename T>
+class Deleter{
+    public:
+        void operator()(T * p){
+            delete p;
+            std::cout << "\tdeleted\n";
+        }
+};
+
+class B{
+    //private:
+    public:
+        int * p_id;
+        std::unique_ptr<double, Deleter<double>> uq;
+    public:
+        B(int _id=2, double _d=3.14): p_id(new int(_id)), uq(std::unique_ptr<double, Deleter<double>>(new double(_d))){
+            //throw(2);
+        }
+        ~B(){
+            delete p_id;
+            std::cout << "\tp_id deleted\n";
+        }
+        
+        std::unique_ptr<double, Deleter<double>> f(){
+            return std::move(uq);
+            // return uq; // unique_ptr can not be copy constructed
+        }
+};
+
+int main(){
+    B b;
+    std::cout << b.uq << "\n";
+    std::cout << "1\n";
+    {
+        std::unique_ptr<double, Deleter<double>> up (b.f()); //uq is moved 
+        std::unique_ptr<double, Deleter<double>> upp;
+        //upp = up; // copy assignment is not supported
+    }
+    std::cout << "2\n";
+    std::cout << b.uq << "\n"; // it's now nullptr
+}
+
+
+/*
 //===== 342 ====
 //This is to practice implementing shared_ptr
 #include <iostream>
@@ -84,7 +134,6 @@ int main(){
     std::cout << "sp_3: " << &sp_3 << "\n";
 }
 
-/*
 //===== 341 =====
 //This is to practice shared_ptr and move
 #include <iostream>

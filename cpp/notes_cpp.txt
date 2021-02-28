@@ -1,3 +1,5 @@
+330. unique_ptr<>() seems not delete the pointer after a throw(2) is called?
+329. unique_ptr<>() does not support copy constructor or copy assignemnt, can only be moved
 328. shared_ptr supports move semantics; i.e. std::shared_ptr<int>p2(std::move(p1)); -> p1.use_count() is reset to 0 and the raw pointer being managed is transferred, and p1 now manages nullptr;
 327. dynamic_cast<B*>(D_ptr) works without requiring the class be virtual; dynamic_cast<D&/*>(B&/*) only works for virtual class
 326. dynamic polymorphism works for both base reference and pointer type, not base type
