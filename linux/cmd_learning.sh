@@ -1,3 +1,7 @@
+#========= 81 ====
+# copy data between docker container and host
+docker cp test.sh 3b9c146e4c4a:/home/inspur/zls/tutorial
+docker cp hardcore_wozniak:/home/inspur/zls/tutorial/train.py ./
 #======== 80 =======
 #see the changes made in a commit
 git show 11a4ddaa97cd1cc072e5ff911b252bfc9402dabb # changes made in this commit
