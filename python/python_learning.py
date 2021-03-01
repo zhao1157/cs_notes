@@ -1,3 +1,38 @@
+#====== 231 ======
+# This is to practice context manager that does no return anything
+class CM:
+    def __enter__(self):
+        print ("enter\n")
+    def __exit__(self, *args):
+        print ("exit\n")
+
+if __name__ == "__main__":
+    with CM():
+        print ("middle\n")
+
+"""
+#====== 230 ======
+# This is to practice context manager class
+class CManager:
+    def __init__(self, filename, mode):
+        self._filename = filename
+        self._mode = mode
+        self._file_handler = None
+    def __enter__(self):
+        self._file_handler = open(self._filename, self._mode)
+        return self._file_handler
+    def __exit__(self, excp_type, excp_value, excp_traceback):
+        self._file_handler.close()
+        print ("excp_type: {}".format(excp_type))
+        print ("excp_value: {}".format(excp_value))
+        #print ("excp_traceback: {}".format(excp_trace_back))
+
+if __name__ == "__main__":
+    with CManager("a.txt", "w") as f:
+        f.write("xx\n");
+        raise ValueError("throw an error\n")
+
+
 #======== 229 ========
 # This is to practice default mutables in a function argument
 def f(a = []): # the object referenced by a is always there whenever no parameter is passed
@@ -10,7 +45,6 @@ f()
 f(b)
 f()
 
-"""
 #======= 228 ======
 a = [] or [2] # a is assigned to [2]
 
