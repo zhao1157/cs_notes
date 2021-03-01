@@ -1,3 +1,30 @@
+//===== 344 =====
+// find out the maximum divisor of two numbers
+#include <iostream>
+
+int factor(const int &a, const int &b){
+    if (a % b == 0)
+        return b;
+    if (b % a == 0)
+        return a;
+    int min = a < b? a : b; 
+    for (int i = 2; i < static_cast<int>(min/2); ++i){
+        if (a % i == 0 && b %i == 0){
+            return i * factor(a/i, b/i);
+        }
+    }
+    // not find a common factor
+    return 1;
+}
+
+int main(){
+    int a = 1, b = 6;
+    int fac_ab = factor(a, b);
+    std::cout << a << " and " << b << " has a common divisor of " << fac_ab << "\n";
+}
+
+
+/*
 //====== 343 ======
 //This is to test if using unique_ptr in a class would prevent memoery leak? after throw(2), observe no destructored being called?
 //unique_ptr does not support copy constructor, nor copy assignment
@@ -47,7 +74,6 @@ int main(){
 }
 
 
-/*
 //===== 342 ====
 //This is to practice implementing shared_ptr
 #include <iostream>
