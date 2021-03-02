@@ -1,3 +1,18 @@
+//========== 345 =========
+// This is to test the size of an empty struct
+#include <iostream>
+
+class Me{
+    int b, c; // 4
+    float f; // 8
+};
+
+int main(){
+    Me m;
+    std::cout << sizeof(m) << "\n"; // 16?
+}
+
+/*
 //===== 344 =====
 // find out the maximum divisor of two numbers
 #include <iostream>
@@ -24,7 +39,6 @@ int main(){
 }
 
 
-/*
 //====== 343 ======
 //This is to test if using unique_ptr in a class would prevent memoery leak? after throw(2), observe no destructored being called?
 //unique_ptr does not support copy constructor, nor copy assignment

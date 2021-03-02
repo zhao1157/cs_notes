@@ -1,3 +1,4 @@
+331. sizeof (struct_empty) is 1, but a struct with a int and a double has size of 16, due to compiler optimization in the case of double, i.e. having another 4-byte empty block to make it a multiple of 8 for 64-bit system, -> accessing the next element faster.
 330. unique_ptr<>() seems not delete the pointer after a throw(2) is called?
 329. unique_ptr<>() does not support copy constructor or copy assignemnt, can only be moved
 328. shared_ptr supports move semantics; i.e. std::shared_ptr<int>p2(std::move(p1)); -> p1.use_count() is reset to 0 and the raw pointer being managed is transferred, and p1 now manages nullptr;
