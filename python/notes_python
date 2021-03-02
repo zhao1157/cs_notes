@@ -1,2 +1,3 @@
+3. a=[2]; b = a[:] -> id(a) != id(b) -> deep copy
 2. swap two values: a, b = b, a
 1. "with CONTEXTMANAGER() as cm:" -> inside CONTEXTMANAGER(), __enter__(self), __exit__(self, excp_type, excp_value, excp_traceback) need to be implemented; __enter__() does not need to return anything
