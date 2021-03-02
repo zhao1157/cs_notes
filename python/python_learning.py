@@ -1,3 +1,18 @@
+#====== 232 ======
+#This is to practice dis
+import dis
+def swap(a, b):
+    a, b = b, a
+
+def swap_2(a, b):
+    temp = a
+    a = b
+    b = temp
+dis.dis(swap)
+print ("________")
+dis.dis(swap_2)
+
+"""
 #====== 231 ======
 # This is to practice context manager that does no return anything
 class CM:
@@ -10,7 +25,6 @@ if __name__ == "__main__":
     with CM():
         print ("middle\n")
 
-"""
 #====== 230 ======
 # This is to practice context manager class
 class CManager:
