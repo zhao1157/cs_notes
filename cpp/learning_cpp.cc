@@ -1,10 +1,11 @@
 //========== 345 =========
-// This is to test the size of an empty struct
+// This is to test the memory alignment -> faster accessing the next element
 #include <iostream>
 
 class Me{
-    int b, c; // 4
-    float f; // 8
+    int b, c; // 4*2
+    float f; // 4
+    char d; // 1 //additional 1 byte makes the total size 16 bytes
 };
 
 int main(){
