@@ -2,14 +2,20 @@
 #This is to practice closure
 def outer():
     print ("outer")
+    a = 2
+    b = 3
+    c = 4
     def inner():
-        print ("inner")
+        print ("inner", a, b)
     return inner
 
 f_1 = outer()
 f_2 = outer()
 # always creates different objects
 print (id(f_1) == id(f_2))
+print (f_1.__closure__[0].cell_contents)
+print (f_2.__closure__[1].cell_contents)
+
 
 """
 #====== 232 ======

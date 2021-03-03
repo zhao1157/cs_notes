@@ -1,3 +1,4 @@
+5. To be a closure, make sure nested function, reutrn function object, and at least one variable in the outer function is used inside. closure_obj.__closure__[0].cell_contents; [i] depends on the number of varibles enclosed
 4. closure returns a different object whenever called
 3. a=[2]; b = a[:] -> id(a) != id(b) -> deep copy
 2. swap two values: a, b = b, a
