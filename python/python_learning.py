@@ -1,3 +1,17 @@
+#====== 233 =======
+#This is to practice closure
+def outer():
+    print ("outer")
+    def inner():
+        print ("inner")
+    return inner
+
+f_1 = outer()
+f_2 = outer()
+# always creates different objects
+print (id(f_1) == id(f_2))
+
+"""
 #====== 232 ======
 #This is to practice dis
 import dis
@@ -12,7 +26,6 @@ dis.dis(swap)
 print ("________")
 dis.dis(swap_2)
 
-"""
 #====== 231 ======
 # This is to practice context manager that does no return anything
 class CM:
