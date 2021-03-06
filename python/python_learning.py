@@ -1,3 +1,12 @@
+# ======= 234 =======
+# This is to practice setattr
+def f():
+    pass
+
+text = "xxx"
+setattr(f, "__doc__", text)
+
+"""
 #====== 233 =======
 #This is to practice closure
 def outer():
@@ -17,7 +26,6 @@ print (f_1.__closure__[0].cell_contents)
 print (f_2.__closure__[1].cell_contents)
 
 
-"""
 #====== 232 ======
 #This is to practice dis
 import dis
