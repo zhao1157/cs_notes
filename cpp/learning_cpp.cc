@@ -1,3 +1,54 @@
+//======= 348 ======
+//This is to practice another Baidu interview coding exercise
+#include <iostream>
+
+bool is_symetric(std::string & s, int start, int end){
+    int len = s.size();
+    for (int i = start, j = end - 1; i < j; ++i, --j){
+        if (s[i] != s[j])
+            return false;
+    }
+    
+    for (int i = start; i < end; ++i)
+       std::cout << s[i]; 
+    std::cout << "\n";
+
+    return true;
+}
+
+void find_max_symetric(std::string & s){
+    int ind = 0;
+    int len = s.size();
+    while (len - ind > 1){
+        std::cout << ind << "\n";
+        int sub_len = len - ind;
+        bool found = false;
+        bool exit = false;
+
+        for (int i = 0; i <= ind; ++i){
+            found = is_symetric(s, i, i + sub_len);        
+            if (found)
+                exit = true;
+        }
+
+        if (exit)
+            break;
+
+        // next length
+        ++ind;
+    }
+}
+
+int main(){
+    std::string s = "xxabcbayyxxabcba";
+    
+    std::cout << std::boolalpha;
+    std::cout << is_symetric(s, 0, s.size()) << "\n";
+    
+    find_max_symetric(s);
+}
+
+/*
 //====== 347 ======
 //This is to practice enhanced baidu-interview coding
 // fill in an nxm dimension array with 1 2 3 ... from center to outer perimeter
@@ -65,19 +116,10 @@ void print_arr(const T (&arr)[len_1][len_2]){
 int main(){
     int arr[6][9];
 
-    /*
-     * * * * * * * * * 
-     * * * * * * * * *
-     * * * * * * * * *
-     * * * * * * * * *
-     * * * * * * * * *
-     */ 
-
     create_arr(arr);
     print_arr(arr);
 }
 
-/*
 //===== 346 =====
 //This is to practice Baidu interview coding
 #include <iostream>
