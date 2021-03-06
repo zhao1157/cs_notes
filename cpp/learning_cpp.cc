@@ -1,3 +1,83 @@
+//====== 347 ======
+//This is to practice enhanced baidu-interview coding
+// fill in an nxm dimension array with 1 2 3 ... from center to outer perimeter
+#include <iostream>
+
+template<typename T, int len_arr_1, int len_arr_2>
+void fill_perimeter_even(T (&arr)[len_arr_1][len_arr_2], int ind_start, int ind_loop, int & last_value, int & base_column){
+    int num_rows = 2 * (ind_loop + 1);
+    int num_columns = base_column + 2 * ind_loop;
+
+    std::cout << "last_value: " << last_value << "\n";
+    
+    // top
+    for (int i = ind_start; i <= ind_start + num_columns - 2; ++i)
+        arr[ind_start][i] = ++ last_value;
+
+    // right
+    for (int i = ind_start; i <= ind_start + num_rows - 2; ++i)
+        arr[i][ind_start + num_columns - 1] = ++ last_value;
+    
+    // bottom
+    for (int i = ind_start + num_columns - 1; i >= ind_start + 1; --i)
+        arr[ind_start + num_rows - 1][i] = ++ last_value;
+    
+    // left
+    for (int i = ind_start + num_rows - 1; i >= ind_start + 1; --i)
+        arr[i][ind_start] = ++ last_value;
+  
+}
+
+template<typename T, int len_arr_1, int len_arr_2>
+void create_arr(T (&arr)[len_arr_1][len_arr_2]){
+    int num_columns = sizeof(arr[0]) / sizeof(arr[0][0]);
+    int num_rows = sizeof(arr) / sizeof(arr[0][0]) / num_columns;
+    std::cout << num_rows << " x " << num_columns << "\n";
+
+    int min = num_columns < num_rows ? num_columns : num_rows;
+    int ind_start_first = static_cast<int>((min + 1) / 2 - 1);
+
+    T last_value = 0;
+
+    // rows < columns
+    if (num_rows <= num_columns){
+        if (num_rows % 2 == 0){
+            int base_column = num_columns - 2 * ind_start_first;
+            for (int ind_start = ind_start_first; ind_start >= 0; --ind_start)
+                fill_perimeter_even(arr, ind_start, ind_start_first - ind_start, last_value, base_column);
+        }
+    } 
+    // columns < rows
+    //
+
+}
+
+template<typename T, int len_1, int len_2>
+void print_arr(const T (&arr)[len_1][len_2]){
+    for (int i = 0; i < len_1; ++i){
+        for (int j = 0; j < len_2; ++j)
+            std::cout << arr[i][j] << " ";
+        std::cout << "\n";
+    }
+    std::cout << "\n";
+}
+
+int main(){
+    int arr[6][9];
+
+    /*
+     * * * * * * * * * 
+     * * * * * * * * *
+     * * * * * * * * *
+     * * * * * * * * *
+     * * * * * * * * *
+     */ 
+
+    create_arr(arr);
+    print_arr(arr);
+}
+
+/*
 //===== 346 =====
 //This is to practice Baidu interview coding
 #include <iostream>
@@ -61,7 +141,6 @@ int main(){
 }
 
 
-/*
 //========== 345 =========
 // This is to test the memory alignment -> faster accessing the next element
 #include <iostream>
