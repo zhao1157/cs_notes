@@ -1,3 +1,67 @@
+//===== 346 =====
+//This is to practice Baidu interview coding
+#include <iostream>
+
+template <typename T, int len_arr>
+void circle_one(const T arr[len_arr][len_arr], int ind_start, int len_side){
+    if (len_side == 1)
+        std::cout << arr[ind_start][ind_start] << "\n";
+    // upper side
+    for (int i = ind_start; i <= ind_start + len_side - 2; ++i)
+        std::cout << arr[ind_start][i] << " ";
+
+    // right side
+    for (int i = ind_start; i <= ind_start + len_side - 2; ++i)
+        std::cout << arr[i][ind_start + len_side - 1] << " ";
+
+    // bottom side
+    for (int i = ind_start + len_side - 1; i >= ind_start + 1; --i)
+        std::cout << arr[ind_start + len_side - 1][i] << " ";
+
+    // left side
+    for (int i = ind_start + len_side - 1; i >= ind_start + 1; --i)
+        std::cout << arr[i][ind_start] << " ";
+
+    if (len_side == 2)
+        std::cout << "\n";
+}
+
+template<typename T, int len_arr>
+void print_circles(const T arr[len_arr][len_arr]){
+    int len = sizeof(arr[0])/sizeof(arr[0][0]);
+    std::cout << "len " << len << "\n";
+
+    for (int ind_start = 0; ind_start <= static_cast<int>((len + 1) / 2) - 1; ++ind_start)
+        circle_one(arr, ind_start, len - 2 * (ind_start));
+}
+
+int main(){
+    int arr[4][4] = {
+        {1,  2,  3,  4},
+        {12, 13, 14, 5},
+        {11, 16, 15, 6},
+        {10, 9,  8,  7}
+    };
+    
+    print_circles(arr);
+
+    double arr_2[5][5] = {
+        {1.2,  2,  3,  4,  5},
+        {16, 17, 18, 19, 6},
+        {15, 24, 25.9, 20, 7},
+        {14, 23, 22, 21, 8},
+        {13, 12, 11, 10, 9}
+    };
+    
+    print_circles (arr_2);
+
+    int arr_3[1][1] = {{23}};
+
+    print_circles(arr_3);
+}
+
+
+/*
 //========== 345 =========
 // This is to test the memory alignment -> faster accessing the next element
 #include <iostream>
@@ -13,7 +77,6 @@ int main(){
     std::cout << sizeof(m) << "\n"; // 16?
 }
 
-/*
 //===== 344 =====
 // find out the maximum divisor of two numbers
 #include <iostream>
