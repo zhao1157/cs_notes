@@ -1,3 +1,55 @@
+//===== 349 ======
+//Find the maximum common divisor
+#include <iostream>
+
+int gcd(int a, int b){
+    if (a % b == 0){
+        return b;
+    } else{
+        return gcd(b, a % b);
+    }
+}
+
+int gcd_2(int a, int b){
+    if (a % b == 0)
+        return b;
+    int min = a < b? a : b;
+
+    for (int i = 2; i < b/2; ++i){
+        if (a % i == 0 && b % i == 0)
+            return i*gcd_2(a/i, b/i);
+    }
+
+    return 1;
+}
+
+int main(){
+    int a = 15, b = 6;
+    
+    std::cout << a << " and " << b << " has the maximum common divisor of ";
+
+    int max = a > b? a:b;
+    int min = a < b? a:b;
+    
+    a = max;
+    b = min;
+
+    int temp;
+
+    while (a % b != 0){
+        temp = a;    
+        a = b;
+        b = temp % b;
+    }
+   
+    std::cout << b << "\n";
+
+    std::cout << gcd(a, b) << "\n";
+
+    std::cout << gcd_2(a, b) << "\n";
+}
+
+/*
 //======= 348 ======
 //This is to practice another Baidu interview coding exercise
 #include <iostream>
@@ -48,7 +100,6 @@ int main(){
     find_max_symetric(s);
 }
 
-/*
 //====== 347 ======
 //This is to practice enhanced baidu-interview coding
 // fill in an nxm dimension array with 1 2 3 ... from center to outer perimeter
