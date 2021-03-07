@@ -1,3 +1,71 @@
+//======= 354 ======
+//This is to practice quick sort
+#include <iostream>
+
+void quick_sort(int arr[], int start, int end){
+    if (start >= end)
+        return;
+    // choose a base value
+    int base_val = arr[start];
+
+    int i = start, j = end;
+
+    while(i < j){
+        // find the smaller value
+        while (i < j && arr[j] > base_val){
+            --j;
+        }
+
+        // copy it to the front
+        if (i < j){
+            arr[i] = arr[j];
+            ++i;
+        }
+
+        // find the larger value
+        while (i < j && arr[i] <= base_val){
+            ++i;
+        }
+
+        // copy it to the right 
+        if (i < j){
+            arr[j] = arr[i];
+            --j;
+        }
+    }
+
+    arr[i] = base_val;
+    
+    quick_sort(arr, start, i - 1);
+    quick_sort(arr, i + 1, end);
+}
+
+int main(){
+    int arr[] = {2, 3, -1, 0, 9, 2, 0, 8};
+    quick_sort(arr, 0, sizeof(arr)/sizeof(arr[0]) - 1);
+
+    for (auto & ele : arr)
+        std::cout << ele << " ";
+    std::cout << "\n";
+}
+
+
+/*
+//====== 353 ======
+//This is to practice pass array 
+#include <iostream>
+
+template<int N>
+void f_1(int arr[N]){
+    std::cout << arr[0] << "\n";
+}
+
+int main(){
+    int arr[] = {2, 3};
+
+    f_1<2>(arr);
+}
+
 //====== 352 =====
 //This is to practice find the common elements in two arrays
 #include <iostream>
@@ -38,7 +106,6 @@ int main(){
     find_common(kv_1, kv_2);
 }
 
-/*
 //======= 351 =====
 //This is to practice sorting a list with 0 1 2 duplicates
 #include <iostream>
