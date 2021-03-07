@@ -1,3 +1,78 @@
+//======= 351 =====
+//This is to practice sorting a list with 0 1 2 duplicates
+#include <iostream>
+#include <map>
+
+class Compare{
+    public:
+        bool operator()(const int & lhs, const int & rhs) const{
+            std::cout << std::boolalpha << (lhs < rhs) << "\n";
+            return lhs < rhs;
+        }
+};
+
+int main(){
+    // only 0, 1, 2 values in the array
+    int arr[] = {1, 0, 1, 2, 2, 0, 1, 2, 0, 1, 1};
+    std::map<int, int, Compare> k_v;
+    int len = sizeof(arr) / sizeof(arr[0]); 
+    
+    // find the unique values in the array
+    for (int & ele : arr){
+        if (k_v.count(ele) == 0){
+            k_v[ele] = 1;
+        } else{
+            ++ k_v[ele];
+        }
+    }
+    
+    // print all the k_v pairs
+    for (auto it = k_v.begin(); it != k_v.end(); ++it){
+        std::cout << it->first << ": " << it->second << "\n";
+    }
+    
+    // modify arr according to the sorted keys
+    int ind = -1;
+    for (auto it = k_v.begin(); it != k_v.end(); ++it){
+        for (int i = 0; i < it -> second; ++i){
+            ++ind;
+            if (arr[ind] != it -> first)
+                arr[ind] = it -> first;
+        }
+    }
+
+    for (auto & ele : arr)
+        std::cout << ele << " ";
+    std::cout << "\n";
+}
+
+/*
+//====== 350 ======
+//Get the smallest common multiple
+#include <iostream>
+
+int get_gcd(int a, int b){
+    if (a % b == 0)
+        return b;
+    return get_gcd (b, a % b);
+}
+
+int scm(int a, int b){
+    if (a % b ==0)
+        return a;
+    // get the greatest common divisor
+    int max = a > b? a : b;
+    int min = a < b? a : b;
+    int gcd = get_gcd(max, min);
+
+    return a*b/gcd;
+}
+
+int main(){
+    int a = 9, b = 6;
+    std::cout << scm(a, b) << "\n";
+}
+
 //===== 349 ======
 //Find the maximum common divisor
 #include <iostream>
