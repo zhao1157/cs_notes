@@ -1,3 +1,44 @@
+//====== 352 =====
+//This is to practice find the common elements in two arrays
+#include <iostream>
+#include <map>
+
+template<int N>
+std::map<int, int> find_kv(int (&arr)[N]){
+    std::map<int, int> kv;
+    for (auto & ele : arr){
+        if (kv.count(ele) == 0){
+            kv[ele] = 1;
+        } else{
+            ++kv[ele];
+        }
+    }
+
+    for (auto it = kv.begin(); it != kv.end(); ++it)
+        std::cout << it->first << ": " << it->second << "\n";
+    std::cout << "++++++++\n";
+    return kv;
+}
+
+void find_common(std::map<int, int> &kv_1, std::map<int, int> &kv_2){
+    for(auto it = kv_1.begin(); it != kv_1.end(); ++it){
+        if(kv_2.count(it->first)){
+            std::cout << it->first << ": " << (kv_1[it->first] < kv_2[it->first] ? kv_1[it->first] : kv_2[it->first]) << "\n";
+        }
+    }
+}
+
+int main(){
+    int arr_1[] = {0, 2, 0, 2, 3, 4, 4, -1};
+    int arr_2[] = {2, -1, 1, 2, 4, 5, 3, 3, 9, 9};
+
+    std::map <int, int> kv_1 = std::move(find_kv(arr_1));
+    std::map <int, int> kv_2 = std::move(find_kv(arr_2));
+
+    find_common(kv_1, kv_2);
+}
+
+/*
 //======= 351 =====
 //This is to practice sorting a list with 0 1 2 duplicates
 #include <iostream>
@@ -46,7 +87,6 @@ int main(){
     std::cout << "\n";
 }
 
-/*
 //====== 350 ======
 //Get the smallest common multiple
 #include <iostream>
@@ -124,7 +164,6 @@ int main(){
     std::cout << gcd_2(a, b) << "\n";
 }
 
-/*
 //======= 348 ======
 //This is to practice another Baidu interview coding exercise
 #include <iostream>
