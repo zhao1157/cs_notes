@@ -1,3 +1,38 @@
+//========== 356 ==========
+//This is to practice insertion sort
+#include <iostream>
+
+void insert_sort(int arr[]){
+	int len = 8; //sizeof(arr) / sizeof(arr[0]);
+	for (int i = 0; i <= len - 2; ++i){
+		// find the index of the smallest value
+		int ind_min = i;
+		for (int j = i + 1; j <= len - 1; ++j){
+			if (arr[ind_min] > arr[j])
+				ind_min = j;
+		}
+
+		if (i == ind_min)
+			continue;
+		else{
+			int temp = arr[i];
+			arr[i] = arr[ind_min];
+			arr[ind_min] = temp;
+		}
+	}
+}
+
+int main(){
+	int arr[] = {2, 0, 0, 1, 2, 9, 8, 10};
+
+	insert_sort(arr);
+
+	for (auto & ele : arr)
+		std::cout << ele << " ";
+	std::cout << "\n";
+}
+
+/*
 //======== 355 ========
 //This is to practice bubble sort
 #include <iostream>
@@ -31,7 +66,6 @@ int main(){
 }
 
 
-/*
 //======= 354 ======
 //This is to practice quick sort
 #include <iostream>
