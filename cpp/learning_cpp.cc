@@ -1,3 +1,37 @@
+//======== 355 ========
+//This is to practice bubble sort
+#include <iostream>
+
+template<int N>
+void bubble_sort(int (&arr)[N]){
+	int len = sizeof(arr) / sizeof(arr[0]);
+	// compare the adjacent values and make sure the larger one is on the right side
+	int temp;
+	// the top-i max numbers found
+	for (int i = 0; i <= len - 2; ++i){
+		//
+		for (int j = 0; j <= len - 2 - i; ++ j){
+			if(arr[j] > arr[j+1]){
+				temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
+			}
+		}
+	}
+}
+
+int main(){
+	int arr [] = {0, 2, -1, 9, 8, 7};
+
+	bubble_sort(arr);
+
+	for (auto & ele : arr)
+		std::cout << ele << " ";
+	std::cout << "\n";
+}
+
+
+/*
 //======= 354 ======
 //This is to practice quick sort
 #include <iostream>
@@ -50,7 +84,6 @@ int main(){
 }
 
 
-/*
 //====== 353 ======
 //This is to practice pass array 
 #include <iostream>
