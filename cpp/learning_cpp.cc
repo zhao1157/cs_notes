@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //======== 357 =======
 //This is to practice getting the permutations of values in an array, whose sum is a target
 #include <iostream>
@@ -57,6 +58,36 @@ int main(){
     }
 }
 
+=======
+//====== 357 ======
+//This is to practice ali interview coding exercise
+#include <iostream>
+
+template<int N>
+int get_non_dup_vals(int (&arr)[N]){
+	int len = sizeof(arr) / sizeof(arr[0]);
+	
+	int ind = 0;
+	for (int i = 0; i <= len - 2; ++i){
+		if (arr[i] != arr[i+1]){
+			++ind;
+			arr[ind] = arr[i+1];
+		}
+	}
+
+	return ind + 1;
+}
+
+int main(){
+	int arr[] = {0, 0, 1, 1, 2, 3, 3};
+
+	int non_dup_vals = get_non_dup_vals(arr);
+
+	std::cout << non_dup_vals << "\n";
+}
+
+
+>>>>>>> 002748c4f15a3afee77bd7adefd48bece7c67dfc
 /*
 //========== 356 ==========
 //This is to practice insertion sort
