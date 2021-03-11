@@ -1,3 +1,38 @@
+//====== 360 =====
+#include <iostream>
+#include <vector>
+
+bool is_prime(int a){
+    for (int i = 2; i <= a / 2; ++i){
+        if (a % i == 0)
+            return false;
+    }
+    return true;
+}
+
+std::vector<int> get_factor(int const & a){
+    std::vector <int> fac;
+    for(int i = 2; i <= a; ++i){
+        if (! is_prime(i))
+            continue;
+        if (a % i == 0){
+            std::cout << i << " ";
+            fac.push_back(i);
+            get_factor(a / i);
+            break;
+        }
+    }
+    return std::vector<int>(2);
+}
+
+int main(){
+    int a = 7;
+    
+    std::vector<int> fac = get_factor(a);
+}
+
+
+/*
 //===== 359 =====
 //This is to practice get digits of an integer
 #include <iostream>
@@ -25,7 +60,6 @@ int main(){
 }
 
 
-/*
 //======== 358 =======
 //This is to practice getting the permutations of values in an array, whose sum is a target
 #include <iostream>
