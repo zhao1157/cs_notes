@@ -1,3 +1,63 @@
+//======== 357 =======
+//This is to practice getting the permutations of values in an array, whose sum is a target
+#include <iostream>
+#include <vector>
+#include <tuple>
+
+template<int N>
+std::tuple<bool, std::vector<std::vector<int>>> perm_sum(int (&arr)[N], int target, int & count){ 
+    int len = sizeof(arr) / sizeof(arr[0]);
+
+    bool exist = false;
+    std::vector<std::vector<int>> perm;; 
+
+    for (int i = 0; i <= len - 1; ++i){
+        if (target - arr[i] < 0){
+            //std::cout << "neg " << arr[i] << "\n";
+            continue;
+        } else if (target - arr[i] == 0){
+            exist = true;
+            //std::cout << "zero " << arr[i] << "\n";
+            ++ count;
+            perm.push_back(std::vector<int>(arr[i]));
+            continue;
+        } else {
+            std::tuple<bool, std::vector<std::vector<int>>> ret = perm_sum(arr, target - arr[i], count);
+            if (! std::get<0>(ret)){
+                continue;
+            }
+            exist = true;
+            for (auto & ele : std::get<1>(ret)){
+                perm.push_back(ele);
+                perm.back().push_back(arr[i]);
+            }
+        }
+    }
+
+    perm.shrink_to_fit();
+    return std::tuple<bool, std::vector<std::vector<int>>>(exist, perm);
+}
+
+int main(){
+    int arr[] = {2, 3, 4};
+    int target = 7;
+
+    int count = 0;
+
+    std::tuple<bool, std::vector<std::vector<int>>> ret = perm_sum(arr, target, count);
+
+    std::cout << "count: " << count << "\n";
+    std::cout << std::boolalpha << std::get<0>(ret) << "\n";
+
+    for (auto & ele : std::get<1>(ret)){
+        for (auto & e : ele){
+            std::cout << e << " ";
+        }
+        std::cout << "\n";
+    }
+}
+
+/*
 //========== 356 ==========
 //This is to practice insertion sort
 #include <iostream>
@@ -32,7 +92,6 @@ int main(){
 	std::cout << "\n";
 }
 
-/*
 //======== 355 ========
 //This is to practice bubble sort
 #include <iostream>
