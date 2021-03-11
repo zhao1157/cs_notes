@@ -1,5 +1,32 @@
-<<<<<<< HEAD
-//======== 357 =======
+//===== 359 =====
+//This is to practice get digits of an integer
+#include <iostream>
+#include <vector>
+
+int main(){
+    int a = 23987;
+
+    std::vector<int> digits;
+
+    do{
+        digits.push_back(a % 10);
+        a = a / 10;
+    }while(a / 10);
+
+    digits.push_back(a);
+
+    for (auto & ele : digits)
+        std::cout << ele << " ";
+    std::cout << "\n";
+    
+    for (auto it = digits.rbegin(); it != digits.rend(); ++it)
+        std::cout << *it << " ";
+    std::cout << "\n";
+}
+
+
+/*
+//======== 358 =======
 //This is to practice getting the permutations of values in an array, whose sum is a target
 #include <iostream>
 #include <vector>
@@ -58,7 +85,6 @@ int main(){
     }
 }
 
-=======
 //====== 357 ======
 //This is to practice ali interview coding exercise
 #include <iostream>
@@ -87,8 +113,6 @@ int main(){
 }
 
 
->>>>>>> 002748c4f15a3afee77bd7adefd48bece7c67dfc
-/*
 //========== 356 ==========
 //This is to practice insertion sort
 #include <iostream>
