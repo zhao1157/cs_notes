@@ -1,3 +1,28 @@
+# ========= 235 ======
+# This is to review the multithreading
+import threading
+import time
+
+def f(ind, count):
+    with open("/home/inspur/zls/cs_notes/python" + "/thread_"+str(ind), "w") as f:
+        for i in range(count):
+            print (i)
+            f.write(threading.current_thread().getName() + ": " + str(i)+"\n")
+            time.sleep(1)
+
+bg_thread_1 = threading.Thread(name = "t1", target = f, args = (0, 4), daemon = True)
+print ("bg_thread_1 name: {}".format(bg_thread_1.getName()))
+bg_thread_1.start()
+
+bg_thread_2 = threading.Thread(name = "t2", target = f, args = (1, 2), daemon = True)
+print ("bg_thread_2 name: {}".format(bg_thread_2.getName()))
+bg_thread_2.start()
+
+for i in range(12):
+    print ("\t{}".format(i))
+    time.sleep(.5)
+
+"""
 # ======= 234 =======
 # This is to practice setattr
 def f():
@@ -6,7 +31,6 @@ def f():
 text = "xxx"
 setattr(f, "__doc__", text)
 
-"""
 #====== 233 =======
 #This is to practice closure
 def outer():
