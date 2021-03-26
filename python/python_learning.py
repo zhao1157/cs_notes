@@ -1,3 +1,92 @@
+# ======== 238 =======
+num = 9
+
+def f():
+    # num is a global variable, or in an outer scope, it can not be assigned in an inner scope, can only be refrenced
+    print (num)
+    num += 1 # once num is assigned, it is defined as a local variable, so the above statement will throw 
+             # "referenced before assignment" error
+
+if __name__ == "__main__":
+    f()
+
+
+"""
+#====== 237 =========
+#This is to practice produce-consumer 
+import threading
+import time
+
+class ProducerThread(threading.Thread):
+    def __init__(self, name = "producer"):
+        super(ProducerThread, self).__init__(name = name)
+
+    def run(self):
+        print (num)
+        for i in range(5):
+            num[0] += 1
+            time.sleep(0.5)
+
+
+class ConsumerThread(threading.Thread):
+    def __init__(self, name = "Cosumer"):
+        super(ConsumerThread, self).__init__(name = name)
+
+    def run(self):
+        for i in range(5):
+            print ("\t{}".format(num))
+            num_prev = num[0]
+            loop = 0
+            while True:
+                loop += 1
+                if num_prev != num[0]:
+                    break
+                print (num)
+                time.sleep(0.1)
+                
+                if loop > 5:
+                    break
+
+
+if __name__ == "__main__":
+    num = [1]
+
+    prod_thread = ProducerThread()
+    cons_thread = ConsumerThread()
+
+    prod_thread.start()
+    cons_thread.start()
+
+
+#===== 236 =========
+#This is to practice accessing the main thread in the background thread
+import threading
+import time
+
+class MyThread(threading.Thread):
+    def __init__(self, name, args = None, main_t_name = None):
+        super(MyThread, self).__init__() #(name = name)
+        self._args = args
+        self._main_t_name = main_t_name
+
+    def run(self):
+        print ("The main thread name is {} while the background thread has name of {}".format(self._main_t_name, self._name))
+        for i in range(self._args):
+            print ("\t{}".format(i))
+            time.sleep(0.5)
+
+if __name__ == "__main__":
+    # set the main thread name
+    #threading.current_thread().setName("main_thread")
+    my_thread = MyThread("zls", 4, threading.current_thread().getName())
+    print (my_thread.getName())
+    my_thread.start() # automatically execute 
+    time.sleep(1)
+    print (22)
+    # the program won't stop until the background thread finishes
+    # if it's set as daemonic thread, the program finishes when the main thread is done
+
+
 # ========= 235 ======
 # This is to review the multithreading
 import threading
@@ -22,7 +111,6 @@ for i in range(12):
     print ("\t{}".format(i))
     time.sleep(.5)
 
-"""
 # ======= 234 =======
 # This is to practice setattr
 def f():

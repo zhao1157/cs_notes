@@ -1,3 +1,9 @@
+7. a = 9;
+   def f():
+	# the global immutable variable can only be referenced, not assigned, except mutables
+	print (a) # throw "referenced before assignment" error
+	a += 1
+   
 6. set attributes of an object, e.g. setattr(function_obj, "__doc__", "some docstring")
 5. To be a closure, make sure nested function, reutrn function object, and at least one variable in the outer function is used inside. closure_obj.__closure__[0].cell_contents; [i] depends on the number of varibles enclosed
 4. closure returns a different object whenever called
