@@ -1,3 +1,18 @@
+#======== 245 =========
+# This is to practice how to modify a global variable in a function
+
+def f():
+    global a
+    a += 2
+    print (a)
+
+if __name__ == "__main__":
+    a = 2
+    f()
+    print (a)
+
+
+"""
 #===== 244 =====
 # This is to practice threading.Barrier
 import threading
@@ -47,7 +62,6 @@ if __name__ == "__main__":
         print ("after reset")
 
 
-"""
 #====== 243 =====
 # This is to practice threading.Barrier() which is used as a synchronizing mechanism
 # Barrier().n_waiting() returns the number of threads that are currently waiting on the barrier

@@ -1,3 +1,4 @@
+11. To modify a global immutable in a function, we can in the function declare it as a global in order to avoid referenced before assignment error
 10. threading.Barrier() blocks a set of threads until a certain number of them called wait(); it can be used recursively, i.e. as long as parties==n_waiting, all waiting threads are unblocked, and wait() can be reused again to form another blocking
 9. threading.Event() can be used to synchronize threads. set() sets the event to be true; is_set() returns true if set() is called; clear() resets the event to be false; wait() blocks the current if the event is not set(); wait(timeout) blocks in timeout period
 8. To exchange information between threads, we should never use immutables, as they do not reflect the changes made by one thread in other threads
