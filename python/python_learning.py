@@ -1,3 +1,33 @@
+#====== 239 =====
+#This is to practice using shared variable to exchange info
+import threading
+import time
+
+#shared_status = False # it is an immutable, so changing its value does not impact the others;
+                       # immutables can not be used as a signal/status variable
+shared_status = [False]
+
+def signal():
+    time.sleep(3)
+    shared_status[0] = True
+    print ("signal setting done")
+
+def work():
+    print ("working")
+    i = 0
+    while not shared_status[0]:
+        i += 1
+        print ("\t{}: {}".format(i, shared_status[0]))
+        time.sleep(.5)
+
+th_1 = threading.Thread(target = signal)
+th_2 = threading.Thread(target = work)
+
+th_1.start()
+th_2.start()
+
+
+"""
 # ======== 238 =======
 num = 9
 
@@ -11,7 +41,6 @@ if __name__ == "__main__":
     f()
 
 
-"""
 #====== 237 =========
 #This is to practice produce-consumer 
 import threading
