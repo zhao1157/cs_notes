@@ -1,3 +1,86 @@
+#===== 244 =====
+# This is to practice threading.Barrier
+import threading
+import time
+
+class ThreadBarrier(threading.Thread):
+    def __init__(self, name, barrier, timeout):
+        super(ThreadBarrier, self).__init__(name = name)
+        self._barrier = barrier
+        self._timeout = timeout
+        self._cycles = 0
+
+    def run(self):
+        while True:
+            time.sleep(self._timeout)
+            print ("\t{} waiting {}/{}".format(self._name, self._barrier.n_waiting, self._barrier.parties))
+            try:
+                td_ind = self._barrier.wait()
+                print ("{}: {}".format(self._name, td_ind))
+            except : # BrokenBarrierError: # does not work
+                print ("broken")
+            
+            self._cycles += 1
+            if self._cycles == 3:
+                break
+
+if __name__ == "__main__":
+    barrier = threading.Barrier(3)
+    td_1 = ThreadBarrier("td_1", barrier, 1)
+    td_2 = ThreadBarrier("td_2", barrier, 1.5)
+
+    td_1.start()
+    td_2.start()
+
+    for _ in range(3):
+        time.sleep(.5)
+        print ("before reset {}/{}".format(barrier.n_waiting, barrier.parties))
+        try:
+            barrier.wait()
+        except: #BrokenBarrierError:
+            print ("broken")
+        print ("\tafter wait {}".format(barrier.n_waiting))
+        if barrier.n_waiting == barrier.parties:
+            raise ValueError("here")
+            barrier.reset()
+        barrier.abort()
+        print ("after reset")
+
+
+"""
+#====== 243 =====
+# This is to practice threading.Barrier() which is used as a synchronizing mechanism
+# Barrier().n_waiting() returns the number of threads that are currently waiting on the barrier
+# Barrier.parties() returns the total number of threads that should call wait()
+import threading
+import time
+
+class ThreadBarrier(threading.Thread):
+    def __init__(self, name, barrier, timeout):
+        super(ThreadBarrier, self).__init__(name = name)
+        self._barrier = barrier
+        self._timeout = timeout
+
+    def run(self):
+        time.sleep(self._timeout)
+        print ("before barrier {} {}/{}".format(threading.current_thread().getName(), self._barrier.n_waiting, self._barrier.parties))
+        self._barrier.wait()
+        print ("after barrier {}".format(threading.current_thread().getName()))
+
+if __name__ == "__main__":
+    barrier = threading.Barrier(3)
+
+    th_1 = ThreadBarrier("th_1", barrier, 1)
+    th_2 = ThreadBarrier("th_2", barrier, 2)
+    
+    print ("before wait")
+    th_1.start()
+    th_2.start()
+    barrier.wait()
+    time.sleep(1)
+    print ("after wait")
+
+
 #===== 242 =====
 #This is to practice Event.wait(timeout)
 import threading
@@ -28,7 +111,6 @@ if __name__ == "__main__":
     print ("Done set")
 
 
-"""
 #===== 241 ====
 #This is to practice implementing a more complex synchronizing mechanism using Event
 import threading
