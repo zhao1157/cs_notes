@@ -1,3 +1,99 @@
+#===== 242 =====
+#This is to practice Event.wait(timeout)
+import threading
+import time
+
+class ThreadEvent(threading.Thread):
+    def __init__(self, name, e, timeout):
+        super(ThreadEvent, self).__init__(name = name)
+        self._event = e
+        self._timeout = timeout
+
+    def run(self):
+        while not self._event.is_set():
+            print ("x")
+            event_is_set = self._event.wait(self._timeout)
+            print ("\t{}".format(event_is_set))
+        self._event.clear()
+        print ("out")
+        event_is_set = self._event.wait(2)
+        print ("exit {}".format(event_is_set))
+
+if __name__ == "__main__":
+    event = threading.Event()
+    ThreadEvent("event", event, .5).start()
+
+    time.sleep(2)
+    event.set()
+    print ("Done set")
+
+
+"""
+#===== 241 ====
+#This is to practice implementing a more complex synchronizing mechanism using Event
+import threading
+import time
+
+class ThreadEvent(threading.Thread):
+    def __init__(self, name, e, total_times, daemon = False):
+        super(ThreadEvent, self).__init__(name = name, daemon = daemon)
+        self._event = e
+        self._times = 0
+        self._total_times = total_times
+
+    def run(self):
+        while self._times != self._total_times:
+            print ("set times {}".format(self._times))
+            while not self._event.is_set():
+                print ("\tx")
+                time.sleep(0.5)
+            e.clear() # reset the event to false
+            self._times += 1
+            print ("\t{}".format(self._times))
+
+if __name__ == "__main__":
+    e = threading.Event()
+
+    ThreadEvent("Event", e, 2).start()
+    
+    print ("sleep 2s")
+    time.sleep(2)
+    e.set()
+
+    time.sleep(1)
+    e.set()
+    
+#===== 240 =====
+#This is to practice Event synchronizing mechanism
+import threading
+import time
+
+def wait_no_block(e):
+    print ("({}) waiting".format(threading.current_thread().getName()))
+    e_is_set = e.wait()
+    print ("({}) done waiting {}".format(threading.current_thread().getName(), e_is_set))
+
+def wait_block(e, intval):
+    print ("({}) waiting".format(threading.current_thread().getName()))
+    e_is_set = e.wait(intval)
+    print ("({}) done waiting {}".format(threading.current_thread().getName(), e_is_set))
+
+if __name__ == "__main__":
+    event = threading.Event()
+
+    th_1 = threading.Thread(name = "no_block", target = wait_no_block, args = (event,))
+    th_2 = threading.Thread(name = "block", target = wait_block, daemon = False, args = (event, 2))
+
+    th_1.start()
+    th_2.start()
+
+    for i in range(4):
+        print ("\t{}".format(i))
+        time.sleep(1)
+    event.set()
+
+
+
 #====== 239 =====
 #This is to practice using shared variable to exchange info
 import threading
@@ -27,7 +123,6 @@ th_1.start()
 th_2.start()
 
 
-"""
 # ======== 238 =======
 num = 9
 

@@ -1,3 +1,5 @@
+9. threading.Event() can be used to synchronize threads. set() sets the event to be true; is_set() returns true if set() is called; clear() resets the event to be false; wait() blocks the current if the event is not set(); wait(timeout) blocks in timeout period
+8. To exchange information between threads, we should never use immutables, as they do not reflect the changes made by one thread in other threads
 7. a = 9;
    def f():
 	# the global immutable variable can only be referenced, not assigned, except mutables
