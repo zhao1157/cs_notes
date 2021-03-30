@@ -1,3 +1,35 @@
+#====== 246 =========
+#This is to practice exchanging info through a global variable among threads
+import threading
+import time
+
+def f(intval):
+    #global status # since we do not assign status to new value, it's always referenced to the status in the immediate outer scope
+    for i in range(500):
+        print ("{}: {}".format(threading.current_thread().getName(), i))
+        time.sleep(intval)
+        if status:
+            print ("{} break".format(threading.current_thread().getName()))
+            break
+def g():
+    #global status # without declaring global status, it's defined as a local variable below
+    time.sleep(2)
+    print ("{} before setting status".format(threading.current_thread().getName()))
+    status = True
+    print ("{} after setting status".format(threading.current_thread().getName()))
+
+if __name__ == "__main__":
+    status = False
+    threading.Thread(name = "p5", target = f, args = (.5,)).start()
+    threading.Thread(name = "p8", target = g).start()
+
+    #time.sleep(2)
+    #print ("before setting status")
+    #status = True
+    #print ("after setting status")
+
+
+"""
 #======== 245 =========
 # This is to practice how to modify a global variable in a function
 
@@ -12,7 +44,6 @@ if __name__ == "__main__":
     print (a)
 
 
-"""
 #===== 244 =====
 # This is to practice threading.Barrier
 import threading
