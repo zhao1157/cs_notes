@@ -1,3 +1,164 @@
+#======== 250 =======
+#This is to practice threading.RLock, which can be reacquired multiple times 
+#without releasing it before reacquirring it again
+import threading
+import time
+
+class TestRlock(object):
+    def __init__(self):
+        self._rlock = threading.RLock()
+
+    def A(self):
+        self._rlock.acquire()
+        print ("A")
+        #self._rlock.release()
+    
+    def B(self):
+        self._rlock.acquire()
+        print ("B")
+        #self._rlock.release()
+
+    def AB(self):
+        self._rlock.acquire()
+        print ("{} acquired lock".format(threading.current_thread().getName()))
+        self.A()
+        self.B()
+        print ("{} releasing lock".format(threading.current_thread().getName()))
+        # the number of release() calls has to be the same as the number of acqure() calls
+        # otherwise the rlock will not be released by the current thread
+        self._rlock.release()
+        self._rlock.release()
+        self._rlock.release()
+
+
+
+if __name__ == "__main__":
+    rlock = TestRlock()
+
+    th_1 = threading.Thread(name = "x_1", target = rlock.AB)
+    threading.Thread(name = "x_2", target = rlock.AB).start()
+    th_1.start()
+
+
+"""
+#===== 249 =======
+#This is to practice threading.Lock
+import threading
+import time
+
+class Counter:
+    def __init__(self, lock, barrier):
+        self._count = 0
+        self._lock = lock
+        self._barrier = barrier
+
+    def __call__(self):
+        for _ in range(3):
+            self._lock.acquire()
+            print ("{} got the lock".format(threading.current_thread().getName()))
+            self._count += 1
+            time.sleep(1)
+            print ("\t{} released the lock".format(threading.current_thread().getName()))
+            self._lock.release()
+        self._barrier.wait()
+
+    def get_value(self):
+        print ("final value {}".format(self._count))
+
+if __name__ == "__main__":
+    lock = threading.Lock()
+    barrier = threading.Barrier(3)
+    counter = Counter(lock, barrier)
+    
+    threading.Thread(name = "t_1", target = counter).start()
+    threading.Thread(name = "t_2", target = counter).start()
+    
+    print ("{} waiting".format(threading.current_thread().getName()))
+    barrier.wait()
+    print ("{} done waiting".format(threading.current_thread().getName()))
+
+    counter.get_value()
+
+
+#====== 248 ======
+#This is to practice return values from threads
+import threading
+import time
+
+def f(lt, barrier):
+    lt.append(2)
+    lt.extend([3, 4])
+    print ("f barrier")
+    barrier.wait()
+    print ("\tf barrier")
+
+def g(barrier):
+    global val
+    val = 9
+    print ("g barrier")
+    barrier.wait()
+    print ("\tg barrier")
+
+if __name__ == "__main__":
+    barrier = threading.Barrier(3)
+    lt = []
+    val = None
+
+    threading.Thread(target = f, args = (lt, barrier)).start()
+    threading.Thread(target = g, args = (barrier,)).start()
+
+    time.sleep(2)
+    barrier.wait()
+    print ("done wait")
+    print (lt, val)
+
+
+
+#===== 247 =====
+#This is to practice Event (does not guarantee simultaneousness), Barrier (guarantee simultaneousness) 
+#and global immutable to coordinate threads
+import threading
+import time
+
+class ThreadEB(threading.Thread):
+    def __init__(self, name, intval, e, b):
+        super(ThreadEB, self).__init__(name = name)
+        self._intval = intval
+        self._event = e
+        self._barrier = b
+
+    def run(self):
+        while True:
+            print ("\t{} sleeps for {}s".format(self._name, self._intval))
+            time.sleep(self._intval)
+            print ("\t{} slept for {}s".format(self._name, self._intval))
+
+            self._event.wait()
+            print ("\t{} finished event waiting".format(self._name))
+
+            self._barrier.wait()
+            print ("**** cross barrier {}".format(self._name))
+
+if __name__ == "__main__":
+    event = threading.Event()
+    barrier = threading.Barrier(3)
+
+    ThreadEB("1p0", 1, event, barrier).start()
+    ThreadEB("2p0", 5, event, barrier).start()
+    
+    for _ in range(3):
+        print ("{} sleep for 1.5s".format(threading.current_thread().getName()))
+        time.sleep(1.5)
+        print ("before set")
+        event.set()
+        print ("after set")
+        barrier.wait()
+        print ("clear")
+        event.clear()
+        time.sleep(1)
+        print ("\n\n__________________\n")
+
+
 #====== 246 =========
 #This is to practice exchanging info through a global variable among threads
 import threading
@@ -29,7 +190,6 @@ if __name__ == "__main__":
     #print ("after setting status")
 
 
-"""
 #======== 245 =========
 # This is to practice how to modify a global variable in a function
 
