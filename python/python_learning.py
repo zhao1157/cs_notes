@@ -1,3 +1,157 @@
+#====== 255 ======
+# This is to practice threading.Event().wait(timeout)
+import threading
+import time
+
+def event_wait(event, timeout = None):
+    status = event.wait(timeout)
+    print ("{}: {}".format(threading.current_thread().getName(), status))
+
+if __name__ == "__main__":
+    event = threading.Event()
+
+    # wait times out before set(), thus status is False
+    threading.Thread(target = event_wait, args = (event, 0), name = "to_0").start()
+    threading.Thread(target = event_wait, args = (event, 2), name = "to_2").start()
+
+    # wait is still in progress when set() is called, thus status is True
+    threading.Thread(target = event_wait, args = (event, 4), name = "to_4").start()
+
+    time.sleep(3)
+    event.set()
+    print ("done set")
+
+
+"""
+#====== 254 =======
+#This is to practice Lock and Condition
+import threading
+import time
+
+def test_lock(lock):
+    #global lock
+
+    with lock:
+        print ("raw lock acquired", lock.locked())
+        time.sleep(3)
+    print ("raw lock released")
+
+def test_cv(lock, cv):
+    #global cv
+    #global lock
+    
+    time.sleep(1.5)
+    print ("just before cv")
+    with cv:
+        print ("*** cv acquired lock", lock.locked())
+
+
+if __name__ == "__main__":
+    lock = threading.Lock()
+    cv = threading.Condition(lock)
+
+    threading.Thread(target = test_lock, args = (lock,)).start()
+    threading.Thread(target = test_cv, args = (lock, cv)).start()
+
+#====== 253 =======
+# This is to practice threading.Condition().wait_for()
+import threading
+import time
+
+def cond(lock):
+    global val
+    print ("\t", val, lock.locked())
+    return val == 3
+
+def f(cv, lock):
+    print ("before wait_for (False) {}".format(lock.locked()))
+    with cv:
+        print ("acquired lock {}".format(lock.locked()))
+        cv.wait_for(lambda : cond(lock))
+    print ("after wait_for")
+
+if __name__ == "__main__":
+    lock = threading.Lock()
+    cv = threading.Condition(lock)
+    val = -1
+
+    threading.Thread(target = f, args = (cv, lock)).start()
+    
+    time.sleep(1)
+    for val in range(5):
+        print (val)
+        with cv:
+            #print ("_____ {}".format(lock.locked()))
+            print ("_____", lock.locked())
+            cv.notify()
+        time.sleep(1)
+
+#====== 252 ======
+#This is to practice threading.Condition
+import threading
+import time
+
+class ThreadCondition(threading.Thread):
+    def __init__(self, name, cv, intval):
+        super(ThreadCondition, self).__init__(name = name)
+        self._cv = cv
+        self._intval = intval
+        #self.start()
+
+    def run(self):
+        time.sleep(self._intval)
+        with self._cv:
+            print ("{} got the lock".format(self._name))
+            print ("\t{} releasing the lock".format(self._name))
+            self._cv.wait()
+            print ("{} got the lock again".format(self._name))
+            time.sleep(2)
+
+
+if __name__ == "__main__":
+    lock = threading.Lock()
+    cv_1 = threading.Condition(lock)
+    cv_2 = threading.Condition(lock)
+
+    status = False
+
+    th_1 = ThreadCondition("td_1", cv_1, 1)
+    th_2 = ThreadCondition("td_2", cv_1, 2)
+
+    th_1.start()
+    th_2.start()
+    
+    time.sleep(3.5)
+
+    with cv_1:
+        print ("**** notify all ****")
+        # make sure the lock is acquired when calling notify()
+        #cv_1.notify(2)
+        cv_1.notify_all() # only notify the threads that are already waiting, not notify the future ones
+    #th_1.start()
+    #th_2.start()
+
+
+#======= 251 ========
+#This is to practice context manager for threading.Lock
+import threading
+import time
+
+def f(lock, barrier):
+    # barrier ensures the threads are racing at the same starting line
+    barrier.wait()
+    with lock:
+        print ("{}: {} {}".format(time.ctime(), threading.current_thread().getName(), lock.locked()))
+        time.sleep(.5)
+
+if __name__ == "__main__":
+    lock = threading.Lock()
+    barrier = threading.Barrier(4)
+
+    for i in range(4):
+        threading.Thread(target = f, args = (lock, barrier), name = "td_" + str(i)).start()
+
+
 #======== 250 =======
 #This is to practice threading.RLock, which can be reacquired multiple times 
 #without releasing it before reacquirring it again
@@ -9,18 +163,18 @@ class TestRlock(object):
         self._rlock = threading.RLock()
 
     def A(self):
-        self._rlock.acquire()
-        print ("A")
+        i = self._rlock.acquire()
+        print ("A", i)
         #self._rlock.release()
     
     def B(self):
-        self._rlock.acquire()
-        print ("B")
+        i = self._rlock.acquire()
+        print ("B", i)
         #self._rlock.release()
 
     def AB(self):
-        self._rlock.acquire()
-        print ("{} acquired lock".format(threading.current_thread().getName()))
+        i = self._rlock.acquire()
+        print ("{} acquired lock".format(threading.current_thread().getName()), i)
         self.A()
         self.B()
         print ("{} releasing lock".format(threading.current_thread().getName()))
@@ -40,7 +194,6 @@ if __name__ == "__main__":
     th_1.start()
 
 
-"""
 #===== 249 =======
 #This is to practice threading.Lock
 import threading

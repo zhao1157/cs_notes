@@ -1,5 +1,8 @@
+17. threading.Event().wait(timeout) returns True if set() is called while it's waiting, False if set() is not called before timint out
+16. threading.Condition() .notify() has to be for an already acquired lock, and only notify the threads that are already waiting on the lock; .wait() releases the lock and wait; supports with statement;
+15. threading.Lock() supports context manager "with" statement
 14. threading.RLock() not only ensures that only one thread access the critical block at a time, but also enables reacquiring the the same multiple times without requiring the outer lock released; the number of acquire() and release() has to be the same, otherwise it won't release the lock, so other threads won't be able to acquire the lock, thus deadlocking.
-13. threading.Lock() ensures only one thread has the lock at a time, lock.acquire(); some_critical_code_block; lock.release()
+13. threading.Lock() ensures only one thread has the lock at a time, lock.acquire(); some_critical_code_block; lock.release(); when more than one threads are waiting, the subsequent thread acquires the lock after the previous one releases it
 12. To exchange info through immutables, we need to make the immutables global in the scope where its value is changed.
 11. To modify a global immutable in a function, we can in the function declare it as a global in order to avoid referenced before assignment error
 10. threading.Barrier() blocks a set of threads until a certain number of them called wait(); it can be used recursively, i.e. as long as parties==n_waiting, all waiting threads are unblocked, and wait() can be reused again to form another blocking
