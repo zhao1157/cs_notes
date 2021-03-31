@@ -1,3 +1,4 @@
+19. threading.Condition.wait_for(predicate, timeout) limits the maximum time to wait as timeout
 18. threading.Barrier().wait(timeout) will throw a BrokenBarrierError if timeout is reached
 17. threading.Event().wait(timeout) returns True if set() is called while it's waiting, False if set() is not called before timint out
 16. threading.Condition() .notify() has to be for an already acquired lock, and only notify the threads that are already waiting on the lock; .wait() releases the lock and wait; supports with statement;

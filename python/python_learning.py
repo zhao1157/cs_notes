@@ -1,3 +1,57 @@
+#===== 258 ======
+# This is to practice threading.Condition().wait_for(predicate, timeout)
+import threading
+import time
+
+def f():
+    #global cv
+    #global status
+
+    def cond():
+        print ("\t{} {}".format(status, time.ctime()))
+        return status
+    with cv:
+        s = cv.wait_for(cond, 5) # the total time it can wait, not the time it waits every time
+    print ("done {}".format(s))
+
+if __name__ == "__main__":
+    lock = threading.Lock()
+    cv = threading.Condition(lock)
+    status = False
+
+    threading.Thread(target = f).start()
+
+    for i in range(5):
+        time.sleep(1)
+        status = True if i == 3 else False
+        with cv:
+            cv.notify()
+    print ("end")
+
+
+"""
+#====== 257 =====
+# This is to ensure Barrier can be reused
+import threading
+import time
+
+def b(barrier, ind):
+    while True:
+        print ("before {}".format(ind))
+        barrier.wait()
+        print ("after {}".format(ind))
+
+if __name__ == "__main__":
+    barrier = threading.Barrier(3)
+
+    threading.Thread(target = b, args = (barrier, 0), daemon = True).start()
+    threading.Thread(target = b, args = (barrier, 1), daemon = True).start()
+
+    for _ in range(3):
+        barrier.wait()
+        time.sleep(2)
+        print ("*******\n")
+
 #===== 256 ======
 # This is to practice threading.Barrier().wait(timeout)
 import threading
@@ -14,7 +68,6 @@ if __name__ == "__main__":
     threading.Thread(target = barrier_wait, args = (barrier, 2), name = "td_2").start()
 
 
-"""
 #====== 255 ======
 # This is to practice threading.Event().wait(timeout)
 import threading
