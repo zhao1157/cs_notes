@@ -1,3 +1,34 @@
+#====== 259 ======
+# This is to practice consuming elements from a list using multi-threading
+import threading
+import time
+import random
+
+def f(all_eles):
+    barrier.wait()
+    
+    while len(all_eles):
+        with cv:
+            if len(all_eles):
+                print ("{} got {}".format(threading.current_thread().getName(), all_eles.pop()))
+            else:
+                print ("{} empty".format(threading.current_thread().getName()))
+                break
+        time.sleep(random.random())
+
+if __name__ == "__main__":
+    all_eles = [2, 3, 4, 0, -2, -3]
+    barrier = threading.Barrier(4)
+    cv = threading.Condition()
+    #cv = threading.Lock()
+
+    for ind in range(3):
+        threading.Thread(target = f, name = "td_" + str(ind), args = (all_eles,)).start()
+    
+    print ("ready, go ...")
+    barrier.wait()
+
+"""
 #===== 258 ======
 # This is to practice threading.Condition().wait_for(predicate, timeout)
 import threading
@@ -29,7 +60,6 @@ if __name__ == "__main__":
     print ("end")
 
 
-"""
 #====== 257 =====
 # This is to ensure Barrier can be reused
 import threading
