@@ -1,3 +1,20 @@
+#===== 256 ======
+# This is to practice threading.Barrier().wait(timeout)
+import threading
+import time
+
+def barrier_wait(barrier, timeout):
+    barrier.wait(timeout)
+
+if __name__ == "__main__":
+    barrier = threading.Barrier(2)
+
+    threading.Thread(target = barrier_wait, args = (barrier, 1), name = "td_1").start() # brokenbarriererror
+    time.sleep(2)
+    threading.Thread(target = barrier_wait, args = (barrier, 2), name = "td_2").start()
+
+
+"""
 #====== 255 ======
 # This is to practice threading.Event().wait(timeout)
 import threading
@@ -22,7 +39,6 @@ if __name__ == "__main__":
     print ("done set")
 
 
-"""
 #====== 254 =======
 #This is to practice Lock and Condition
 import threading
