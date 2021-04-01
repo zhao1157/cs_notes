@@ -12,6 +12,7 @@ class ProcessEvent(mp.Process):
         print ("{} done waiting".format(self._name))
 
 if __name__ == "__main__":
+    #mp.set_start_method("fork") # for python3.8 on mac
     event = mp.Event()
     
     event.set()
