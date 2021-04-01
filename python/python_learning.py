@@ -1,3 +1,78 @@
+#====== 262 =======
+# This is to practice mltiprocessing.Event()
+import multiprocessing as mp
+import time
+
+class ProcessEvent(mp.Process):
+    def __init__(self, name, event = None):
+        super(ProcessEvent, self).__init__(name = name)
+        self._event = event
+    def run(self):
+        #self._event.wait()
+        print ("{} done waiting".format(self._name))
+
+if __name__ == "__main__":
+    event = mp.Event()
+    
+    event.set()
+    ProcessEvent("event", event).start()
+
+
+
+"""
+#==== 261 ======
+# This is to practice implementing a customized Process
+import threading
+import multiprocessing as mp
+import time
+
+class MyProcess(mp.Process):
+    def __init__(self, name, timeout):
+        super(MyProcess, self).__init__(name = name)
+        self._timeout = timeout
+    def run(self):
+        time.sleep(self._timeout)
+        print ("{} {} {}".format(self._name, time.ctime(), mp.current_process().pid))
+
+if __name__ == "__main__":
+    p1 = MyProcess("p1", 1)
+    p2 = MyProcess("p2", 2)
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.join()
+
+    print (f"main process name {mp.current_process().name}")
+    print (f"main thread name {threading.current_thread().name}") # getName()
+
+
+# ======= 260 ======
+# This is to practice multiprocessing.Process
+import multiprocessing as mp
+import time
+
+def task(timeout):
+    time.sleep(timeout)
+    print (mp.current_process().name)
+
+if __name__ == "__main__":
+    p1 = mp.Process(target = task, args = (2,), name = "p1") #.start()
+    p2 = mp.Process(target = task, args = (1,), name = "p2") #.start()
+
+    p1.start()
+    p2.start()
+
+    time.sleep(1.2)
+    p2.terminate()
+    
+    p1.join()
+    p2.join()
+
+    print ("main process name {}".format(mp.current_process().name))
+
+
 #====== 259 ======
 # This is to practice consuming elements from a list using multi-threading
 import threading
@@ -28,7 +103,6 @@ if __name__ == "__main__":
     print ("ready, go ...")
     barrier.wait()
 
-"""
 #===== 258 ======
 # This is to practice threading.Condition().wait_for(predicate, timeout)
 import threading
