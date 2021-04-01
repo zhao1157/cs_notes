@@ -1,3 +1,4 @@
+24. multiprocessing.Lock() works just like threading.Lock()
 23. multiprocessing.Process().terminate() kills that process
 22. multiprocessing.Barrier() works just like threading.Barrier()
 21. multiprocessing.Event() works just like threading.Event()

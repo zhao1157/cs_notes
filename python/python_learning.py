@@ -1,3 +1,31 @@
+#====== 265 =======
+# This is to practice multiprocessing.Lock()
+import multiprocessing as mp
+import time
+
+def mp_lock(lock, lt, barrier):
+    with lock:
+        print (f"{mp.current_process().name} got the lock, before appending {lt}")
+        lt.append(mp.current_process().pid)
+        time.sleep(3)
+        print (f"\t{mp.current_process().name} exiting")
+    barrier.wait()
+
+if __name__ == "__main__":
+    lt = [2]
+    barrier = mp.Barrier(4)
+    lock = mp.Lock()
+
+    for ind in range(3):
+        mp.Process(target = mp_lock, name = f"p_{ind}", args = (lock, lt, barrier)).start()
+    barrier.wait()
+    # lt is not shared among processes, so changes made by each process is not reflected on the other copies of lt
+    print (f"after processes are done {lt}")
+    
+
+
+
+"""
 #===== 264 =======
 # This is to practice kill the processes after a few loops
 import multiprocessing as mp
@@ -42,7 +70,6 @@ if __name__ == "__main__":
         p.terminate()
 
 
-"""
 #======= 263 =======
 # This is to practice multiprocessing.Barrier()
 import multiprocessing as mp
