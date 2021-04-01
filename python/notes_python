@@ -1,3 +1,4 @@
+21. multiprocessing.Event() works just like threading.Event()
 20. multiprocessing.Process() similar to threading.Thread(), both can be inherented from the base class
 19. threading.Condition.wait_for(predicate, timeout) limits the maximum time to wait as timeout
 18. threading.Barrier().wait(timeout) will throw a BrokenBarrierError if timeout is reached

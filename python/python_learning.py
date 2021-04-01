@@ -1,5 +1,6 @@
 #====== 262 =======
 # This is to practice mltiprocessing.Event()
+import threading
 import multiprocessing as mp
 import time
 
@@ -8,15 +9,18 @@ class ProcessEvent(mp.Process):
         super(ProcessEvent, self).__init__(name = name)
         self._event = event
     def run(self):
-        #self._event.wait()
+        print ("process {} waiting".format(mp.current_process().pid))
+        time.sleep(2)
+        self._event.wait()
         print ("{} done waiting".format(self._name))
 
 if __name__ == "__main__":
     #mp.set_start_method("fork") # for python3.8 on mac
     event = mp.Event()
+    ProcessEvent("event", event).start()
     
     event.set()
-    ProcessEvent("event", event).start()
+    print (f"main process id {mp.current_process().pid} main thread {threading.current_thread().name} set")
 
 
 
