@@ -1,3 +1,79 @@
+#===== 264 =======
+# This is to practice kill the processes after a few loops
+import multiprocessing as mp
+import time
+
+class ProcessBarrier(mp.Process):
+    def __init__(self, name, barrier_1, barrier_2):
+        super(ProcessBarrier, self).__init__(name = name)
+        self._barrier_1 = barrier_1
+        self._barrier_2 = barrier_2
+
+    def run(self):
+        while True:
+            print (f"{self._name} barrier_1")
+            self._barrier_1.wait()
+            print (f"{self._name} barrier_12")
+            time.sleep(2)
+            self._barrier_2.wait()
+            print (f"{self._name} barrier_2")
+
+
+
+if __name__ == "__main__":
+    barrier_1 = mp.Barrier(3)
+    barrier_2 = mp.Barrier(3)
+    
+    all_p = []
+    for ind in range(2):
+        all_p.append(ProcessBarrier(f"p_{ind}", barrier_1, barrier_2))
+
+    for p in all_p:
+        p.start()
+    
+    for ind in range(3):
+        print (f"\n\n____________")
+        barrier_1.wait()
+        time.sleep(3)
+        barrier_2.wait()
+
+    print ("terminate all")
+    for p in all_p:
+        p.terminate()
+
+
+"""
+#======= 263 =======
+# This is to practice multiprocessing.Barrier()
+import multiprocessing as mp
+import time
+
+class ProcessBarrier(mp.Process):
+    def __init__(self, name, timeout, barrier):
+        super(ProcessBarrier, self).__init__(name = name)
+        self._timeout = timeout
+        self._barrier = barrier
+
+    def run(self):
+        print (f"{self._name} started")
+        time.sleep(self._timeout)
+        print (f"\t{self._name} before wait")
+        self._barrier.wait()
+        time.sleep(self._timeout - 2)
+        print (f"\t{self._name} after wait")
+
+
+if __name__ == "__main__":
+    barrier = mp.Barrier(4)
+
+    for timeout in range(3):
+        ProcessBarrier(f"p_{timeout}", 2+timeout, barrier).start()
+
+    time.sleep(8)
+    print ("ready go")
+    barrier.wait()
+
+
 #====== 262 =======
 # This is to practice mltiprocessing.Event()
 import threading
@@ -23,8 +99,6 @@ if __name__ == "__main__":
     print (f"main process id {mp.current_process().pid} main thread {threading.current_thread().name} set")
 
 
-
-"""
 #==== 261 ======
 # This is to practice implementing a customized Process
 import threading
