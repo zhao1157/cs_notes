@@ -1,3 +1,79 @@
+#====== 274 ======
+#This is to practice synchronizing APIs in multiprocessing.Manager()
+import multiprocessing as mp
+import time
+
+def test():
+    #barrier.wait()
+    with lock:
+        print (f"{mp.current_process().name} got the lock at {time.ctime()}")
+        time.sleep(1)
+
+
+if __name__ == "__main__":
+    #mp.set_start_method("fork")
+    manager = mp.Manager()
+
+    barrier = manager.Barrier(3)
+    lock = manager.Lock()
+
+    for i in range(3):
+        mp.Process(target = test, name = f"p_{i}").start()
+
+
+
+"""
+#===== 273 =====
+# This is to practice multiprocessing.Manager().list()/dict()
+import multiprocessing as mp
+import time
+
+def test():
+    l.extend([2, 3, 4, 0])
+    d.update({2:3, "4":"5"})
+    print (f"{mp.current_process().name} ready")
+    time.sleep(3)
+    event.set()
+
+if __name__ == "__main__":
+    manager = mp.Manager()
+    event = manager.Event()
+
+    l = manager.list()
+    d = manager.dict()
+
+    mp.Process(target = test, name = "p").start()
+    event.wait()
+    print (l, d)
+
+
+#====== 272 =======
+#This is to practice multiprocessing.Manger()
+import multiprocessing as mp
+import time
+
+def test():
+    #global counter
+    #global arr
+
+    for i in range(len(arr)):
+        counter.value += i
+        arr[i] = counter.value
+
+if __name__ == "__main__":
+    manager = mp.Manager()
+    counter = manager.Value('i', 2)
+    arr = manager.Array('d', [0 for _ in range(5)])
+
+    p = mp.Process(target = test)
+
+    p.start()
+    p.join()
+
+    print (counter.value)
+    print (arr[1], arr[4])
+
+
 #===== 271 ======
 #This is to practice multiprocessing.Array().get_lock()
 import multiprocessing as mp
@@ -32,11 +108,6 @@ if __name__ == "__main__":
     print (arr[:])
 
 
-
-
-
-
-"""
 #====== 270 ======
 # This is to practice multiprocessing.Array
 import multiprocessing as mp
