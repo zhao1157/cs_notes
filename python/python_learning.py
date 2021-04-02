@@ -1,3 +1,94 @@
+#===== 271 ======
+#This is to practice multiprocessing.Array().get_lock()
+import multiprocessing as mp
+import time
+
+def prod(mul, barrier):
+    global num
+    global arr
+    while num.value <= 5:
+        with num.get_lock():
+            print (num.value)
+            arr[num.value] *= mul
+            num.value += 1
+            # deal with the first and the last
+            if num.value != 1 and num.value != 6:
+                barrier_inner.wait()
+        barrier_inner.wait()
+    print ("exiting")
+    barrier.wait()
+
+
+if __name__ == "__main__":
+    num = mp.Value('i', 0)
+    arr = mp.Array("d", [1, 1, 1, 1, 1, 1])
+    barrier = mp.Barrier(3)
+    barrier_inner = mp.Barrier(2)
+
+    for mul in range(2, 4):
+        mp.Process(target = prod, args = (mul, barrier)).start()
+
+    barrier.wait()
+    print (arr[:])
+
+
+
+
+
+
+"""
+#====== 270 ======
+# This is to practice multiprocessing.Array
+import multiprocessing as mp
+import time
+
+
+if __name__ == "__main__":
+    arr = mp.Array("c", 5)
+    arr[0] = b"x"
+    arr[2] = b"y"
+    arr[3] = 114 # ???
+    print (arr[0], arr[2], arr[3])
+
+
+#====== 269 ====
+# This is to practice multiprocessing.Array()
+import multiprocessing as mp
+import time
+
+def prod(array, event, barrier):
+    for i in range(len(array)):
+        print ("*****")
+        array[i] += 1
+        event.set()
+
+        time.sleep(2)
+    barrier.wait()
+
+def cons(array, event, barrier):
+    for i in range(len(array)):
+        print ("waiting")
+        event.wait()
+        array[i] *= 2
+        print ("done double")
+        event.clear()
+    barrier.wait()
+    
+
+if __name__ == "__main__":
+    array = mp.Array('f', [2.3, 3.14, 2])
+    
+    event = mp.Event()
+    barrier = mp.Barrier(3)
+
+    mp.Process(target = prod, args = (array, event, barrier)).start()
+    mp.Process(target = cons, args = (array, event, barrier)).start()
+
+    barrier.wait()
+
+    print (array[:])
+
+
 #====== 268 =======
 #This is to practice shared memory for a character
 import multiprocessing as mp
@@ -26,7 +117,6 @@ if __name__ == "__main__":
     p_master.start()
 
 
-"""
 #====== 267 =======
 #This is to practice shared memory to share info among processes
 import multiprocessing as mp

@@ -1,3 +1,4 @@
+27. multiproc3ssing.Array('i', [2,3], lock=True) get_lock() to ensure the array is accessed by just one thread
 26. multiprocessing.Value("i", 2, lock=True) creats a value in shared memory, by a.get_lock() we can acquire the lock and ensure process-safe for the value; for a character, it should be byte "{}".format(i).encode("utf-8"); to convert byte to string b"2".decode("utf-8")
 25. multiprocessing.RLock() works just like threading.RLock(), but for the same process
 24. multiprocessing.Lock() works just like threading.Lock()
