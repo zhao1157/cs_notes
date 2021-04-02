@@ -4,18 +4,21 @@ import multiprocessing as mp
 import time
 
 def test():
-    #barrier.wait()
-    with lock:
+    barrier.wait()
+    #with lock:
+    with cv:
         print (f"{mp.current_process().name} got the lock at {time.ctime()}")
         time.sleep(1)
 
 
 if __name__ == "__main__":
-    #mp.set_start_method("fork")
     manager = mp.Manager()
 
     barrier = manager.Barrier(3)
-    lock = manager.Lock()
+    #lock = manager.Lock() # does not work well
+    lock = mp.Lock()
+    #cv = manager.Condition() # does not work well
+    cv = mp.Condition()
 
     for i in range(3):
         mp.Process(target = test, name = f"p_{i}").start()
