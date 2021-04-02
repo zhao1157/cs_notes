@@ -4,7 +4,7 @@ import multiprocessing as mp
 import time
 
 def test():
-    barrier.wait()
+    #barrier.wait()
     #with lock:
     with cv:
         print (f"{mp.current_process().name} got the lock at {time.ctime()}")
@@ -14,7 +14,7 @@ def test():
 if __name__ == "__main__":
     manager = mp.Manager()
 
-    barrier = manager.Barrier(3)
+    #barrier = manager.Barrier(3) # does not work well
     #lock = manager.Lock() # does not work well
     lock = mp.Lock()
     #cv = manager.Condition() # does not work well
