@@ -1,3 +1,90 @@
+#====== 268 =======
+#This is to practice shared memory for a character
+import multiprocessing as mp
+import time
+
+def master():
+    barrier = mp.Barrier(2)
+    c = mp.Value("c")
+    n = 3
+    mp.Process(target = slave, args = (barrier, c, n)).start()
+
+    for i in range(n):
+        c.value = f"{i}".encode("utf-8")
+        barrier.wait()
+
+def slave(barrier, c, n):
+
+    for _ in range(n):
+        barrier.wait()
+        print (c.value.decode("utf-8"))
+
+
+if __name__ == "__main__":
+    p_master = mp.Process(target = master) 
+
+    p_master.start()
+
+
+"""
+#====== 267 =======
+#This is to practice shared memory to share info among processes
+import multiprocessing as mp
+import time
+
+def inc(counter, barrier):
+    for _ in range(4):
+        with counter.get_lock():
+            print (f"{mp.current_process().name}")
+            counter.value += 1
+            time.sleep(1)
+    barrier.wait()
+
+if __name__ == "__main__":
+    counter = mp.Value("i", 0) # by default its lock is created
+    barrier = mp.Barrier(3)
+
+    for i in range(2):
+        mp.Process(target = inc, args = (counter, barrier), name = f"p_{i}").start()
+
+    barrier.wait()
+    print (f"the final counter {counter.value}")
+
+
+#====== 266 =======
+# This is to practice multiprocessing.RLock()
+import multiprocessing as mp
+import time
+
+class ProcessLock(mp.Process):
+    def __init__(self, name = None, lock = None):
+        super(ProcessLock, self).__init__(name = name)
+        self._lock = lock
+
+    def _first_lock(self):
+        with self._lock:
+            print ("lock_1")
+
+    def run(self):
+        with self._lock:
+            print ("lock_2")
+            self._first_lock()
+        print ("done lock")
+
+if __name__ == "__main__":
+    lock = mp.Lock()
+    # rlock allows the same process re-acquires the lock again before releasing it
+    rlock = mp.RLock()
+
+    p = ProcessLock("p_1", rlock) #.start()
+    p.start()
+
+    p.join()
+    
+    print (">>>>")
+    p._first_lock()
+
+
 #====== 265 =======
 # This is to practice multiprocessing.Lock()
 import multiprocessing as mp
@@ -23,9 +110,6 @@ if __name__ == "__main__":
     print (f"after processes are done {lt}")
     
 
-
-
-"""
 #===== 264 =======
 # This is to practice kill the processes after a few loops
 import multiprocessing as mp
