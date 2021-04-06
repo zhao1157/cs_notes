@@ -1,3 +1,20 @@
+#===== 276 =======
+# This is to practice multiprocessing.Manager() supports "with" block
+import multiprocessing as mp
+
+def f(val):
+    val.value += 1
+
+with mp.Manager() as manager:
+    val = manager.Value('i', 0)
+    p = mp.Process(target = f, args = (val,))
+    p.start()
+    p.join()
+    
+    # can not be used outside of the block as manager will be terminated
+    print (val.value)
+
+"""
 #===== 275 =====
 # This is to practice map which returns an iterator
 f = map(lambda x: x**2, range(3))
@@ -18,7 +35,6 @@ for ele in f:
     print (ele, end = " ")
 print ()
 
-"""
 #====== 274 ======
 #This is to practice synchronizing APIs in multiprocessing.Manager()
 import multiprocessing as mp

@@ -1,3 +1,5 @@
+31. mulitprocessing.Manager() supports with statement, so outside of the with block, we can not use the manager object
+30. multiprocessing.Process and multiprocessing.Pool differ: the former loads all tasks into memory, while the latter loads the specified number of tasks into memory and holds the rest queued tasks out of memory
 29. map(f, range(9), range(3)) returns an iterator which executes f for each pair of elements from the two iterables. (terminates at the shortest iterator)
 28. multiprocessing.Manager().list()/dict()/Value()/Array() works just as well as the mp counterparts, but all other synchronizing primitives are not working as expected
 27. multiprocessing.Array('i', [2,3], lock=True) get_lock() to ensure the array is accessed by just one thread
