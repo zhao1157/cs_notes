@@ -1,3 +1,62 @@
+#====== 279 ======
+#This is to practice multiprocessing.map, which keeps the order of the outputs as that of the inputs, but the execution can be arbitrary
+import multiprocessing as mp
+import time
+
+def f(x):
+    print (f"{mp.current_process().name}")
+    time.sleep(3)
+    print (f"{mp.current_process().name} done")
+    return x**2
+
+if __name__ == "__main__":
+    with mp.Pool(processes = mp.cpu_count()) as pool:
+        # just like apply_async(), it submits ${processes} tasks simultaneously
+        res = pool.map(f, range(6))
+        print (res)
+        #[pool.apply(f, args=(x,)) for x in range(6)] # meaningless for multiprocessing as it does not support parallel execution 
+
+
+"""
+#======= 278 =======
+#This is to practice multiprocessing.Pool
+import multiprocessing as mp
+import time
+
+def f(x):
+    print (f"sleeping {x}")
+    time.sleep(1)
+    return x**2
+
+if __name__ == "__main__":
+    np = mp.cpu_count()
+    with mp.Pool(processes = np) as pool:
+        # apply_async() submits ${processes} processes at once
+        res = [pool.apply_async(f, args = (i,)) for i in range(9)]
+        print([r.get() for r in res])
+
+
+#====== 277 =======
+# This is to practice multiprocessing.Pool
+import multiprocessing as mp
+import time
+
+def f(t):
+    print ("\tx")
+    time.sleep(t)
+
+if __name__ == "__main__":
+    with mp.Pool(processes = 3) as pool:
+        print ("before")
+        # the main process wait till the child process finishes
+        #pool.apply(f, args = (2,)) # does not work for lambda function
+        for i in range(3):
+            print (f"{i} before")
+            pool.apply(f, args = (1,))
+            print (f"{i} after")
+        print ("done")
+
+
 #===== 276 =======
 # This is to practice multiprocessing.Manager() supports "with" block
 import multiprocessing as mp
@@ -14,7 +73,6 @@ with mp.Manager() as manager:
     # can not be used outside of the block as manager will be terminated
     print (val.value)
 
-"""
 #===== 275 =====
 # This is to practice map which returns an iterator
 f = map(lambda x: x**2, range(3))
