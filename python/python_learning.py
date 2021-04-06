@@ -1,3 +1,24 @@
+#===== 275 =====
+# This is to practice map which returns an iterator
+f = map(lambda x: x**2, range(3))
+for ele in f:
+    print (ele)
+
+def fun(a):
+    print (a)
+f = map(fun, range(3))
+for _ in f:
+    pass
+
+def fun(a, b):
+    return a*b
+
+f = map(fun, range(5), range(8))
+for ele in f:
+    print (ele, end = " ")
+print ()
+
+"""
 #====== 274 ======
 #This is to practice synchronizing APIs in multiprocessing.Manager()
 import multiprocessing as mp
@@ -5,14 +26,14 @@ import time
 
 def test():
     #barrier.wait()
-    #with lock:
-    with cv:
+    with lock:
+    #with cv:
         print (f"{mp.current_process().name} got the lock at {time.ctime()}")
         time.sleep(1)
 
 
 if __name__ == "__main__":
-    manager = mp.Manager()
+    #manager = mp.Manager()
 
     #barrier = manager.Barrier(3) # does not work well
     #lock = manager.Lock() # does not work well
@@ -25,7 +46,6 @@ if __name__ == "__main__":
 
 
 
-"""
 #===== 273 =====
 # This is to practice multiprocessing.Manager().list()/dict()
 import multiprocessing as mp
