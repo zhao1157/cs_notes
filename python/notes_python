@@ -1,3 +1,5 @@
+36. class factories (create classes dynamically): type(name, bases_tuple, attrs_dict) returns a new class, which can be called like this cl()
+35. super(Me, cls).__new__(cls) creates an object, if returned, its __init__() will be called
 34. multiprocessing.Pool().map(fun, range(30)) keeps the order of the outputs as that of the intpus, but the execution can be arbitrary
 33. multiprocessing.Pool(processes=3).apply_async(f, args=()) submits ${processes} processes at once, and continues running the rest f's when one or more processes are done
 32. multiprocessing.Pool().apply(f, args=()) waits till f is done; [pool.apply() for _ in range(3)] actually runs f one by one serially

@@ -1,3 +1,159 @@
+#===== 285 ======
+class Me(object):
+    val = None
+    val_per = None
+
+    def __new__(cls, *args, **kwargs):
+        # ins is a new object, which should be different each time
+        ins = super(Me, cls).__new__(cls)
+        print (id(ins))
+        # here val_per is incremented everytime Me() is called
+        # while val is consistently None whenever Me() is called
+        if cls.val_per is None:
+            cls.val_per = 1
+        else:
+            cls.val_per += 1
+        return ins
+    
+    def get(self):
+        if self.val is None:
+            self.val = 1
+            self.val_per += 1
+        else:
+            self.val += 1
+            self.val_per += 1
+        return self.val
+
+for __ in range(2):
+    me = Me()
+    print (id(me))
+    print (f"\t{Me.val} {Me.val_per}")
+    for _ in range(3):
+        print (me.get(), me.val_per)
+
+
+"""
+#====== 284 ======
+# This is to practice metaclass 
+def count(self):
+    self._count += 1
+def __init__(self):
+    #self._count = 0
+    pass
+def get(self):
+    self.ct()
+    return self._count
+
+# inside the class the visible names are the keys of __dict__, not the original function/object name
+cl = type("cl_zls", (object,), {'ct': count, '__init__': __init__, "gt": get, "_count": 10}) # _count gets reassigned everytime a new object is created, so does not bind to the class itself
+
+print (cl.__dict__)
+obj = cl()
+#obj.it()
+for _ in range(3):
+    #obj.ct()
+    print (obj.gt())
+print (cl.__dict__)
+print (obj.__dict__)
+
+
+#====== 283 =======
+# This is to practice setting restrictions on the object creation
+class Me(object):
+    _singleton = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._singleton:
+            #print (cls._singleton)
+            cls._singleton = super(Me, cls).__new__(cls)
+        #cls._singleton.__init__(*args, **kwargs)
+        return cls._singleton
+    def __init__(self, a):
+        self._a = a
+        print ("Me init")
+    def get(self):
+        return self._a
+
+# even it's a singleton, __init__ always gets called if __new__() returns a class object
+print ("+++++")
+print (f"{Me._singleton}")
+me_1 = Me(2)
+print (f"{Me._singleton}")
+me_2 = Me(3)
+print (f"{Me._singleton}")
+
+print (id(me_1) == id(me_2))
+print (me_1.get(), me_2.get())
+
+print (dir(Me))
+print (Me.__dict__)
+
+#====== 282 =======
+#This is to practice __new__ and __init__, the former creates an object and the latter instantiates the object
+class T:
+    def __init__(self):
+        print ("T initializer")
+
+class Me:
+    # here cls can be any variable, e.g. self
+    def __new__(cls, *args, **kwargs):
+        #instance = super(Me, cls).__new__(cls) 
+        instance = object.__new__(cls)
+        return instance # the object is returned to the caller
+        #return 2
+        #return T() # returns a different class object
+
+    # initialization is called if __new__ returns the class object
+    def __init__(self, a):
+        print (f"Me init {a}")
+
+# when python interpreter encounters this line, it first calls __call__() of type class, which in turn calls
+# __new__() and __init__ if __new__() returns the class object
+print (Me(2))
+
+
+#======= 281 ======
+#This is to practice creating class through type(name, bases, attrs_dict)
+# create a class through type()
+def get(self):
+    return self.val
+
+cl = type("cl_name", (object,), {'val': 2, 'GET': get})
+print (dir(cl))
+print (cl.__name__)
+print (f"dict: {cl.__dict__}")
+obj = cl()
+print (cl.val, cl.GET(obj), obj.GET())
+
+class M(object):
+    def __init__(self, a = 3):
+        self._a = a
+    def Get(self):
+        return self._a
+
+me = M()
+print (me.Get(), M.Get(me))
+
+cl = type("cl_me", (M,), {'_a': 8, '_aa': 9}) # here _a is overwritten by the object instantiation
+print (f"{cl().Get()}")
+o = cl()
+print (o._aa, o._a, cl._a) # without object instantiation, _a retains its original value
+print (dir(cl))
+
+
+
+#====== 280 ======
+#This is to practice metaclass, which is the class of a class, i.e. class factory whereas class is an object factory
+a = 2
+print (type(a), a.__class__, type(a) is a.__class__)
+
+# all python built-in classes are objects of class type
+for cs in int, float, list, dict, tuple:
+    print (type(cs))
+
+print (int(3.2))
+print (float(2))
+
 #====== 279 ======
 #This is to practice multiprocessing.map, which keeps the order of the outputs as that of the inputs, but the execution can be arbitrary
 import multiprocessing as mp
@@ -17,7 +173,6 @@ if __name__ == "__main__":
         #[pool.apply(f, args=(x,)) for x in range(6)] # meaningless for multiprocessing as it does not support parallel execution 
 
 
-"""
 #======= 278 =======
 #This is to practice multiprocessing.Pool
 import multiprocessing as mp
