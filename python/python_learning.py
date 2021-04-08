@@ -1,3 +1,77 @@
+#====== 293 ======
+# This is to practice if add function as an object's attribute
+class Me(object):
+    def __init__(self):
+        self._a = 3
+
+me = Me()
+
+me.show = print
+print (me.__dict__)
+
+me.show(f"xxx")
+
+def f(self):
+    print (self._a)
+
+# to add a method attribute to the object, it's better do it in the class level, not the object level
+#me.f = f
+#me.f(me)
+print (me.__dict__)
+
+me.show(f"{me._a}")
+
+# add f as an attribute of the class
+Me.f = f
+me.f()
+
+
+
+"""
+#====== 292 ======
+# This is to practice class creation
+cl = type("Me_x", (object,), {})
+
+print (type(cl))
+
+me = cl()
+print (type(me))
+print (me)
+print (cl.__dict__)
+def f1(self):
+    print ("f1")
+
+cl.__init__ = f1
+print (cl.__dict__)
+
+me.__init__()
+
+cl.show = f1
+print (cl.__dict__)
+
+me.show()
+cl.show(me)
+
+def new(cls, *args, **kwargs):
+    ins = object.__new__(cls)
+    print ("cl new")
+    return ins
+
+cl.__new__ = new
+
+print (cl.__dict__)
+print ("_____")
+cl()
+
+print (cl.__dict__)
+print (dir(cl))
+print (cl.__class__)
+print (cl.__dir__)
+print (cl.__doc__)
+print (cl.__init__)
+print (cl.__new__)
+print (cl.__name__)
+
 #====== 291 ======
 # This is to practice class creation
 class Me(object):
@@ -13,7 +87,6 @@ me = Me()
 me.get() # . implicitly put the object as the first argument in the method
 print (Me._val) # if an object attempts to modify a class attribute, it simply redefines its own copy, not the one in the class
 
-"""
 #===== 290 ======
 #This is to practice creating objects with argument
 class Me(object):

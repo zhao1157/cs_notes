@@ -1,3 +1,5 @@
+43. To add a function attribute to the object, it's better do it in the class level; while to add a value attribute to the object, we can simply do it in the object level if just this object needs it not the other objects
+42. attributes in the class can be changed dynamically
 41. if an object attempts to modify a class attribute, it just makes a copy of it, not really modify the class attribute
 40. a.b here . implicitly put object a as the first argument in b if b is a function
 39. the attributes of a class can be added dynamically, and the modifications are reflected on the objects created before the the modification taken place
