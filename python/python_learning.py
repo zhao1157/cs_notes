@@ -1,3 +1,79 @@
+#====== 289 ======
+# This is to practice executing methods as they are added
+# attributes of a class are always bound to the class object, so as the attributes of the class are added, they are reflected
+# on the object
+class Me(object):
+    pass
+
+me = Me()
+
+print (f"Me: {Me.__dict__}")
+def f1(self):
+    print ("f1")
+
+Me.f1 = f1
+
+me.f1()
+print (me.__dict__)
+print (f"Me: {Me.__dict__}")
+def init(self):
+    self._a = 2
+
+Me.__init__ = init
+
+me.__init__()
+print (me.__dict__)
+print (f"Me: {Me.__dict__}")
+
+def f2(self):
+    print (self._a)
+
+Me._f2 = f2
+
+me._f2()
+print (me.__dict__)
+print (f"Me: {Me.__dict__}")
+
+print (super(Me, me))
+print (me.__module__)
+
+
+
+
+
+
+"""
+#====== 288 =====
+#This is to practice creating attributes of a class and an object dynamically
+class Me(object):
+    def __new__(cls, *args, **kwargs):
+        print ("new")
+        ins = super(Me, cls).__new__(cls, *args, **kwargs)
+        return ins
+
+
+print (Me.__dict__)
+
+def get_cl(self):
+    print ("get_cl")
+
+print()
+
+Me.GET_CL = get_cl
+print (Me.__dict__)
+me = Me()
+Me.GET_CL(me)
+me.GET_CL()
+
+def show(self, a):
+    print (a)
+# even though show() is added later as an attribute, the object created before can still call it
+Me.show = show
+Me.show(22, 233) # the first argument is just an object, its type is not defined, so we can just use an object
+me.show(23)
+me.__new__(Me) # can not be (me), as it requires a type object
+
+
 #====== 287 ======
 # This is to practice creating an object with the usual way and the underlying way
 class Me(object):
@@ -17,9 +93,6 @@ me = Me.__new__(Me)
 me.__init__()
 
 
-
-
-"""
 #===== 286 ======
 #This is to practice __dict__ for both class and its object
 class Me(object):
