@@ -1,3 +1,37 @@
+#====== 291 ======
+# This is to practice class creation
+class Me(object):
+    _val = None
+    def get(self):
+        self._val = 9
+        print (self._val)
+
+#Me.get()
+print (Me._val)
+
+me = Me()
+me.get() # . implicitly put the object as the first argument in the method
+print (Me._val) # if an object attempts to modify a class attribute, it simply redefines its own copy, not the one in the class
+
+"""
+#===== 290 ======
+#This is to practice creating objects with argument
+class Me(object):
+    def __new__(cls, *args, **kwargs):
+        print (f"Me new {args}")
+        ins = super(Me, cls).__new__(cls) #, *args, **kwargs) # only one argument, i.e. the type to instantiate
+        return ins
+    
+    def __init__(self, a):
+        print ("Me init")
+        self._a = a
+
+me = Me(2)
+print ()
+me = Me.__new__(Me, 3)
+me.__init__(3)
+
+    
 #====== 289 ======
 # This is to practice executing methods as they are added
 # attributes of a class are always bound to the class object, so as the attributes of the class are added, they are reflected
@@ -38,11 +72,6 @@ print (super(Me, me))
 print (me.__module__)
 
 
-
-
-
-
-"""
 #====== 288 =====
 #This is to practice creating attributes of a class and an object dynamically
 class Me(object):
