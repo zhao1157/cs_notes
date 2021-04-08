@@ -1,3 +1,27 @@
+#===== 295 =====
+# This is to practice Singleton
+class Me(object):
+    # it's reflected if modified in __new__
+    _singleton = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._singleton is None:
+            cls._singleton = super(Me, cls).__new__(cls)
+        return cls._singleton
+    
+    def __init__(self):
+        print ("Me init")
+
+print (Me.__dict__)
+
+a = Me()
+b = Me()
+
+print (Me.__dict__)
+print (id(a) == id(b), id(a) == id(Me._singleton), id(a) == id(a._singleton))
+
+
+"""
 #======= 294 =======
 # This is to practice class creation using type.__new__() and cl.__init__()
 # when creating objects, i.e. class or class instance, __new__() is the underlying mechanism
@@ -34,7 +58,6 @@ me.__init__(2, 3)
 me.show_a()
 me.SHOW_B()
 
-"""
 me = cl.__new__(cl)
 print ("_____")
 me.__init__(2, 3)
