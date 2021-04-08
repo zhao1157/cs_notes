@@ -1,3 +1,46 @@
+#===== 286 ======
+#This is to practice __dict__ for both class and its object
+class Me(object):
+    # an attribute of the class
+    _val = -1111111111
+
+    def __init__(self):
+        # an attribute of the object if and only if __init__() is executed
+        self._x = 0
+        pass
+
+    def get(self):
+        # an attribute of the object if and only if get() is executed
+        self.y = 0
+        print (self._x)
+
+
+if __name__ == "__main__":
+    print (Me.__dict__)
+    print ("\n\n")
+
+    # the attributes of a class object are the ones defined inside the methods with self.
+    # __init__() is called automatically after instantiation, so self._x=0 is executed
+    me = Me()
+    print (dir(me))
+    print (f"before get: {me.__dict__}")
+    # after executing self.get(), we have self.y attribute
+    me.get()
+    print (f"after get: {me.__dict__}")
+    #me._val = 9
+    # _val is not an attribute of me object, but it searches outside of its scope to the class level
+    print (f"_val: {me._val}")
+    # this does not modify _val in the class scope, as it only redefines _val in the object scope
+    me._val = 9
+    print (f"after _val: {me.__dict__}")
+    me._x = 8
+    print (f"after me._x: {me.__dict__}")
+    me.get()
+    print (Me.__dict__)
+
+
+
+"""
 #===== 285 ======
 class Me(object):
     val = None
@@ -32,7 +75,6 @@ for __ in range(2):
         print (me.get(), me.val_per)
 
 
-"""
 #====== 284 ======
 # This is to practice metaclass 
 def count(self):
