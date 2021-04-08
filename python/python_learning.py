@@ -1,3 +1,44 @@
+#======= 294 =======
+# This is to practice class creation using type.__new__() and cl.__init__()
+# when creating objects, i.e. class or class instance, __new__() is the underlying mechanism
+# when creating class, __init__ attribute of class should not be called as it's for class instance creation
+# when creating class instance, __init__ is just optional depending on the necessity of executing it
+def init(self, a, b):
+    print ("init")
+    self._a = a
+    self._b = b
+
+def new(cls, *args, **kwargs):
+    ins = cls.__new__(cls)
+    print ("new")
+    return ins
+
+def show_a(self):
+    print (self._a) 
+
+def show_b(self):
+    print (self._b)
+
+# cl = type('Mex', (object,), {...}) # returns a class with name, base class and attributes
+cl = type.__new__(type, "Mex", (object,), {'__nnew__': new, '__init__': init, 'show_a': show_a, 'SHOW_B': show_b})
+# cl.__init__() # not right as __init__() is used for class instance initialization, not for class initialization
+
+print(type(cl))
+print (cl)
+print (cl.__dict__)
+print (cl.__name__, cl.__bases__)
+
+#me = cl(2, 3)
+me = cl.__new__(cl)
+me.__init__(2, 3)
+me.show_a()
+me.SHOW_B()
+
+"""
+me = cl.__new__(cl)
+print ("_____")
+me.__init__(2, 3)
+
 #====== 293 ======
 # This is to practice if add function as an object's attribute
 class Me(object):
@@ -27,7 +68,6 @@ me.f()
 
 
 
-"""
 #====== 292 ======
 # This is to practice class creation
 cl = type("Me_x", (object,), {})
