@@ -1,3 +1,35 @@
+#======= 297 ======
+#This is to practice metaclass 
+meta_classes = {}
+
+class Meta(type):
+    _meta_classes = {}
+    # type(name, bases, attrs)
+    def __new__(mcls, name, bases, attrs):
+        print ("Meta.__new__")
+        print (f"\t{name}, {bases}, {attrs}")
+        cls = super(Meta, mcls).__new__(mcls, name, bases, attrs)
+        mcls._meta_classes[name] = cls
+        return cls
+    
+    def __init__(self, name, bases, attrs):
+        print (f"\t{self.__name__}")
+
+class Me(object, metaclass = Meta):
+    def show(self):
+        pass
+
+class You(object, metaclass = Meta):
+    pass
+
+class F(Me): 
+    pass
+
+print (meta_classes)
+print (Meta._meta_classes)
+
+
+"""
 # ========== 296 =============
 # This is to practice rewriting type.__call__()
 class Meta(type):
@@ -30,8 +62,6 @@ b = Me(1)
 print (id(a) == id(b))
 
 
-
-"""
 #===== 295 =====
 # This is to practice Singleton
 class Me(object):
