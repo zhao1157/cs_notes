@@ -1,3 +1,4 @@
+38. class Me: pass; when creating a Me instance, Me() is equivalent to Me.__new__() and me.__init__()
 37. the attributes of a class are the ones defined inside the class scope, like "def xx():..." or "_x=3"; while the attributes of a class object are the ones defined inside the methods, like in __init__() "self._a = 9..." or other functions, but they exist only after these methods are called; by obj._x=99 does not change the class attribute, it only defines _x as an attribute of the object, before which _x is not an attribute of the object, but obj._x will returns the attribute of the class if not exist in the object yet
 36. class factories (create classes dynamically): type(name, bases_tuple, attrs_dict) returns a new class, which can be called like this cl()
 35. super(Me, cls).__new__(cls) creates an object, if returned, its __init__() will be called

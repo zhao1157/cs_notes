@@ -1,3 +1,25 @@
+#====== 287 ======
+# This is to practice creating an object with the usual way and the underlying way
+class Me(object):
+    # instantiate an object
+    def __new__(cls, *args, **kwargs):
+        instance = super(Me, cls).__new__(cls)
+        print ("Me __new__")
+        return instance
+    # initialize the object created by __new__ 
+    def __init__(self):
+        print ("Me __init__")
+
+me = Me()
+print (Me.__dict__)
+# an equivalent way
+me = Me.__new__(Me)
+me.__init__()
+
+
+
+
+"""
 #===== 286 ======
 #This is to practice __dict__ for both class and its object
 class Me(object):
@@ -39,8 +61,6 @@ if __name__ == "__main__":
     print (Me.__dict__)
 
 
-
-"""
 #===== 285 ======
 class Me(object):
     val = None
