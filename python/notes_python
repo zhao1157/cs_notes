@@ -1,3 +1,4 @@
+46. In meta(type) class, __new__ and __init__ are for class creation, while __call__() is for class instance creation, which calls __new__ and __init__ methods in the class definition; so to control the class instance creation, we can simply rewrite metaclass __call__ method
 45. in order to save the changes made to the class attributes, we need to modify it in __new__ method, which is called before instance is created
 44. create a class, cl=type.__new__(type, "Me", (object,), {'__init__': init_func}), do not call cl.__init__(...) as it's for instance initialization;
 43. To add a function attribute to the object, it's better do it in the class level; while to add a value attribute to the object, we can simply do it in the object level if just this object needs it not the other objects

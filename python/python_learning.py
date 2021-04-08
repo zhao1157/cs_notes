@@ -1,3 +1,37 @@
+# ========== 296 =============
+# This is to practice rewriting type.__call__()
+class Meta(type):
+    _instance = None
+    def __call__(cls, *args, **kwargs):
+        # it's called whenever creating instance is invoked
+        print ("Meta.__call__ for instance creation")
+        if cls._instance is None:
+            cls._instance = super(Meta, cls).__call__(*args, **kwargs)
+        return cls._instance
+
+    def __new__(cls, *args, **kwargs):
+        print ("Meta.__new__ for class creation")
+        return super(Meta, cls).__new__(cls, *args, **kwargs)
+
+    def __init__(cls, *args, **kwargs):
+        print ("Meta.__init__")
+
+# class statement invokes Meta.__new__
+class Me(object, metaclass = Meta):
+    def __new__(cls, *args, **kwargs):
+        print (f"Me.__new__ {cls}")
+        # return super(Me, cls).__new__(cls)
+        return object.__new__(cls)
+
+
+print ("_______________")
+a = Me()
+b = Me(1)
+print (id(a) == id(b))
+
+
+
+"""
 #===== 295 =====
 # This is to practice Singleton
 class Me(object):
@@ -21,7 +55,6 @@ print (Me.__dict__)
 print (id(a) == id(b), id(a) == id(Me._singleton), id(a) == id(a._singleton))
 
 
-"""
 #======= 294 =======
 # This is to practice class creation using type.__new__() and cl.__init__()
 # when creating objects, i.e. class or class instance, __new__() is the underlying mechanism
