@@ -1,3 +1,32 @@
+#====== 300 =======
+# This is to practice hasattr function
+class Me(object):
+    _name = "xx"
+
+    def show(self):
+        print  ("show")
+    def __init__(self):
+        self._a = 2
+        self._x = 9
+
+print (hasattr(Me, '_name'))
+print (hasattr(Me, '_x'))
+print (hasattr(Me, 'show'))
+print (hasattr(Me, '__init__'))
+print (hasattr(Me, '__new__'))
+print (hasattr(Me, '__name__'))
+print (hasattr(Me, '__dict__'))
+print (hasattr(object, "__new__"))
+print (hasattr(Me(), '_a'))
+me = Me()
+print (me.__dict__)
+a = getattr(me, '_a')
+b = getattr(me, '_x')
+print (a, b)
+
+
+
+"""
 #====== 299 =====
 # This is to practice class attributes can not be modified in __call__
 class Me(object):
@@ -16,7 +45,7 @@ me()
 print (me._val)
 print (Me.__dict__)
 
-"""
+
 #======= 298 ========
 #This is to practice meta class attributes are not modified by the class created
 class Meta(type):
