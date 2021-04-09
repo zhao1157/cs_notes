@@ -1,3 +1,51 @@
+#======= 298 ========
+#This is to practice meta class attributes are not modified by the class created
+class Meta(type):
+    attrs_cls = []
+    attrs_obj = []
+
+    def __new__(mcls, name, bases, attrs):
+        print ("meta_new")
+        ins = super(Meta, mcls).__new__(mcls, name, bases, attrs)
+        mcls.attrs_cls.append(name)
+        return ins
+    
+    def __init__(cls, name, bases, attrs):
+        print ("meta_init")
+
+    def __call__(cls, *args, **kwargs):
+        print ("\nclass_call")
+        obj = super(Meta, cls).__call__(*args, **kwargs) # here it call __new__ and __init__ for object creation
+        print (obj)
+        # even though class object invokes this function, the class attributes are still modified
+        cls.attrs_obj.append(obj)
+        return obj
+
+Meta("xx", (), {})
+
+print ("before", Meta.__dict__)
+class A(object, metaclass = Meta):
+    def __new__(cls):
+        print ("A__new__")
+        #return 2
+        return object.__new__(cls)
+    def __init__(self):
+        print ("A_init")
+class B(object, metaclass = Meta):
+    def __init__(self):
+        print ("B_init")
+        #self._attrs_obj.append(3)
+
+
+print ("after", Meta.__dict__)
+A()
+A()
+print ("******8")
+B()
+print (f"one object: {Meta.__dict__}")
+
+
+"""
 #======= 297 ======
 #This is to practice metaclass 
 meta_classes = {}
@@ -8,7 +56,8 @@ class Meta(type):
     def __new__(mcls, name, bases, attrs):
         print ("Meta.__new__")
         print (f"\t{name}, {bases}, {attrs}")
-        cls = super(Meta, mcls).__new__(mcls, name, bases, attrs)
+        #cls = super(Meta, mcls).__new__(mcls, name, bases, attrs)
+        cls = type.__new__(mcls, name, bases, attrs)
         mcls._meta_classes[name] = cls
         return cls
     
@@ -29,7 +78,6 @@ print (meta_classes)
 print (Meta._meta_classes)
 
 
-"""
 # ========== 296 =============
 # This is to practice rewriting type.__call__()
 class Meta(type):
