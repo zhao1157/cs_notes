@@ -1,3 +1,40 @@
+#===== 302 =======
+# This is to confirm that __init__() is always getting called if __new__() returns its instance
+import random
+
+class Meta(type):
+    _singleton = None
+    def __call__(cls, *args, **kwargs):
+        print ("Meta.__call__")
+        # we should control the instance creation in __call__, othrewise we can not control when to execute __init__ in the class, which in turn corrupts the instance's attributes
+        if True:#Meta._singleton is None:
+            Meta._singleton = super(Meta, cls).__call__(*args, **kwargs)
+        print ("Done Meta.__call__")
+        return Meta._singleton
+
+class Me(metaclass = Meta):
+    def __new__(cls, *args, **kwargs):
+        print ("Me.__new__")
+        if cls._singleton is None:
+            print ("\t......")
+            cls._singleton = super(Me, cls).__new__(cls, *args, **kwargs)
+        return cls._singleton
+
+    def __init__(self):
+        # always execute as long as __new__ returns Me instance
+        print ("Me.__init__")
+        self._a = random.random()
+        self._b = random.random()
+
+a = Me()
+print (a.__dict__)
+b = Me()
+print (b.__dict__)
+print (id(a) == id(b))
+
+
+
+"""
 #==== 301 =====
 # This is to practice modifying the attributes of a group of classes
 class Meta(type):
@@ -26,7 +63,6 @@ me = Me()
 me.SHOW()
 
 
-"""
 #====== 300 =======
 # This is to practice hasattr function
 class Me(object):
