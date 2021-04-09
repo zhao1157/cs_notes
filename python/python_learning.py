@@ -1,3 +1,22 @@
+#====== 299 =====
+# This is to practice class attributes can not be modified in __call__
+class Me(object):
+    _val = None
+    def __new__(cls, *args, **kwargs):
+        print ("Me.__new__")
+        cls._val = 99
+        #ins = super(Me, cls).__new__(cls, *args, **kwargs)
+        ins = object.__new__(cls, *args, **kwargs)
+        return ins
+    def __call__(self):
+        self._val = 3
+
+me = Me()
+me()
+print (me._val)
+print (Me.__dict__)
+
+"""
 #======= 298 ========
 #This is to practice meta class attributes are not modified by the class created
 class Meta(type):
@@ -45,7 +64,6 @@ B()
 print (f"one object: {Meta.__dict__}")
 
 
-"""
 #======= 297 ======
 #This is to practice metaclass 
 meta_classes = {}

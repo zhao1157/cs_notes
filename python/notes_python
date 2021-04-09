@@ -1,3 +1,4 @@
+48. In the ordinary class, the class attributes can be modified in __new__, can not be modified in other methods
 47. meta_class(type) -> __new__(mcls, name, bases, attrs), __init__(self, name, bases, attrs) -> controls the class creation
 46. In meta(type) class, __new__ and __init__ are for class creation, while __call__() is for class instance creation, which calls __new__ and __init__ methods in the class definition; so to control the class instance creation, we can simply rewrite metaclass __call__ method
 45. in order to save the changes made to the class attributes, we need to modify it in __new__ method, which is called before instance is created
