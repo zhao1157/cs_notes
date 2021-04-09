@@ -1,3 +1,4 @@
+52. in meta class, we can both control class creation and instance creation
 51. in a class definition, __new__ can not control whether execute __init__ or not, so to create a singleton, we should do it through __call__ in the meta class
 50. we can modify the attributes of a class in its meta class __new__ method
 49. hasattr(Me, '__new__') or hasattr(me, '_a'); getattr(Me, '__new__') or getattr(me, '_a')

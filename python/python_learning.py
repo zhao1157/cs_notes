@@ -1,3 +1,107 @@
+#==== 306 ======
+# This is to practice dynamically add attributes to class and instance
+def unique(self):
+    self._a = 9
+    print ("unique")
+
+class Meta(type):
+    def __new__(mcls, name, bases, attrs):
+        attrs['__unique__'] = unique
+        return super(Meta, mcls).__new__(mcls, name, bases, attrs)
+
+class Me(metaclass = Meta):
+    def show(self):
+        self.__unique__()
+print (Me.__dict__)
+me = Me()
+me.show()
+print (me.__dict__)
+
+Me._val = 99
+print (me._val)
+print (me.__dict__)
+
+me._b = 999
+def get_b(self):
+    print (self._b)
+
+Me.get = get_b
+
+me.get()
+
+
+
+"""
+#==== 305 ======
+# This is to practice after modifying the attributes of a class is it affecting the call inside the class
+class Meta(type):
+    def __new__(mcls, name, bases, attrs):
+        attrs_new = {}
+        for k, v in attrs.items():
+            if not k.startswith("__"):
+                k = k.upper()
+            attrs_new[k] = v
+        return super(Meta, mcls).__new__(mcls, name, bases, attrs_new)
+
+class Me(metaclass = Meta):
+    def set(self): # should be called as SET()
+        self._a = 9
+
+    def show(self): # should be called as SHOW
+        self.SET()
+        print (self._a)
+print (Me.__dict__)
+me = Me()
+me.SHOW()
+
+
+#====== 304 =======
+#This is to practice meta class __call__
+class Meta(type):
+    def __call__(cls, *args, **kwargs):
+        print ("calling __new__")
+        #ins = super(Meta, cls).__new__(cls, *args, **kwargs)
+        ins = super(Meta, cls).__call__(*args, **kwargs)
+        #print ("calling __init__")
+        #ins.__init__(*args, **kwargs)
+
+class Me(metaclass = Meta):
+    def __new__(cls, *args, **kwargs):
+        print ("\tMe.__new__")
+        return super(Me, cls).__new__(cls) #, *args)
+    
+    def __init__(self, *args, **kwargs):
+        print ("\tMe.__init__")
+
+
+me = Me(3)
+
+
+#====== 303 ====== 
+#This is to practice meta class __new__
+class Meta(type):
+    def __new__(mcls, name, bases, attrs):
+        print (f"\t{name}\n\t{bases}\n\t{attrs}")
+        return super(Meta, mcls).__new__(mcls, name, bases, attrs)
+
+class Me(object, metaclass = Meta):
+    _x = None
+
+    def show(self):
+        pass
+    def __new__(cls, *args, **kwargs):
+        print ("Me.__new__")
+        return super(Me, cls).__new__(cls) #, *args, **kwargs)
+
+    def __init__(self, a=2):
+        print ("Me.__init__")
+        self._a = a
+
+me = Me(2)
+print (me._a)
+
+
+
 #===== 302 =======
 # This is to confirm that __init__() is always getting called if __new__() returns its instance
 import random
@@ -34,7 +138,6 @@ print (id(a) == id(b))
 
 
 
-"""
 #==== 301 =====
 # This is to practice modifying the attributes of a group of classes
 class Meta(type):
