@@ -1,3 +1,4 @@
+50. we can modify the attributes of a class in its meta class __new__ method
 49. hasattr(Me, '__new__') or hasattr(me, '_a'); getattr(Me, '__new__') or getattr(me, '_a')
 48. In the ordinary class, the class attributes can be modified in __new__, can not be modified in other methods
 47. meta_class(type) -> __new__(mcls, name, bases, attrs), __init__(self, name, bases, attrs) -> controls the class creation

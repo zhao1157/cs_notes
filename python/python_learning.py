@@ -1,3 +1,32 @@
+#==== 301 =====
+# This is to practice modifying the attributes of a group of classes
+class Meta(type):
+    def __new__(mcls, name, bases, attrs):
+        attrs_new = {}
+        for k, v in attrs.items():
+            if not k.startswith("__"):
+                print (f"{k}: {v}")
+                k = k.upper()
+            attrs_new[k] = v
+            #attrs[k] = v
+
+        return super(Meta, mcls).__new__(mcls, name, bases, attrs_new)
+
+class Me(metaclass = Meta):
+    _xy = None
+    def show(self):
+        print ("upper case")
+
+    def __init__(self):
+        pass
+
+print (Me.__dict__)
+
+me = Me()
+me.SHOW()
+
+
+"""
 #====== 300 =======
 # This is to practice hasattr function
 class Me(object):
@@ -25,8 +54,6 @@ b = getattr(me, '_x')
 print (a, b)
 
 
-
-"""
 #====== 299 =====
 # This is to practice class attributes can not be modified in __call__
 class Me(object):
