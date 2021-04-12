@@ -1,3 +1,22 @@
+#==== 309 ======
+#This is to practice setattr(obj, attr_name, attr_value)
+class Me(object):
+    pass
+
+setattr(Me, 'name', 'zls')
+print (Me.__dict__)
+
+me = Me()
+
+print (me.__dict__)
+setattr(me, 'name', 'ZLS')
+print (me.__dict__)
+print (Me.__dict__)
+
+delattr(me, 'name')
+print (me.__dict__)
+
+"""
 #=== 308 =====
 #This is to practice use isinstance(obj, classes) in singleton
 class Meta(type):
@@ -34,7 +53,7 @@ print (Meta.class_ins)
 print (type(Me), type(Meta))
 print (type(int))
 
-"""
+
 #===== 307 ======
 # This is to practice singleton using a decorator
 def singleton(class_):
