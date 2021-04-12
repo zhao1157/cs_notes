@@ -1,3 +1,47 @@
+#===== 311 ======
+#This is to practice datetime
+from datetime import datetime 
+
+def dt(func):
+    def wrapper(*args, **kwargs):
+        if 7 <= datetime.now().hour < 18:
+            print ("day")
+            func(*args, **kwargs)
+            print ("Till 18 oclock")
+        else:
+            print ("night")
+    return wrapper
+
+@dt
+def work():
+    print ("I'm working")
+
+work()
+
+
+
+"""
+#===== 310 =======
+#This is to practice inner function
+def outer():
+    a = None
+    print (f"a: {a}")
+    def inner(i):
+        nonlocal a
+        print (f"inner: {a}")
+        a = i
+    print (id(inner))
+    return inner
+
+inner = outer()
+print (f"inner: {id(inner)}")
+
+inner(2)
+inner(3)
+inner(4)
+inner(5)
+
+
 #==== 309 ======
 #This is to practice setattr(obj, attr_name, attr_value)
 class Me(object):
@@ -16,7 +60,8 @@ print (Me.__dict__)
 delattr(me, 'name')
 print (me.__dict__)
 
-"""
+
+
 #=== 308 =====
 #This is to practice use isinstance(obj, classes) in singleton
 class Meta(type):
