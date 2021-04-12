@@ -1,3 +1,77 @@
+#=== 308 =====
+#This is to practice use isinstance(obj, classes) in singleton
+class Meta(type):
+    instance =None
+    class_ins = []
+
+    def __call__(cls, *args, **kwargs):
+        if not isinstance(cls.instance, cls):
+            print (f"old {cls.instance}")
+            cls.instance = super(Meta, cls).__call__(*args, **kwargs)
+        return cls.instance
+
+    def __new__(mcls, name, bases, attrs):
+        cls = super(Meta, mcls).__new__(mcls, name, bases, attrs)
+        if cls not in mcls.class_ins:
+            mcls.class_ins.append(cls)
+        return cls
+
+class Me(metaclass = Meta):
+    pass
+
+class You(metaclass =Meta):
+    pass 
+
+Me()
+Me()
+print ("_______")
+You()
+You()
+
+print ("______")
+print (Meta.class_ins)
+
+print (type(Me), type(Meta))
+print (type(int))
+
+"""
+#===== 307 ======
+# This is to practice singleton using a decorator
+def singleton(class_):
+    class_singleton = {}
+    def singleton_inner(*args, **kwargs):
+        if class_ not in class_singleton:
+            print (class_)
+            class_singleton[class_] = class_(*args, **kwargs)
+        return class_singleton[class_]
+    return singleton_inner
+
+@singleton
+class Me(object):
+    def __init__(self):
+        self._a = 9
+
+@singleton
+class You(object):
+    def __init__(self, a, b):
+        self._a = a
+        self._b = b
+
+print (Me)
+me_1 = Me()
+print (me_1._a)
+me_2 = Me()
+print (me_2._a)
+print (me_1, me_2)
+
+you_1 = You(2, 3)
+you_2 = You(4, 5)
+print (you_1 is you_2)
+
+print (you_1._a, you_2._a)
+print (You)
+
+
 #==== 306 ======
 # This is to practice dynamically add attributes to class and instance
 def unique(self):
@@ -30,8 +104,6 @@ Me.get = get_b
 me.get()
 
 
-
-"""
 #==== 305 ======
 # This is to practice after modifying the attributes of a class is it affecting the call inside the class
 class Meta(type):
