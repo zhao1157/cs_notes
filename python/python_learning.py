@@ -1,3 +1,65 @@
+#====== 316 ======
+#This is to practice function decorator with arguments
+import functools 
+import time
+
+def timeit(func = None, *, intval = 0): # here func and intval can not coexist in the decorator situation
+    def outer(func_):
+        @functools.wraps(func_)
+        def inner(*args, **kwargs):
+            t1 = time.perf_counter()
+            time.sleep(intval)
+            func_(*args, **kwargs)
+            t2 = time.perf_counter()
+            print (f"time taken {t2 - t1}s")
+        return inner
+    
+    # without argument
+    if func is not None:
+        return outer(func)
+    # with argument intval
+    else:
+        return outer
+
+@timeit
+def f1():
+    time.sleep(2)
+
+@timeit(intval = 1)
+def f2():
+    time.sleep(2)
+
+f1()
+print (f1)
+
+f2()
+print (f2)
+
+
+
+
+"""
+#====== 315 ======
+# This is to practice function decorator with arguments
+import functools 
+def repeat_times(num_times):
+    def repeat(func):
+        print (func)
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for i in range(num_times):
+                print (f"time {i}")
+                func(*args, **kwargs)
+        return wrapper
+    return repeat
+
+@repeat_times(3)
+def f():
+    print ("\txxx")
+
+f()
+print (f)
+
 #===== 314 =======
 #This is to practice nonlocal
 def outer(): #(a = [2]):
@@ -21,7 +83,6 @@ f()
 f = outer()
 f()
 
-"""
 #====== 313 ======
 # This is to practice function attribute
 def outer():
