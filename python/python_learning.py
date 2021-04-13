@@ -1,3 +1,86 @@
+#====== 319 =======
+#This is to practice getting decorated by multiple decorators
+import functools 
+import time
+
+def timeit(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        t1 = time.perf_counter()
+        func(*args, **kwargs)
+        t2 = time.perf_counter()
+
+        print (f"time taken {t2 - t1} s")
+    return wrapper
+
+def repeat_times(num_times):
+    def repeat(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for i in range(num_times):
+                print (f"repeat {i+1} times")
+                func(*args, **kwargs)
+        return wrapper
+    return repeat
+
+@timeit
+@repeat_times(2)
+def f():
+    time.sleep(1)
+
+f()
+
+@repeat_times(2)
+@timeit
+def g():
+    time.sleep(1)
+
+g()
+
+
+
+
+
+"""
+#======= 318 =======
+#This is to practice decorator on class method
+import functools
+import time
+
+def repeat_times(func_ = None, num_times = 1):
+    def repeat(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for i in range(num_times):
+                print (f"repeat {i+1} time")
+                func(*args, **kwargs)
+        return wrapper
+    if func_ is None:
+        return repeat
+    else:
+        return repeat(func_)
+
+class Me(object):
+    def __init__(self):
+        self._a = 1
+
+    @repeat_times
+    def f1(self):
+        time.sleep(self._a)
+
+    @repeat_times(num_times = 2)
+    def f2(self):
+        time.sleep(self._a)
+
+me = Me()
+me.f1()
+print ("____")
+me.f2()
+
+print (Me.f1)
+print (Me.f2)
+
+
 #====== 317 ======
 # This is to practice registering using decorator
 all_funcs = {}
@@ -18,7 +101,6 @@ print (all_funcs)
 f1()
 
 
-"""
 #====== 316 ======
 #This is to practice function decorator with arguments
 import functools 

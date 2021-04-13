@@ -1,3 +1,4 @@
+60. decorate a function by more than on decorator, i.e. just stack decorators @x@b
 59. @DECORATOR can also be used as a register, and not modify the function functionality
 58. decorator with arguments, def timeit(_func = None, *, intval = 0); as _func and intval can not coexist/co-set, it natually deals with decorator with/out arguments
 57. nonlocal makes a local variable in the inner scope a non-local, but also non-global, so the variable is referred as the one in the outer scope
