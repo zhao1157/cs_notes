@@ -1,3 +1,38 @@
+#======== 320 ======
+#This is to practice class decorator
+import functools
+import time
+
+class Delay(object):
+    def __init__(self, intval = 0):
+        self._intval = intval
+    def __call__(self, func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            print (f"delaying {self._intval}s")
+            time.sleep(self._intval)
+            print ("Done delaying")
+            func(*args, **kwargs)
+        return wrapper
+
+@Delay(2)
+def f():
+    print ("xxx")
+
+f()
+print (f)
+
+@Delay()
+def g():
+    print ("yyy")
+
+g()
+
+
+
+
+
+"""
 #====== 319 =======
 #This is to practice getting decorated by multiple decorators
 import functools 
@@ -38,10 +73,6 @@ def g():
 g()
 
 
-
-
-
-"""
 #======= 318 =======
 #This is to practice decorator on class method
 import functools

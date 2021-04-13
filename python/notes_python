@@ -1,3 +1,4 @@
+61. we can make class as an argument-taking decorator, which takes the arguemnt when constructing the class instance, and calls __call__ to decorate the method
 60. decorate a function by more than on decorator, i.e. just stack decorators @x@b
 59. @DECORATOR can also be used as a register, and not modify the function functionality
 58. decorator with arguments, def timeit(_func = None, *, intval = 0); as _func and intval can not coexist/co-set, it natually deals with decorator with/out arguments
