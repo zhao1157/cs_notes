@@ -1,3 +1,20 @@
+#===== 321 =====
+#This is to practice functools.update_wrapper(wrapper, wrapped)
+import functools
+
+def outer(func):
+    def inner(*args, **kwargs):
+        func(*args, **kwargs)
+    #functools.update_wrapper(inner, func)
+    return inner
+
+@outer
+def f():
+    pass
+
+print (f)
+
+"""
 #======== 320 ======
 #This is to practice class decorator
 import functools
@@ -29,10 +46,6 @@ def g():
 g()
 
 
-
-
-
-"""
 #====== 319 =======
 #This is to practice getting decorated by multiple decorators
 import functools 
