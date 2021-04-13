@@ -1,3 +1,27 @@
+#===== 314 =======
+#This is to practice nonlocal
+def outer(): #(a = [2]):
+    a = [2]
+    print (id(a))
+    def inner():
+        nonlocal a
+        print (id(a))
+        if a[0] == 2:
+            a[0] += 1
+        else:
+            a[0] += 1
+        print (a)
+    return inner
+
+f = outer()
+f()
+f()
+f()
+
+f = outer()
+f()
+
+"""
 #====== 313 ======
 # This is to practice function attribute
 def outer():
@@ -21,7 +45,7 @@ f._b = 9
 f()
 f()
 
-"""
+
 #====== 312 ======
 # This is to practice functools.wraps()
 from datetime import datetime
