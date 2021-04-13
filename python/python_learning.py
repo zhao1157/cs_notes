@@ -1,3 +1,29 @@
+#====== 312 ======
+# This is to practice functools.wraps()
+from datetime import datetime
+import functools
+
+def dt(func):
+    print (f"before {func}") # at @ time
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        print (f"inside {func}")
+        return func(*args, **kwargs)
+    
+    return wrapper
+
+@dt
+def f():
+    return 2
+
+f()
+print(f)
+print (f.__dict__)
+print (f.__name__)
+print (dt.__name__)
+
+
+"""
 #===== 311 ======
 #This is to practice datetime
 from datetime import datetime 
@@ -20,7 +46,6 @@ work()
 
 
 
-"""
 #===== 310 =======
 #This is to practice inner function
 def outer():

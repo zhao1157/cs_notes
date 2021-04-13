@@ -1,3 +1,4 @@
+55. functools.warps(func) keeps the wrapped function maintain their original signature
 54. datetime.now().year/month/day/hour/minute/second
 53. setattr(Me, 'name', 'zls'), delattr(Me, 'name')
 52. in meta class, we can both control class creation and instance creation
