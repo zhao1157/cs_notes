@@ -1,3 +1,24 @@
+#====== 317 ======
+# This is to practice registering using decorator
+all_funcs = {}
+
+def get_all_funcs(func):
+    all_funcs[func.__name__] = func
+    return func
+
+@get_all_funcs
+def f1():
+    print ('xf1')
+
+@get_all_funcs
+def f2():
+    pass
+
+print (all_funcs)
+f1()
+
+
+"""
 #====== 316 ======
 #This is to practice function decorator with arguments
 import functools 
@@ -36,9 +57,6 @@ f2()
 print (f2)
 
 
-
-
-"""
 #====== 315 ======
 # This is to practice function decorator with arguments
 import functools 
