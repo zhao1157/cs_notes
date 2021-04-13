@@ -1,3 +1,27 @@
+#====== 313 ======
+# This is to practice function attribute
+def outer():
+    def inner():
+        inner._a += 9
+    inner._a = 0
+    return inner
+
+f = outer()
+print (f._a)
+print (f, f.__dict__)
+f()
+f()
+print (f._a)
+
+def f():
+    f._b += 2
+    print (f._b)
+
+f._b = 9
+f()
+f()
+
+"""
 #====== 312 ======
 # This is to practice functools.wraps()
 from datetime import datetime
@@ -23,7 +47,6 @@ print (f.__name__)
 print (dt.__name__)
 
 
-"""
 #===== 311 ======
 #This is to practice datetime
 from datetime import datetime 

@@ -1,3 +1,4 @@
+56. def f(): f._b += 2; f._b = 0; defines a function attribute
 55. functools.warps(func) keeps the wrapped function maintain their original signature
 54. datetime.now().year/month/day/hour/minute/second
 53. setattr(Me, 'name', 'zls'), delattr(Me, 'name')
