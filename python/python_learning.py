@@ -1,3 +1,40 @@
+#===== 323 =====
+#Singleton using decorator
+import functools
+
+def singleton(cls):
+    #instance = None
+    @functools.wraps(cls)
+    def wrapper(*args, **kwargs):
+        #nonlocal instance
+        if wrapper.instance is None:
+            wrapper.instance = cls(*args, **kwargs)
+        return wrapper.instance
+    wrapper.instance = None
+    return wrapper
+
+@singleton
+class Me:
+    def __init__(self):
+        pass
+    
+    def show(self):
+        print (id(self))
+    pass
+
+print (Me) # is a function, not a class any more
+me_1 = Me()
+me_2 = Me()
+
+print (me_1 is me_2)
+print (Me.__dict__)
+print (id(me_1))
+me_1.show()
+me_2.show()
+
+
+
+"""
 #===== 322 =======
 #This is to practice using decorator as a debugging tool
 import functools 
@@ -25,7 +62,6 @@ def f(a, b, c, d, e = 2, f = 'xx'):
 f(2, 3, 'x', 'sds', e = 2, f = 'xd')
 
 
-"""
 #===== 321 =====
 #This is to practice functools.update_wrapper(wrapper, wrapped)
 import functools
