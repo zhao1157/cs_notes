@@ -1,3 +1,34 @@
+#====== 326 ======
+#This is to practice classmethod and staticmethod decorator
+class Born(object):
+    def __init__(self, year, month, day):
+        print (f"Born init {self.is_valid(year, month, day)}")
+        self._year, self._month, self._day = year, month, day
+
+    @classmethod
+    def from_string(cls, year_month_day):
+        year, month, day = map(lambda x: int(x), year_month_day.split("/"))
+        #print (cls.is_valid(year, month, day))
+        return cls(year, month, day)
+    
+    @staticmethod
+    def is_valid(year, month, day):
+        return year <= 2021 and month <= 12 and day <= 31
+
+born = Born.from_string("2021/04/02")
+print (Born.__dict__)
+print (Born.is_valid(202, 2, 4))
+
+
+class Me(Born):
+    def __init__(self, year, month, day):
+        print ("Me init")
+        super(Me, self).__init__(year, month, day)
+print ("______")
+Me.from_string("2021/04/02")
+
+
+"""
 #===== 325 ======
 # This is to practice function attribute using decorator
 def addattr(run):
@@ -29,7 +60,6 @@ print (g)
 g()
 
 
-"""
 #======= 324 ======
 #This is to practice function attribute
 import functools

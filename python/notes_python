@@ -1,3 +1,4 @@
+66. classmethod can have access to the class object, not the instance; staticmethod has no access to class or instance, just store some logic related to the class/instance in its body
 65. syntactic sugar @ just takes the function object as the argument fed into the decorator, if the decorator return the original function object, then ok; if it returns a different function object which wraps the orignal one, then it will be different
 64. [f"{k}={repr(v)}" for k, v in kwargs.items()], here repr() will print '' if v is a string
 63. @functools.wraps(func) is interchangable with functools.update_wrapper(wrapper, func)
