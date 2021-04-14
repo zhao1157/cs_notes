@@ -1,3 +1,4 @@
+64. [f"{k}={repr(v)}" for k, v in kwargs.items()], here repr() will print '' if v is a string
 63. @functools.wraps(func) is interchangable with functools.update_wrapper(wrapper, func)
 62. functool.update_wrapper(wrapper, wrapped) works just as @functools.wraps(func)
 61. we can make class as an argument-taking decorator, which takes the arguemnt when constructing the class instance, and calls __call__ to decorate the method

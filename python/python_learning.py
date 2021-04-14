@@ -1,3 +1,30 @@
+#===== 322 =======
+#This is to practice using decorator as a debugging tool
+import functools 
+import time
+
+def debug(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        all_inputs = [repr(arg)  for arg in args]
+        all_inputs += [f"{k}={repr(v)}" for k, v in kwargs.items()]
+        all_inputs_repr = ", ".join(all_inputs)
+        print (f"calling {func.__name__}({all_inputs_repr})")
+        res = func(*args, **kwargs)
+        print (f"{func.__name__} returns {res}")
+        return res
+
+    return wrapper
+
+@debug
+def f(a, b, c, d, e = 2, f = 'xx'):
+    print (f"e={e}")
+    print (f"f={f}")
+    return 223
+
+f(2, 3, 'x', 'sds', e = 2, f = 'xd')
+
+
 """
 #===== 321 =====
 #This is to practice functools.update_wrapper(wrapper, wrapped)
@@ -15,7 +42,6 @@ def f():
 
 print (f)
 
-"""
 #======== 320 ======
 #This is to practice class decorator
 import functools
@@ -49,7 +75,6 @@ g()
 
 print (g)
 
-"""
 
 #====== 319 =======
 #This is to practice getting decorated by multiple decorators
