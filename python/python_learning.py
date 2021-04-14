@@ -1,3 +1,4 @@
+"""
 #===== 321 =====
 #This is to practice functools.update_wrapper(wrapper, wrapped)
 import functools
@@ -24,12 +25,13 @@ class Delay(object):
     def __init__(self, intval = 0):
         self._intval = intval
     def __call__(self, func):
-        @functools.wraps(func)
+        #@functools.wraps(func)
         def wrapper(*args, **kwargs):
             print (f"delaying {self._intval}s")
             time.sleep(self._intval)
             print ("Done delaying")
             func(*args, **kwargs)
+        functools.update_wrapper(wrapper, func)
         return wrapper
 
 @Delay(2)
@@ -45,6 +47,9 @@ def g():
 
 g()
 
+print (g)
+
+"""
 
 #====== 319 =======
 #This is to practice getting decorated by multiple decorators
