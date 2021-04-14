@@ -1,3 +1,83 @@
+#===== 325 ======
+# This is to practice function attribute using decorator
+def addattr(run):
+    def outer (func):
+        if run:
+            func.run = True
+        else:
+            func.run = False
+        return func
+    return outer
+
+@addattr(True)
+def f():
+    if f.run:
+        print("xx")
+    else:
+        print (None)
+
+print (f)
+f()
+
+@addattr(False)
+def g():
+    if g.run:
+        print ("yy")
+    else:
+        print (None)
+print (g)
+g()
+
+
+"""
+#======= 324 ======
+#This is to practice function attribute
+import functools
+
+class AddAttr(object):
+    def __init__(self, run):
+        self._run = run
+    
+    def __call__(self, func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            if self._run:
+                func.run = True
+            else:
+                func.run = False
+            print (f"here {func.run}")
+            func(*args, **kwargs)
+        return wrapper
+
+    #def __call__(self, func):
+    #    @functools.wraps(func)
+    #    def wrapper(*args, **kwargs):
+    #        if self._run:
+    #            print ("has attribute")
+    #            func(*args, **kwargs)
+    #        else:
+    #            print ("no attribute")
+    #    return wrapper
+
+@AddAttr(True)
+def f():
+    print (f.__dict__)
+    if f.__wrapped__.run:
+        print ("xx")
+    else:
+        print (None)
+
+@AddAttr(False)
+def g():
+    if g.__wrapped__.run:
+        print ("yy")
+    else:
+        print (None)
+print (f)
+f()
+g()
+
+
 #===== 323 =====
 #Singleton using decorator
 import functools
@@ -34,7 +114,6 @@ me_2.show()
 
 
 
-"""
 #===== 322 =======
 #This is to practice using decorator as a debugging tool
 import functools 
