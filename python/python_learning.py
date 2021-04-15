@@ -1,3 +1,23 @@
+#===== 327 ======
+#This is to practice making a singlton using a classmethod
+class Me:
+    _singleton = None
+
+    @classmethod
+    def make_create_singleton(cls, *args, **kwargs):
+        if cls._singleton is None:
+            cls._singleton = cls(*args, **kwargs)
+        return cls._singleton
+
+print (Me._singleton)
+me_1 = Me.make_create_singleton()
+print (Me._singleton)
+me_2 = Me.make_create_singleton()
+print (Me._singleton)
+print (me_1 is me_2)
+
+
+"""
 #====== 326 ======
 #This is to practice classmethod and staticmethod decorator
 class Born(object):
@@ -28,7 +48,6 @@ print ("______")
 Me.from_string("2021/04/02")
 
 
-"""
 #===== 325 ======
 # This is to practice function attribute using decorator
 def addattr(run):
