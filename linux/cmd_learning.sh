@@ -3,6 +3,7 @@
 sudo su # switch to root
 useradd -m zhaolianshui # create the user and its directory
 passwd zhaolianshui # set the password, otherwise can not log in
+usermod -aG sudo zhaolianshui # enable sodo privilege
 
 # delete a user and its directory
 userdel -r zhaolianshui
