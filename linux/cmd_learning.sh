@@ -1,3 +1,12 @@
+#======= 83 ==========
+# add a user and create a directory in /home in linux
+sudo su # switch to root
+useradd -m zhaolianshui # create the user and its directory
+passwd zhaolianshui # set the password, otherwise can not log in
+
+# delete a user and its directory
+userdel -r zhaolianshui
+
 #=========== 82 ======
 #password-free access a remote server
 # 1. generate the public/private keys in the local host
