@@ -1,3 +1,8 @@
+#======== 86 ==========
+#how to remove the remote host from the vscode SSH TARGETS
+# step 1. edit the ssh config file and remove the host of interest
+# step 2. refresh
+
 #========== 85 ==========
 # Change the color of the comments in vim
 # .vimrc, set
