@@ -1,3 +1,10 @@
+#============= 84 ==========
+# how to add a remote server to vs code
+# step 1. In SSH TARGETS, click + and enter SSH connection command in the prompt
+# step 2. You will be prompted with the remote server ssh config file, in which you can see the host info
+# step 3. set password-free access to the remote server
+# step 4. click on the newly created ssh connection in vs code
+
 #======= 83 ==========
 # add a user and create a directory in /home in linux
 sudo su # switch to root
