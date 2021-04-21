@@ -1,3 +1,8 @@
+#========== 85 ==========
+# Change the color of the comments in vim
+# .vimrc, set
+hi Comment ctermfg=LightBlue # or other colors
+
 #============= 84 ==========
 # how to add a remote server to vs code
 # step 1. In SSH TARGETS, click + and enter SSH connection command in the prompt
