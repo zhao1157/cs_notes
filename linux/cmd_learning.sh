@@ -1,3 +1,8 @@
+#=========== 82 ======
+#password-free access a remote server
+# 1. generate the public/private keys in the local host
+# 2. copy the public key to the remote host ~/.ssh/authorized_keys
+
 #========= 81 ====
 # copy data between docker container and host
 docker cp test.sh 3b9c146e4c4a:/home/inspur/zls/tutorial
