@@ -1,3 +1,14 @@
+#========= 89 =========
+# multipass
+multipass launch --cpus 4 --mem 16G --disk 100G --name ubuntu-zls ubuntu
+
+#======= 88 =========
+#minikube commands
+minikube start --cpus 4 --memory 20000 --kubernetes-version v1.14.0 # start a local k8s cluster
+minikube status # get the stauts of a local k8s cluster
+minikube stop # stop a running local kubernetes cluster
+
+
 #======== 87 ======
 # share directory between localhost and vm machine in multipass
 multipass mount D:\zhaolianshui\Desktop ubuntu-zls:/home/zhaolianshui/local_share
