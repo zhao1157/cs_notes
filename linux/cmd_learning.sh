@@ -1,3 +1,11 @@
+#======= 90 =======
+# permission denied(public key)
+# modify file /etc/ssh/sshd_config in the remote server, and comment out line "PasswordAuthentication no"
+# or modify it to "PasswordAuthentication yes"
+# and restar the service by
+systemctl restart sshd
+service sshd restart
+
 #========= 89 =========
 # multipass
 multipass launch --cpus 4 --mem 16G --disk 100G --name ubuntu-zls ubuntu
