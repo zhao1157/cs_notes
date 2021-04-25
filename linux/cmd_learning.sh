@@ -1,3 +1,7 @@
+#======== 87 ======
+# share directory between localhost and vm machine in multipass
+multipass mount D:\zhaolianshui\Desktop ubuntu-zls:/home/zhaolianshui/local_share
+
 #======== 86 ==========
 #how to remove the remote host from the vscode SSH TARGETS
 # step 1. edit the ssh config file and remove the host of interest

@@ -1,8 +1,26 @@
+#======== 86 ==========
+#how to remove the remote host from the vscode SSH TARGETS
+# step 1. edit the ssh config file and remove the host of interest
+# step 2. refresh
+
+#========== 85 ==========
+# Change the color of the comments in vim
+# .vimrc, set
+hi Comment ctermfg=LightBlue # or other colors
+
+#============= 84 ==========
+# how to add a remote server to vs code
+# step 1. In SSH TARGETS, click + and enter SSH connection command in the prompt
+# step 2. You will be prompted with the remote server ssh config file, in which you can see the host info
+# step 3. set password-free access to the remote server
+# step 4. click on the newly created ssh connection in vs code
+
 #======= 83 ==========
 # add a user and create a directory in /home in linux
 sudo su # switch to root
 useradd -m zhaolianshui # create the user and its directory
 passwd zhaolianshui # set the password, otherwise can not log in
+usermod -aG sudo zhaolianshui # enable sodo privilege
 
 # delete a user and its directory
 userdel -r zhaolianshui
