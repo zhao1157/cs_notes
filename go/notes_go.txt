@@ -1,0 +1,23 @@
+23. switch {case ans > 9: xxx case ans == 9: xxx default: xxx}
+22. switch ans {case 2:xxx case 3: xxx default: xxx}
+21. i, j = 9, 10
+20. i, j := 2, 3 
+19. for i, j := 1, 2; i < 3 && j < 6; i, j = i+1, j+2{}
+18. for a:=9; a < 15; a++{}
+17. for ;a > 3; a --{}
+16. for a > 2 {}
+15. for {} -> the condition is always true, so in order to break from it, a break condition has to be set inside the block
+14. if condition{} else if condition{} else {}
+13. float64(a), convert a to float64 type
+12. the types of the operands at the two sides of arithmetic operators should be the same, otherwise error
+11. every variable in go program has to be used, otherwise error
+10. get inputs from stdin -> scanner := bufio.NewScanner(os.Stdin); scanner.Scan(); input = scanner.Text(); convert the input to a type by: strconv.ParseInt(scanner.Text(), 10, 64)
+9. fmt.Println() -> literals; fmt.Printf("%d", 3) -> format string followed by values
+8. fmt.Printf("%% %t %t %b %s %q %e %f", true, false, 4, "sdf", "sdf", 23423.0, 3.14)
+7. var a string = fmt.Sprintf("This is %v %v", 2, "sd")
+6. type of a variable fmt.Printf("%T %v", c, c). %T mean type, %v means value
+5. implicitly define a variable-> var a = 9; b := "sd"
+4. variable, var var_name var_type = ?, e.g. var a int = 9;
+3. comment syntax is the same as that in c++, //"single line" or /* several lines */
+2. go build x.go, -> gets x.exe executable, and ./x.exe run it
+1. run a go code, command "go run x.go", it automatically compiles and runs it
