@@ -1,3 +1,6 @@
+31. var := [2][3] int{{1, 2, 3}, {4, 5, 6}}
+30. len(array), len(arr_2d[0])
+29. const n int = 3; var a[n][n] int
 28. fmt.Printf("%q", [3] string {"xds", "s"})
 27. [9] int{2, 3, b}
 26. initilizing an array -> b := [4] float32{2, 3, 4}

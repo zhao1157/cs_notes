@@ -8,9 +8,29 @@ import (
 
 func main() {
 	const n int = 3
-	var a [n][n]int
+	const m int = 4
+	var a [n][m]int
 
-	fmt.Printf("%d", a)
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			a[i][j] = (1 + i) * (1 + j)
+		}
+	}
+	fmt.Printf("%d\n", a)
+	fmt.Printf("%d\n", len(a))
+	fmt.Printf("%d\n", len(a[0]))
+
+	b := [2][3]int{{1, 2, 3}, {4, 5, 6}}
+	fmt.Printf("%d\n", b)
+	fmt.Printf("%d\n", b[1][2])
+
+	c := [2][3]int{}
+
+	fmt.Printf("%d\n", c)
+
+	d := [][]int{{2}, {3, 4}}
+	fmt.Printf("%d\n", d)
+	fmt.Printf("%d %d\n", d[0][0], d[1][1])
 }
 
 /*
