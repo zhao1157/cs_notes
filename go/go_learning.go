@@ -1,15 +1,44 @@
+//===== 21 =======
+//This is to practice function type
+package main
+
+import "fmt"
+
+func main() {
+	s := func(a int) int {
+		return a * a
+	}(2)
+	fmt.Println(s)
+
+	inner := func(i int) int {
+		return 2 * i
+	}
+	outer(inner)
+}
+
+func outer(f func(int) int) {
+	fmt.Println(f(9))
+}
+
+/*
 //========= 20 =========
 //This is to practice defer
 package main
 
 import "fmt"
 
+func f(a int) int {
+	return a
+}
+
 func main() {
 	defer fmt.Println("the end")
 	fmt.Println("before the end")
+
+	fmt.Printf("%T\n", f)
 }
 
-/*
+
 //====== 19 =====
 //This is to practice function returning multiples vlaues
 package main

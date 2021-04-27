@@ -1,3 +1,7 @@
+55. val := func(a int) int {return a*a} (2) -> create a function on the fly
+and execute it immediately
+54. defer fmt.Println("the end") -> won't execute it until the end of the
+function
 53. func f(x, y int, a float32) (z1 int, z2 float32){return}
 52. function closure -> func collect() func(string, int)
 map[string]int{return}
