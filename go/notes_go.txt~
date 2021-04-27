@@ -1,3 +1,4 @@
+50. func fill_arr(arr *[3] int){(*arr)[2] = 999}
 49. pass map by reference; func fill_map(m *map[string]int){(*m)["xx"]}
 48. fill_slice(c); func fill_slice(c [] int){} -> c is a slice, though passing
 by value, modifications will be reflected onto the original slice due to the

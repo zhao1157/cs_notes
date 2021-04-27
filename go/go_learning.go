@@ -1,3 +1,27 @@
+//======== 17 ========
+//This is to practice creating a function on the fly
+package main
+
+import (
+	"fmt"
+)
+
+var b int = 99
+
+func main() {
+	var a int = 9
+	var c string = "xx"
+	f := func(c *string) {
+		a++
+		b++
+		*c = "yy"
+	}
+
+	f(&c)
+	fmt.Println(a, b, c)
+}
+
+/*
 //======== 16 ========
 //This is to practice function
 package main
@@ -73,7 +97,7 @@ func f2(a *int) {
 	*a++
 }
 
-/*
+
 //========= 15 =======
 //This is to practice map
 package main
