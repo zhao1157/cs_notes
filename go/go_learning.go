@@ -1,3 +1,158 @@
+//========= 15 =======
+//This is to practice map
+package main
+
+import "fmt"
+
+func main() {
+	var m map[string]string
+	if m == nil {
+		fmt.Println("\tm is nil")
+	}
+	// can not assign any value to nil map
+	// has to use make to enable assignment of map
+	m = make(map[string]string)
+	if m == nil {
+		fmt.Println("m is nil")
+	}
+	m["xsd"] = "sdf"
+	m["yx"] = "xx"
+	m["y"] = "yy"
+	m["z"] = "zz"
+
+	for k, v := range m {
+		fmt.Printf("%5q = %-5q|\n", k, v)
+	}
+
+	// delete some elements from map
+	delete(m, "z")
+	fmt.Printf("\n\t%q\n", m)
+
+	fmt.Println("_______-")
+	var mp map[string]int = map[string]int{
+		"apple":  2,
+		"pear":   3,
+		"orange": 9,
+	}
+	fmt.Println(mp)
+
+	val, ok := mp["appl"]
+	fmt.Println(val, ok)
+	fmt.Printf("%T %T %t\n", val, ok, ok)
+
+}
+
+/*
+//======== 14 =========
+//This is to practice range
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var a []int = []int{2, 3, 4}
+
+	for i, ele := range a {
+		fmt.Printf("%d %d\n", i, ele)
+	}
+
+	fmt.Println("__________")
+	b := make([]string, 3, 5)
+	b[0] = "x"
+	b[1] = "y"
+	b[2] = "z"
+
+	for _, ele := range b {
+		fmt.Printf("%q\n", ele)
+	}
+
+	fmt.Println("___________")
+	c := []int{2, 3, 4, 2, 3, 5, 6}
+
+	for i, _ := range c {
+		for _, ele := range c[i+1:] {
+			if c[i] == ele {
+				fmt.Printf("%d\n", ele)
+			}
+		}
+	}
+
+	fmt.Println("_____________")
+	fmt.Printf("%d\n", c[7:])
+	for i, ele := range make([]int, 0) {
+		fmt.Printf("%d %d\n", i, ele)
+	}
+
+	fmt.Println("___________")
+	arr := [5]int{2, 3, 4, 5, 6}
+	fmt.Printf("%T %T\n", arr, arr[2:])
+	fmt.Printf("%d\n", arr[2:])
+
+	sl := arr[2:]
+	fmt.Printf("%T %d\n", sl, sl)
+	fmt.Println(len(sl), cap(sl))
+	sl = append(sl, 99)
+	fmt.Println(sl)
+}
+
+
+//========= 13 =========
+//This is to practice slices
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// this is an array, which should have constant length
+	var a [2]int = [2]int{2, 3}
+	fmt.Printf("%T\n", a)
+
+	// slices, which have variable length
+	var b []int
+	fmt.Printf("b is nil? %t\n", b == nil)
+	fmt.Printf("%T\n", b)
+	fmt.Printf("%d %d\n", len(b), cap(b))
+	// modify the original slice
+	b = append(b, 2)
+	fmt.Printf("%d %d\n", len(b), cap(b))
+	b = append(b, 4, 5, 6)
+	fmt.Printf("%d\n", b)
+
+	// create a slice using make
+	c := make([]int, 2, 5)
+	fmt.Printf("%d len = %d; cap = %d\n", c, len(c), cap(c))
+
+	fmt.Printf("%d\n", b[1:])
+
+	d := b[1:]
+	fmt.Printf("%T len = %d cap = %d\n", d, len(d), cap(d))
+
+	e := make([]int, len(d), cap(d)*2)
+	copy(e, d)
+	fmt.Printf("%d\n", e)
+	e[2] = 9
+	fmt.Printf("%d\n", e)
+
+	f := e
+	fmt.Printf("%d\n", f)
+	e[2] = 99
+	fmt.Printf("%d\n", f) // f and e are the same object?
+	f = append(f, 999)    //create a new slice and assign to it
+	fmt.Printf("%d ? %d\n", e, f)
+
+	// confirm
+	g := make([]int, 2)
+	h := g
+	g[0] = 3
+	g[1] = 4
+	fmt.Printf("%d %d\n", g, h)
+
+}
+
 //========== 12 ========
 //This is to practice 2d-array
 package main
@@ -31,9 +186,10 @@ func main() {
 	d := [][]int{{2}, {3, 4}}
 	fmt.Printf("%d\n", d)
 	fmt.Printf("%d %d\n", d[0][0], d[1][1])
+	fmt.Printf("%d %d %d\n", len(d[0]), len(d[1]), len(d))
 }
 
-/*
+
 //======== 11 ========
 //This is to practice array, which is not as useful as slices
 package main

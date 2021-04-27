@@ -1,3 +1,18 @@
+44. val, ok := mp["xx"] -> if "xx" is in the map, ok is true, otherwise false
+43. var m map[string]string = map[string]string{"x": "y"}
+42. order of elements matters -> use array or slice; order of the elements
+does not matter, use map
+41. delete(m, "z") -> delete entry of "z"
+40. for k, v := range m{} -> k is key, v is value
+39. var m map[string]string -> here m is nil; make map assignable, use make,
+i.e. make(map[string]string)
+38. array[2:] creates a slice which has variable length
+37. copy(to_slice, from_slice)
+36. f:=e -> f and e are the same object, so modifications are reflected onto each other
+35. can not use make() to create an array
+34. make([]int, 2, 5) -> a slice with length of 2 and capacity of 5
+33. var b[] int -> b == nil
+32. d := [][] int {{2}, {3, 4}} is a slice
 31. var := [2][3] int{{1, 2, 3}, {4, 5, 6}}
 30. len(array), len(arr_2d[0])
 29. const n int = 3; var a[n][n] int
