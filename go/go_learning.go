@@ -1,3 +1,132 @@
+//========== 24 =========
+//This is to practice pass array/map/slice by value into a function
+package main
+
+import "fmt"
+
+func main() {
+	var arr [2]int = [2]int{2, 3}
+	var sl []int = []int{4, 5}
+	var m map[string]int = make(map[string]int)
+
+	// pass array by value does not modify the original copy
+	f1(arr)
+	fmt.Println(arr)
+
+	// pass slice by vlaue does modify the origianl copy
+	f2(sl)
+	fmt.Println(sl)
+
+	f3(m)
+	fmt.Println(m)
+}
+
+func f3(m map[string]int) {
+	m["xx"] = 22
+}
+
+func f2(sl []int) {
+	sl[0] = 22
+}
+
+func f1(arr [2]int) {
+	arr[0] = 22
+}
+
+/*
+//=========== 23 ========
+// This is to practice systematically assignment
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("_________")
+	//for immutables, they point to the same immutable object
+	var i int = 9
+	j := i
+	//i now points to a different object
+	i = 99
+	fmt.Println(i, j)
+
+	fmt.Println("____________")
+	// string is also a immutable, so the same rule applies
+	var s string = "xx"
+	ss := s
+	ss = "yy"
+	fmt.Println(s, ss)
+
+	fmt.Println("________________")
+	// though array is a mutable, assignment is just like a hard copy
+	var arr [2]int = [2]int{2, 3}
+	arrr := arr
+	arrr[0] = 22
+	fmt.Println(arr, arrr)
+
+	fmt.Println("____________")
+	var arr_2 [2][2]int = [2][2]int{{2, 3}, {4, 5}}
+	arrr_2 := arr_2
+	arr_2[0][0] = 22
+	fmt.Println(arr_2, arrr_2)
+
+	fmt.Println("______________")
+	//slice is a mutable, assignment is reflected
+	var sl []int = []int{2, 3}
+	sll := sl
+	sl[0] = 22
+	fmt.Println(sl, sll)
+
+	fmt.Println("______________")
+	// map is a mutable, changes are reflected
+	var m map[string]int = make(map[string]int)
+	m["xx"] = 2
+	m["yy"] = 3
+	mm := m
+	m["xx"] = 22
+	m["zz"] = 222
+	fmt.Println(m, mm)
+
+	fmt.Println("_____________")
+	var aa [2][]int = [2][]int{{2}, {4, 5}}
+	aaa := aa
+	aa[0][0] = 22
+	fmt.Println(aa, aaa)
+
+	fmt.Println("_____________")
+	// 2d-slice is different from 2d-array
+	var bb [][2]int = [][2]int{{2, 3}, {4, 5}}
+	bbb := bb
+	bb[0][0] = 222
+	fmt.Println(bb, bbb)
+	fmt.Printf("%T %T\n", aa, bb)
+}
+
+
+//========== 22 =========
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var arr [2]int = [2]int{2, 3}
+	a := arr
+	arr[0] = 22
+	fmt.Println(arr, a)
+
+	fmt.Println("___________")
+
+	var brr [2]map[string]int = [2]map[string]int{{"x": 2}, {"y": 3}}
+	crr := brr
+	brr[0]["x"] = 229999999
+	fmt.Println(brr, crr)
+
+	m := map[string]int{"xx": 2, "yy": 3}
+	fmt.Println(m)
+}
+
+
 //===== 21 =======
 //This is to practice function type
 package main
@@ -20,7 +149,7 @@ func outer(f func(int) int) {
 	fmt.Println(f(9))
 }
 
-/*
+
 //========= 20 =========
 //This is to practice defer
 package main

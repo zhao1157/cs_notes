@@ -1,3 +1,11 @@
+61. pass array/slice/map by value to a function will have different effects if
+getting modified inside
+60. Array has a fixed size, while slice, map has variable length;
+assignment-copy creates hard-copies, while assignment-slice/map refers to the
+same object
+59. the mutables and immutables are very much like those in python
+58. m := map[string]int {"x": 2, "y": 3}
+57. slice and map are mutables
 56. pass a function to another, the function type is "func(int)int"
 55. val := func(a int) int {return a*a} (2) -> create a function on the fly
 and execute it immediately
