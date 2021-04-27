@@ -1,12 +1,44 @@
-//======== 10 =========
-//This is to pracitce array
+//======== 11 ========
+//This is to practice array
 package main
 
-func main(){
-	var a int [] = {2, 3}
+import "fmt"
 
+func main() {
+	// declare an array of two elements
+	var a [2]int
+	a[0] = 2
+	a[1] = 3
+
+	fmt.Println(a)
+	fmt.Printf("%d", a)
+
+	//initializing an array
+	b := [4]float32{2, 3, 4}
+	fmt.Printf("%f\n", b)
+
+	var c int = 9
+	var d int = 10
+	fmt.Printf("%d\n", [5]int{c, d})
+
+	fmt.Printf("%q", [3]string{"sdf", "ll"})
 }
+
 /*
+//======== 10 =========
+//This is to pracitce relational operators
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	fmt.Printf("%t\n", 2 > 3)
+	fmt.Printf("%t\n", !true)
+	fmt.Printf("%t %t\n", !true || true, !(true || true))
+}
+
 //======= 9 ========
 //This is to practice switch statement
 package main

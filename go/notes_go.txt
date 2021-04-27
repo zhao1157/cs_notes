@@ -1,3 +1,8 @@
+28. fmt.Printf("%q", [3] string {"xds", "s"})
+27. [9] int{2, 3, b}
+26. initilizing an array -> b := [4] float32{2, 3, 4}
+25. declare an array -> var a[3] int
+24. fmt.Printf("%d\n", array)
 23. switch {case ans > 9: xxx case ans == 9: xxx default: xxx}
 22. switch ans {case 2:xxx case 3: xxx default: xxx}
 21. i, j = 9, 10
