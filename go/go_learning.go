@@ -1,3 +1,85 @@
+//========= 20 =========
+//This is to practice defer
+package main
+
+import "fmt"
+
+func main() {
+	defer fmt.Println("the end")
+	fmt.Println("before the end")
+}
+
+/*
+//====== 19 =====
+//This is to practice function returning multiples vlaues
+package main
+
+import "fmt"
+
+func main() {
+	x := 2
+	y := 9
+
+	s1, s2 := f1(x, y)
+	fmt.Println(s1, s2)
+
+	s1, s2 = f2(x+1, y+1)
+	fmt.Println(s1, s2)
+
+	var a float32 = 3.14
+	fmt.Println(f3(x, y, a))
+}
+
+//multiple return values have to be enclosed inside a pair of parenthesis
+func f3(x, y int, a float32) (z1, z2 float32) {
+	z1 = float32(x + y)
+	z2 = float32(z1) - a
+	return
+}
+
+func f1(x, y int) (z1 int, z2 int) {
+	//return x + y, x - y
+	z1 = x + y
+	z2 = x - y
+	//required
+	return
+}
+
+func f2(x, y int) (z1, z2 int) {
+	z1 = x + y
+	z2 = x - y
+	return
+}
+
+
+//======= 18 ======
+//This is to practice function closure
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	kvs := collect()
+	fmt.Println(kvs("x", 1))
+	fmt.Println(kvs("y", 2))
+
+	kvs = collect()
+	fmt.Println(kvs("xx", 9))
+}
+
+func collect() func(string, int) map[string]int {
+	kv := make(map[string]int)
+	// create a function on the fly
+	f := func(k string, v int) map[string]int {
+		kv[k] = v
+		return kv
+	}
+	return f
+}
+
+
 //======== 17 ========
 //This is to practice creating a function on the fly
 package main
@@ -21,7 +103,7 @@ func main() {
 	fmt.Println(a, b, c)
 }
 
-/*
+
 //======== 16 ========
 //This is to practice function
 package main
