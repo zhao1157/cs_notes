@@ -1,3 +1,79 @@
+//======== 16 ========
+//This is to practice function
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var a int = 9
+	fmt.Printf("%d\n", f1(a))
+	f2(&a)
+	fmt.Printf("%d\n", a)
+	f2(&a)
+	fmt.Printf("%d\n", a)
+
+	var b [3]int
+	fill(&b)
+	fmt.Printf("%d\n", b)
+
+	var c []int
+	c = make([]int, 2, 5)
+	fill_slice(&c)
+	fmt.Printf("%d\n", c)
+
+	m := make(map[string]int)
+	fill_map(&m)
+	fmt.Println(m)
+
+	var s string = "xdsf"
+	fmt.Println(len(s), s[2:])
+	mod_s(&s)
+	fmt.Println(s)
+
+	var arr [3]int = [3]int{9, 9, 9}
+	fill_arr(&arr)
+	fmt.Println(arr)
+}
+
+func fill_arr(arr *[3]int) {
+	(*arr)[1] = 999
+}
+
+func mod_s(s *string) {
+	*s = "xx"
+}
+
+func fill_map(m *map[string]int) {
+	(*m)["xx"] = 2
+	(*m)["yyy"] = 3
+}
+
+//pass slice by value, but they share the underlying array
+//so
+func fill_slice(c *[]int) {
+	(*c)[0] = 99
+	(*c)[1] = 999
+	*c = append(*c, 9999)
+}
+
+//pass array by reference
+func fill(b *[3]int) {
+	b[0] = 99
+}
+
+//pass by value
+func f1(a int) int {
+	return a + 1
+}
+
+func f2(a *int) {
+	//*a = *a + 1
+	*a++
+}
+
+/*
 //========= 15 =======
 //This is to practice map
 package main
@@ -39,10 +115,10 @@ func main() {
 	val, ok := mp["appl"]
 	fmt.Println(val, ok)
 	fmt.Printf("%T %T %t\n", val, ok, ok)
-
+	fmt.Printf("%d\n", len(mp))
 }
 
-/*
+
 //======== 14 =========
 //This is to practice range
 package main

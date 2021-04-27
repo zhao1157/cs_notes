@@ -1,3 +1,10 @@
+49. pass map by reference; func fill_map(m *map[string]int){(*m)["xx"]}
+48. fill_slice(c); func fill_slice(c [] int){} -> c is a slice, though passing
+by value, modifications will be reflected onto the original slice due to the
+shared underlying array
+47. fill (&b); func fill(b *[3]int){} -> b is an array of length of 3
+46. func f(a *int){} -> pass by reference
+45. len(map_var) -> returns the number of elements in a map
 44. val, ok := mp["xx"] -> if "xx" is in the map, ok is true, otherwise false
 43. var m map[string]string = map[string]string{"x": "y"}
 42. order of elements matters -> use array or slice; order of the elements
