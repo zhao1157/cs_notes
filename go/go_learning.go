@@ -1,5 +1,21 @@
+//========== 12 ========
+//This is to practice 2d-array
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	const n int = 3
+	var a [n][n]int
+
+	fmt.Printf("%d", a)
+}
+
+/*
 //======== 11 ========
-//This is to practice array
+//This is to practice array, which is not as useful as slices
 package main
 
 import "fmt"
@@ -24,7 +40,6 @@ func main() {
 	fmt.Printf("%q", [3]string{"sdf", "ll"})
 }
 
-/*
 //======== 10 =========
 //This is to pracitce relational operators
 package main
