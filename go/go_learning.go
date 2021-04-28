@@ -1,3 +1,17 @@
+//========== 25 =========
+//This is to practice initializing multiple variables
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	a, b, c, d, e := 2, "sdf", 3.14, []int{2, 3}, map[string]int{"xx": 2, "yy": 3}
+	fmt.Println(a, b, c, d, e)
+}
+
+/*
 //========== 24 =========
 //This is to practice pass array/map/slice by value into a function
 package main
@@ -33,7 +47,7 @@ func f1(arr [2]int) {
 	arr[0] = 22
 }
 
-/*
+
 //=========== 23 ========
 // This is to practice systematically assignment
 package main

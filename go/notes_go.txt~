@@ -1,3 +1,5 @@
+61. pass array/slice/map by value to a function will have different effects if
+getting modified inside
 60. Array has a fixed size, while slice, map has variable length;
 assignment-copy creates hard-copies, while assignment-slice/map refers to the
 same object
