@@ -1,3 +1,30 @@
+//======== 42 =======
+//This is to practice error handling
+package main
+
+import (
+	"errors"
+	"fmt"
+	"math"
+)
+
+func sqrt(i float64) (float64, error) {
+	if i < 0 {
+		return 0, errors.New("input is less than 0")
+	}
+	return math.Sqrt(i), nil
+}
+func main() {
+	s, e := sqrt(2.3)
+	fmt.Print(s, e)
+
+	s, e = sqrt(-1.)
+	fmt.Println("_______")
+	fmt.Print(s, e)
+	fmt.Println("_______-")
+}
+
+/*
 //========== 41 ==========
 //This is to practice getting value and pointer interfaces into a slice
 package main
@@ -28,9 +55,16 @@ func main() {
 	var dog Animal
 
 	//var all_faces []IFACE = make([]IFACE, 2, 5)
-	all_faces := make([]IFACE, 2, 5)
+	//all_faces := make([]IFACE, 2, 5)
+	all_faces := [2]IFACE{}
 
+	fmt.Println(all_faces)
 	all_faces[0] = me
+	for _, face := range all_faces {
+		if face == nil {
+			fmt.Println("\tnil")
+		}
+	}
 	all_faces[1] = &dog
 
 	fmt.Println(all_faces)
@@ -40,7 +74,7 @@ func main() {
 	}
 }
 
-/*
+
 //====== 40 =======
 //This is to practice interface receiver
 // if the receiver is a pointer, the interface has to be pointer
