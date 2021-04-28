@@ -1,3 +1,25 @@
+//====== 26 ==========
+//This is to practice nil
+package main
+
+import "fmt"
+
+func main() {
+	var a int
+	var b float32
+
+	//fmt.Println(a == nil, b == nil)
+	fmt.Println(a, b)
+
+	var c []int
+	var d map[string]int
+	fmt.Println(c == nil, d == nil)
+
+	var e string
+	fmt.Println(e == "")
+}
+
+/*
 //========== 25 =========
 //This is to practice initializing multiple variables
 package main
@@ -11,7 +33,7 @@ func main() {
 	fmt.Println(a, b, c, d, e)
 }
 
-/*
+
 //========== 24 =========
 //This is to practice pass array/map/slice by value into a function
 package main

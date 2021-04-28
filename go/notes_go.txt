@@ -1,3 +1,5 @@
+63. slice, map, channel, interface withoutinitialization are nil; while int,
+float32/64 are 0; and string is ""
 62. initialize multiple variables in one line -> a, b, c, d, e := 2, 3.14,
 "str", [] int{2,3}, map[string]int{"sd":2, "sdf": 3}
 61. pass array/slice/map by value to a function will have different effects if
