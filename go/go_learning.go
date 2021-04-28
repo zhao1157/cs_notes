@@ -1,3 +1,23 @@
+//======== 27 ======
+//This is to practice %p
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var a int = 2
+	b := a
+	fmt.Printf("%p\n%p\n", &a, &b)
+
+	var sl_1 []int = []int{2}
+	sl_2 := sl_1
+	fmt.Printf("%p\n%p\n", &(*sl_1), &sl_2)
+
+}
+
+/*
 //====== 26 ==========
 //This is to practice nil
 package main
@@ -19,7 +39,7 @@ func main() {
 	fmt.Println(e == "")
 }
 
-/*
+
 //========== 25 =========
 //This is to practice initializing multiple variables
 package main
