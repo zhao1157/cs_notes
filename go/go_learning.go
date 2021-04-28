@@ -1,3 +1,56 @@
+//====== 29 ======
+//This is to practice array of pointers
+package main
+
+import (
+	"fmt"
+)
+
+// can not use := outside of a function
+var qq int = 3
+
+const q int = 3
+
+func main() {
+	arr := [3]map[string]int{{"x": 1, "y": 2}, {"xx": 3, "yy": 4},
+		{"xxx": 5, "yyy": 6}}
+
+	fmt.Println(arr[0])
+
+	arr_p := [3]*map[string]int{&arr[0], &arr[1], &arr[2]}
+
+	for p, ele := range arr_p {
+		//fmt.Println(*arr_p[p])
+		fmt.Println(p, *ele)
+	}
+
+	a := 2
+	b := 3
+	pp_map := map[int]*int{23: &a, 24: &b}
+
+	fmt.Println(*pp_map[23], *pp_map[24])
+}
+
+/*
+//====== 28 =========
+//This is to practice pointer
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var a int = 2
+	var ap *int = &a
+
+	fmt.Printf("%p %p %d\n", ap, &a, *ap)
+
+	var bp *float32
+	fmt.Println(bp == nil, ap == nil)
+}
+
+
 //======== 27 ======
 //This is to practice %p
 package main
@@ -10,14 +63,9 @@ func main() {
 	var a int = 2
 	b := a
 	fmt.Printf("%p\n%p\n", &a, &b)
-
-	var sl_1 []int = []int{2}
-	sl_2 := sl_1
-	fmt.Printf("%p\n%p\n", &(*sl_1), &sl_2)
-
 }
 
-/*
+
 //====== 26 ==========
 //This is to practice nil
 package main

@@ -1,3 +1,8 @@
+67. array of pointers
+66. an uninitialized pointer is nil
+65. the pointer data type of all types is the same, hexadecimal number
+representing a memory address. the difference is the data type it points to
+64. get the address of a variable/constant -> "%p"
 63. slice, map, channel, interface withoutinitialization are nil; while int,
 float32/64 are 0; and string is ""
 62. initialize multiple variables in one line -> a, b, c, d, e := 2, 3.14,
