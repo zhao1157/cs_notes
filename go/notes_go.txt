@@ -1,3 +1,6 @@
+84. panic() and recover() are usually in pairs; recover() in the defer
+function can catch the panic mesesage
+83. multiple defers are executed in reverse order, i.e. FILO; 
 82. errors.New("error messages returned")
 81. all_faces := make([]IFACE, 2, 5); all_faces[0]=me; all_faces[1]=&dog
 80. var intface IFACE = a; var intface IFACE = &me; -> depends on whether the

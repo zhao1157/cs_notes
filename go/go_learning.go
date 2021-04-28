@@ -1,3 +1,31 @@
+//======= 43 =======
+//This is to practice multiple defers
+//defers are run in the reverse order, i.e. FILO
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	defer fmt.Println(1)
+	defer fmt.Println(2)
+
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("recovered", r)
+		}
+	}()
+
+	for i := 3; i < 5; i++ {
+		defer fmt.Println(i)
+	}
+
+	fmt.Println("______")
+	panic("panic")
+}
+
+/*
 //======== 42 =======
 //This is to practice error handling
 package main
@@ -24,7 +52,7 @@ func main() {
 	fmt.Println("_______-")
 }
 
-/*
+
 //========== 41 ==========
 //This is to practice getting value and pointer interfaces into a slice
 package main
