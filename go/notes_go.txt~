@@ -1,3 +1,5 @@
+68. outside of a function, i.e. in the global scope, can not use := to declare
+and initialize a variable/constant
 67. array of pointers
 66. an uninitialized pointer is nil
 65. the pointer data type of all types is the same, hexadecimal number

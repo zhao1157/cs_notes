@@ -1,3 +1,4 @@
+69. pointer to pointer by declaring ** and deferencing using **
 68. outside of a function, i.e. in the global scope, can not use := to declare
 and initialize a variable/constant
 67. array of pointers

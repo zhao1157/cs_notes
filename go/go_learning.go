@@ -1,3 +1,24 @@
+//======== 30 =======
+//This is to practice pointer to pointer
+package main
+
+import "fmt"
+
+func main() {
+	var a, b, c int = 2, 3, 4
+	var pa, pb, pc *int = &a, &b, &c
+
+	//var all_p [3]**int = [3]**int{&pa, &pb, &pc}
+
+	all_p := [3]**int{&pa, &pb, &pc}
+
+	for _, pp := range all_p {
+		fmt.Println(**pp)
+	}
+
+}
+
+/*
 //====== 29 ======
 //This is to practice array of pointers
 package main
@@ -31,7 +52,7 @@ func main() {
 	fmt.Println(*pp_map[23], *pp_map[24])
 }
 
-/*
+
 //====== 28 =========
 //This is to practice pointer
 package main
