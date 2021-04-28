@@ -1,3 +1,154 @@
+//======== 36 ========
+//This is to practice type method which does not pass the type by reference
+package main
+
+import "fmt"
+
+type Person struct {
+	name   map[int]string
+	grades [2]int
+}
+
+func (p *Person) set_name_p(name string) {
+	p.name[0] = name
+	p.grades[0] = 111
+}
+
+func (p Person) set_name(name string) {
+	p.name[0] = name
+	p.grades[0] = 100
+}
+
+func main() {
+	me := Person{map[int]string{1: "x", 2: "y"}, [2]int{90, 95}}
+
+	//slice/map passed by value has the same effect as that of by reference
+	me.set_name("zls")
+	fmt.Println(me)
+
+	me.set_name_p("zlszls")
+	fmt.Println(me)
+}
+
+/*
+//======= 35 ======
+//This is to practice struct method
+package main
+
+import "fmt"
+
+type Person struct {
+	name   string
+	age    int
+	grades []float32
+}
+
+func (p *Person) set_name(name string) {
+	p.name = name
+}
+
+func (p *Person) get_age() int {
+	return p.age
+}
+
+func (p *Person) average_grades() float32 {
+	var sum float32 = 0
+	for _, grade := range p.grades {
+		sum += grade
+	}
+	return sum / float32(len(p.grades))
+}
+
+func main() {
+	me := Person{age: 32, grades: []float32{89.9, 92.5, 95.0, 100}}
+	me.set_name("zls")
+	fmt.Println(me.get_age())
+
+	fmt.Println(me.average_grades())
+}
+
+
+//======== 34 =======
+//This is to practice nested struct
+package main
+
+import "fmt"
+
+func main() {
+	me := Me{&Person{"zls", 32}, "se"}
+
+	//fmt.Println(me, me.name, me.age)
+	fmt.Println(me, me.P.name, me.P.age)
+}
+
+type Person struct {
+	name string
+	age  int
+}
+
+type Me struct {
+	P   *Person
+	job string
+}
+
+
+//======== 33 =========
+//This is to practice returning a struct from a function
+package main
+
+import "fmt"
+
+func main() {
+	me := get_me()
+	fmt.Println(me.name, me.age)
+}
+
+func get_me() *Person {
+	var me Person = Person{name: "zls"}
+	return &me
+}
+
+type Person struct {
+	name string
+	age  int
+}
+
+
+//======= 32 ======
+//This is to practice struct
+package main
+
+import "fmt"
+
+type Me struct {
+	name string
+	age  int
+	mix  []int
+}
+
+func main() {
+	var me Me = Me{"zls", 32, []int{3}}
+	fmt.Println(me.name, me.age)
+
+	p := &me
+	fmt.Println(p.name, p.age)
+
+	me_2 := me
+
+	f(me, &me_2)
+	fmt.Println(me.name, me_2.name)
+	fmt.Println(me)
+
+	var t Me
+	fmt.Println(t, t.mix == nil)
+}
+
+func f(me Me, me_2 *Me) {
+	me.name = "changed"
+	me_2.name = "changed"
+}
+
+
 //=========== 31 ========
 //This is to practice passing pointer to a function
 package main
@@ -11,6 +162,7 @@ func main() {
 	fmt.Printf("%p %d\n", pa, *pa)
 	fmt.Printf("%p %d\n", pb, *pb)
 
+	// pass pa by value, pass pb by reference
 	test(pa, &pb)
 
 	fmt.Printf("%p %d\n", pa, *pa)
@@ -24,7 +176,7 @@ func test(pa *int, pb **int) {
 	*pb = &a
 }
 
-/*
+
 //======== 30 =======
 //This is to practice pointer to pointer
 package main

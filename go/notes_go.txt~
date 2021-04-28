@@ -1,3 +1,12 @@
+76. define methods related to a type -> func (p *Person) set_name(name
+string){}
+75. nested struct, if not named inside, we can skip the intermediate name.
+74. me := Person{name: "zls"} if not all entries are known
+73. for an uninitialized struct, the initial values will depend on the types
+of the entries
+72. pointer to a struct; p.name; p.age
+71. struct -> type Me struct{name string; age int}; var me Me = Me{"zls", 32}
+70. pass pointer by value and by reference into a function
 69. pointer to pointer by declaring ** and deferencing using **
 68. outside of a function, i.e. in the global scope, can not use := to declare
 and initialize a variable/constant
