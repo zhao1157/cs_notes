@@ -1,3 +1,30 @@
+//=========== 31 ========
+//This is to practice passing pointer to a function
+package main
+
+import "fmt"
+
+func main() {
+	var a, b int = 2, 3
+	var pa, pb *int = &a, &b
+
+	fmt.Printf("%p %d\n", pa, *pa)
+	fmt.Printf("%p %d\n", pb, *pb)
+
+	test(pa, &pb)
+
+	fmt.Printf("%p %d\n", pa, *pa)
+	fmt.Printf("%p %d\n", pb, *pb)
+
+}
+
+func test(pa *int, pb **int) {
+	*pa *= 2
+	var a int = 99
+	*pb = &a
+}
+
+/*
 //======== 30 =======
 //This is to practice pointer to pointer
 package main
@@ -15,10 +42,9 @@ func main() {
 	for _, pp := range all_p {
 		fmt.Println(**pp)
 	}
-
 }
 
-/*
+
 //====== 29 ======
 //This is to practice array of pointers
 package main
