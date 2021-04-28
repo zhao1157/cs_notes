@@ -1,3 +1,158 @@
+//====== 40 =======
+//This is to practice interface receiver
+// if the receiver is a pointer, the interface has to be pointer
+// if the receiver is a value, then interface can be a value or a pointer
+package main
+
+import (
+	"fmt"
+)
+
+type IFACE interface {
+	get_name() string
+}
+
+type Person struct{}
+
+// the interface can only be pointer
+func (p *Person) get_name() string {
+	return "zls"
+}
+
+type Animal struct{}
+
+// the interface can value or pointer
+func (a Animal) get_name() string {
+	return "dog"
+}
+
+func main() {
+	me := Person{}
+	a := Animal{}
+
+	var intface IFACE = a // or &me or just declare it without initialization
+	// since in Person, get_name() is implemented using a pointer receiver
+	// the object passed to interface should be a pointer
+	intface = &me
+	fmt.Println(intface.get_name())
+
+	intface = a //&a
+	fmt.Println(intface.get_name())
+}
+
+/*
+//======== 39 ======
+//This is to practice finding the type of the object represented by
+//an interface
+package main
+
+import (
+	"fmt"
+)
+
+type Intface interface {
+	get_name() string
+}
+
+type Person struct {
+	name string
+}
+
+func (p Person) get_name() string {
+	return p.name
+}
+
+type Animal struct {
+	name string
+}
+
+func (a Animal) get_name() string {
+	return a.name
+}
+
+func main() {
+	me := Person{"zls"}
+	var intface Intface
+	fmt.Printf("%T\n", intface)
+	intface = me
+	fmt.Printf("%T %T\n", me, intface)
+	//intface := Intface{me}
+	fmt.Println(intface.get_name())
+
+	you := Person{"dsy"}
+	all_faces := []Intface{me, you}
+
+	dog := Animal{"dog"}
+	cat := Animal{"cat"}
+
+	all_faces = append(all_faces, dog)
+	all_faces = append(all_faces, cat)
+
+	fmt.Printf("%T\n", all_faces)
+	for _, face := range all_faces {
+		fmt.Printf("%s %T\n", face.get_name(), face)
+	}
+}
+
+
+//======== 38 =======
+//This is to practice interface
+package main
+
+import (
+	"fmt"
+)
+
+//for a type to use interface, it has to implement all methods inside
+//the interface definition
+type Intface interface {
+	get_name() string
+	//get_age() int
+}
+
+type Person struct {
+	name string
+}
+
+func (p Person) get_name() string {
+	return p.name
+}
+
+func print_name(intface Intface) {
+	fmt.Println(intface.get_name())
+}
+
+func main() {
+	me := Person{"zls"}
+	you := Person{"dsy"}
+
+	var intface []Intface
+	intface = append(intface, me)
+	intface = append(intface, you)
+
+	for _, inst := range intface {
+		//fmt.Println(inst.get_name())
+		print_name(inst)
+	}
+}
+
+
+//========== 37 =======
+//This is to practice variable scope
+package main
+
+import "fmt"
+
+func main() {
+	//inside the following scope, a is defined and accessed
+	{
+		var a int = 3
+		fmt.Println(a)
+	} // can not access a beyond this point
+
+}
+
+
 //======== 36 ========
 //This is to practice type method which does not pass the type by reference
 package main
@@ -30,7 +185,7 @@ func main() {
 	fmt.Println(me)
 }
 
-/*
+
 //======= 35 ======
 //This is to practice struct method
 package main

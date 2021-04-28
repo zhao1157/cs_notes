@@ -1,3 +1,9 @@
+79. ?? cant not my_face:=Intface{me} -> not working; has to declare first; var
+my_face Intface
+78. for a type to use interface, all methods inside interface have to be
+implemented
+77. if a struct has slice/map, passing it by value/reference has the same
+effect for slice/map
 76. define methods related to a type -> func (p *Person) set_name(name
 string){}
 75. nested struct, if not named inside, we can skip the intermediate name.
