@@ -1,3 +1,46 @@
+//========== 41 ==========
+//This is to practice getting value and pointer interfaces into a slice
+package main
+
+import (
+	"fmt"
+)
+
+type IFACE interface {
+	get_name() string
+}
+
+type Person struct {
+	name string
+}
+type Animal struct{}
+
+func (p Person) get_name() string {
+	return "zls"
+}
+
+func (a *Animal) get_name() string {
+	return "cat"
+}
+
+func main() {
+	me := Person{"xx"}
+	var dog Animal
+
+	//var all_faces []IFACE = make([]IFACE, 2, 5)
+	all_faces := make([]IFACE, 2, 5)
+
+	all_faces[0] = me
+	all_faces[1] = &dog
+
+	fmt.Println(all_faces)
+
+	for _, face := range all_faces {
+		fmt.Println(face.get_name())
+	}
+}
+
+/*
 //====== 40 =======
 //This is to practice interface receiver
 // if the receiver is a pointer, the interface has to be pointer
@@ -40,7 +83,7 @@ func main() {
 	fmt.Println(intface.get_name())
 }
 
-/*
+
 //======== 39 ======
 //This is to practice finding the type of the object represented by
 //an interface

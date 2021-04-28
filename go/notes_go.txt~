@@ -1,3 +1,5 @@
+80. var intface IFACE = a; var intface IFACE = &me; -> depends on whether the
+receiver is value or pointer
 79. ?? cant not my_face:=Intface{me} -> not working; has to declare first; var
 my_face Intface
 78. for a type to use interface, all methods inside interface have to be
