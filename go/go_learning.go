@@ -1,3 +1,205 @@
+//====== 51 =======
+//This is to practice factorial and fibonacci series
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	fmt.Println(factorial(3))
+
+	for i := 3; i <= 8; i++ {
+		fmt.Println(fibonacci(i))
+	}
+
+	fmt.Println("_________")
+	fmt.Println(cache_fibonacci()(3))
+	fmt.Println("_________")
+	fmt.Println(cache_fibonacci()(6))
+	fmt.Println("________")
+	fmt.Println(cache_fibonacci()(7))
+}
+
+func cache_fibonacci() func(int) int {
+	cache := make(map[int]int)
+
+	var fibonacci_inner func(int) int
+	fibonacci_inner = func(m int) int {
+		for k, v := range cache {
+			if m == k {
+				fmt.Printf("\t%d\n", m)
+				return v
+			}
+		}
+
+		if m == 0 {
+			return 0
+		}
+
+		if m == 1 {
+			return 1
+		}
+
+		res := fibonacci_inner(m-1) + fibonacci_inner(m-2)
+		cache[m] = res
+		return res
+	}
+
+	return fibonacci_inner
+}
+
+func fibonacci(n int) int {
+	if n == 0 {
+		return 0
+	}
+	if n == 1 {
+		return 1
+	}
+
+	return fibonacci(n-1) + fibonacci(n-2)
+}
+
+func factorial(n int) int {
+	if n == 1 {
+		return 1
+	}
+
+	return n * factorial(n-1)
+}
+
+/*
+//======== 50 ======
+//This is to practice defer in different goroutines
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	defer func() {
+		r := recover()
+		fmt.Println("recover", r)
+	}()
+
+	go func() {
+		time.Sleep(time.Duration(1))
+		fmt.Println("before panic")
+		// this panic is not caught by the recover() in the main routine
+		panic("sub-goroutine")
+	}()
+	time.Sleep(time.Second * time.Duration(2))
+}
+
+
+//======== 49 =======
+//This is to practice one panic multiple recover
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	defer func() {
+		r := recover()
+		fmt.Println(0, r)
+	}()
+	defer func() {
+		r := recover()
+
+		fmt.Println(1, r)
+
+		panic("there")
+	}()
+
+	panic("here")
+}
+
+
+//======== 48 ========
+//This is to practice if recover works in different function
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	defer_func()
+	//this panic is not caught by the recover in another function
+	//panic("sdf")
+	//defer func() {
+	//	r := recover()
+	//	fmt.Println(r)
+	//}()
+	// also this can not be caught by defer_func()
+	// it can be caught by explicit defer function, not the one inside
+	// a function
+	panic_func()
+}
+
+func panic_func() {
+	panic("here")
+}
+
+func defer_func() {
+	defer func() {
+		r := recover()
+		fmt.Println("In defre_func:", r)
+	}()
+}
+
+
+//====== 47 ======
+//This is to practice panic, defer and recover in different gorountines
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	// in just one goroutine, mimicing fallback onto different branches
+	// in different panics
+	defer func() {
+		r := recover()
+		fmt.Printf("%T %v\n", r, r)
+		switch r {
+		case 1:
+			//some branch
+			branch_1()
+		default:
+			// some branch
+			fmt.Println("done default branch")
+		}
+
+	}()
+
+	//after some execution, we might come to this point
+	a := 3
+	if a == 3 {
+		fmt.Println("before panic")
+		panic(1)
+	}
+	//otherwise do something normal
+	//panic(2)
+	// since the control returns encountering the first panic, thus the
+	// following code
+	panic("sd")
+}
+
+func branch_1() {
+	fmt.Println("We are executing branch 1")
+	time.Sleep(time.Second * time.Duration(2))
+	fmt.Println("Done branch_1")
+}
+
+
 //======= 46 =======
 //This is to practice concurrency
 package main
@@ -20,7 +222,7 @@ func main() {
 	fmt.Println("__________")
 }
 
-/*
+
 //======== 45 ======
 //This is to practice time.Sleep(time.Second)
 package main

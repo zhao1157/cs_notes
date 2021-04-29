@@ -1,3 +1,14 @@
+92. panic, defer and recover have to be in the same routine 
+91. defer functions will be executed either when the end of the program eaches
+or a panic occurs
+90. a panic can be nested inside a defer function
+89. one panic can only be recovered by just one recover(), the rest will be
+nil
+88. panic can not be handled by recover in another function, only the one in
+the direct path
+87. we can use panic defer and recover to handle some branches
+86. time.Sleep(time.Millisecond * time.Duration(5400)) -> sub goroutines will
+be killed if the main routine expires
 85. if a := 2; a > 3{} else{}
 84. panic() and recover() are usually in pairs; recover() in the defer
 function can catch the panic mesesage
