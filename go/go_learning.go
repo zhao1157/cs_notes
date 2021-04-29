@@ -1,3 +1,45 @@
+//======== 45 ======
+//This is to practice time.Sleep(time.Second)
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	go func() {
+		for i := 1; ; i++ {
+			time.Sleep(time.Second)
+			fmt.Println("goroutine slept", i, "seconds")
+		}
+	}()
+
+	time.Sleep(time.Millisecond * 5100)
+}
+
+/*
+//======= 44 ========
+//This is to practice if advanced
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	if a := 2; a > 3 {
+		fmt.Println("a > 3")
+	} else if a == 2 {
+		fmt.Println("a == 3")
+	} else {
+		fmt.Println("a < 2")
+	}
+	// a goes out scope, so can not access it
+	//fmt.Println(a)
+}
+
+
 //======= 43 =======
 //This is to practice multiple defers
 //defers are run in the reverse order, i.e. FILO
@@ -25,7 +67,7 @@ func main() {
 	panic("panic")
 }
 
-/*
+
 //======== 42 =======
 //This is to practice error handling
 package main
