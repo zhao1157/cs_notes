@@ -1,3 +1,5 @@
+86. time.Sleep(time.Millisecond * time.Duration(5400)) -> sub goroutines will
+be killed if the main routine expires
 85. if a := 2; a > 3{} else{}
 84. panic() and recover() are usually in pairs; recover() in the defer
 function can catch the panic mesesage

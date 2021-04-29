@@ -1,3 +1,26 @@
+//======= 46 =======
+//This is to practice concurrency
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	for i := 1; i <= 5; i++ {
+		go func(j int) {
+			time.Sleep(time.Duration(j) * time.Second)
+			fmt.Println("Done sleeping for", j, "seconds")
+		}(i)
+	}
+
+	fmt.Println("******")
+	time.Sleep(time.Millisecond * time.Duration(5100))
+	fmt.Println("__________")
+}
+
+/*
 //======== 45 ======
 //This is to practice time.Sleep(time.Second)
 package main
@@ -18,7 +41,7 @@ func main() {
 	time.Sleep(time.Millisecond * 5100)
 }
 
-/*
+
 //======= 44 ========
 //This is to practice if advanced
 package main
