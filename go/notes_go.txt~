@@ -1,3 +1,5 @@
+93. in order to call an anonymous function recursively, we need to declare it
+first before assignment
 92. panic, defer and recover have to be in the same routine 
 91. defer functions will be executed either when the end of the program eaches
 or a panic occurs

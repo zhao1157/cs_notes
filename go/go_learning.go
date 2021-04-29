@@ -1,3 +1,18 @@
+//======== 52 ======
+//This is to practice new
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	p := new(int)
+	*p = 2
+	fmt.Println(p, *p)
+}
+
+/*
 //====== 51 =======
 //This is to practice factorial and fibonacci series
 package main
@@ -68,7 +83,7 @@ func factorial(n int) int {
 	return n * factorial(n-1)
 }
 
-/*
+
 //======== 50 ======
 //This is to practice defer in different goroutines
 package main
