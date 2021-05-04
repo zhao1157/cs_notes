@@ -1,4 +1,3 @@
-68. type hinting does not guarantee the type of the arguments or return type, just a hint, not a requirement
 67. since classmethod can be called before creating a class instance, we can use it to create singleton or control the creation of instances
 66. classmethod can have access to the class object, not the instance; staticmethod has no access to class or instance, just store some logic related to the class/instance in its body
 65. syntactic sugar @ just takes the function object as the argument fed into the decorator, if the decorator return the original function object, then ok; if it returns a different function object which wraps the orignal one, then it will be different

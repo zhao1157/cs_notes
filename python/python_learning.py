@@ -1,3 +1,14 @@
+#========== 328 ======
+#This is to practice type hinting introduced in python-3.5
+# it does not guarantee the type of the arguments or return type
+def f(a: int, b: str = "zls") -> float:
+    print (a, b)
+    return 3.14
+
+print (f("sd", 23))
+
+
+"""
 #===== 327 ======
 #This is to practice making a singlton using a classmethod
 class Me:
@@ -17,7 +28,6 @@ print (Me._singleton)
 print (me_1 is me_2)
 
 
-"""
 #====== 326 ======
 #This is to practice classmethod and staticmethod decorator
 class Born(object):
