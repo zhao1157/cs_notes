@@ -1,3 +1,7 @@
+#========== 92 =========
+#find out the conda environments there are
+conda env list
+
 #========= 91 =========
 # how to password-lessly access a remote machine
 # 1. generate public/private keys in the local machine by ssh-keygen command
