@@ -1,3 +1,24 @@
+#======== 93 =======
+# git global setup
+git config --global user.name "zls"
+git config --global user.email "zls@baidu.com"
+
+# create a new repository
+git clone xxxxs.git
+cd cloned_direcotry
+touch README.md
+git add README.md
+git commit -m "add README.md"
+git push -u origin master
+
+# push an existing folder
+cd existing_folder
+git init
+git remote add origin xxx.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
 #========== 92 =========
 #find out the conda environments there are
 conda env list

@@ -1,3 +1,25 @@
+#======== 93 =======
+# git global setup
+git config --global user.name "zls"
+git config --global user.email "zls@baidu.com"
+
+# create a new repository
+git clone xxxxs.git
+cd ${clone_direcotry}
+touch README.md
+git add README.md
+git commit -m "add README.md"
+git push -u origin master
+
+#========== 92 =========
+#find out the conda environments there are
+conda env list
+
+#========= 91 =========
+# how to password-lessly access a remote machine
+# 1. generate public/private keys in the local machine by ssh-keygen command
+# 2. copy local machine public key to the authorized_keys file located in /home/usrname/.ssh/
+
 #======= 90 =======
 # permission denied(public key)
 # modify file /etc/ssh/sshd_config in the remote server, and comment out line "PasswordAuthentication no"
