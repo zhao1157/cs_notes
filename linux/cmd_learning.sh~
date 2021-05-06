@@ -5,10 +5,18 @@ git config --global user.email "zls@baidu.com"
 
 # create a new repository
 git clone xxxxs.git
-cd ${clone_direcotry}
+cd cloned_direcotry
 touch README.md
 git add README.md
 git commit -m "add README.md"
+git push -u origin master
+
+# push an existing folder
+cd existing_folder
+git init
+git remote add origin xxx.git
+git add .
+git commit -m "Initial commit"
 git push -u origin master
 
 #========== 92 =========

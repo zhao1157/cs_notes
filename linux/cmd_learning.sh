@@ -19,6 +19,13 @@ git add .
 git commit -m "Initial commit"
 git push -u origin master
 
+# push an existing git repo
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin https://gitlab.chehejia.com/zhaolianshui/source_code.git
+git push -u origin --all
+git push -u origin --tags
+
 #========== 92 =========
 #find out the conda environments there are
 conda env list
