@@ -1,3 +1,89 @@
+//======== 55 =========
+//This is to practice buffered channel
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch := make(chan int, 2)
+
+	go func() {
+		for i := 0; i <= 5; i++ {
+			ch <- i
+			fmt.Println("xx")
+		}
+	}()
+
+	fmt.Println("__________")
+	time.Sleep(time.Second)
+	<-ch
+	<-ch
+	fmt.Println("________")
+	time.Sleep(time.Second)
+	<-ch
+	<-ch
+	fmt.Println("_________")
+	time.Sleep(time.Second)
+	<-ch
+	<-ch
+	fmt.Println("___________")
+
+	fmt.Println("ch")
+
+}
+
+/*
+//========= 54 =======
+//This is to practice using channel to communicate mesasges
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	ch := make(chan int)
+
+	go func() {
+		for i := 0; i <= 4; i++ {
+			ch <- i
+			fmt.Println("input", i)
+		}
+	}()
+
+	for i := 0; i <= 4; i++ {
+		fmt.Println("output", <-ch)
+	}
+}
+
+
+//======== 53 =======
+//This is to practice channel
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	var ch chan int
+
+	fmt.Println(ch)
+
+	ch = make(chan int)
+
+	fmt.Println(ch)
+
+	go func() {
+		ch <- 2
+	}()
+	fmt.Println(<-ch)
+}
+
+
 //======== 52 ======
 //This is to practice new
 package main
@@ -12,7 +98,6 @@ func main() {
 	fmt.Println(p, *p)
 }
 
-/*
 //====== 51 =======
 //This is to practice factorial and fibonacci series
 package main

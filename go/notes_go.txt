@@ -1,3 +1,9 @@
+98. ch := make(chan int, 2) -> a channel with buffer size of 2
+97. ch<- send value to ch; <-ch fetches value from ch
+96. var ch chan int -> uninitialized channel, i.e. nil; chan = make(chan int) is
+initialized, has an address
+95. chan int -> uninitialized channel is nil; use make(chan int) to initialize
+the channel
 94. new(int) is just like that in c++, creating a memory space and returning
 its address
 93. in order to call an anonymous function recursively, we need to declare it
