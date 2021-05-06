@@ -1,3 +1,41 @@
+//======= 56 ==========
+//This is to practice unbuffered and buffer size of 1
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch1 := make(chan int)
+	ch2 := make(chan int, 1)
+
+	go func() {
+		fmt.Println("(unbuffered) before sending")
+		ch1 <- 2
+		fmt.Println("(unbuffered) after sending")
+	}()
+
+	time.Sleep(time.Second * 1)
+	fmt.Println("receiving")
+	fmt.Println(<-ch1)
+	time.Sleep(time.Second)
+
+	fmt.Println("_____________")
+
+	go func() {
+		fmt.Println("(bufferred) before sending")
+		ch2 <- 3
+		fmt.Println("(bufferred) after sending")
+	}()
+
+	time.Sleep(time.Second)
+	fmt.Println(<-ch2)
+	time.Sleep(time.Second)
+}
+
+/*
 //======== 55 =========
 //This is to practice buffered channel
 package main
@@ -35,7 +73,7 @@ func main() {
 
 }
 
-/*
+
 //========= 54 =======
 //This is to practice using channel to communicate mesasges
 package main
