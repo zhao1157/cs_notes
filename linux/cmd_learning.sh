@@ -1,3 +1,9 @@
+#======== 94 =======
+# push local image to docker repo
+docker login --username=wzhcz0 # passwd is needed
+docker tag local_image_id wzhcz0/kubeflow_images_repo_name:v1
+docker push wzhcz0/kubeflow_images_repo_name:v1
+
 #======== 93 =======
 # git global setup
 git config --global user.name "zls"
