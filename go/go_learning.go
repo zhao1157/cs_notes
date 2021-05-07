@@ -1,3 +1,31 @@
+//======= 57 ======
+//This is to practice channel with restricted permission
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch := make(chan int)
+
+	go func() {
+		for i := 9; i <= 20; i++ {
+			ch <- i
+			time.Sleep(time.Second)
+		}
+
+		// we need to close the channel explicitly, otherwise deadlock
+		close(ch)
+	}()
+
+	for i := range ch {
+		fmt.Println(i)
+	}
+}
+
+/*
 //======= 56 ==========
 //This is to practice unbuffered and buffer size of 1
 package main
@@ -35,7 +63,7 @@ func main() {
 	time.Sleep(time.Second)
 }
 
-/*
+
 //======== 55 =========
 //This is to practice buffered channel
 package main

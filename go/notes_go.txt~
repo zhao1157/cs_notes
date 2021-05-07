@@ -1,3 +1,4 @@
+98. ch := make(chan int, 2) -> a channel with buffer size of 2
 97. ch<- send value to ch; <-ch fetches value from ch
 96. var ch chan int -> uninitialized channel, i.e. nil; chan = make(chan int) is
 initialized, has an address
