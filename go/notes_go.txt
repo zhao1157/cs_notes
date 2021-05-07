@@ -1,3 +1,5 @@
+101. in select block, only of the cases is executed; only for channel
+operation; if default exists, never block
 100. if val, ok := <-ch; ok{} 
 99. the channel needs to be closed explicitly when reading data from the
 channel, otherwise deadlock

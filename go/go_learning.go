@@ -1,3 +1,40 @@
+//======== 59 =======
+//This is to practice select
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func test_select(ch_1 chan int, ch_2 chan int) {
+	go func() { <-ch_1 }()
+
+	go func() { <-ch_2 }()
+
+	select {
+	case ch_1 <- func() int { time.Sleep(100 * time.Millisecond); return 32 }():
+		fmt.Println("fed 1")
+	case ch_2 <- func() int { time.Sleep(100 * time.Millisecond); return 32 }():
+		fmt.Println("fed 2")
+	//default:
+	//	fmt.Println("not fed")
+	default:
+		fmt.Println("++++++++++++")
+	}
+}
+
+func main() {
+	ch_1 := make(chan int, 0)
+	ch_2 := make(chan int, 0)
+
+	for i := 0; i < 50; i++ {
+		fmt.Println("*****", i)
+		test_select(ch_1, ch_2)
+	}
+}
+
+/*
 //========= 58 ========
 //This is to practice
 package main
@@ -8,7 +45,7 @@ import (
 )
 
 func feed(ch chan int) {
-	for i := range []int{2, 3} {
+	for _, i := range [2]int{2, 3} {
 		ch <- i
 		time.Sleep(time.Second)
 	}
@@ -34,7 +71,7 @@ func main() {
 
 }
 
-/*
+
 //======= 57 ======
 //This is to practice channel with restricted permission
 package main
