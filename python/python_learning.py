@@ -14,6 +14,7 @@ with open(file_name, "w") as f:
 
 # ========= 329 =========
 # get the previous instructions executed
+# or just check out ~/.python_history file
 import readline
 
 for i in range(25, readline.get_current_history_length()):

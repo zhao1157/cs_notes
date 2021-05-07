@@ -1,3 +1,7 @@
+#======= 331 ======
+# This is to practice input() funciton
+a = input("enter your name: ") # the return value is also a string in python3
+
 """
 #======== 330 ========
 # make directories through a given file path
