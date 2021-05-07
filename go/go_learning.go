@@ -1,3 +1,40 @@
+//========= 58 ========
+//This is to practice
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func feed(ch chan int) {
+	for i := range []int{2, 3} {
+		ch <- i
+		time.Sleep(time.Second)
+	}
+}
+
+func main() {
+	ch := make(chan int)
+	go feed(ch)
+
+	if val, ok := <-ch; ok {
+		fmt.Println(ok, "val_1", val)
+	} else {
+		fmt.Println(ok, "1. not valid value")
+	}
+
+	//close(ch)
+
+	if val, ok := <-ch; ok {
+		fmt.Println(ok, "val_2", val)
+	} else {
+		fmt.Println(ok, "2. not valid value")
+	}
+
+}
+
+/*
 //======= 57 ======
 //This is to practice channel with restricted permission
 package main
@@ -25,7 +62,7 @@ func main() {
 	}
 }
 
-/*
+
 //======= 56 ==========
 //This is to practice unbuffered and buffer size of 1
 package main

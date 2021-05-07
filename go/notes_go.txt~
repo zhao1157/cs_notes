@@ -1,3 +1,5 @@
+99. the channel needs to be closed explicitly when reading data from the
+channel, otherwise deadlock
 98. ch := make(chan int, 2) -> a channel with buffer size of 2
 97. ch<- send value to ch; <-ch fetches value from ch
 96. var ch chan int -> uninitialized channel, i.e. nil; chan = make(chan int) is
