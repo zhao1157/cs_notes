@@ -1,10 +1,12 @@
 #========== 328 ======
 #This is to practice type hinting introduced in python-3.5
+# it does not guarantee the type of the arguments or return type
 def f(a: int, b: str = "zls") -> float:
     print (a, b)
     return 3.14
 
 print (f("sd", 23))
+
 
 """
 #===== 327 ======
