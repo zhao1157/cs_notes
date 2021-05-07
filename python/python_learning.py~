@@ -1,4 +1,13 @@
 """
+#======== 330 ========
+# make directories through a given file path
+import os
+
+file_name = "a/b/c/a"
+os.makedirs(os.path.dirname(file_name), exist_ok = True)
+with open(file_name, "w") as f:
+    pass
+
 # ========= 329 =========
 # get the previous instructions executed
 import readline

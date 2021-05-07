@@ -1,3 +1,8 @@
+#======= 331 ======
+# This is to practice input() funciton
+a = input("enter your name: ") # the return value is also a string in python3
+
+"""
 #======== 330 ========
 # make directories through a given file path
 import os
@@ -7,7 +12,6 @@ os.makedirs(os.path.dirname(file_name), exist_ok = True)
 with open(file_name, "w") as f:
     pass
 
-"""
 # ========= 329 =========
 # get the previous instructions executed
 import readline
