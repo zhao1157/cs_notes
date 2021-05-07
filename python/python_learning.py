@@ -1,3 +1,13 @@
+#======== 330 ========
+# make directories through a given file path
+import os
+
+file_name = "a/b/c/a"
+os.makedirs(os.path.dirname(file_name), exist_ok = True)
+with open(file_name, "w") as f:
+    pass
+
+"""
 # ========= 329 =========
 # get the previous instructions executed
 import readline
@@ -5,7 +15,6 @@ import readline
 for i in range(25, readline.get_current_history_length()):
     readline.get_history_item(i)
 
-"""
 #========== 328 ======
 #This is to practice type hinting introduced in python-3.5
 # it does not guarantee the type of the arguments or return type

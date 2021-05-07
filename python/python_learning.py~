@@ -1,3 +1,11 @@
+"""
+# ========= 329 =========
+# get the previous instructions executed
+import readline
+
+for i in range(25, readline.get_current_history_length()):
+    readline.get_history_item(i)
+
 #========== 328 ======
 #This is to practice type hinting introduced in python-3.5
 # it does not guarantee the type of the arguments or return type
@@ -8,7 +16,6 @@ def f(a: int, b: str = "zls") -> float:
 print (f("sd", 23))
 
 
-"""
 #===== 327 ======
 #This is to practice making a singlton using a classmethod
 class Me:
