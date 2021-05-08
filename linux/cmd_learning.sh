@@ -1,3 +1,7 @@
+#====== 95 ======
+# get the nodes in kubenetes cluster
+kubectl get nodes
+
 #======== 94 =======
 # push local image to docker repo
 docker login --username=wzhcz0 # passwd is needed
