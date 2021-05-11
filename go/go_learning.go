@@ -1,3 +1,60 @@
+//======= 61 =========
+//This is to practice signaling by empty struct
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch := make(chan struct{})
+
+	go func() {
+		fmt.Println("before receiving signal")
+		<-ch
+		fmt.Println("after receiving signal")
+	}()
+
+	fmt.Println("sleeping")
+	time.Sleep(time.Second * 2)
+	fmt.Println("done sleeping")
+	ch <- struct{}{}
+}
+
+/*
+//===== 60 ========
+//This is to practice select
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	ch_1 := make(chan int, 2)
+	ch_2 := make(chan int, 2)
+
+	go func() {
+		for i := 1; ; i++ {
+			ch_1 <- i
+			ch_2 <- i
+		}
+	}()
+
+	for i := 0; i < 100; i++ {
+		select {
+		case j := <-ch_1:
+			fmt.Println(i, "ch_1", j)
+		case j := <-ch_2:
+			fmt.Println(i, "ch_2", j)
+
+		}
+	}
+}
+
+
 //======== 59 =======
 //This is to practice select
 package main
@@ -34,7 +91,7 @@ func main() {
 	}
 }
 
-/*
+
 //========= 58 ========
 //This is to practice
 package main
