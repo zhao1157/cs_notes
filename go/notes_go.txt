@@ -1,3 +1,5 @@
+106. channels containing pointers will reflect the changes made by other
+goroutines
 105. For a buffered channel, even though it's closed, we can still read the
 values left in the channel, and ok is only false when there is no more
 elements left

@@ -1,3 +1,34 @@
+//========= 64 =======
+//This is to practice
+package main
+
+import "fmt"
+
+type Address struct {
+	Country string
+	State   string
+}
+
+type Person struct {
+	name    string
+	age     int
+	address Address
+}
+
+func main() {
+	me := Person{"zls", 31, Address{"China", "Jiangsu"}}
+
+	// if the channel contains pointer, the deferenced value will reflect the
+	// changes
+	ch := make(chan *Person, 1)
+
+	ch <- &me
+	me.address = Address{"CHINA", "JIANGSU"}
+
+	fmt.Println(*<-ch)
+}
+
+/*
 //======== 63 =======
 //This is to practice channel
 package main
@@ -28,7 +59,7 @@ func main() {
 	fmt.Println(a, ok)
 }
 
-/*
+
 //======== 62 ======
 //This is to practice returning a channel which is a production line
 package main
