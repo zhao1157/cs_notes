@@ -5,9 +5,12 @@ package main
 import "fmt"
 
 func main() {
-	ch := make(chan int, 1)
+	ch := make(chan int, 4)
 
 	ch <- 2
+	ch <- 3
+	ch <- 4
+	ch <- 5
 
 	fmt.Println(<-ch)
 	close(ch)
@@ -18,6 +21,11 @@ func main() {
 	a, ok = <-ch
 	fmt.Println(a, ok)
 
+	a, ok = <-ch
+	fmt.Println(a, ok)
+
+	a, ok = <-ch
+	fmt.Println(a, ok)
 }
 
 /*
