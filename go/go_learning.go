@@ -1,3 +1,26 @@
+//======== 63 =======
+//This is to practice channel
+package main
+
+import "fmt"
+
+func main() {
+	ch := make(chan int, 1)
+
+	ch <- 2
+
+	fmt.Println(<-ch)
+	close(ch)
+
+	a, ok := <-ch
+	fmt.Println(a, ok)
+
+	a, ok = <-ch
+	fmt.Println(a, ok)
+
+}
+
+/*
 //======== 62 ======
 //This is to practice returning a channel which is a production line
 package main
@@ -24,7 +47,7 @@ func main() {
 	}
 }
 
-/*
+
 //======= 61 =========
 //This is to practice signaling by empty struct
 package main

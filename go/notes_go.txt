@@ -1,3 +1,6 @@
+104. when a channel is closed, we can read from it more than once without
+being blocked. a, ok := <- ch; here ok is false if the channel is closed by
+close(ch)
 103. return a channel from a function so that other goroutines can use it
 102. ch := make(chan struct{}) -> a channel with empty struct can be used as signal;
 ch <- struct{}{}; <- ch

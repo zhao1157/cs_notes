@@ -1,3 +1,4 @@
+103. return a channel from a function so that other goroutines can use it
 102. ch := make(chan struct{}) -> a channel with empty struct can be used as signal;
 ch <- struct{}{}; <- ch
 101. in select block, only of the cases is executed; only for channel
