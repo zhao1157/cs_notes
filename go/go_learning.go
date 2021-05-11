@@ -1,3 +1,30 @@
+//======== 62 ======
+//This is to practice returning a channel which is a production line
+package main
+
+import "fmt"
+
+func produce() chan int {
+	ch := make(chan int, 2)
+	go func() {
+		for i := 0; i < 10; i++ {
+			ch <- i * i
+		}
+		// has to close it if using range in another goroutine
+		close(ch)
+	}()
+
+	return ch
+}
+
+func main() {
+	ch := produce()
+	for i := range ch {
+		fmt.Println(i)
+	}
+}
+
+/*
 //======= 61 =========
 //This is to practice signaling by empty struct
 package main
@@ -22,7 +49,7 @@ func main() {
 	ch <- struct{}{}
 }
 
-/*
+
 //===== 60 ========
 //This is to practice select
 package main
