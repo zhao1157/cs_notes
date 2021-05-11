@@ -1,3 +1,47 @@
+//====== 65 ========
+//This is to practice closing channel, ok is only false when the channel is closed
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func produce(ch chan int, stop chan int) {
+	for i := 1; i <= 5; i++ {
+		ch <- i
+		time.Sleep(time.Second)
+	}
+	fmt.Println("Done inserting into a channel")
+	close(ch)
+
+	stop <- 0
+}
+
+func consume(ch chan int, stop chan int) {
+	for {
+		if val, ok := <-ch; ok {
+			fmt.Println(val)
+		} else {
+			fmt.Println(ok, "consumed all values in the channel")
+			break
+		}
+	}
+	stop <- 1
+}
+
+func main() {
+	ch := make(chan int, 5)
+	stop := make(chan int, 2)
+	go produce(ch, stop)
+
+	go consume(ch, stop)
+
+	<-stop
+	<-stop
+}
+
+/*
 //========= 64 =======
 //This is to practice
 package main
@@ -28,7 +72,7 @@ func main() {
 	fmt.Println(*<-ch)
 }
 
-/*
+
 //======== 63 =======
 //This is to practice channel
 package main
