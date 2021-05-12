@@ -1,3 +1,115 @@
+//======= 67 ============
+//This is to practice sending quit signal from producer to consumer
+package main
+
+import (
+	"fmt"
+)
+
+func produce(ch_in chan<- int, sig chan<- struct{}) {
+	for i := 0; i < 10; i++ {
+		ch_in <- i
+	}
+
+	fmt.Println("Done producing")
+	sig <- struct{}{}
+}
+
+func consume(ch_out <-chan int, sig <-chan struct{}, sig_done chan<- struct{}) {
+	var val int
+FOR:
+	for {
+		select {
+		case val = <-ch_out:
+			fmt.Println(val)
+		case <-sig:
+			fmt.Println("Done consuming")
+			//break // this only breaks from the current case, not the for loop
+			break FOR // breaks from the for loop
+		}
+
+	}
+	sig_done <- struct{}{}
+}
+
+func main() {
+	ch := make(chan int)
+	sig := make(chan struct{})
+	sig_done := make(chan struct{})
+
+	go produce(ch, sig)
+
+	go consume(ch, sig, sig_done)
+
+	<-sig_done
+}
+
+/*
+//======= 66 =========
+//This is to practice merging multiple channels into one channel, and output
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch_1 := make(chan int)
+	ch_2 := make(chan int)
+	output := make(chan int)
+
+	go func(ch chan int) {
+		for i := 1; i <= 9; i += 2 {
+			ch <- i
+			time.Sleep(time.Millisecond)
+		}
+		//once closed, reading channel won't be blocked, so zero value will be read
+		close(ch)
+	}(ch_1)
+
+	go func(ch chan int) {
+		for i := 2; i <= 10; i += 2 {
+			ch <- i
+		}
+		// the same goes here, reading channel can read zero values
+		close(ch)
+	}(ch_2)
+
+	go func(ch_1 <-chan int, ch_2 <-chan int, output chan<- int) {
+		//merge the values in ch_1 and ch_2 into output channel
+		var val int
+		var ok_1, ok_2 bool
+
+		for {
+			select {
+			case val, ok_1 = <-ch_1:
+				//only take the valid values
+				if ok_1 {
+					output <- val
+				}
+			case val, ok_2 = <-ch_2:
+				// only take the valid values
+				if ok_2 {
+					output <- val
+				}
+			}
+
+			if !ok_1 && !ok_2 {
+				fmt.Println("both channels are empty now")
+				close(output)
+				break
+			}
+		}
+	}(ch_1, ch_2, output)
+
+	for ele := range output {
+		fmt.Println(ele)
+	}
+
+}
+
+
 //====== 65 ========
 //This is to practice closing channel, ok is only false when the channel is closed
 package main
@@ -41,7 +153,7 @@ func main() {
 	<-stop
 }
 
-/*
+
 //========= 64 =======
 //This is to practice
 package main
