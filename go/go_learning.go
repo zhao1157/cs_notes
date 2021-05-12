@@ -1,3 +1,43 @@
+//========= 69 ========
+//This is to practice time.After(), which returns a channel
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	//ch := make(<-chan time.Time)
+	//ch = time.After(time.Second)
+	ch := make(chan struct{})
+
+	fmt.Println(ch)
+	//fmt.Println(<-ch)
+
+	go func() {
+		for {
+			select {
+			case <-ch:
+				fmt.Println("here")
+			case <-time.After(time.Second):
+				fmt.Println("delay 1 second")
+				//default:
+				//	fmt.Println("no delay")
+			}
+		}
+	}()
+
+	time.Sleep(time.Second * 3)
+	for i := 0; i < 10; i++ {
+		fmt.Println("___")
+		time.Sleep(time.Millisecond * 900)
+		//ch = time.After(time.Second)
+		ch <- struct{}{}
+	}
+}
+
+/*
 //======== 68 ======
 //This is to practice breaking from a for-select
 package main
@@ -30,7 +70,7 @@ func main() {
 	time.Sleep(time.Millisecond)
 }
 
-/*
+
 //======= 67 ============
 //This is to practice sending quit signal from producer to consumer
 package main
