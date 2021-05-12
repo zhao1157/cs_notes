@@ -1,3 +1,36 @@
+//======== 68 ======
+//This is to practice breaking from a for-select
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func break_for_select(ch chan struct{}) {
+	var stop bool = false
+
+	for !stop {
+		select {
+		case <-ch:
+			fmt.Println("got the signal, exit from for-select loop")
+			stop = true //perfectly exit from the loop
+		default:
+			fmt.Println("default")
+		}
+	}
+}
+
+func main() {
+	ch := make(chan struct{})
+
+	go break_for_select(ch)
+	time.Sleep(time.Millisecond)
+	ch <- struct{}{}
+	time.Sleep(time.Millisecond)
+}
+
+/*
 //======= 67 ============
 //This is to practice sending quit signal from producer to consumer
 package main
@@ -44,7 +77,7 @@ func main() {
 	<-sig_done
 }
 
-/*
+
 //======= 66 =========
 //This is to practice merging multiple channels into one channel, and output
 package main
