@@ -1,3 +1,50 @@
+//======= 74 ======
+//This is to practice break from for-switch loop
+package main
+
+import "fmt"
+
+func main() {
+FOR:
+	for i := 0; i < 3; i++ {
+		switch i {
+		case 1:
+			fmt.Println("break from the loop")
+			break FOR
+		case 0:
+			fmt.Println("break from the switch")
+			break
+		}
+		fmt.Println(i)
+	}
+}
+
+/*
+//======== 73 =======
+//This is to practice break inside multi-layer loop
+package main
+
+import "fmt"
+
+func main() {
+	//FOR_O
+	for o := 0; o < 2; o++ {
+		fmt.Println("o_", o)
+	FOR_outer:
+		for i := 0; i < 5; i++ {
+			//FOR_inner:
+			for j := 0; j < 5; j++ {
+				if j >= 2 {
+					fmt.Println("")
+					break FOR_outer
+				}
+				fmt.Print(i, " ")
+			}
+		}
+	}
+}
+
+
 //======== 72 =========
 //This is to practice switch and its label
 package main
@@ -5,7 +52,6 @@ package main
 import "fmt"
 
 func main() {
-
 	var a int = 2
 
 	switch a {
@@ -32,7 +78,7 @@ end:
 
 }
 
-/*
+
 //======= 71 =======
 //This is to practice closure
 package main

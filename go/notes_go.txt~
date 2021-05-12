@@ -1,3 +1,5 @@
+112. goto END; this is just like the goto statement in fortran
+111. in switch, break and fallthrough are two features
 110. the outside variable closed in the closure will be updated when modified
 somewhere else
 109. case <- time.After(time.Second): ...; acts like a timer
