@@ -1,3 +1,5 @@
+110. the outside variable closed in the closure will be updated when modified
+somewhere else
 109. case <- time.After(time.Second): ...; acts like a timer
 108. break in a select case only breaks from the current case, not the for
 loop. provide a lable to the for-loop and break the lable

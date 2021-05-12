@@ -1,3 +1,62 @@
+//======= 71 =======
+//This is to practice closure
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	for i := 0; i < 10; i++ {
+		//the value i closed in the goroutine will be updated when modifed outside
+		go func(j int) {
+			time.Sleep(time.Second)
+			fmt.Println("taken", j, "now", i)
+		}(i)
+
+		<-time.After(time.Millisecond * 900)
+	}
+}
+
+/*
+//======== 70 =========
+//This is to practice mimicing a certain number of concurrency in go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch := make(chan struct{}, 3)
+	end := make(chan struct{})
+
+	for i := 0; i < 100; i++ {
+		time.After(time.Microsecond)
+		//limit the maximum concurrency to 3
+		ch <- struct{}{}
+
+		//go func(i int) {
+		go func() {
+			<-ch
+			time.Sleep(time.Microsecond)
+			fmt.Println(i)
+
+			if i == 100 {
+				fmt.Println("end", i)
+				end <- struct{}{}
+			}
+		}() //(i) // pass i into the function, if use closure, i will be the value when
+		// goroutine executes
+	}
+
+	<-end
+	<-time.After(time.Second)
+}
+
+
 //========= 69 ========
 //This is to practice time.After(), which returns a channel
 package main
@@ -37,7 +96,7 @@ func main() {
 	}
 }
 
-/*
+
 //======== 68 ======
 //This is to practice breaking from a for-select
 package main
