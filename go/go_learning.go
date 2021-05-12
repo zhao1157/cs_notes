@@ -1,3 +1,38 @@
+//======== 72 =========
+//This is to practice switch and its label
+package main
+
+import "fmt"
+
+func main() {
+
+	var a int = 2
+
+	switch a {
+	case 2:
+		fmt.Println("2")
+
+		if false {
+			break
+		} else {
+			goto end
+		}
+		//fmt.Println("aftger break, unreachable code")
+		fallthrough
+	case 1:
+		fmt.Println("1")
+		//fallthrough // this line enables the direct following case being executed
+		// though case is not a match
+	default:
+		fmt.Println("default")
+	}
+	fmt.Println("before end")
+end:
+	fmt.Println("after end")
+
+}
+
+/*
 //======= 71 =======
 //This is to practice closure
 package main
@@ -19,7 +54,7 @@ func main() {
 	}
 }
 
-/*
+
 //======== 70 =========
 //This is to practice mimicing a certain number of concurrency in go
 package main
