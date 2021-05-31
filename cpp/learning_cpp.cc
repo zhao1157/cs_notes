@@ -1,3 +1,38 @@
+//===== 361 =====
+//This is to practice reinterpret_cast
+#include <iostream>
+
+struct P{
+    int a;
+    float b;
+    //double c;
+    char d;
+    bool e;
+};
+
+int main(){
+    P p = {2, 3.24, 'a', true};
+
+    std::cout << sizeof(p) << "\n";
+
+    int *pi = reinterpret_cast<int *>(&p);
+    std::cout << * pi << "\n";
+    
+    ++pi;
+    float *pf = reinterpret_cast<float*> (pi);
+    std::cout << *pf << "\n";
+
+    ++pf;
+    char *pc = reinterpret_cast<char*>(pf);
+    std::cout << *pc << "\n";
+
+    ++pc;
+    bool *pb = reinterpret_cast<bool *>(pc);
+    std::cout << std::boolalpha << *pb << "\n";
+}
+
+
+/*
 //====== 360 =====
 #include <iostream>
 #include <vector>
@@ -32,7 +67,6 @@ int main(){
 }
 
 
-/*
 //===== 359 =====
 //This is to practice get digits of an integer
 #include <iostream>
