@@ -1,3 +1,7 @@
+#====== 96 =======
+# show the changes made in a commit
+git show your_commit_id 
+
 #====== 95 ======
 # get the nodes in kubenetes cluster
 kubectl get nodes
