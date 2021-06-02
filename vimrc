@@ -8,3 +8,5 @@ autocmd BufWinEnter *.* silent loadview
 
 set number
 set hls
+
+set mouse=a
