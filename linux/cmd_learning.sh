@@ -1,3 +1,14 @@
+#======= 98 =======
+# enable a certain type of syntax highlight in vim
+set syntax=cpp
+
+# permanently enable it in .vimrc
+augroup mlu_syntax
+	au!
+	autocmd BufNewFile,BufRead *.mlu set syntax=cpp
+augroup END
+
+
 #=======97 =====
 # enable mouse scrolling in vim
 :set mouse=a
