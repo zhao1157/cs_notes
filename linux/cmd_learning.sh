@@ -1,3 +1,7 @@
+#=======97 =====
+# enable mouse scrolling in vim
+:set mouse=a
+
 #====== 96 =======
 # show the changes made in a commit
 git show your_commit_id 
