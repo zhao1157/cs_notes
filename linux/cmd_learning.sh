@@ -1,3 +1,9 @@
+#== 99 =========
+# highlight in prototxt
+set syntax=proto
+# or
+set filetype=proto
+
 #======= 98 =======
 # enable a certain type of syntax highlight in vim
 set syntax=cpp
