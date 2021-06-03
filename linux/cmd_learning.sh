@@ -1,3 +1,7 @@
+#===== 100 ======
+# to switch tabs in xshell
+shortcut keys: Ctl+Tab
+
 #== 99 =========
 # highlight in prototxt
 set syntax=proto
