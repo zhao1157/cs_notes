@@ -1,3 +1,8 @@
+#====== 101 ======= 
+# copy and paste a line in vim
+type "yy" in the line to be copied
+type "p" in the line to copy to
+
 #===== 100 ======
 # to switch tabs in xshell
 shortcut keys: Ctl+Tab
