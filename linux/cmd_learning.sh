@@ -1,3 +1,7 @@
+#======= 102 =========
+# in Makefile, reporting error missing separator
+make sure .vimrc has no "set expandtab", and the tabs can be made by spaces
+
 #====== 101 ======= 
 # copy and paste a line in vim
 type "yy" in the line to be copied
