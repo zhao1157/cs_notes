@@ -1,3 +1,7 @@
+#======= 103 ========
+# auto-complete in vim
+ctl+p: after typing a few letters
+
 #======= 102 =========
 # in Makefile, reporting error missing separator
 make sure .vimrc has no "set expandtab", and the tabs can be made by spaces
