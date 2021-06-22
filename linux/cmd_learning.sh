@@ -1,3 +1,10 @@
+#======== 108 =======
+# set no bakcup file, swap file or undo file in vim
+:set nobackup
+:set nowritebackup
+:set noswapfile
+:set noundofile
+
 #======= 107 =======
 # to enable the defaults that many users want, including resume the last editing position in vim
 source $VIMRUNTIME/vimrc_example.vim # in .vimrc file
