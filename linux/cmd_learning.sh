@@ -1,3 +1,8 @@
+#======= 105 ========
+# move between vim viewports
+ctl+w+w # move between view ports
+ctl+w+h/l/j/k # left/right/up/down
+
 #==== 104 ======
 # split windows in vim
 :sp # the split line is horizontal
