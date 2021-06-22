@@ -1,3 +1,8 @@
+#==== 104 ======
+# split windows in vim
+:sp # the split line is horizontal
+:vsp # the split line is vertical
+
 #======= 103 ========
 # auto-complete in vim
 ctl+p: after typing a few letters
