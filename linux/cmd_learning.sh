@@ -1,3 +1,7 @@
+#======= 106 =======
+# to make edits saved in vim
+:w + enter
+
 #======= 105 ========
 # move between vim viewports
 ctl+w+w # move between view ports
