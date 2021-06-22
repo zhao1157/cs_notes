@@ -1,3 +1,7 @@
+#======= 107 =======
+# to enable the defaults that many users want, including resume the last editing position in vim
+source $VIMRUNTIME/vimrc_example.vim # in .vimrc file
+
 #======= 106 =======
 # to make edits saved in vim
 :w + enter
