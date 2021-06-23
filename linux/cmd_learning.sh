@@ -1,3 +1,8 @@
+# ====== 109 ========
+# fold python script
+:set foldmethod=indent
+-> z+o open the fold, and z+c close the fold
+
 #======== 108 =======
 # set no bakcup file, swap file or undo file in vim
 :set nobackup
