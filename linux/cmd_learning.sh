@@ -36,6 +36,8 @@ make sure .vimrc has no "set expandtab", and the tabs can be made by spaces
 type "yy" in the line to be copied
 type "p" in the line to copy to
 
+type "2yy" in the current line -> copy the following two lines starting from the current line
+
 #===== 100 ======
 # to switch tabs in xshell
 shortcut keys: Ctl+Tab
