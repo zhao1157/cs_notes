@@ -1,3 +1,7 @@
+#====== 110 =======
+# copy the rest of the line in vim
+y$
+
 # ====== 109 ========
 # fold python script
 :set foldmethod=indent
