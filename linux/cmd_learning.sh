@@ -1,3 +1,10 @@
+#====== 111 ======
+# push to repository in gitlab
+git checkout -b my_branch_name
+git add .
+git commit -m "naming rule must be followed"
+git push origin pooling_forward_doc
+
 #====== 110 =======
 # copy the rest of the line in vim
 y$
