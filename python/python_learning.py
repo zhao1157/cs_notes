@@ -1,8 +1,22 @@
+# ===== 332 =======
+# This is to practice taking multiple arguments as one parameter
+import argparse
+parser = argparse.ArgumentParser(description="pratice nargs")
+parser.add_argument("--padding", nargs=4, type=int)
+parser.add_argument("--load_balance", action = "store_true")
+
+args = parser.parse_args()
+
+print(args.padding)
+print (sum(args.padding))
+print (args.load_balance)
+
+
+"""
 #======= 331 ======
 # This is to practice input() funciton
 a = input("enter your name: ") # the return value is also a string in python3
 
-"""
 #======== 330 ========
 # make directories through a given file path
 import os
