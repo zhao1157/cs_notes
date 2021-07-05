@@ -3,13 +3,19 @@
 import argparse
 parser = argparse.ArgumentParser(description="pratice nargs")
 parser.add_argument("--padding", nargs=4, type=int)
-parser.add_argument("--load_balance", action = "store_true")
+parser.add_argument("--load_balance", action = "store_true", dest = "balance", default = "23")
+parser.add_argument("--no-load_balance", action = "store_false", dest = "balance", default = "24")
 
-args = parser.parse_args()
+parser.set_defaults(balance = None) # override the argument-level default
+
+#args = parser.parse_args(["--padding", "2", "2", "3", "4", "--load_balance"])
+#args = parser.parse_args("--padding 2 3 4 5 --no-load_balance".split(" "))
+args = parser.parse_args("--padding 2 3 4 5".split(" "))
+
 
 print(args.padding)
 print (sum(args.padding))
-print (args.load_balance)
+print (args.balance)
 
 
 """
