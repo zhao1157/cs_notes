@@ -1,3 +1,28 @@
+#========== 333 ==========
+# This is to practice action in argparse
+import argparse
+
+parser = argparse.ArgumentParser(description = "practice action")
+
+parser.add_argument("--store_val", type = int, action = "store")
+# default is the value gotten when the argument is missing, action is the action taken when the argument is present
+parser.add_argument("--store_const", action = "store_const", const = 24, default = -1, help = "not sure the use cases of this feature")
+parser.add_argument("--store_true", action = "store_false") #, default = True) # the default can be automatically set to the inverse of the action value.
+parser.add_argument("--foo", action = "append")
+# if append to some argument, don't set default in add_argument, use set_defaults()
+parser.add_argument("--bar", action = "append_const", dest = "coll", const = "you", default = ["x"])
+parser.add_argument("--zoo", action = "append_const", dest = "coll", const = "xx", default = ["y"])
+parser.add_argument("--verbose", "-v", action = "count")
+
+parser.set_defaults(coll = ["00"])
+
+args = parser.parse_args("--store_val 23 --foo 2 --foo 5 --verbose --verbose -v --bar --zoo".split(" "))
+#args.store_const = 3
+#args.store_val = 9
+
+print (args.store_const, args.store_true, args.foo, args.coll, args.verbose)
+
+"""
 # ===== 332 =======
 # This is to practice taking multiple arguments as one parameter
 import argparse
@@ -18,7 +43,6 @@ print (sum(args.padding))
 print (args.balance)
 
 
-"""
 #======= 331 ======
 # This is to practice input() funciton
 a = input("enter your name: ") # the return value is also a string in python3
