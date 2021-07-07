@@ -1,3 +1,6 @@
+#======= 112 =======
+# highlight the word in the current position in vim
+shift+*
 #====== 111 ======
 # push to repository in gitlab
 git checkout -b my_branch_name
