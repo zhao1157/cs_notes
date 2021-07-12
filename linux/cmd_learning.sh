@@ -1,3 +1,7 @@
+#========= 114 ========
+# put cursor to the end of a word in vim
+just type e
+
 #====== 113 ========
 # switch sessions in xshell
 ctl+tab # from left to right
