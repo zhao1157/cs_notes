@@ -1,3 +1,9 @@
+#======= 115 =======
+# enter/exit full screen mode in xshell
+Alt+Enter
+# show or get rid of the tabs in xshell
+Alt+s
+
 #========= 114 ========
 # put cursor to the end of a word in vim
 just type e
