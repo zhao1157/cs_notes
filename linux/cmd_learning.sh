@@ -1,3 +1,7 @@
+#====== 116 =======
+# screen shot in youdu
+Alt+2
+
 #======= 115 =======
 # enter/exit full screen mode in xshell
 Alt+Enter
