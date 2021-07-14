@@ -1,3 +1,7 @@
+#====== 117 =======
+# google chrome location switching
+Winkey+up/down/left/right-arrow
+
 #====== 116 =======
 # screen shot in youdu
 Alt+2
@@ -27,7 +31,7 @@ shift+*
 git checkout -b my_branch_name
 git add .
 git commit -m "naming rule must be followed"
-git push origin pooling_forward_doc
+git push origin pooling_forward_doc # -f # if modify the previous commit
 
 #====== 110 =======
 # copy the rest of the line in vim
