@@ -1,3 +1,7 @@
+#======= 118 ======
+# switch chinese and english input method editor
+winkey+space
+
 #====== 117 =======
 # google chrome location switching
 Winkey+up/down/left/right-arrow
