@@ -2,6 +2,8 @@
 # just like xshell switching sessions, the same keyboard shortcut to 
 # switch tabs in google chrome
 ctrl+tab
+# more appropriate shortcuts
+ctrl+pageup/pagedown #to move to the left/right of the current session
 
 #===== 119 =======
 # go to the next or previous highlighted occurrence in google chrome
