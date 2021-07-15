@@ -1,3 +1,7 @@
+#======= 121 ========
+# show the name of the current file in vim
+:f
+
 #======== 120 ==========
 # just like xshell switching sessions, the same keyboard shortcut to 
 # switch tabs in google chrome
