@@ -1,3 +1,8 @@
+#======== 120 ==========
+# just like xshell switching sessions, the same keyboard shortcut to 
+# switch tabs in google chrome
+ctrl+tab
+
 #===== 119 =======
 # go to the next or previous highlighted occurrence in google chrome
 enter # to the next one
