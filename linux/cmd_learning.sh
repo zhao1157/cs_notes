@@ -1,3 +1,8 @@
+#===== 119 =======
+# go to the next or previous highlighted occurrence in google chrome
+enter # to the next one
+shift+enter # to the previous one
+
 #======= 118 ======
 # switch chinese and english input method editor
 winkey+space
