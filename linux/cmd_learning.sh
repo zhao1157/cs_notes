@@ -1,3 +1,8 @@
+#===== 122 ======
+# only clone a specific branch
+git clone --branch v1.6 some_github_repo.git # or replace --branch with -b
+git clone -b v1.6 --single-branch some_github_repo.git # only v1.6 branch, no other files
+ 
 #======= 121 ========
 # show the name of the current file in vim
 :f
