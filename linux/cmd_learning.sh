@@ -1,3 +1,7 @@
+#===== 124 ====
+# copying/pasting in vim from/to the outside of vim
+shift+mouse
+
 #===== 123 ======
 # move to where left off last time in vim, anywhere, not for the specific file
 ctl+o+o
