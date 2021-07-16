@@ -407,9 +407,10 @@ set shiftwidth=4
 set expandtab
 # make auto indent
 filetype indent on
-# make vim start where left off last time
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+# make vim start where left off last time, edit in .vimrc
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
 
 #======== 50 =========
 kill -9 2324 # to forcefully kill this process
