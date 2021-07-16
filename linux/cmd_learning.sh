@@ -1,3 +1,7 @@
+#===== 123 ======
+# move to where left off last time in vim, anywhere, not for the specific file
+ctl+o+o
+
 #===== 122 ======
 # only clone a specific branch
 git clone --branch v1.6 some_github_repo.git # or replace --branch with -b
