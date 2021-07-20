@@ -1,3 +1,8 @@
+#======= 126 ======
+# can not scroll up/down in vim
+noremap <ScrollWheelDown><ScrollWheelUp> <scrollWheelDown>
+noremap <ScrollWheelUP><ScrollWheelUP> <ScrollWheelUp>
+
 #===== 125 ======
 # feed the results to the a command 
 find . -name "*.py" -print | xargs python ../../ptags.py
