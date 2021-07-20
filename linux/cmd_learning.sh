@@ -1,3 +1,7 @@
+#===== 125 ======
+# feed the results to the a command 
+find . -name "*.py" -print | xargs python ../../ptags.py
+
 #===== 124 ====
 # copying/pasting in vim from/to the outside of vim
 shift+mouse
