@@ -415,7 +415,7 @@ sysctl -n hw.ncpu
 #====== 51 =======
 # make vim indent with 4 spaces
 # in ~/.vimrc, add the following 3 lines
-set tabstop=4
+set softtabstop=4 #backspace will remove a whole tab instead of just one space
 set shiftwidth=4
 set expandtab
 # make auto indent
