@@ -1,3 +1,7 @@
+#======= 127 ======
+# in vim to move the view window
+ctrl+w+H/L/K/J # the lower case is to move the cursor, not the window
+
 #======= 126 ======
 # can not scroll up/down in vim
 noremap <ScrollWheelDown><ScrollWheelUp> <scrollWheelDown>
