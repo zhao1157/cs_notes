@@ -1,3 +1,7 @@
+#======= 128 =======
+# put a color bar at a specific column, an indication how long the current line is in vim
+:set colorcolumn=100
+
 #======= 127 ======
 # in vim to move the view window
 ctrl+w+H/L/K/J # the lower case is to move the cursor, not the window
