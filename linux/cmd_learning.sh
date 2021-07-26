@@ -1,3 +1,7 @@
+#======= 129 =======
+# install .deb files in ubuntu
+sudo dpkg -i easyconnect.deb
+
 #======= 128 =======
 # put a color bar at a specific column, an indication how long the current line is in vim
 :set colorcolumn=100
