@@ -1,3 +1,8 @@
+#======= 130 =======
+# compare two files in vim
+vimdiff base*
+vim -d base*
+
 #======= 129 =======
 # install .deb files in ubuntu
 sudo dpkg -i easyconnect.deb
