@@ -1,3 +1,7 @@
+#======= 131 =======
+# delete from the begining of the line to the current position in vim
+d0
+
 #======= 130 =======
 # compare two files in vim
 vimdiff base*
