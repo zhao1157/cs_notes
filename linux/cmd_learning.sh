@@ -1,3 +1,7 @@
+#======= 132 =======
+# find out the contributors of the lines in a file in git 
+git blame path/text 
+
 #======= 131 =======
 # delete from the begining of the line to the current position in vim
 d0
