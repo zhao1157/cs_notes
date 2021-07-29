@@ -1,3 +1,9 @@
+#======= 133 =======
+# hightligh the current line in vim
+set cursorline
+hi cursorline cterm=none term=none
+hi CursorLIne ctermbg=239
+
 #======= 132 =======
 # find out the contributors of the lines in a file in git 
 git blame path/text 
