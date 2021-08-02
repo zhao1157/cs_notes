@@ -1,3 +1,7 @@
+#======= 134 =======
+# set the spell check in vim
+:set spell spelllang=en_us
+
 #======= 133 =======
 # hightligh the current line in vim
 set cursorline
