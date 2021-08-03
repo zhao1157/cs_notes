@@ -1,3 +1,7 @@
+#======= 136 ======
+# concise log in git
+git log --oneline
+
 #======= 135 =======
 # combine multiple commits into one in git
 git rebase -i <the oldest commit id among the commits of interest>
