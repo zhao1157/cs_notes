@@ -1,3 +1,9 @@
+#======= 137 ======
+# show bad spell in vim
+set spell spelllang=en_us
+hi SpellBad cterm=underline
+hi SpellBad ctermbg=White
+
 #======= 136 ======
 # concise log in git
 git log --oneline
@@ -16,7 +22,7 @@ git push
 :set spell spelllang=en_us
 
 #======= 133 =======
-# hightligh the current line in vim
+# highlight the current line in vim
 set cursorline
 hi cursorline cterm=none term=none
 hi CursorLIne ctermbg=239
