@@ -1,3 +1,12 @@
+#======= 135 =======
+# combine multiple commits into one in git
+git rebase -i <the oldest commit id among the commits of interest>
+# or
+git rebase -i HEAD~3 # the past 3 commits
+# in the editor, change pick into squash or s for short
+# in the second editor, change or keep the old commit messages
+git push
+
 #======= 134 =======
 # set the spell check in vim
 :set spell spelllang=en_us
