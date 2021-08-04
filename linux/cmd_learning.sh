@@ -1,3 +1,8 @@
+#======= 138 ======
+# delete a branch in git
+git branch -d interp_backward_linear_trilinear # not sure
+git branch -D interp_backward_linear_trilienar # very sure to do so
+
 #======= 137 ======
 # show bad spell in vim
 set spell spelllang=en_us
