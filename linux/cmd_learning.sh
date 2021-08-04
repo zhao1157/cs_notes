@@ -1,3 +1,8 @@
+#======= 141 ======
+# highlight case-insensitive in vim
+:/sdfF\c # case-insensitive
+:/sdfd\C # case-sensitive
+
 #======= 140 ======
 # revert to the merge
 git reset --merge
