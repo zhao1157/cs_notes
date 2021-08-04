@@ -1,3 +1,19 @@
+//====== 362 ======
+// This is to practice printing messages during preprocessing
+#include <iostream>
+#define ntag
+
+int main() {
+#ifdef tag
+#pragma message("tag is defined.")
+std::cout << "tag is defined\n";
+#else
+#pragma message("tag is not defined.\n")
+std::cout << "tag is not defined\n";
+#endif
+}
+
+/*
 //===== 361 =====
 //This is to practice reinterpret_cast
 #include <iostream>
@@ -32,7 +48,6 @@ int main(){
 }
 
 
-/*
 //====== 360 =====
 #include <iostream>
 #include <vector>
