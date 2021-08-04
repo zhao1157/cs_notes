@@ -1,3 +1,7 @@
+#======= 142 ======
+# colorscheme in vim
+colorscheme industry # among many other options
+
 #======= 141 ======
 # highlight case-insensitive in vim
 :/sdfF\c # case-insensitive
