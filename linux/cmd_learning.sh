@@ -1,3 +1,8 @@
+#======= 139 ======
+# undo reset in git
+git reflog # find where to undo
+git reset 'HEAD${YOUR_NUMBER}'
+
 #======= 138 ======
 # delete a branch in git
 git branch -d interp_backward_linear_trilinear # not sure
