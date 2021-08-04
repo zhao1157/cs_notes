@@ -1,3 +1,7 @@
+#======= 140 ======
+# revert to the merge
+git reset --merge
+
 #======= 139 ======
 # undo reset in git
 git reflog # find where to undo
