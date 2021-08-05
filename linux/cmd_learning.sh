@@ -1,3 +1,5 @@
+#======= 143 ======
+watch -n .1 "nvidia-smi | head -n 8"
 #======= 142 ======
 # colorscheme in vim
 colorscheme industry # among many other options
