@@ -1,3 +1,15 @@
+//====== 364 =======
+// This is to practice include
+//#include "b.cpp" // can not compile like this g++ b.cpp learning_cpp.cpp
+                 // as it f() is redefined twice, but it can be circumvented
+                 // by b.h instead of b.cpp
+#include "b.h"
+
+int main(){
+    f();
+}
+
+/*
 //====== 363 =======
 // This is to practice random number 
 #include <stdlib.h>
@@ -10,7 +22,6 @@ int main() {
     }
 }
 
-/*
 //====== 362 ======
 // This is to practice printing messages during preprocessing
 #include <iostream>
