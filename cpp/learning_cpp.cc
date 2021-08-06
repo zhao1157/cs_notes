@@ -1,3 +1,17 @@
+//====== 365 =======
+// This is to practice the used function has to be declared or defined before being used.
+#include <stdio.h>
+
+void f();
+int main() {
+    f();
+}
+
+void f(){
+    printf("f()\n");
+}
+
+/*
 //====== 364 =======
 // This is to practice include
 //#include "b.cpp" // can not compile like this g++ b.cpp learning_cpp.cpp
@@ -9,7 +23,6 @@ int main(){
     f();
 }
 
-/*
 //====== 363 =======
 // This is to practice random number 
 #include <stdlib.h>
