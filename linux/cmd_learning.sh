@@ -1,3 +1,11 @@
+#======= 144 ======
+# put a process into background
+ctl+z
+# find the background processes
+jobs -l
+# bring a background process back to foreground
+fg %num_id
+
 #======= 143 ======
 watch -n .1 "nvidia-smi | head -n 8"
 #======= 142 ======
