@@ -1,3 +1,16 @@
+//====== 363 =======
+// This is to practice random number 
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+int main() {
+    srand((unsigned int)time(NULL));
+    for (int i = 0; i < 100; ++i) {
+        printf("%f\n", (float)rand() / (float)(RAND_MAX) * 23);
+    }
+}
+
+/*
 //====== 362 ======
 // This is to practice printing messages during preprocessing
 #include <iostream>
@@ -13,7 +26,6 @@ std::cout << "tag is not defined\n";
 #endif
 }
 
-/*
 //===== 361 =====
 //This is to practice reinterpret_cast
 #include <iostream>
