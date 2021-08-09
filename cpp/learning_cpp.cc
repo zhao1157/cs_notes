@@ -1,3 +1,22 @@
+//====== 367 =======
+//This is to practice generating random numbers in arbitrary range
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    float neg = 23.4; // min value has to be negative, i.e. -neg
+    float pos = 46.8; // maximum value
+    float a;
+    srand(time(0));
+    for (int i = 0; i < 100; ++i) {
+        a = static_cast<float> (rand()) / static_cast<float> (RAND_MAX) * (neg + pos) - neg;
+        printf("%f \n", a);
+    }
+}
+
+
+/*
 //====== 366 =======
 // This is to practice assert
 #include <assert.h>
@@ -13,7 +32,6 @@ int main() {
 }
 
 
-/*
 //====== 365 =======
 // This is to practice the used function has to be declared or defined before being used.
 #include <stdio.h>
