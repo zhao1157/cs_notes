@@ -1,3 +1,19 @@
+//====== 366 =======
+// This is to practice assert
+#include <assert.h>
+
+int main() {
+    int a = 12214;
+    int b = 32768;
+    assert(a < b);
+
+    unsigned int c = 3;
+    unsigned int d = 4;
+    assert (c < -d); // for unsigned type, signed is not compared
+}
+
+
+/*
 //====== 365 =======
 // This is to practice the used function has to be declared or defined before being used.
 #include <stdio.h>
@@ -11,7 +27,6 @@ void f(){
     printf("f()\n");
 }
 
-/*
 //====== 364 =======
 // This is to practice include
 //#include "b.cpp" // can not compile like this g++ b.cpp learning_cpp.cpp
