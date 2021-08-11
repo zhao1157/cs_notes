@@ -1,3 +1,7 @@
+#======= 145 ======
+# pull submodule
+git submodule update --init --recursive
+
 #======= 144 ======
 # put a process into background
 ctl+z
