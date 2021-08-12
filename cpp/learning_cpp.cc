@@ -1,3 +1,24 @@
+//======= 368 =====
+// This is to practice getting environment variables
+#include <iostream>
+#include <string.h>
+
+int main() {
+    char *env = NULL;
+    env = std::getenv("ENV");
+    if (env) {
+        std::cout << env << "\n";
+        std::cout << typeid(env).name() << "\n";
+        std::cout << typeid(2).name() << "\n";
+    }
+    // make a decision based on the environment variable
+    if (strcmp(env, "ON") == 0) {
+        std::cout << "activated\n";
+    }
+}
+
+
+/*
 //====== 367 =======
 //This is to practice generating random numbers in arbitrary range
 #include <stdio.h>
@@ -13,10 +34,11 @@ int main() {
         a = static_cast<float> (rand()) / static_cast<float> (RAND_MAX) * (neg + pos) - neg;
         printf("%f \n", a);
     }
+    
+    printf ("RAND_MAX: %d\n", RAND_MAX);
 }
 
 
-/*
 //====== 366 =======
 // This is to practice assert
 #include <assert.h>
