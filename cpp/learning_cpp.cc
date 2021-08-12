@@ -1,3 +1,25 @@
+//======= 369 ======
+// This is to practice strcmp in string.h
+#include <iostream>
+#include <string.h>
+
+int main() {
+    char ans[] = "i love you";
+    char str[100];// = "i love you";
+
+    do {
+        std::cout << "guess: ";
+        fflush(stdout);
+        //scanf("%79s", str); // terminates at white space
+        fgets(str, sizeof(ans)/sizeof(ans[0]), stdin); // takes the whole line, including white spaces
+    //} while(strcmp(str, "i love you") != 0);
+    } while(strcmp(str, ans) != 0);
+    std::cout << "correct answer\n";
+    puts(str);
+}
+
+
+/*
 //======= 368 =====
 // This is to practice getting environment variables
 #include <iostream>
@@ -18,7 +40,6 @@ int main() {
 }
 
 
-/*
 //====== 367 =======
 //This is to practice generating random numbers in arbitrary range
 #include <stdio.h>
