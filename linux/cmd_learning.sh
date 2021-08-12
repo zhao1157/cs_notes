@@ -1,3 +1,8 @@
+#======= 146 ======
+# show the modifications of a file
+git diff path/a.cpp # unstaged
+git diff --staged # staged
+
 #======= 145 ======
 # pull submodule
 git submodule update --init --recursive
