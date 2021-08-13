@@ -1,3 +1,12 @@
+//======= 370 =====
+#include <iostream>
+
+int main() {
+    int a, b = 3; // only initialize b with 3, not for a
+    std::cout << a << b << "\n";
+}
+
+/*
 //======= 369 ======
 // This is to practice strcmp in string.h
 #include <iostream>
@@ -19,7 +28,6 @@ int main() {
 }
 
 
-/*
 //======= 368 =====
 // This is to practice getting environment variables
 #include <iostream>
