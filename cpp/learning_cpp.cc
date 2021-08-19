@@ -1,3 +1,40 @@
+//======= 372 =====
+// enum
+#include <iostream>
+
+// can have the same constant in two different enums, or in the same enum
+enum day{Mon = 2, Tue, Wed, Thur, Fri, Sat, Sun};
+typedef enum month{Jan = 1, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec} Month;
+
+int main() {
+    enum day today = Thur;
+    std::cout << today << " " << std::to_string(today) << "\n";
+
+    Month this_month = Aug;
+    std::cout << "This month is " << this_month << "\n";
+
+    switch (this_month) {
+        case 8:
+            std::cout << "Auguest\n";
+            break;
+        default:
+            std::cout << "Not Auguest\n";
+            break;
+    }
+}
+
+
+/*
+//======= 371 =====
+// vector initialization
+#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<float> v{2, 3.3};
+    std::cout << v[0] << v[1] << "\n";
+}
+
 //======= 370 =====
 #include <iostream>
 
@@ -6,7 +43,6 @@ int main() {
     std::cout << a << b << "\n";
 }
 
-/*
 //======= 369 ======
 // This is to practice strcmp in string.h
 #include <iostream>
