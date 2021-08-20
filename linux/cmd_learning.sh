@@ -1,3 +1,11 @@
+#======= 148 ======
+# change the author info for the last commit 
+git commit --amend --author="zhaolianshui <zhaolianshui@company.com>"
+
+#======= 147 ======
+# push an existing repo to another repo
+git remote set-url origin ssh://git@gitlab.software.company.com:2289/zhaolianshui/cutlass.git
+
 #======= 146 ======
 # show the modifications of a file
 git diff path/a.cpp # unstaged
