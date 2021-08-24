@@ -1,3 +1,27 @@
+#========= 334 =========
+# test whether sorted data can boost performance in python, it turns out no.
+import random
+import time
+
+data = []
+size = 32768
+
+for i in range(size):
+    data.append(random.randint(0, 255))
+
+#data = sorted(data)
+print (data[:10])
+
+t1 = time.perf_counter()
+sub_sum = 0
+for _ in range(1000):
+    for i in range(size):
+        if data[i] < 128:
+            sub_sum += data[i]
+t2 = time.perf_counter()
+print(t2 - t1)
+
+"""
 #========== 333 ==========
 # This is to practice action in argparse
 import argparse
@@ -22,7 +46,7 @@ args = parser.parse_args("--store_val 23 --foo 2 --foo 5 --verbose --verbose -v 
 
 print (args.store_const, args.store_true, args.foo, args.coll, args.verbose)
 
-"""
+
 # ===== 332 =======
 # This is to practice taking multiple arguments as one parameter
 import argparse
