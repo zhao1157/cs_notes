@@ -1,3 +1,36 @@
+//======= 373 =====
+#include <iostream>
+#include <vector>
+#include <chrono>
+
+int main() {
+    const unsigned arraySize = 32768;
+    int data[arraySize];
+    // generate values for data
+    for (unsigned c = 0; c < arraySize; ++c) {
+        data[c] = std::rand() % 256;
+    }
+    // sort array
+    std::sort(data, data+arraySize);
+
+    auto start = std::chrono::high_resolution_clock::now();
+    long long sum = 0;
+    for (unsigned i = 0; i < 1000; ++i) {
+        for (unsigned c = 0; c < arraySize; ++c) {
+            // sorted data is more friendly to branch prediction than unsorted one
+            if (data[c] >= 128) {
+                sum += data[c];
+            }
+            // sum += data[c] >= 128? data[c] : 0; // more operations (no need to add 0, cut down more operations)
+        }
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+    std::cout << duration << "\n";
+
+}
+
+/*
 //======= 372 =====
 // enum
 #include <iostream>
@@ -24,7 +57,6 @@ int main() {
 }
 
 
-/*
 //======= 371 =====
 // vector initialization
 #include <vector>
