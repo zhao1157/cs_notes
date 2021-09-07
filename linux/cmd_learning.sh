@@ -1,3 +1,7 @@
+#======= 149 ======
+# rebase
+git pull origin master --rebase
+
 #======= 148 ======
 # change the author info for the last commit 
 git commit --amend --author="zhaolianshui <zhaolianshui@company.com>"
