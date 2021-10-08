@@ -1,3 +1,7 @@
+#======= 151 ======
+# modify the name of a branch
+git branch -m old_name new_name
+
 #======= 150 ======
 # push the current branch and set the remote as upstream
 git push --set-upstream origin interp_backward_3074
