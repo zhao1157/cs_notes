@@ -1,3 +1,10 @@
+#======= 152 ======
+# copy a commit from one branch to another
+# 1. go to target branch: git checkout r1.7
+# 2. create another branch from target branch: git checkout -b r1.7_fix
+# 3. copy the desired commit to r1.7_fix: git cherry-pick commit_hash_id
+# 4. create a merge request, making sure the target branch is r1.7
+
 #======= 151 ======
 # modify the name of a branch
 git branch -m old_name new_name
