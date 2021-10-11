@@ -1,3 +1,7 @@
+#======= 153 ======
+# delete a remote branch
+git push origin --delete test_branch_name
+
 #======= 152 ======
 # copy a commit from one branch to another
 # 1. go to target branch: git checkout r1.7
