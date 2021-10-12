@@ -1,3 +1,7 @@
+#======= 154 ======
+# how to stash pop a specific one
+git stash apply stash@{2}
+
 #======= 153 ======
 # delete a remote branch
 git push origin --delete test_branch_name
