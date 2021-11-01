@@ -1,3 +1,7 @@
+#======= 155 ======
+# delete a range of lines in vim
+:2, 200d # delete lines 2-200
+
 #======= 154 ======
 # how to stash pop a specific one
 git stash apply stash@{2}

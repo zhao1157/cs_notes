@@ -1,3 +1,219 @@
+//====== 383 ===========
+// macro function
+// variables/functions
+// no need to declare the type of a and b, as a and b are arguments passed to the function at runtime
+#define MY_FUNC(a, b) \
+for (int i = a; i < b; ++i) \
+    std::cout << i << " "; \
+std::cout << "\n"
+
+#include <iostream>
+
+int main() {
+    MY_FUNC(2, 9.3);
+}
+
+
+
+/*
+//======= 382 =========
+#include <type_traits>
+#include <iostream>
+
+int main() {
+    std::cout << std::boolalpha;
+    std::cout << std::is_same<int ,float>::value << "\n";
+}
+
+
+//======= 381 =======
+#include <iostream>
+#include <math.h>
+#include <stdint.h>
+
+int main() {
+    int a = 5000;
+    float b = 0.0002;
+    int c = a * b;
+    int d = a * (double)b;
+    std::cout << c << ", " << d << "\n";
+    // output: 690, 689
+    if (-2 < -1 < 0){  // no -2<-1 is true, which is converted to 1, 1<0 false)
+        std::cout << "sd\n"; 
+    }
+    //int e = 200000*20000;
+    int e = 500000;
+    int f = 600000;
+    int64_t mul = (int64_t)e*(int64_t)f;
+    if (mul > 250000000000)
+        std::cout << ">\n";
+    printf("%ld, %ld\n", sizeof(long), sizeof(long long));
+    printf("%d, %ld\n", e*f, mul);
+
+    float aa = (float)4/3; // without float is different
+    printf("%f\n", aa);
+}
+
+//========= 380 =======
+#include <bits/stdc++.h>
+
+int main() {
+    std::bitset<8> b1(0);
+    std::bitset<8> b2(1);
+    std::bitset<8> b3(2);
+    std::bitset<8> b4(3);
+    std::bitset<8> b5(4);
+    std::bitset<8> b6(5);
+    
+    std::cout << b1 << "\n";
+    std::cout << b2 << "\n";
+    std::cout << b3 << "\n";
+    std::cout << b4 << "\n";
+    std::cout << b5 << "\n";
+    std::cout << b6 << "\n";
+
+    float a = 3.1;
+    std::bitset<32> b7(a);
+    double b = 3.1;
+    std::bitset<64> b8(b);
+    std::cout << b7 << "\n";
+    std::cout << b8 << "\n";
+}
+
+
+//======== 379 ======
+#include <iostream>
+int main() {
+    int a = 300;
+    float s = 2.3;
+    double sa = a*s;
+    printf("%f\n", sa);
+
+    double ss = 2.3;
+    double ssa = a*ss;
+    printf("%f\n", ssa);
+}
+
+
+// ======== 378 ======
+#include <iostream>
+
+int main() {
+    int a = 3, b = 9;
+    for (int i = a; i < b; ++i) {
+        std::cout << i << "\n";
+        if (i > 3) {
+            a = -1;
+        } else {
+            b = 5;
+        }
+    }
+    std::cout << a << " " << b << "\n";
+    float c = 0.3333333433;
+    float d = 0.5;
+    float e = 1.5;
+    printf("c*e-d=%e\n", c*e-d);
+    printf("%e\n", ((float)0.3333333433) * ((float)1.5) - (float)0.5);
+    printf("%e\n", (float)(0.3333333433 * 1.5 - 0.5));
+    printf("%e\n", 0.3333333433 * 1.5 - 0.5);
+
+    float s = 1.0/3;
+    float idx = s*1.5;
+    printf("idx=%.10e, s*1.5f-0.5=%.10e, s*1.5-0.5=%.10e\n", idx, s*1.5f-0.5, s*1.5-0.5);
+}
+
+
+//======= 377 =======
+#include <iostream>
+
+void test(int *a[2], int *ii, int *jj) {
+    //static int a1 = 2, a2 = 3;
+    a[0] = ii; //&a1;
+    a[1] = jj; //&a2;
+}
+
+int main() {
+    int i = 21;
+    unsigned int j = (unsigned int)i;
+    std::cout << j << "\n";
+    
+    for (int i = 0; i < 2; ++i) {
+        std::cout << i << " ";
+    }
+    std::cout << "\n";
+    
+    int *a, *b;
+    b = &i;
+    std::cout << *b << "\n";
+     
+    int *aa[2], ii = 22, jj = 33;
+    test(aa, &ii, &jj);
+    a = aa[0];
+    b = aa[1];
+    std::cout << *aa[0] << *aa[1] << "\n";
+    std::cout << *a << *b << "\n";
+
+    int m = 9, n = 8;
+    int mm, nn = 19;
+    mm, nn = m + n; // no
+    std::cout << mm << nn << "\n";
+}
+
+
+//======= 376 =======
+# include <iostream>
+#include <math.h>
+
+int main() {
+    if (true) {
+        int a = 3;
+        std::cout << "a is defined in a scope\n";
+    }
+    //std::cout << a << "\n"; // a is destroyed
+    float a = -3.14;
+    std::cout << "a = " << a << ", " << ceil(a) << "\n";
+    std::cout << 9/0.018036 << "\n";
+}
+
+
+//======= 375 =======
+// This is to practice round function
+#include <math.h>
+#include <iostream>
+
+int main() {
+    float a = 3.14;
+    float e = 3.49;
+    float b = 3.50;
+    float c = 3.51;
+    float d = 3.92;
+    float f = -0.49;
+    float g = -0.5;
+    float h = -0.89;
+    float i = -1.2;
+
+    std::cout << a << ": " << round(a) << "\n";
+    std::cout << e << ": " << round(e) << "\n";
+    std::cout << b << ": " << round(b) << "\n";
+    std::cout << c << ": " << round(c) << "\n";
+    std::cout << d << ": " << round(d) << "\n";
+    std::cout << f << ": " << round(f) << "\n";
+    std::cout << g << ": " << round(g) << "\n";
+    std::cout << h << ": " << round(h) << "\n";
+    std::cout << i << ": " << round(i) << "\n";
+}
+
+
+//======= 374 =======
+//This is to practice <<
+#include <iostream>
+
+int main() {
+    int a = 2;
+    std::cout << (a | a >> 1) << "\n";
+}
+
+
 //======= 373 =====
 #include <iostream>
 #include <vector>
@@ -30,7 +246,6 @@ int main() {
 
 }
 
-/*
 //======= 372 =====
 // enum
 #include <iostream>
