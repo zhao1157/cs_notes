@@ -1,5 +1,14 @@
+#======= 158 ======
+# merge one branch into another
+# go to the base branch
+git checkout base_branch_name
+# merge
+git merge dev_branch_name
+
 #======= 157 ======
-pytest -s test_roi_pool.py::TestRoiPool::test_roipool_allclose
+pytest -s test_roi_pool.py::TestRoiPool::test_roipool_allclose # print out
+pytest -rP test_roi_pool.py::TestRoiPool::test_roipool_allclose # print out passed output
+pytest -rx test_roi_pool.py::TestRoiPool::test_roipool_allclose # print out failed output
 
 #======= 156 ======
 # rebase the current branch to the original one
