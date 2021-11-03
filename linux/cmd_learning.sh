@@ -1,3 +1,6 @@
+#======= 157 ======
+pytest -s test_roi_pool.py::TestRoiPool::test_roipool_allclose
+
 #======= 156 ======
 # rebase the current branch to the original one
 git pull origin name_of_base_branch --rebase
