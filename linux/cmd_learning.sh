@@ -1,3 +1,7 @@
+#======= 156 ======
+# rebase the current branch to the original one
+git pull origin name_of_base_branch --rebase
+
 #======= 155 ======
 # delete a range of lines in vim
 :2, 200d # delete lines 2-200
