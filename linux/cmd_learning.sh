@@ -1,3 +1,7 @@
+#======= 159 ======
+# copy a range of lines in vim
+:301, 311y
+
 #======= 158 ======
 # merge one branch into another
 # go to the base branch
