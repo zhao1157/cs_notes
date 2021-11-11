@@ -1,3 +1,9 @@
+#======= 160 ======
+# get a line in a file by linux command
+sed -n 2323p hex_input
+head -n 2323 hex_input | tail -1
+awk "NR==2323" hex_input
+
 #======= 159 ======
 # copy a range of lines in vim
 :301, 311y
