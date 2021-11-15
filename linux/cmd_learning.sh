@@ -1,3 +1,10 @@
+#======= 161 ======
+# substitute all occurrences of a word and replace it with another word in vim
+:%s/old_word/new_word/g # in all lines
+:s/old_word/new_word/g # only in the current line
+:%s/old_word/new_word/gc # with confirmation before substituting
+:%s/\<old_word\>/new_word/gc # only word, not just pattern
+
 #======= 160 ======
 # get a line in a file by linux command
 sed -n 2323p hex_input
