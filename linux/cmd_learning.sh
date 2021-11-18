@@ -1,3 +1,7 @@
+#======= 162 ======
+# copy lines above in vim
+y3k # actually 4 lines including the current line you are in
+
 #======= 161 ======
 # substitute all occurrences of a word and replace it with another word in vim
 :%s/old_word/new_word/g # in all lines
