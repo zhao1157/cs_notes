@@ -1,3 +1,7 @@
+#======= 163 ======
+# get the full path of files in linux
+readlink -f *
+
 #======= 162 ======
 # copy lines above in vim
 y3k # actually 4 lines including the current line you are in
