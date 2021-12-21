@@ -1,3 +1,91 @@
+//====== 387 ========
+#include <string>
+#include <iostream>
+
+int main() {
+    std::string file_path = "a.txt"; //"/SOFT_TRAIN/RELEASE_TEMP/SDFSDFSF.protoxtx";
+    std::string delimiter = "/";
+
+    int pos = 0;
+    std::string token;
+    while ((pos = file_path.find(delimiter)) != std::string::npos) {
+        token = file_path.substr(0, pos);
+        std::cout << token << "\n";
+        file_path.erase(0, pos + delimiter.length());
+    }
+    std::cout << file_path << "\n";
+}
+
+/*
+//====== 386 ========
+#include <iostream>
+#include <type_traits>
+
+int main() {
+    uint32_t b = 3;
+    int a = a;
+    std::cout << b << "\n";
+    std::cout << std::is_same<float, int>::value << "\n";
+    bool c = (2 > 3);
+    std::cout << c << "\n";
+}
+
+
+//====== 385 ========
+#include <iostream>
+#include <math.h>
+
+int d = 999;
+
+void test(int * &p) {
+   p = &d; 
+}
+
+int main() {
+    int *p;
+    test(p);
+    std::cout << *p << "\n";
+
+    // float to hex
+    float pi = (float)-8.218700; //M_PI;
+    union {
+        float f;
+        uint32_t u;
+    } f2u = {.f = pi};
+    printf("%.9f, 0x%x, %x\n", pi, f2u.u, *(uint32_t *)&pi);
+    // hex to float
+    char myString[] = "0xc1037fcb";
+    uint32_t num;
+    float f;
+    sscanf(myString, "%x", &num);
+    f = *((float*)&num);
+    printf("hex: 0x%x, float: %.9f\n", num, f);
+
+    char ss[] = "0x3f4f3908";
+    uint32_t temp;
+    sscanf(ss, "%x", &temp);
+    float x = *(float *)&temp;
+    float result = std::log(x);
+    printf("%f, %x\n", result, *(uint32_t *)&result);
+}
+
+//====== 384 ==========
+#include <iostream>
+
+int main() {
+    float a = 0;
+    float b = 1/a;
+    std::cout << b << "\n";
+    std::cout << 1/b << "\n";
+    bool c = true;
+    bool d = false;
+    std::cout << c << " " << d << "\n";
+
+    int * p;
+    p += 10;
+}
+
+
 //====== 383 ===========
 // macro function
 // variables/functions
@@ -15,7 +103,6 @@ int main() {
 
 
 
-/*
 //======= 382 =========
 #include <type_traits>
 #include <iostream>
