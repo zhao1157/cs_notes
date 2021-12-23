@@ -1,3 +1,47 @@
+//====== 389 =======
+#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<int> a(2);
+    a[0] = 3;
+    a[1] = 4;
+    a.push_back(3);
+    std::cout << a.size() << "\n";
+    std::cout << a[0] << " " << a[1] << a[2] << "\n";
+}
+
+/*
+//====== 388 ========
+// This is to practice getline
+#include <string>
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::string name;
+    std::cout << "Please enter your name: ";
+    // input, where to store, the delimiter
+    std::getline(std::cin, name, ' ');
+    std::cout << name << "\n";
+    std::ifstream txt_file("txt");
+    std::string line;
+    while(std::getline(txt_file, line, '/')) {
+        std::cout << line;
+    }
+
+    //std::string str("/a/b/c/file_name.txt");
+    std::cout << std::size_t(-1) << "\n";
+    std::cout << 1 + std::size_t(-1) << "\n";
+    std::string str("abc.txt");
+    std::size_t found_last_pos = str.find_last_of("/");
+    std::cout << int(found_last_pos) << "\n";
+    found_last_pos = str.find_last_of("a");
+    std::cout << found_last_pos << "\n";
+    std::cout << "path: " << str.substr(0, found_last_pos) << "\n";
+    std::cout << "file name: " << str.substr(found_last_pos + 1) << "\n";
+}
+
 //====== 387 ========
 #include <string>
 #include <iostream>
@@ -16,7 +60,7 @@ int main() {
     std::cout << file_path << "\n";
 }
 
-/*
+
 //====== 386 ========
 #include <iostream>
 #include <type_traits>
