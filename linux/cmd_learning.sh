@@ -1,3 +1,7 @@
+#======= 165 ======
+# bring the command history out in vim
+type q:
+
 #======= 164 ======
 # replace a certain pattern in files
 for i in `ls`; do sed -i "s/DTYPE_INT64/DTYPE_INT32/g" $i; done
