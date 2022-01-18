@@ -1,7 +1,99 @@
+//====== 402 =======
+// how to declare a function with default parameter
+#include <iostream>
+void test(int a, bool b = false);
+int main () {
+    test(2);
+}
+
+void test(int a, bool b) {
+    std::cout << a << "\n";
+}
+
+/*
+//====== 401 =======
+#include <iostream>
+#include <cmath>
+
+int main() {
+    float a = -1.8;
+    std::cout << "floor: " << floorf(a) << "\n";
+    std::cout << "int(): " << int(a) << "\n";
+
+    auto set_coeff = []() {
+        return 99;
+    };
+
+    auto get_coefficients = [&](float *coeffs) {
+        coeffs[0] = set_coeff();
+        coeffs[1] = 7;
+        coeffs[2] = 8;
+        coeffs[3] = 9;
+    };
+
+    float nums[4];
+    get_coefficients(nums);
+    for (auto &ele : nums) {
+        std::cout << ele << "\n";
+    }
+}
+                                
+//====== 400 =======
+// hex to float
+#include <iostream>
+#include <cassert>
+#include <cmath>
+#define num (-(int)pow(2,3))
+
+int main() {
+    int a = 0x3f0030ca;
+    std::cout << *(float *)&a<< "\n";
+    float *b = (float *)nullptr;
+
+    //assert((2*2==8) || (2!=2));
+    assert((2*2==8) || (2==2));
+    std::cout << num << "\n";
+    std::cout << sizeof(uint16_t) << "\n";
+
+    std::cout << static_cast<int>(2.3) << "\n";
+
+    uint32_t aa = 3;
+    std::cout << (aa < -1) << "\n";
+    std::cout << (aa < -1.0) << "\n";
+}
+//====== 399 =======
+// This is to practice getline
+#include <string>
+#include <fstream>
+#include <iostream>
+
+int main() {
+    std::ifstream txt("txt", std::ifstream::in);
+    int i = 0;
+    std::string line;
+    while (std::getline(txt, line, '\n')) { // '\n' is char not string ""
+        ++i;
+        std::cout << i << ": " << line << "\n";
+        //std::getline(txt, line);
+        //std::cout << "\t" << line << "\n";
+        txt.ignore();
+    }
+
+    txt.close();
+    
+    std::string str = "23zls34zls";
+    int pos = str.find_last_of("z2");
+    std::cout << str.substr(pos) << "\n";
+}
+
 //====== 389 =======
 #include <vector>
 #include <iostream>
+#include <string>
 
+void f(std::vector<int> &a) {
+    a = {2 ,3};
+}
 int main() {
     std::vector<int> a(2);
     a[0] = 3;
@@ -9,9 +101,20 @@ int main() {
     a.push_back(3);
     std::cout << a.size() << "\n";
     std::cout << a[0] << " " << a[1] << a[2] << "\n";
+
+    std::vector<int> b(2);
+    b = {89, 0};
+    f(b);
+    std::cout << "b" << b[0] << b[1] << "\n";
+
+    std::vector<std::string> ss(2);
+    char *s1 = "2323";
+    char *s2 = "00002323";
+    ss = {std::string(s1), std::string(s2)};
+    std::cout << ss[0] << " " << ss[1] << "\n";
 }
 
-/*
+
 //====== 388 ========
 // This is to practice getline
 #include <string>
