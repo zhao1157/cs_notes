@@ -1,3 +1,6 @@
+#======= 166 =====
+# quit from all files in vim
+:qa
 #======= 165 ======
 # bring the command history out in vim
 type q:
