@@ -1,3 +1,26 @@
+//====== 403 =======
+//specialization of templates
+#include <iostream>
+template <int T>
+void test(); 
+
+template<>
+void test<-1>() {
+    std::cout << "-1 is specialized.\n";
+}
+
+template <int T>
+void test() {
+    std::cout << "default\n";
+}; 
+            
+int main() {
+    test<0>();
+    test<-1>();
+}
+
+
+/*
 //====== 402 =======
 // how to declare a function with default parameter
 #include <iostream>
@@ -10,7 +33,7 @@ void test(int a, bool b) {
     std::cout << a << "\n";
 }
 
-/*
+
 //====== 401 =======
 #include <iostream>
 #include <cmath>
