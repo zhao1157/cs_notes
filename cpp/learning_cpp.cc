@@ -1,3 +1,29 @@
+//====== 405 =======
+// This is to practice nest switch
+#include <iostream>
+
+int main() {
+    int i = 3;
+    int j = 9;
+    switch(i) {
+        case 2:
+            std::cout << "2\n";
+            break;
+        case 3:
+            std::cout << "3\n";
+            switch (j) {
+                case 90:
+                    std::cout << "9\n";
+                    break;
+                default:
+                    std::cout << "nested switch\n";
+                    break;
+            }
+            break;
+    }
+}
+
+/*
 //====== 404 =======
 // this is to test macro representing a function with meaning full names
 #include <iostream>
@@ -18,7 +44,6 @@ int main() {
 }
 
 
-/*
 //====== 403 =======
 //specialization of templates
 #include <iostream>
