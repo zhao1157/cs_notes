@@ -1,3 +1,24 @@
+//====== 404 =======
+// this is to test macro representing a function with meaning full names
+#include <iostream>
+#include <string>
+
+#define get_default_name() \
+        get_name("god is the default name")
+#define get_real_name(name) \
+        get_name(name)
+
+void get_name(std::string name) {
+    std::cout << name << "\n";
+}
+
+int main() {
+    get_default_name();
+    get_real_name("zls");
+}
+
+
+/*
 //====== 403 =======
 //specialization of templates
 #include <iostream>
@@ -20,7 +41,6 @@ int main() {
 }
 
 
-/*
 //====== 402 =======
 // how to declare a function with default parameter
 #include <iostream>
