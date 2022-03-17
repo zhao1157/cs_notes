@@ -1,3 +1,8 @@
+#======= 167 ======
+# move backward to a previous location or to a newer location in vim
+ctl+o: move backward to the previous location
+tab: move to the next location
+
 #======= 166 =====
 # quit from all files in vim
 :qa
