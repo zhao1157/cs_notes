@@ -1,3 +1,297 @@
+//====== 418 =========
+#include <iostream>
+enum aa {a=9, b = 9};
+enum bb {};
+
+void f(aa x) {
+    std::cout << x << "\n";
+}
+
+int main() {
+    std::cout << a << "\n";
+    f(b);
+}
+
+
+/*
+//====== 417 =========
+#include "sys/time.h"
+#include <iostream>
+#include <stdio.h>
+#include <unistd.h>
+
+#define PERF_TIME_BEGIN() \
+    struct timeval t_start; \
+    struct timeval t_end; \
+    gettimeofday(&t_start, NULL);
+
+#define PERF_TIME_END() \
+    gettimeofday(&t_end, NULL); \
+    printf("time: %d\n", (1000000U * (uint32_t)t_end.tv_sec + (uint32_t)t_end.tv_usec) - (1000000U * (uint32_t)t_start.tv_sec + (uint32_t)t_start.tv_usec));
+
+int main() {
+    struct timeval t;
+    PERF_TIME_BEGIN();
+    for (int i = 0; i < 4; ++i) {
+        //gettimeofday(&t, NULL);
+        //std::cout << t.tv_sec << " " << t.tv_usec << "\n";        
+        nanosleep(1.5);
+    }
+    PERF_TIME_END();
+}
+
+
+//====== 416 =====
+#include <iostream>
+enum seasons {jan = 3, feb, march};
+
+int main() {
+    int b = 222;
+    auto f = [&](int i = 9){
+        std::cout << b << "\n";
+    };
+    f();
+    b = -2;
+    f();
+
+    seasons season = jan;
+    std::cout << jan << " " << march << "\n";
+
+    int a = jan;
+    std::cout << a << "\n";
+}
+
+//====== 415 =====
+#include <iostream>
+
+int main() {
+    int a[2] = {3, 33};
+    int &b =a[0];
+    b = 99;
+    std::cout << a[0] << "\n";
+
+    int i;
+    for (i = 10; i < -3; ++i){}
+    std::cout << i << "\n";
+
+    auto f = [&]() {
+        std::cout << "f " << i << "\n";
+    };
+    i = 1999;
+    f();
+
+    int aa = 9;
+    const int &bb = aa;
+    aa = 999000;
+    std::cout << bb << "\n";
+
+    for (int _ =0, j = 0; _ < 3; ++_, ++j) {
+        std::cout << j << "\n";
+    }
+
+    for (int zls = 0, aa = 88; zls < 8;) {
+        std::cout << zls << " ";
+        int a = 1;
+        zls += a;
+    }
+    std::cout << aa << "\n";
+    std::cout << "0%2: " << 0%2 << "\n";
+
+    std::cout << 0%0 << "\n";
+}
+
+
+//====== 414 ======
+#include <iostream>
+
+int main() {
+    int i = 3;
+    auto f1 = [&]() {
+        i *= 9;
+    };
+    auto f2 = [](int i) {
+        std::cout << i << "\n";
+    };
+
+    f1();
+    f2(i);
+}
+
+
+//====== 413 ======
+#include <iostream>
+
+void f1(int i) {
+    std::cout << "f1 " << i << "\n";
+}
+void f2(int i) {
+    std::cout << "f2 " << i << "\n";
+}
+void f3(int i) {
+    std::cout << "f3 " << i << "\n";
+}
+
+int main() {
+    int i = -1;
+    auto f = (i == 1) ? [](int j){f1(j);} 
+                      : ((i == 2) ? [](int j){f2(j);}
+                                  : [](int j){f3(j);});
+    f(22);
+    
+    auto ff = (i == 1) ? f1 : f2;
+    ff(99);
+}
+
+
+//====== 412 ======
+#include <iostream>
+
+struct tag1{};
+struct tag2{};
+
+void test(int a, tag1) {
+    std::cout << "tag1\n";
+}
+
+void test(int a, tag2) {
+    std::cout << "tag2\n";
+}
+
+void f(void *a) {
+    std::cout << *(int *)a << "\n";
+}
+
+int main() {
+    test(2, tag1());
+    test(2, tag2());
+
+    int a = 3;
+    f(&a);
+    int *b = &a;
+    f(b);
+}
+
+
+//====== 411 ======
+#include <iostream>
+#include <cmath>
+
+int main() {
+    std::cout << floor(-2.1) << "\n";
+    std::cout << (ceil(-0.0001) == 0) << "\n";
+    std::cout << ceil(0.0) << "\n";
+}
+
+
+//====== 410 ======
+#include <iostream>
+
+void f(const int a[2]) { // can not write to a
+    std::cout << a[0] << a[1] << "\n";
+}
+
+int main() {
+    int b [2] = {9, 99};
+    f(b);
+}
+
+
+
+//====== 409 ======
+#include <vector>
+#include <iostream>
+
+void f(int global_index, int strides[4], int dim_index[4]) {
+    for (int i = 0; i < 4; ++i) {
+        int temp = global_index / strides[i];
+        dim_index[i] = temp;
+        global_index -= temp * strides[i];
+    }
+}
+
+int main() {
+    // shape [2, 4, 3, 5]
+    // stride [60, 15, 5, 1]
+    std::vector<int> strides {60, 15, 5, 1};
+    std::vector<int> dim_index; //{0, 2, 2, 1};
+    int index = 0*60 + 2*15 + 0*5 + 0*1;
+    for (auto &stride : strides) {
+        int temp = index / stride;
+        dim_index.push_back(temp);
+        index -= temp * stride;
+    }
+    for (auto &index : dim_index) {
+        std::cout << index << " ";
+    }
+    std::cout << "\n";
+{
+    int index = 0*60 + 2*15 + 0*5 + 2*1;
+    int strides[4] = {60, 15, 5, 1};
+    int dim_index[4];
+    f(index, strides, dim_index);
+    for (int i = 0; i < 4; ++i)
+        std::cout << dim_index[i];
+}
+    std::cout << "\n";
+}
+
+
+//====== 408 ======
+#include <iostream>
+
+int main() {
+    int i = 3;
+    int j = 9;
+    auto f = [&](int &j) {
+        // here i only refers to the one before its definition
+        std::cout << i << "\n";
+        j += 1;
+    };
+    f(j);
+    std::cout << "j " << j << "\n";
+    {
+        // this i is not referred
+        int i = 4;
+        int j = 89;
+        f(j);
+        std::cout << "j " << j << "\n";
+    }
+}
+
+
+//====== 407 ======
+#include <iostream>
+
+int main() {
+    int a;
+    // just like a lambda function without creating one
+    {
+        int i = 23;
+        a = i * i;
+    }
+    std::cout << a << "\n";
+}
+
+
+//====== 406 ======
+#include <iostream>
+
+int main() {
+   int i;
+   for (i = 2; i <= 7; ++i) {
+    if (i > -40) {
+        break;
+    }
+   }
+   std::cout << i << "\n";
+
+   auto fun = [](){
+    std::cout << "sd\n";
+   };
+   fun();
+}
+
+
 //====== 405 =======
 // This is to practice nest switch
 #include <iostream>
@@ -23,7 +317,7 @@ int main() {
     }
 }
 
-/*
+
 //====== 404 =======
 // this is to test macro representing a function with meaning full names
 #include <iostream>
