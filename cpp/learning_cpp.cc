@@ -1,3 +1,57 @@
+//====== 421 =========
+// token-pasting operator ## can not be at the beginning/end of a macro definition
+#include <iostream>
+
+void f1(){
+    std::cout << "\tf1\n";
+}
+void f2(){
+    std::cout << "\tf2\n";
+}
+
+#define FUNC(opname1, opname2) \
+void funcf##opname1##opname2(){ \
+    std::cout << "common logic one before\n"; \
+    f##opname1(); \
+    std::cout << "common logic one middle\n"; \
+    f##opname2(); \
+    std::cout << "common logic one middle\n"; \
+}
+
+FUNC(1, 2);
+
+int main() {
+    funcf12();
+}
+
+
+/*
+//====== 420 =========
+#include <iostream>
+
+#define f(a, b) ab
+#define g(a, b) printf("g(" #a ", " #b ")")  // #a is replaced by a string
+#define h(a, b) std::cout << a << b << "\n"
+
+int main() {
+    int ab = 22;
+    std::cout << f(a, b) << "\n";
+    g(8, 9);
+    h(2, 3);
+}
+
+
+//====== 419 =========
+#include <iostream>
+#include <map>
+typedef std::map<int, float> int_float;
+
+int main() {
+    //int a = NULL;
+    int_float instance = {{2: 2.0}};
+    //std::map<int, float> int_float = {{2, 2.0}, {3, 3.0}};
+}
+
 //====== 418 =========
 #include <iostream>
 enum aa {a=9, b = 9};
@@ -13,7 +67,6 @@ int main() {
 }
 
 
-/*
 //====== 417 =========
 #include "sys/time.h"
 #include <iostream>

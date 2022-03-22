@@ -1,3 +1,7 @@
+#======= 168 ======
+# restore a specific stash in git
+git stash pop stash@{2}
+
 #======= 167 ======
 # move backward to a previous location or to a newer location in vim
 ctl+o: move backward to the previous location
