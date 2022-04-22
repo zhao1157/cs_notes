@@ -1,3 +1,7 @@
+#======= 169 ======
+# grep a whole word, not just a pattern
+grep -rn "\blove\b"
+
 #======= 168 ======
 # restore a specific stash in git
 git stash pop stash@{2}
