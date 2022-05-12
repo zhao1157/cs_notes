@@ -1,3 +1,120 @@
+//====== 429 ========
+#include <iostream>
+
+int main() {
+    int a[4] = {2, 3, 4, 5};
+    char *b = (char *)a;
+
+    for (int i = 0; i < 4; ++i) {
+        std::cout << ((int *)b)[i] << "\n";
+    }
+}
+
+/*
+//====== 428 ========
+#include <iostream>
+
+int main() {
+    int a;
+    if ((a= 12) > 3){
+        std::cout << a << "\n";
+    }
+
+    switch(a = 3) {
+        case 3:
+            std::cout << a << "\n";
+            ++a;
+            break;
+    }
+    std::cout << a << "\n";
+}
+
+
+//====== 427 ========
+#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<int> a(1,0);
+    std::cout << a[0] << " " << a.size()<< "\n";
+    a.push_back(3);
+    std::cout << a[0] << " " << a[1] << "\n";
+}
+
+
+//====== 426 ========
+#include <iostream>
+
+template <typename T>
+void f (T i, int j){
+    
+    std::cout << "1\n";
+}
+
+template <typename T>
+void f(T i, bool b, int j) {
+    std::cout << "2\n";
+}
+
+int main() {
+    f(2, 3);
+    f(2, true, 3);
+}
+
+
+
+//====== 425 ========
+#include <iostream>
+
+int main() {
+    int i;
+    while (i < 3){
+        ++i;
+    }
+
+    int *a = &i;
+    printf("%d\n", &i);
+}
+
+
+//====== 424 ========
+#include <iostream>
+
+#pragma pack(1)
+struct data {
+    data(int16_t i, char j, char k): i_(i), j_(j), k_(k){}
+    int16_t i_;
+    char j_;
+    char k_;
+};
+
+int main() {
+    std::cout << sizeof(data) << "\n";
+}
+
+
+//====== 423 ========
+#include <iostream>
+
+void f(int a, const int b = 3);
+
+void f(int a, const int b) {
+    std::cout << b << "\n";
+}
+
+int main() {
+    f(2);
+}
+
+
+//====== 422 ========
+#include <iostream>
+int main() {
+    bool b = false;
+    printf(b ? "true\n" : "false" "\n");
+}
+
+
 //====== 421 =========
 // token-pasting operator ## can not be at the beginning/end of a macro definition
 #include <iostream>
@@ -25,7 +142,6 @@ int main() {
 }
 
 
-/*
 //====== 420 =========
 #include <iostream>
 
@@ -7398,8 +7514,7 @@ int main(){
     std::function<void()> f = std::bind(work);
     std::cout << " std::bind(), std::function<void()> \n";
     f();
-    std::cout << " std::packaged_task<void()>\n";
-    task();
+    std::cout << " std::packaged_task<void()>\n"; task();
 }
 
 //======= 191 ======
