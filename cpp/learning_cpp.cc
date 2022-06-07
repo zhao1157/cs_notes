@@ -1,13 +1,56 @@
 //====== 429 ========
 #include <iostream>
 
+void f(uint32_t size) {
+    int a[size];
+}
+
+struct shape {
+    int x[3];
+};
+
+void ps(shape *s) {
+    printf("%d %d %d\n", s->x[0], s->x[1], s->x[2]);
+}
+
 int main() {
+    shape s;
+    s.x[0] = 2;
+    s.x[1] = 3;
+    s.x[2] = 4;
+    ps(&s);
+    int *zls = s.x;
+    
     int a[4] = {2, 3, 4, 5};
     char *b = (char *)a;
 
     for (int i = 0; i < 4; ++i) {
         std::cout << ((int *)b)[i] << "\n";
     }
+
+    uint32_t c = -1;
+    std::cout << c << " " << int(c) << " " << c + 1 << "\n";
+
+    f(3);
+
+    int8_t z = 2;
+    void *zz = &z;
+    printf("%d\n", *(int8_t *)zz);
+
+
+    int add_1 = 0x300000;
+    int add_2 = 0x200440;
+    printf("space %dKB\n", (add_1 - add_2) / 1024);
+
+    int little_endian = 16 * 16;
+    printf("%x\n", *(char *)&little_endian);
+
+    // inf
+    unsigned char inf[4] = {0x00, 0x00, 0x80, 0x7f};  // -inf is ff800000
+    for (uint32_t i = 0; i < 4; ++i) {
+        printf("%02x ", inf[i]);
+    }
+    printf("-> float binary is %x, decimal is %f\n", *(uint32_t *)inf, *(float *)inf);
 }
 
 /*
