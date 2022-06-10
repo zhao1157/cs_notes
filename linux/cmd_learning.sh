@@ -1,3 +1,9 @@
+#======= 170 ======
+# in vim set relative number
+:set relativenumber
+:set norelativenumber
+:set number relativenumber # current line in absolute number, while others in relative number
+
 #======= 169 ======
 # grep a whole word, not just a pattern
 grep -rn "\blove\b"
