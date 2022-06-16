@@ -1,3 +1,22 @@
+//====== 430 ========
+// test switch, which tells where to start the execution until reaches break
+#include<iostream>
+
+int main() {
+    int i = 13; // no match, so start from default, and execute till reach break, if no break, to the end of the switch block
+    switch (i) {
+        default:
+            std::cout << "default\n";
+            //break;
+        case 3:
+            std::cout << "3\n";
+            //break;
+        case 4:
+            std::cout << "4\n";
+    }
+}
+
+/*
 //====== 429 ========
 #include <iostream>
 
@@ -53,7 +72,7 @@ int main() {
     printf("-> float binary is %x, decimal is %f\n", *(uint32_t *)inf, *(float *)inf);
 }
 
-/*
+
 //====== 428 ========
 #include <iostream>
 
