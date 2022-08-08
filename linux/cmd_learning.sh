@@ -1,3 +1,11 @@
+#======= 171 =======
+# tmux
+# create a session with name "zls"
+tmux new-session -s zls
+ctrl+b d # detach from a session whiling leaving the session running
+ctrl+b $ # rename a session
+tmux kill-session -t zls # kill session zls
+
 #======= 170 ======
 # in vim set relative number
 :set relativenumber
