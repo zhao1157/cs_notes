@@ -157,6 +157,8 @@ git reset 'HEAD${YOUR_NUMBER}'
 # delete a branch in git
 git branch -d interp_backward_linear_trilinear # not sure
 git branch -D interp_backward_linear_trilienar # very sure to do so
+# delete a remote branch
+git push origin --delete old_branch_name
 
 #======= 137 ======
 # show bad spell in vim
