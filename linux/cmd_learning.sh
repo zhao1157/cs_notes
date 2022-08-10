@@ -1,3 +1,15 @@
+#======= 172 =======
+#rename the local branch
+# a)
+git checkout old_branch
+git branch -m new_name
+# b)
+git checkout master
+git branch -m old_name new_name
+
+# rename the remote branch
+git push origin --delete old_name # git push origin :old_name new_name
+git push origin -u new_name
 #======= 171 =======
 # tmux
 # create a session with name "zls"
