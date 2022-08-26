@@ -1,3 +1,27 @@
+//====== 432 ========
+// test std::enable_if: compile time
+#include <type_traits>
+#include <iostream>
+
+template<bool activate, typename T>
+typename std::enable_if<activate, int>::type test(T a) {
+    std::cout << activate << " type should be int" << "\n";
+   return a;
+}
+
+template<bool activate, typename T>
+typename std::enable_if<!activate, T>::type test(T a) {
+    std::cout << activate << " type should be T" << "\n";
+    return a;
+}
+
+int main() {
+   float a = 3.14; 
+   const bool activate = false;
+   std::cout << test<activate, float>(a) << "\n";
+}
+
+/*
 //====== 431 ========
 // test contintional: works in compile time
 #include <iostream>
@@ -11,7 +35,7 @@ int main() {
     std::cout << typeid(b).name() << "\n";
 }
 
-/*
+
 //====== 430 ========
 // test switch, which tells where to start the execution until reaches break
 #include<iostream>
