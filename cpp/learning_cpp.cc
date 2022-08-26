@@ -1,3 +1,17 @@
+//====== 431 ========
+// test contintional: works in compile time
+#include <iostream>
+
+int main() {
+    std::conditional<false, int, float>::type a = 2;
+    std::cout << typeid(a).name() << "\n";
+    // conditional takes action during compiling time, so need const
+    const int i = -12;
+    std::conditional<(i < 0), int, std::conditional<(i < 10), float, double>::type>::type b;
+    std::cout << typeid(b).name() << "\n";
+}
+
+/*
 //====== 430 ========
 // test switch, which tells where to start the execution until reaches break
 #include<iostream>
@@ -16,7 +30,7 @@ int main() {
     }
 }
 
-/*
+
 //====== 429 ========
 #include <iostream>
 
