@@ -36,9 +36,174 @@ int main() {
 }
 
 
+=======
+//====== 436 =======
+// practice function pointers
+#include <iostream>
+
+bool test(int i) {
+    std::cout << i << "\n";
+    return false;
+}
+
+int main() {
+    bool (*f)(int i);
+    f = &test;
+    bool a = f(11);
+    std::cout << a << "\n";
+}
+
+/*
+//====== 435 =======
+// getenv atof
+#include <stdlib.h>
+#include <stdio.h>
+#include <iostream>
+#include <cstring>
+
+int main() {
+    float a = atof(std::getenv("VALUE"));
+    printf("%f\n", a);
+    char *str = std::getenv("VALUE");
+    std::cout << str << "\n";
+    if ((std::getenv("VALUE") != NULL) && strcmp(str, "12") == 0) {
+        std::cout << "12\n";
+    }
+}
+
+
+//====== 434 =======
+// enable_if practice
+#include <stdio.h>
+#include <math.h>
+#include <type_traits>
+
+int main() {
+    int a = 3;
+    int *ptr = &a;
+    printf("%p %p\n", &a, ptr);
+
+    int64_t val = 2183218560;//pow(2, 35);
+    int64_t res = (int64_t)val / (int64_t)4;
+    printf("val %ld res %ld\n", val, res);
+
+    bool z = false;
+    switch (z) {
+        case true:
+            printf("true\n");
+        break;
+
+        case false:
+            printf("false\n");
+        break;
+    }
+}
+
+
+//====== 433 =======
+#include <iostream>
+
+int a[2];
+
+int* f() {
+    return a+1;
+}
+
+int main(){
+    int *b = f();
+    *b = 999;
+    std::cout << a[1] << "\n";
+    //char s[2] = "7";//std::getenv("value");
+    std::string s = std::getenv("value");
+    //int a = atoi(s.c_str());
+    int a = atoi((std::getenv("value")));
+    a += 1;
+    std::cout << a << "\n";
+
+    half a = 2;
+}
+
+
+//====== 432 ========
+#include <iostream>
+#include <float.h>
+
+void test(int *a, int *&b) {
+    b = a;
+}
+
+
+template<typename T>
+T func() {
+    //return 23;
+}
+
+template<>
+float func() {
+    return 2.3;
+}
+
+
+
+int main(){
+    int *a;
+    int *b;
+    int c = -99;
+    a = &c;
+    test(a, b);
+    std::cout << *b << "\n";
+    std::cout << func<int>() << "\n";
+
+
+    half value = 65504;
+}
+
+
+//====== 431 ========
+// in c: a lable can not be attached to a declaration, the solution is to add an empty statement, i.e. ";" after the lable
+// in c++, label can not jump across initialization, the solution is to just declare it followed by its assignment
+// the common solution is to add a scope in the case statemnt
+//#include <iostream>
+#include <stdio.h>
+
+int main() {
+    int i = 4;
+    switch (i) {
+        case 3:
+        {
+            i;
+            int j = 33;  // put initialization inside a bracket
+            i *= j;
+            }
+        //std::cout << "here\n";
+        break;
+        //std::cout << "after (never gets here)\n";
+        case 4:
+        {
+            int j = 44;
+            i *= j;
+        }
+        break;
+    }
+    //std::cout << i << "\n";
+    printf("%d\n", i);
+}
+
 //====== 430 ========
 // test switch, which tells where to start the execution until reaches break
 #include<iostream>
+#include <limits.h>
+
+#define a NUM
+
+template<typename T>
+void test() {
+    int i = std::is_same<T, float>::value;
+    switch(i) {
+        case 1:
+            std::cout << "float\n";
+    }
+}
 
 int main() {
     int i = 13; // no match, so start from default, and execute till reach break, if no break, to the end of the switch block
@@ -52,6 +217,21 @@ int main() {
         case 4:
             std::cout << "4\n";
     }
+
+    test<float>();
+
+    std::cout << CHAR_MIN << "\n";
+
+    int NUM = -3;
+    std::cout << a << "\n";
+
+    typedef enum FAMILY {z = 9, l, s} FAMILY2;
+    FAMILY me = s;
+    FAMILY2 you = s;
+    std::cout << me << "\n";
+    std::cout << you << "\n";
+
+    std::cout << 9%1 << "\n";
 }
 
 
