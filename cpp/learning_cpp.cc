@@ -1,3 +1,101 @@
+//====== 439 =======
+#include <iostream>
+
+//typedef int (*func)(float);
+using func = int(*)(float);
+
+int f(float a) {
+    return (int)a;
+}
+
+int main() {
+    func ff = f;
+    std::cout << ff(3.14) << "\n";
+}
+
+
+/*
+//====== 438 =======
+#include <iostream>
+
+template<int i>
+void test() {
+    std::cout << i << "\n";
+}
+
+template<>
+void test<1>() {
+    std::cout << "before \n";
+    test<0>();
+    std::cout << "after \n";
+    std::cout << sizeof(size_t) << "\n";
+}
+
+void func(uint32_t &a) {
+    a = -2;
+}
+
+int main() {
+#define f 2
+std::cout << f << "\n";
+std::cout << f << "\n";
+
+    test<1>();
+    int32_t a = 32;
+    func((uint32_t &)a);
+    std::cout << a << "\n";
+}
+
+
+//====== 437 =======
+// practice function pointer array
+#include <iostream>
+
+void add(const char *a, const char *b, char *result){
+    *((int *)result) = *((int*)a) + *((int *)b);
+}
+
+void mul(const char *a, const char *b, char *result) {
+    *((float *)result) = (*(float *)a) * (*(float *)b);
+}
+
+int main() {
+    void (*f[2])(const char *, const char *, char *) = {add, mul};
+    int a = 2, b = 3, result;
+    f[0]((char *)&a, (char *)&b, (char *)&result);
+    std::cout << result << "\n";
+}
+
+
+//====== 436 =======
+// practice function pointers
+#include <iostream>
+
+bool test(int i) {
+    std::cout << i << "\n";
+    return false;
+}
+
+int *test_2() {  // a function returning a integer pointer
+    int *ptr = new int;
+    *ptr = 23;
+    return ptr;
+}
+
+int main() {
+    bool (*f)(int i);
+    f = &test;
+    bool a = f(11);
+    std::cout << a << "\n";
+
+    int * (*f2)() = test_2;
+    int *ptr = (*f2)();
+    // int *ptr = f2();
+    std::cout << *ptr << "\n";
+    delete ptr;
+}
+
+
 //====== 432 ========
 // test std::enable_if: compile time
 #include <type_traits>
@@ -21,7 +119,7 @@ int main() {
    std::cout << test<activate, float>(a) << "\n";
 }
 
-/*
+
 //====== 431 ========
 // test contintional: works in compile time
 #include <iostream>
@@ -36,24 +134,6 @@ int main() {
 }
 
 
-=======
-//====== 436 =======
-// practice function pointers
-#include <iostream>
-
-bool test(int i) {
-    std::cout << i << "\n";
-    return false;
-}
-
-int main() {
-    bool (*f)(int i);
-    f = &test;
-    bool a = f(11);
-    std::cout << a << "\n";
-}
-
-/*
 //====== 435 =======
 // getenv atof
 #include <stdlib.h>
