@@ -1,3 +1,17 @@
+//====== 440 =======
+#include <iostream>
+
+int main() {
+    int a = 3;
+    int b = 4;
+    const int *p1 = &a;
+    p1 = &b;  // p1 is a const pointer, which means can not do *p1=x;
+              // but free to do p1=&y
+
+    std::cout << *p1 << "\n";
+}
+
+/*
 //====== 439 =======
 #include <iostream>
 
@@ -14,7 +28,6 @@ int main() {
 }
 
 
-/*
 //====== 438 =======
 #include <iostream>
 
