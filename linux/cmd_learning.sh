@@ -1,5 +1,9 @@
 #======= 173 =======
-# 
+# join two lines and remove spaces between them in vim
+J
+# join multiple lines in vim
+7 gJ   # join 7 lines starting from the current line
+
 #======= 172 =======
 #rename the local branch
 # a)
