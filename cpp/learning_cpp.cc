@@ -1,3 +1,25 @@
+//======= 441 ======
+#include <iostream>
+
+#define ZLS XX // XXYY is invalid
+#define TEXT(a) X##a
+#define XX "xx"
+#define YY "yy"
+#define combine(a, b) X##a Y##b
+
+int main() {
+    std::cout << XX << "\n";
+    std::cout << YY << "\n";
+    std::cout << TEXT(X) << "\n";
+    std::cout << combine(X, Y) << "\n";
+    std::cout << ZLS << "\n";
+
+    int XY = 9;
+    std::cout << TEXT(Y) << "\n";
+}
+
+
+/*
 //====== 440 =======
 #include <iostream>
 
@@ -11,7 +33,7 @@ int main() {
     std::cout << *p1 << "\n";
 }
 
-/*
+
 //====== 439 =======
 #include <iostream>
 
@@ -109,6 +131,15 @@ int main() {
 }
 
 
+=======
+//====== 433 ========
+#include<iostream>
+
+int main() {
+    bool b = true && (bool)atoi(std::getenv("val"));
+    std::cout << (int)b << "\n";
+}
+
 //====== 432 ========
 // test std::enable_if: compile time
 #include <type_traits>
@@ -146,6 +177,22 @@ int main() {
     std::cout << typeid(b).name() << "\n";
 }
 
+
+//====== 436 =======
+// practice function pointers
+#include <iostream>
+
+bool test(int i) {
+    std::cout << i << "\n";
+    return false;
+}
+
+int main() {
+    bool (*f)(int i);
+    f = &test;
+    bool a = f(11);
+    std::cout << a << "\n";
+}
 
 //====== 435 =======
 // getenv atof
