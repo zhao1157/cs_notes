@@ -1,3 +1,8 @@
+#======= 174 =======
+#fold multiple lines in vim
+#>>> in move mode and select multiple lines and type zf
+zf7j: fold the 7 lines starting from the current line
+
 #======= 173 =======
 # join two lines and remove spaces between them in vim
 J
