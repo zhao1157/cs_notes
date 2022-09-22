@@ -1,3 +1,7 @@
+#======= 175 =======
+# delete all lines containing a pattern in vim
+:g/pattern_string/d
+
 #======= 174 =======
 #fold multiple lines in vim
 #>>> in move mode and select multiple lines and type zf
