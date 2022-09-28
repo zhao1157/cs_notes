@@ -1,3 +1,22 @@
+//======= 442 ======
+// looks simpler using "using" instead of "typedef"
+#include<iostream>
+
+int main() {
+    using list = enum{a = 9, b, c = 22, d, e};
+    list la = a;
+    list lb = b;
+    list lc = c;
+    list ld = d;
+    list le = e;
+    std::cout << la << "\n";
+    std::cout << lb << "\n";
+    std::cout << lc << "\n";
+    std::cout << ld << "\n";
+    std::cout << le << "\n";
+}
+
+/*
 //======= 441 ======
 #include <iostream>
 
@@ -19,9 +38,10 @@ int main() {
 }
 
 
-/*
 //====== 440 =======
 #include <iostream>
+#include <vector>
+#include <cmath>
 
 int main() {
     int a = 3;
@@ -30,7 +50,15 @@ int main() {
     p1 = &b;  // p1 is a const pointer, which means can not do *p1=x;
               // but free to do p1=&y
 
-    std::cout << *p1 << "\n";
+    //std::cout << *p1 << "\n";
+
+    std::vector<int> v(4, 2);
+    for (auto a : v) {
+        std::cout << a << "\n";
+    }
+
+    int x = std::ceil(7/2);
+    std::cout << x << "\n";
 }
 
 
