@@ -1,3 +1,55 @@
+//======= 446 ======
+// two ways of writing function pointer
+#include <iostream>
+
+void test() {
+    std::cout << "test\n";
+}
+int main() {
+    //using f_type = void(*)();
+    typedef void (*f_type)();
+    f_type f[1] = {test};
+    f[0]();
+}
+
+
+/*
+//======= 445 ======
+#include <iostream>
+#if true && false
+#define A 30
+#else 
+#define A 20
+#endif
+
+int main() {
+    std::cout << A << "\n";
+}
+
+
+//======= 444 ======
+#include <iostream>
+
+// no space in front of ()
+#define print(a) std::cout << a << "\n"
+
+int main() {
+    print(2);
+}
+
+
+//======= 443 ======
+#include <iostream>
+#include "dir/b.h"
+// redeclaration is ok
+void test();
+void test();
+int main() {
+    float a = 2;
+    test(a);
+}
+
+
 //======= 442 ======
 // looks simpler using "using" instead of "typedef"
 #include<iostream>
@@ -16,7 +68,7 @@ int main() {
     std::cout << le << "\n";
 }
 
-/*
+
 //======= 441 ======
 #include <iostream>
 
