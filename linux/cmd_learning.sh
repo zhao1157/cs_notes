@@ -1,3 +1,9 @@
+#======= 176 =======
+# delete all before the cursor
+ctl+u
+#delete all after the cursor
+ctl+k
+
 #======= 175 =======
 # delete all lines containing a pattern in vim
 :g/pattern_string/d
