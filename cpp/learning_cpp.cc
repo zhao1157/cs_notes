@@ -1,3 +1,32 @@
+//======= 448 ======
+#include <iostream>
+#define GU 2
+// should not put other condition behind ifdef
+#ifdef GU
+
+#if false
+#define A 13
+#else
+#define A 113
+#endif
+
+#endif
+
+int main() {
+    std::cout << A << "\n";
+}
+
+
+/*
+//======= 447 ======
+#include <iostream>
+int a[2] = {112, 3};
+#define a_ptr a
+
+int main() {
+    std::cout << a_ptr[0] << "\n";
+}
+
 //======= 446 ======
 // two ways of writing function pointer
 #include <iostream>
@@ -13,7 +42,6 @@ int main() {
 }
 
 
-/*
 //======= 445 ======
 #include <iostream>
 #if true && false
