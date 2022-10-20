@@ -1,3 +1,7 @@
+#======= 177 =======
+# evaluate the script in the current shell
+. go_to_cnnl.sh
+
 #======= 176 =======
 # delete all before the cursor
 ctl+u
