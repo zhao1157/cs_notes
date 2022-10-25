@@ -1,3 +1,7 @@
+#======= 178 =======
+# remove all but one directory in linux
+rm -rf !(test) # remove all except test
+
 #======= 177 =======
 # evaluate the script in the current shell
 . go_to_cnnl.sh
