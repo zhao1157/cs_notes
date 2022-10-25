@@ -1,3 +1,14 @@
+//======= 449 ======
+#include <iostream>
+#define a 2  // int type
+#define aa 2.23  // double type
+int main() {
+    std::cout << typeid(a).name() << "\n";  // i
+    std::cout << typeid(aa).name() << "\n";  // d
+    uint32_t b = 3;
+    std::cout << typeid(b).name() << "\n";  // j
+}
+/*
 //======= 448 ======
 #include <iostream>
 #define GU 2
@@ -17,7 +28,6 @@ int main() {
 }
 
 
-/*
 //======= 447 ======
 #include <iostream>
 int a[2] = {112, 3};
