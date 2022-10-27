@@ -1,3 +1,37 @@
+//======= 451 ======
+#include <iostream>
+
+int a = 9;
+void test(){
+    //static int a = 2;  // a property of the function, keep track of the changes
+    ++a;
+    std::cout << a << "\n";
+}
+int main() {
+    test();
+    test();
+}
+
+
+/*
+//======= 450 ======
+#include <iostream>
+
+int a [2];
+
+void test(int a[5]) {
+    std::cout << a[0] << "\n";
+}
+
+int main() {
+    a[0] = 2;
+    a[1] = 3;
+
+    int b[3] = {22, 33, 44};
+    test(b);
+}
+
+
 //======= 449 ======
 #include <iostream>
 #define a 2  // int type
@@ -8,7 +42,7 @@ int main() {
     uint32_t b = 3;
     std::cout << typeid(b).name() << "\n";  // j
 }
-/*
+
 //======= 448 ======
 #include <iostream>
 #define GU 2
