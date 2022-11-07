@@ -1,3 +1,34 @@
+//======= 452 ======
+#include <iostream>
+
+class Me{
+    // static int m;
+    private:
+        const int *p;
+        const int a; // has to be initialized
+    public:
+        Me(int *_p = nullptr, int _a = 0): a(_a) {
+        }
+        void f() const{
+            std::cout << "const\n";
+        }
+        void f() {
+            std::cout << "non-const\n";
+        }
+};
+int main() {
+    Me me1;
+    const Me me2;
+    me1.f();
+    me2.f();
+    int a = 9;
+    const int *p;
+    int b = 99;
+    p = &b;
+
+}
+
+/*
 //======= 451 ======
 #include <iostream>
 
@@ -10,10 +41,11 @@ void test(){
 int main() {
     test();
     test();
+    std::enable_if<true>::type *a;  // default is void type
+    std::cout << typeid(a).name() << "\n";
 }
 
 
-/*
 //======= 450 ======
 #include <iostream>
 
