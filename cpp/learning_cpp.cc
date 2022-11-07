@@ -1,3 +1,23 @@
+//======= 453 ======
+// switch case can not have duplicate cases
+#include <iostream>
+int main() {
+    int a = 3;
+    switch (a) {
+        case 3:
+            std::cout << "3_1\n";
+            break;
+        case 2:
+            std::cout << "2_1\n";
+            break;
+        // case 3:
+            std::cout << "3_2\n";
+            break;
+
+    }
+}
+
+/*
 //======= 452 ======
 #include <iostream>
 
@@ -28,7 +48,7 @@ int main() {
 
 }
 
-/*
+
 //======= 451 ======
 #include <iostream>
 
