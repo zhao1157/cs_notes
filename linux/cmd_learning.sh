@@ -1,3 +1,6 @@
+#======= 180 =======
+# change the color of output in echo
+echo "$(tput setaf 3) colour yellow $(tput setaf 9) get back to the white again"
 #======= 179 =======
 #switch between two directories
 # currently in dir_1, go to dir_2, and get back again
