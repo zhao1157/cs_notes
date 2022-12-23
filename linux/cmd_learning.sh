@@ -1,3 +1,10 @@
+#======= 179 =======
+#switch between two directories
+# currently in dir_1, go to dir_2, and get back again
+pushd dir_2
+#do something
+popd # get back to dir_1 again
+
 #======= 178 =======
 # remove all but one directory in linux
 rm -rf !(test) # remove all except test
