@@ -1,3 +1,53 @@
+//====== 455 ======
+#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<int> a(9,3);  // 9-element vector holding 3, 3, 3, ...
+    std::cout<< a.size() << " " << a[8] << "\n";
+
+    std::vector<int> b{9, 3}; // 2-element vector holding 3, 3
+    std::cout << b.size() << "\n";
+}
+/*
+//======= 454 ======
+#include <iostream>
+#include <cfloat>
+
+struct me {
+    template <typename T>
+    void test() {
+        std::cout << "me.test\n";
+    }
+};
+
+int main() {
+    uint32_t a = 1 << 31;
+    std::cout << a << "\n";
+    std::cout << a + (uint32_t)(-2) << "\n";
+
+    int ff = FLT_MAX;
+    std::cout << FLT_MAX << "\n";
+    std::cout << ff << "\n";
+    float fff = ff;
+    std::cout << fff << "\n";
+
+    int i = int();
+    std::cout << i << "\n";
+
+    for (auto &i : {int(), 1, 22}) {
+        std::cout << " " << i << "\n";
+    }
+
+    me().template test<int>();  // works wi/wo template keyword
+
+    enum {aa = 3, bb};  // 
+    int aaa[5];
+    aaa[aa] = 33;
+    aaa[bb] = 44;
+    std::cout << aaa[aa] << " " << aaa[bb] << "\n";
+}
+
 //======= 453 ======
 // switch case can not have duplicate cases
 #include <iostream>
@@ -17,7 +67,6 @@ int main() {
     }
 }
 
-/*
 //======= 452 ======
 #include <iostream>
 
