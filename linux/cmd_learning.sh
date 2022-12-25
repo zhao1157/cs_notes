@@ -1,3 +1,7 @@
+#======= 181 =======
+# show/hide window tabs in xshell
+ctl+shift+T
+
 #======= 180 =======
 # change the color of output in echo
 echo "$(tput setaf 3) colour yellow $(tput setaf 9) get back to the white again"
